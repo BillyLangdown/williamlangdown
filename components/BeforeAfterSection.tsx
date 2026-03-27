@@ -32,12 +32,13 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
               Before
             </p>
             {caseStudy?.beforeImage ? (
-              <div className="aspect-[4/3] relative rounded-2xl overflow-hidden bg-gray-100">
+              <div className="rounded-2xl overflow-hidden bg-gray-100">
                 <Image
-                  src={urlFor(caseStudy.beforeImage).width(700).height(525).url()}
+                  src={urlFor(caseStudy.beforeImage).width(1400).url()}
                   alt={caseStudy.beforeImage.alt ?? `${clientName} — before`}
-                  fill
-                  className="object-cover"
+                  width={700}
+                  height={0}
+                  style={{ width: '100%', height: 'auto' }}
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
@@ -52,12 +53,13 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
               After
             </p>
             {caseStudy?.afterImage ? (
-              <div className="aspect-[4/3] relative rounded-2xl overflow-hidden bg-gray-100">
+              <div className="rounded-2xl overflow-hidden bg-gray-100">
                 <Image
-                  src={urlFor(caseStudy.afterImage).width(700).height(525).url()}
+                  src={urlFor(caseStudy.afterImage).width(1400).url()}
                   alt={caseStudy.afterImage.alt ?? `${clientName} — after`}
-                  fill
-                  className="object-cover"
+                  width={700}
+                  height={0}
+                  style={{ width: '100%', height: 'auto' }}
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>

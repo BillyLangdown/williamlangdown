@@ -1,10 +1,19 @@
+import Image from 'next/image'
+
 export default function AboutSection() {
   return (
     <section className="py-24 px-6 bg-gray-50">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
-        {/* Image placeholder */}
-        <div className="aspect-[3/4] bg-gray-200 rounded-2xl flex items-center justify-center order-2 md:order-1">
-          <span className="text-sm text-gray-400">Portrait</span>
+        {/* Portrait */}
+        <div className="rounded-2xl overflow-hidden order-2 md:order-1 bg-gray-200">
+          <Image
+            src="/images/portrait.png"
+            alt="William Langdown"
+            width={600}
+            height={800}
+            className="w-full h-auto"
+            priority
+          />
         </div>
 
         <div className="order-1 md:order-2 flex flex-col gap-8">

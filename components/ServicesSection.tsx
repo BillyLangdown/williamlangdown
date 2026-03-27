@@ -1,21 +1,25 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 const services = [
   {
     id: 'audit',
     title: 'Audit',
+    image: '/images/audit.jpg',
     description:
       'A deep review of your website through the lens of your customers. I identify where you\'re losing people and why, with a prioritised report of what to fix first.',
   },
   {
     id: 'design',
     title: 'Design',
+    image: '/images/design.jpg',
     description:
       'UX and visual design rooted in customer insight. I redesign the pages and flows that matter most, turning hesitation into confidence.',
   },
   {
     id: 'build',
     title: 'Build',
+    image: '/images/build.jpg',
     description:
       'Development that brings the designs to life. Fast, accessible, and built to convert — with a CMS so you stay in control.',
   },
@@ -43,11 +47,14 @@ export default function ServicesSection() {
               key={service.id}
               className="bg-white rounded-2xl p-8 flex flex-col gap-6"
             >
-              {/* Image placeholder */}
-              <div className="w-full aspect-[4/3] bg-gray-100 rounded-xl flex items-center justify-center">
-                <span className="text-xs text-gray-400 tracking-wide uppercase">
-                  {service.title}
-                </span>
+              <div className="w-full aspect-[4/3] relative rounded-xl overflow-hidden bg-gray-100">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
               </div>
               <div>
                 <h3 className="text-lg font-medium text-gray-900 mb-3">
