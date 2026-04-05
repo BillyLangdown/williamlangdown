@@ -7,50 +7,46 @@ const tiers = [
   {
     id: 'audit',
     name: 'Audit',
-    price: '£997',
+    price: '£149',
     description:
-      'A thorough review of your website through the lens of your customers. You\'ll walk away knowing exactly what to fix and why.',
+      'A clear, practical breakdown of what’s holding your website back and what to fix first.',
     features: [
-      'Full UX and conversion audit',
-      'Heatmap and session recording analysis',
-      'Customer journey mapping',
-      'Competitor review',
-      'Written report with prioritised recommendations',
-      '1-hour walkthrough call',
+      'UX and conversion review',
+      'Key issues identified',
+      'Prioritised list of fixes',
+      'Short PDF summary',
+      '10–15 min video walkthrough',
     ],
-    cta: 'Start with an audit',
+    cta: 'Get an audit',
     featured: false,
   },
   {
     id: 'design',
     name: 'Design',
-    price: '£2,497',
+    price: '£749',
     description:
-      'Everything from the Audit, plus a full redesign of your key pages, grounded in insight, not guesswork.',
+      'A focused redesign of your most important page, based on real user behaviour.',
     features: [
       'Everything in Audit',
-      'Full redesign of key pages',
-      'Desktop and mobile designs',
-      'Interactive prototype',
-      'Design system and style guide',
-      'Handoff-ready files',
+      'Redesign of 1 key page',
+      'Desktop and mobile layouts',
+      'Clean, developer-ready Figma file',
     ],
-    cta: 'Redesign your site',
+    cta: 'Redesign your page',
     featured: true,
   },
   {
     id: 'build',
     name: 'Build',
-    price: 'From £4,997',
+    price: 'From £1,495',
     description:
-      'The complete package. Audit, design, and a built, deployed, and optimised website ready to convert.',
+      'A complete redesign and build of your website, ready to launch.',
     features: [
       'Everything in Design',
-      'Full development and deployment',
-      'CMS integration',
-      'Performance optimisation',
-      'Analytics setup',
-      '30 days post-launch support',
+      'Frontend development',
+      'Basic CMS setup',
+      'Performance and responsiveness',
+      'Deployment support',
     ],
     cta: 'Get a full build',
     featured: false,
@@ -69,11 +65,11 @@ export default function PricingPage() {
               Pricing
             </p>
             <h1 className="text-5xl md:text-6xl font-heading font-bold leading-tight tracking-tight text-ink mb-6">
-              Straightforward pricing. No surprises.
+              Simple pricing. Clear outcomes.
             </h1>
             <p className="text-lg text-secondary leading-relaxed">
-              Three clear engagements depending on where you are and what you
-              need. All projects start with a free discovery call.
+              Three ways to improve your website depending on where you are. Most
+              clients start with an audit to understand what’s holding them back.
             </p>
           </div>
         </section>
@@ -91,11 +87,7 @@ export default function PricingPage() {
                 }`}
               >
                 <div>
-                  <p
-                    className={`text-xs font-medium tracking-widest uppercase mb-3 ${
-                      tier.featured ? 'text-tertiary' : 'text-tertiary'
-                    }`}
-                  >
+                  <p className="text-xs font-medium tracking-widest uppercase mb-3 text-tertiary">
                     {tier.name}
                   </p>
                   <p
@@ -122,9 +114,7 @@ export default function PricingPage() {
                         height="16"
                         viewBox="0 0 16 16"
                         fill="none"
-                        className={`mt-0.5 shrink-0 ${
-                          tier.featured ? 'text-tertiary' : 'text-tertiary'
-                        }`}
+                        className="mt-0.5 shrink-0 text-tertiary"
                       >
                         <path
                           d="M3 8l3.5 3.5L13 4.5"
@@ -165,12 +155,12 @@ export default function PricingPage() {
           <div className="max-w-6xl mx-auto max-w-2xl">
             <div className="bg-subtle rounded-none p-10">
               <h2 className="text-2xl font-heading font-bold text-ink mb-4 tracking-tight">
-                Not sure which is right for you?
+                Not sure where to start?
               </h2>
               <p className="text-sm text-secondary leading-relaxed mb-6">
-                Most clients start with an Audit, which gives us both a clear
-                picture of the problems and the best path forward. From there,
-                we can decide whether design, build, or both makes sense.
+                The audit is the best starting point. It gives a clear picture of
+                what’s working, what’s not, and what to improve first. From there,
+                we can decide whether a redesign or full build makes sense.
               </p>
               <Link
                 href="/contact"

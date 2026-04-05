@@ -51,7 +51,7 @@ export default function AboutSection() {
               </p>
             </div>
             <a
-              href="https://www.linkedin.com/in/williamlangdown"
+              href="https://www.linkedin.com/in/william-l-263072142/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm text-ink hover:text-secondary transition-colors w-fit"

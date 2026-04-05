@@ -53,6 +53,9 @@ export default function Hero() {
               width={250}
               height={250}
               sizes="(max-width: 768px) 100vw, 25vw"
+              style={{
+                borderRadius: '10px !important',
+              }}
             />
           </div>
   
