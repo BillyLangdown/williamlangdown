@@ -1,32 +1,99 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+
 const stats = [
   {
-    value: '1s',
-    label: 'is all that\'s needed to form a first impression',
+    value: 0.1,
+    suffix: 's',
+    label:
+      "Perceived speed and responsiveness directly impact user trust and engagement.",
   },
   {
-    value: '1%',
-    label: 'of visitors often leave after one page',
+    value: 97,
+    suffix: '%',
+    label:
+      "First impressions are formed in milliseconds. Your site needs to earn trust instantly.",
   },
   {
-    value: '1%',
-    label: 'of carts are abandoned',
+    value: 95,
+    suffix: '%',
+    label:
+      "Users rely on visual cues and clarity to understand your offering quickly.",
   },
+  
 ]
 
+function useCountUp(target: number, start: boolean, duration = 1500) {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    if (!start) return
+
+    let startTime: number
+
+    const animate = (time: number) => {
+      if (!startTime) startTime = time
+      const progress = Math.min((time - startTime) / duration, 1)
+
+      const value = target * progress
+      setCount(value)
+
+      if (progress < 1) {
+        requestAnimationFrame(animate)
+      }
+    }
+
+    requestAnimationFrame(animate)
+  }, [start, target, duration])
+
+  return count
+}
+
 export default function StatsBar() {
+  const ref = useRef<HTMLDivElement | null>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.3 }
+    )
+
+    if (ref.current) observer.observe(ref.current)
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section className="border-t border-b border-gray-100">
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-100">
-        {stats.map((stat, i) => (
-          <div key={i} className="py-10 md:px-10 first:pl-0 last:pr-0">
-            <span className="block text-5xl font-light text-gray-900 mb-3 tracking-tight">
-              {stat.value}
-            </span>
-            <span className="text-sm text-gray-500 leading-relaxed">
-              {stat.label}
-            </span>
-          </div>
-        ))}
+    <section className="bg-ink" ref={ref}>
+      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
+        {stats.map((stat, i) => {
+          const count = useCountUp(stat.value, visible)
+
+          return (
+            <div
+              key={i}
+              className="py-14 md:px-10 first:pl-0 last:pr-0 text-center"
+            >
+              <span className="block text-5xl font-heading font-bold text-white mb-3 tracking-tight">
+                {stat.value === 0.1
+                  ? count.toFixed(1)
+                  : Math.floor(count)}
+                {stat.suffix}
+              </span>
+
+              <span className="text-sm text-white/60 leading-relaxed max-w-xs mx-auto block">
+                {stat.label}
+              </span>
+            </div>
+          )
+        })}
       </div>
     </section>
   )

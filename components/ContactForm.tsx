@@ -61,7 +61,7 @@ function Form() {
   if (status === 'success') {
     return (
       <div className="flex flex-col gap-4 py-12">
-        <div className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center">
+        <div className="w-10 h-10 rounded-none bg-ink flex items-center justify-center">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
             <path
               d="M3.5 9.5l4 4 7-8"
@@ -72,16 +72,16 @@ function Form() {
             />
           </svg>
         </div>
-        <h3 className="text-xl font-light text-gray-900 tracking-tight">
+        <h3 className="text-xl font-heading font-bold text-ink tracking-tight">
           Message sent.
         </h3>
-        <p className="text-sm text-gray-500 leading-relaxed max-w-sm">
+        <p className="text-sm text-secondary leading-relaxed max-w-sm">
           Thanks for getting in touch. I&apos;ll come back to you within one
           business day.
         </p>
         <button
           onClick={() => setStatus('idle')}
-          className="text-sm text-gray-500 underline underline-offset-4 hover:text-gray-900 transition-colors w-fit mt-2"
+          className="text-sm text-secondary underline underline-offset-4 hover:text-ink transition-colors w-fit mt-2"
         >
           Send another message
         </button>
@@ -95,7 +95,7 @@ function Form() {
         <div className="flex flex-col gap-2">
           <label
             htmlFor="name"
-            className="text-xs text-gray-400 uppercase tracking-widest"
+            className="text-xs text-tertiary uppercase tracking-widest"
           >
             Name <span className="text-gray-300">*</span>
           </label>
@@ -106,13 +106,13 @@ function Form() {
             required
             placeholder="Your name"
             disabled={status === 'submitting'}
-            className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-400 transition-colors disabled:opacity-50"
+            className="w-full border border-border-light rounded-none px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-tertiary transition-colors disabled:opacity-50"
           />
         </div>
         <div className="flex flex-col gap-2">
           <label
             htmlFor="email"
-            className="text-xs text-gray-400 uppercase tracking-widest"
+            className="text-xs text-tertiary uppercase tracking-widest"
           >
             Email <span className="text-gray-300">*</span>
           </label>
@@ -123,7 +123,7 @@ function Form() {
             required
             placeholder="you@company.com"
             disabled={status === 'submitting'}
-            className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-400 transition-colors disabled:opacity-50"
+            className="w-full border border-border-light rounded-none px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-tertiary transition-colors disabled:opacity-50"
           />
         </div>
       </div>
@@ -131,7 +131,7 @@ function Form() {
       <div className="flex flex-col gap-2">
         <label
           htmlFor="website"
-          className="text-xs text-gray-400 uppercase tracking-widest"
+          className="text-xs text-tertiary uppercase tracking-widest"
         >
           Website URL
         </label>
@@ -141,14 +141,14 @@ function Form() {
           type="url"
           placeholder="https://yourstore.com"
           disabled={status === 'submitting'}
-          className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-400 transition-colors disabled:opacity-50"
+          className="w-full border border-border-light rounded-none px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-tertiary transition-colors disabled:opacity-50"
         />
       </div>
 
       <div className="flex flex-col gap-2">
         <label
           htmlFor="service"
-          className="text-xs text-gray-400 uppercase tracking-widest"
+          className="text-xs text-tertiary uppercase tracking-widest"
         >
           I&apos;m interested in
         </label>
@@ -156,12 +156,12 @@ function Form() {
           id="service"
           name="service"
           disabled={status === 'submitting'}
-          className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gray-400 transition-colors bg-white disabled:opacity-50"
+          className="w-full border border-border-light rounded-none px-4 py-3 text-sm text-ink focus:outline-none focus:border-tertiary transition-colors bg-white disabled:opacity-50"
         >
           <option value="">Select a service</option>
-          <option value="audit">Audit — £997</option>
-          <option value="design">Design — £2,497</option>
-          <option value="build">Build — From £4,997</option>
+          <option value="audit">Audit (£997)</option>
+          <option value="design">Design (£2,497)</option>
+          <option value="build">Build (from £4,997)</option>
           <option value="unsure">Not sure yet</option>
         </select>
       </div>
@@ -169,7 +169,7 @@ function Form() {
       <div className="flex flex-col gap-2">
         <label
           htmlFor="message"
-          className="text-xs text-gray-400 uppercase tracking-widest"
+          className="text-xs text-tertiary uppercase tracking-widest"
         >
           Message <span className="text-gray-300">*</span>
         </label>
@@ -180,12 +180,12 @@ function Form() {
           rows={5}
           placeholder="What are you trying to improve? What's not working?"
           disabled={status === 'submitting'}
-          className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-gray-400 transition-colors resize-none disabled:opacity-50"
+          className="w-full border border-border-light rounded-none px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-tertiary transition-colors resize-none disabled:opacity-50"
         />
       </div>
 
       {status === 'error' && (
-        <p className="text-sm text-red-600 bg-red-50 rounded-lg px-4 py-3">
+        <p className="text-sm text-red-600 bg-red-50 rounded-none px-4 py-3">
           {errorMessage}
         </p>
       )}
@@ -193,7 +193,7 @@ function Form() {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="w-full bg-gray-900 text-white text-sm py-4 rounded-full hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="w-full bg-ink text-white text-sm py-4 rounded-none hover:bg-ink/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
         {status === 'submitting' ? (
           <>
@@ -223,7 +223,7 @@ function Form() {
         )}
       </button>
 
-      <p className="text-xs text-gray-400 text-center">
+      <p className="text-xs text-tertiary text-center">
         Protected by reCAPTCHA.{' '}
         <a
           href="https://policies.google.com/privacy"

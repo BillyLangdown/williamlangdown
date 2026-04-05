@@ -13,11 +13,11 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
     <Link
       href={`/case-studies/${study.slug.current}`}
-      className="group block bg-gray-50 rounded-2xl overflow-hidden hover:bg-gray-100 transition-colors"
+      className="group block border border-border-light overflow-hidden hover:border-tertiary transition-colors"
     >
       {/* Cover image */}
       {study.coverImage ? (
-        <div className="aspect-[16/9] relative overflow-hidden bg-gray-100">
+        <div className="aspect-[16/9] relative overflow-hidden bg-subtle">
           <Image
             src={urlFor(study.coverImage).width(900).height(506).url()}
             alt={study.coverImage.alt ?? study.title}
@@ -27,29 +27,29 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
           />
         </div>
       ) : (
-        <div className="aspect-[16/9] bg-gray-200 flex items-center justify-center">
-          <span className="text-sm text-gray-400">{study.client}</span>
+        <div className="aspect-[16/9] bg-subtle flex items-center justify-center">
+          <span className="text-sm text-tertiary">{study.client}</span>
         </div>
       )}
 
-      <div className="p-8">
-        <div className="flex flex-wrap gap-2 mb-5">
+      <div className="p-8 border-t border-border-light">
+        <div className="flex flex-wrap gap-2 mb-4">
           {study.services?.map((service) => (
             <span
               key={service}
-              className="text-xs text-gray-500 border border-gray-200 px-3 py-1 rounded-full"
+              className="text-xs text-tertiary uppercase tracking-widest"
             >
               {service}
             </span>
           ))}
         </div>
-        <h2 className="text-xl font-light text-gray-900 mb-2 tracking-tight group-hover:text-gray-600 transition-colors">
+        <h2 className="text-xl font-heading font-bold text-ink mb-2 tracking-tight group-hover:text-secondary transition-colors">
           {study.title}
         </h2>
-        <p className="text-sm text-gray-500 leading-relaxed mb-6 line-clamp-2">
+        <p className="text-sm text-secondary leading-relaxed mb-6 line-clamp-2">
           {study.description}
         </p>
-        <span className="text-sm text-gray-900 underline underline-offset-4 group-hover:text-gray-600 transition-colors">
+        <span className="text-sm text-ink underline underline-offset-4 group-hover:text-secondary transition-colors">
           View case study →
         </span>
       </div>
@@ -84,14 +84,14 @@ export default async function CaseStudiesPage() {
         {/* Header */}
         <section className="px-6 mb-16">
           <div className="max-w-6xl mx-auto">
-            <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-6">
+            <p className="text-xs font-medium tracking-widest text-tertiary uppercase mb-6">
               Case Studies
             </p>
-            <h1 className="text-5xl md:text-6xl font-light leading-tight tracking-tight text-gray-900 mb-6 max-w-2xl">
+            <h1 className="text-5xl md:text-6xl font-heading font-bold leading-tight tracking-tight text-ink mb-6 max-w-2xl">
               Projects I&apos;ve worked on
             </h1>
-            <p className="text-base text-gray-500 max-w-xl leading-relaxed">
-              Real work with real businesses — auditing, redesigning, and
+            <p className="text-base text-secondary max-w-xl leading-relaxed">
+              Real work with real businesses: auditing, redesigning, and
               rebuilding websites to convert more visitors into buyers.
             </p>
           </div>

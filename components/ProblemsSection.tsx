@@ -2,7 +2,7 @@ const problems = [
   {
     title: 'Low conversion rates',
     description:
-      'Visitors browse but don\'t buy. Something in the journey is creating doubt — and doubt kills conversions.',
+      'Visitors browse but don\'t buy. Something in the journey is creating doubt, and doubt kills conversions.',
   },
   {
     title: 'Weak trust signals',
@@ -33,30 +33,30 @@ const problems = [
 
 export default function ProblemsSection() {
   return (
-    <section className="py-24 px-6">
+    <section className="py-24 px-6 bg-subtle">
       <div className="max-w-6xl mx-auto">
         <div className="mb-14">
-          <h2 className="text-4xl md:text-5xl font-light leading-tight tracking-tight text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-heading font-bold leading-tight tracking-tight text-ink mb-4">
             Problems I Fix
           </h2>
-          <p className="text-base text-gray-500 max-w-xl">
+          <p className="text-base text-secondary max-w-xl">
             These are the issues I most often see in ecommerce stores.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-gray-100">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border-light">
           {problems.map((problem, i) => (
             <div
               key={i}
               className="bg-white p-8 flex flex-col gap-4"
             >
-              <span className="text-xs text-gray-400 tabular-nums">
+              <span className="text-xs text-tertiary tabular-nums">
                 0{i + 1}
               </span>
-              <h3 className="text-base font-medium text-gray-900">
+              <h3 className="text-base font-medium text-ink">
                 {problem.title}
               </h3>
-              <p className="text-sm text-gray-500 leading-relaxed">
+              <p className="text-sm text-secondary leading-relaxed">
                 {problem.description}
               </p>
             </div>

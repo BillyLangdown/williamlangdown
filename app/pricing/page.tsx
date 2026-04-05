@@ -26,7 +26,7 @@ const tiers = [
     name: 'Design',
     price: '£2,497',
     description:
-      'Everything from the Audit, plus a full redesign of your key pages — grounded in insight, not guesswork.',
+      'Everything from the Audit, plus a full redesign of your key pages, grounded in insight, not guesswork.',
     features: [
       'Everything in Audit',
       'Full redesign of key pages',
@@ -65,13 +65,13 @@ export default function PricingPage() {
         {/* Header */}
         <section className="px-6 mb-20">
           <div className="max-w-6xl mx-auto max-w-2xl">
-            <p className="text-xs font-medium tracking-widest text-gray-400 uppercase mb-6">
+            <p className="text-xs font-medium tracking-widest text-tertiary uppercase mb-6">
               Pricing
             </p>
-            <h1 className="text-5xl md:text-6xl font-light leading-tight tracking-tight text-gray-900 mb-6">
+            <h1 className="text-5xl md:text-6xl font-heading font-bold leading-tight tracking-tight text-ink mb-6">
               Straightforward pricing. No surprises.
             </h1>
-            <p className="text-lg text-gray-500 leading-relaxed">
+            <p className="text-lg text-secondary leading-relaxed">
               Three clear engagements depending on where you are and what you
               need. All projects start with a free discovery call.
             </p>
@@ -84,30 +84,30 @@ export default function PricingPage() {
             {tiers.map((tier) => (
               <div
                 key={tier.id}
-                className={`rounded-2xl p-8 flex flex-col gap-8 ${
+                className={`rounded-none p-8 flex flex-col gap-8 ${
                   tier.featured
-                    ? 'bg-gray-900 text-white'
-                    : 'bg-gray-50 text-gray-900'
+                    ? 'bg-ink text-white'
+                    : 'bg-subtle text-ink'
                 }`}
               >
                 <div>
                   <p
                     className={`text-xs font-medium tracking-widest uppercase mb-3 ${
-                      tier.featured ? 'text-gray-400' : 'text-gray-400'
+                      tier.featured ? 'text-tertiary' : 'text-tertiary'
                     }`}
                   >
                     {tier.name}
                   </p>
                   <p
-                    className={`text-4xl font-light tracking-tight mb-4 ${
-                      tier.featured ? 'text-white' : 'text-gray-900'
+                    className={`text-4xl font-heading font-bold tracking-tight mb-4 ${
+                      tier.featured ? 'text-white' : 'text-ink'
                     }`}
                   >
                     {tier.price}
                   </p>
                   <p
                     className={`text-sm leading-relaxed ${
-                      tier.featured ? 'text-gray-400' : 'text-gray-500'
+                      tier.featured ? 'text-tertiary' : 'text-secondary'
                     }`}
                   >
                     {tier.description}
@@ -123,7 +123,7 @@ export default function PricingPage() {
                         viewBox="0 0 16 16"
                         fill="none"
                         className={`mt-0.5 shrink-0 ${
-                          tier.featured ? 'text-gray-400' : 'text-gray-400'
+                          tier.featured ? 'text-tertiary' : 'text-tertiary'
                         }`}
                       >
                         <path
@@ -147,10 +147,10 @@ export default function PricingPage() {
 
                 <Link
                   href="/contact"
-                  className={`inline-block text-sm px-6 py-3.5 rounded-full text-center transition-colors ${
+                  className={`inline-block text-sm px-6 py-3.5 rounded-none text-center transition-colors ${
                     tier.featured
-                      ? 'bg-white text-gray-900 hover:bg-gray-100'
-                      : 'bg-gray-900 text-white hover:bg-gray-700'
+                      ? 'bg-white text-ink hover:bg-gray-100'
+                      : 'bg-ink text-white hover:bg-ink/80'
                   }`}
                 >
                   {tier.cta}
@@ -163,18 +163,18 @@ export default function PricingPage() {
         {/* FAQ note */}
         <section className="px-6 mb-24">
           <div className="max-w-6xl mx-auto max-w-2xl">
-            <div className="bg-gray-50 rounded-2xl p-10">
-              <h2 className="text-2xl font-light text-gray-900 mb-4 tracking-tight">
+            <div className="bg-subtle rounded-none p-10">
+              <h2 className="text-2xl font-heading font-bold text-ink mb-4 tracking-tight">
                 Not sure which is right for you?
               </h2>
-              <p className="text-sm text-gray-500 leading-relaxed mb-6">
-                Most clients start with an Audit — it gives us both a clear
+              <p className="text-sm text-secondary leading-relaxed mb-6">
+                Most clients start with an Audit, which gives us both a clear
                 picture of the problems and the best path forward. From there,
                 we can decide whether design, build, or both makes sense.
               </p>
               <Link
                 href="/contact"
-                className="inline-block border border-gray-900 text-gray-900 text-sm px-6 py-3 rounded-full hover:bg-gray-900 hover:text-white transition-colors"
+                className="inline-block border border-ink text-ink text-sm px-6 py-3 rounded-none hover:bg-ink hover:text-white transition-colors"
               >
                 Book a free call
               </Link>

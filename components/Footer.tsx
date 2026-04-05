@@ -11,19 +11,19 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-gray-100 py-14 px-6">
+    <footer className="border-t border-border-light py-14 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-10 mb-14">
           {/* Logo + email */}
           <div className="flex flex-col gap-3">
-            <Link href="/" className="text-sm font-medium tracking-tight">
+            <Link href="/" className="text-base font-heading font-bold tracking-tight">
               William Langdown
             </Link>
             <a
               href="mailto:hello@williamlangdown.co"
-              className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+              className="text-sm text-tertiary hover:text-ink transition-colors"
             >
-              hello@williamlangdown.co
+              hello@williamlangdown.com
             </a>
           </div>
 
@@ -33,7 +33,7 @@ export default function Footer() {
               <Link
                 key={href}
                 href={href}
-                className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+                className="text-sm text-tertiary hover:text-ink transition-colors"
               >
                 {label}
               </Link>
@@ -41,8 +41,8 @@ export default function Footer() {
           </nav>
         </div>
 
-        <div className="border-t border-gray-100 pt-8">
-          <p className="text-xs text-gray-400">
+        <div className="border-t border-border-light pt-8">
+          <p className="text-xs text-tertiary">
             &copy; {year} William Langdown. All rights reserved.
           </p>
         </div>
