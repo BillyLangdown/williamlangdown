@@ -139,7 +139,7 @@ function Form({ defaultService }: { defaultService?: string }) {
           id="website"
           name="website"
           type="url"
-          placeholder="https://yourstore.com"
+          placeholder="https://yourwebsite.com"
           disabled={status === 'submitting'}
           className="w-full border border-border-light rounded-none px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-tertiary transition-colors disabled:opacity-50"
         />

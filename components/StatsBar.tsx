@@ -6,17 +6,17 @@ const stats = [
   {
     value: 0.1,
     suffix: 's',
-    label: 'Perceived speed and responsiveness directly impact user trust and engagement.',
+    label: 'is how quickly users form a first impression',
   },
   {
-    value: 97,
-    suffix: '%',
-    label: 'First impressions are formed in milliseconds. Your site needs to earn trust instantly.',
+    value: 15,
+    suffix: 's',
+    label: 'is how long users stay if they don\'t find value',
   },
   {
-    value: 95,
+    value: 88,
     suffix: '%',
-    label: 'Users rely on visual cues and clarity to understand your offering quickly.',
+    label: 'of users won\'t return after a poor experience.',
   },
 ]
 
