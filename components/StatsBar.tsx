@@ -11,7 +11,7 @@ const stats = [
   {
     value: 15,
     suffix: 's',
-    label: 'is how long users stay if they don\'t find value',
+    label: 'is how long users stay if they don\'t find value or trust in your messaging',
   },
   {
     value: 88,
