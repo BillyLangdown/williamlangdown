@@ -37,6 +37,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
+      <head><link rel="icon" href="/favicon.ico" /></head>
       <body className="font-sans antialiased bg-white text-ink" suppressHydrationWarning>
         {children}
       </body>
