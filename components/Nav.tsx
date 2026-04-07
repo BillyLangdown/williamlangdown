@@ -46,7 +46,7 @@ export default function Nav() {
             href="/contact"
             className="inline-block bg-ink text-white text-sm px-5 py-2.5 rounded-none hover:bg-ink/80 transition-colors"
           >
-            Get A Quote
+            Let&apos;s talk
           </Link>
         </div>
 
@@ -86,7 +86,7 @@ export default function Nav() {
             className="inline-block bg-ink text-white text-sm px-5 py-3 rounded-none text-center"
             onClick={() => setOpen(false)}
           >
-            Get A Quote
+            Let&apos;s talk
           </Link>
         </div>
       )}

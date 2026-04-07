@@ -12,7 +12,7 @@ export default function CTABanner() {
           </p>
         </div>
         <a
-          href="https://calendly.com/williamlangdown"
+          href="https://calendly.com/billy-langdown01/30min"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-white text-ink text-sm px-7 py-4 rounded-none hover:bg-white/90 transition-colors shrink-0 font-medium"

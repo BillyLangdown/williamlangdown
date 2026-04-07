@@ -6,22 +6,18 @@ const stats = [
   {
     value: 0.1,
     suffix: 's',
-    label:
-      "Perceived speed and responsiveness directly impact user trust and engagement.",
+    label: 'Perceived speed and responsiveness directly impact user trust and engagement.',
   },
   {
     value: 97,
     suffix: '%',
-    label:
-      "First impressions are formed in milliseconds. Your site needs to earn trust instantly.",
+    label: 'First impressions are formed in milliseconds. Your site needs to earn trust instantly.',
   },
   {
     value: 95,
     suffix: '%',
-    label:
-      "Users rely on visual cues and clarity to understand your offering quickly.",
+    label: 'Users rely on visual cues and clarity to understand your offering quickly.',
   },
-  
 ]
 
 function useCountUp(target: number, start: boolean, duration = 1500) {
@@ -35,19 +31,41 @@ function useCountUp(target: number, start: boolean, duration = 1500) {
     const animate = (time: number) => {
       if (!startTime) startTime = time
       const progress = Math.min((time - startTime) / duration, 1)
-
-      const value = target * progress
-      setCount(value)
-
-      if (progress < 1) {
-        requestAnimationFrame(animate)
-      }
+      setCount(target * progress)
+      if (progress < 1) requestAnimationFrame(animate)
     }
 
     requestAnimationFrame(animate)
   }, [start, target, duration])
 
   return count
+}
+
+function StatItem({
+  value,
+  suffix,
+  label,
+  animate,
+}: {
+  value: number
+  suffix: string
+  label: string
+  animate: boolean
+}) {
+  const count = useCountUp(value, animate)
+  const display = value === 0.1 ? count.toFixed(1) : Math.floor(count)
+
+  return (
+    <div className="py-14 md:px-10 first:pl-0 last:pr-0 text-center">
+      <span className="block text-5xl font-heading font-bold text-white mb-3 tracking-tight">
+        {display}
+        {suffix}
+      </span>
+      <span className="text-sm text-white/60 leading-relaxed max-w-xs mx-auto block">
+        {label}
+      </span>
+    </div>
+  )
 }
 
 export default function StatsBar() {
@@ -66,34 +84,21 @@ export default function StatsBar() {
     )
 
     if (ref.current) observer.observe(ref.current)
-
     return () => observer.disconnect()
   }, [])
 
   return (
     <section className="bg-ink" ref={ref}>
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/10">
-        {stats.map((stat, i) => {
-          const count = useCountUp(stat.value, visible)
-
-          return (
-            <div
-              key={i}
-              className="py-14 md:px-10 first:pl-0 last:pr-0 text-center"
-            >
-              <span className="block text-5xl font-heading font-bold text-white mb-3 tracking-tight">
-                {stat.value === 0.1
-                  ? count.toFixed(1)
-                  : Math.floor(count)}
-                {stat.suffix}
-              </span>
-
-              <span className="text-sm text-white/60 leading-relaxed max-w-xs mx-auto block">
-                {stat.label}
-              </span>
-            </div>
-          )
-        })}
+        {stats.map((stat, i) => (
+          <StatItem
+            key={i}
+            value={stat.value}
+            suffix={stat.suffix}
+            label={stat.label}
+            animate={visible}
+          />
+        ))}
       </div>
     </section>
   )

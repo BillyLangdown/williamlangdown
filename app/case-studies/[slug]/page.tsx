@@ -6,7 +6,56 @@ import CTABanner from '@/components/CTABanner'
 import { getCaseStudy, getCaseStudies } from '@/lib/queries'
 import { urlFor } from '@/sanity/client'
 import { PortableText } from '@portabletext/react'
+import type { PortableTextComponents } from '@portabletext/react'
 import type { Metadata } from 'next'
+
+const portableTextComponents: PortableTextComponents = {
+  block: {
+    h2: ({ children }) => (
+      <h2 className="text-2xl font-heading font-bold text-ink mt-12 mb-4 tracking-tight">{children}</h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="text-xl font-heading font-bold text-ink mt-8 mb-3 tracking-tight">{children}</h3>
+    ),
+    h4: ({ children }) => (
+      <h4 className="text-lg font-heading font-bold text-ink mt-6 mb-2 tracking-tight">{children}</h4>
+    ),
+    normal: ({ children }) => (
+      <p className="text-base text-secondary leading-relaxed mb-6">{children}</p>
+    ),
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-2 border-ink pl-6 my-8 text-secondary italic">{children}</blockquote>
+    ),
+  },
+  marks: {
+    strong: ({ children }) => (
+      <strong className="text-ink font-semibold">{children}</strong>
+    ),
+    em: ({ children }) => <em>{children}</em>,
+    link: ({ value, children }) => (
+      <a
+        href={value?.href}
+        target={value?.blank ? '_blank' : undefined}
+        rel={value?.blank ? 'noopener noreferrer' : undefined}
+        className="text-ink underline underline-offset-4 hover:text-secondary transition-colors"
+      >
+        {children}
+      </a>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="list-disc pl-6 mb-6 text-secondary space-y-2">{children}</ul>
+    ),
+    number: ({ children }) => (
+      <ol className="list-decimal pl-6 mb-6 text-secondary space-y-2">{children}</ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => <li className="leading-relaxed">{children}</li>,
+    number: ({ children }) => <li className="leading-relaxed">{children}</li>,
+  },
+}
 
 export const dynamic = 'force-dynamic'
 
@@ -156,15 +205,8 @@ export default async function CaseStudyPage({ params }: Props) {
         {study.body && study.body.length > 0 && (
           <section className="px-6 mb-24">
             <div className="max-w-3xl mx-auto">
-              <div className="prose prose-lg max-w-none
-                prose-headings:font-heading prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-ink
-                prose-p:text-secondary prose-p:leading-relaxed
-                prose-a:text-ink prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-secondary
-                prose-strong:text-ink prose-strong:font-semibold
-                prose-ul:text-secondary prose-ol:text-secondary
-                prose-li:leading-relaxed
-                prose-hr:border-border-light">
-                <PortableText value={study.body} />
+              <div>
+                <PortableText value={study.body} components={portableTextComponents} />
               </div>
             </div>
           </section>

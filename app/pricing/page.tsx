@@ -9,7 +9,7 @@ const tiers = [
     name: 'Audit',
     price: '£149',
     description:
-      'A clear, practical breakdown of what’s holding your website back and what to fix first.',
+      "A clear, practical breakdown of what's holding your website back and what to fix first.",
     features: [
       'UX and conversion review',
       'Key issues identified',
@@ -18,6 +18,7 @@ const tiers = [
       '10–15 min video walkthrough',
     ],
     cta: 'Get an audit',
+    href: '/contact?service=audit',
     featured: false,
   },
   {
@@ -33,6 +34,7 @@ const tiers = [
       'Clean, developer-ready Figma file',
     ],
     cta: 'Redesign your page',
+    href: '/contact?service=design',
     featured: true,
   },
   {
@@ -49,6 +51,7 @@ const tiers = [
       'Deployment support',
     ],
     cta: 'Get a full build',
+    href: '/contact?service=build',
     featured: false,
   },
 ]
@@ -69,7 +72,7 @@ export default function PricingPage() {
             </h1>
             <p className="text-lg text-secondary leading-relaxed">
               Three ways to improve your website depending on where you are. Most
-              clients start with an audit to understand what’s holding them back.
+              clients start with an audit to understand what's holding them back.
             </p>
           </div>
         </section>
@@ -136,7 +139,7 @@ export default function PricingPage() {
                 </ul>
 
                 <Link
-                  href="/contact"
+                  href={tier.href}
                   className={`inline-block text-sm px-6 py-3.5 rounded-none text-center transition-colors ${
                     tier.featured
                       ? 'bg-white text-ink hover:bg-gray-100'
@@ -159,7 +162,7 @@ export default function PricingPage() {
               </h2>
               <p className="text-sm text-secondary leading-relaxed mb-6">
                 The audit is the best starting point. It gives a clear picture of
-                what’s working, what’s not, and what to improve first. From there,
+                what's working, what's not, and what to improve first. From there,
                 we can decide whether a redesign or full build makes sense.
               </p>
               <Link

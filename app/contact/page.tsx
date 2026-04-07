@@ -2,7 +2,13 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ContactForm from '@/components/ContactForm'
 
-export default function ContactPage() {
+interface Props {
+  searchParams: Promise<{ service?: string }>
+}
+
+export default async function ContactPage({ searchParams }: Props) {
+  const { service } = await searchParams
+
   return (
     <>
       <Nav />
@@ -40,7 +46,7 @@ export default function ContactPage() {
                     Book a call
                   </p>
                   <a
-                    href="https://calendly.com/williamlangdown"
+                    href="https://calendly.com/billy-langdown01/30min"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-ink hover:text-gray-600 transition-colors underline underline-offset-4"
@@ -53,7 +59,7 @@ export default function ContactPage() {
 
             {/* Form */}
             <div>
-              <ContactForm />
+              <ContactForm defaultService={service} />
             </div>
           </div>
         </section>

@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react'
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { submitContactForm } from '@/app/actions/contact'
 
-function Form() {
+function Form({ defaultService }: { defaultService?: string }) {
   const { executeRecaptcha } = useGoogleReCaptcha()
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
@@ -155,13 +155,14 @@ function Form() {
         <select
           id="service"
           name="service"
+          defaultValue={defaultService ?? ''}
           disabled={status === 'submitting'}
           className="w-full border border-border-light rounded-none px-4 py-3 text-sm text-ink focus:outline-none focus:border-tertiary transition-colors bg-white disabled:opacity-50"
         >
           <option value="">Select a service</option>
-          <option value="audit">Audit (£997)</option>
-          <option value="design">Design (£2,497)</option>
-          <option value="build">Build (from £4,997)</option>
+          <option value="audit">Audit (£149)</option>
+          <option value="design">Design (£749)</option>
+          <option value="build">Build (from £1,495)</option>
           <option value="unsure">Not sure yet</option>
         </select>
       </div>
@@ -247,12 +248,12 @@ function Form() {
   )
 }
 
-export default function ContactForm() {
+export default function ContactForm({ defaultService }: { defaultService?: string }) {
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ''
 
   return (
     <GoogleReCaptchaProvider reCaptchaKey={siteKey}>
-      <Form />
+      <Form defaultService={defaultService} />
     </GoogleReCaptchaProvider>
   )
 }

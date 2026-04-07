@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function BeforeAfterSection({ caseStudy }: Props) {
-  const clientName = caseStudy?.client ?? 'The Garden Tablecloth Co.'
+  const clientName = caseStudy?.client ?? 'The Garden Tablecloth Co'
   const slug = caseStudy?.slug?.current ?? '#'
 
   return (

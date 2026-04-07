@@ -14,12 +14,13 @@ export default function Hero() {
             </p>
   
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold leading-[1.1] tracking-tight text-ink mb-8">
-              People buy when they feel understood.
+            Helping brands build trust & convert better.
             </h1>
-  
-            <p className="text-lg text-secondary leading-relaxed max-w-xl mb-12">
-              I audit, design, and build your website, guided by customer insight.
+
+            <p className="text-lg text-secondary leading-relaxed max-w-xl mb-4">
+              I audit, design, and build websites so visitors instantly understand what you do, and trust you enough to buy.
             </p>
+
   
             <Link
               href="#services"
@@ -45,17 +46,15 @@ export default function Hero() {
           </div>
   
           {/* RIGHT: IMAGE */}
-          <div className="w-full max-w-xs lg:max-w-xsm">
+          <div className="shrink-0 w-48 lg:w-full lg:max-w-xs">
             <Image
-          src="/images/portrait.png"
-              alt="Portrait"
-              className="w-full h-auto object-contain"
+              src="/images/portrait.png"
+              alt="William Langdown"
+              className="w-full h-auto object-cover rounded-[10px]"
               width={250}
               height={250}
-              sizes="(max-width: 768px) 100vw, 25vw"
-              style={{
-                borderRadius: '10px !important',
-              }}
+              loading="eager"
+              sizes="(max-width: 1024px) 128px, 250px"
             />
           </div>
   
