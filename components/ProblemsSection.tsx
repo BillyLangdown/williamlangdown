@@ -40,7 +40,7 @@ export default function ProblemsSection() {
             Problems I Fix
           </h2>
           <p className="text-base text-secondary max-w-xl">
-            These are the issues I most often see in ecommerce stores.
+            These are the issues I most often see in websites.
           </p>
         </div>
 

@@ -45,8 +45,8 @@ export default function AboutSection() {
                 quick audit or a full redesign and build.
               </p>
               <p className="text-base text-secondary leading-[1.8]">
-                I work with small and medium-sized ecommerce businesses who know
-                their product is good but feel like their website isn&apos;t
+                I work with small and medium-sized online businesses who know
+                their product or service is good but feel like their website isn&apos;t
                 doing it justice.
               </p>
             </div>

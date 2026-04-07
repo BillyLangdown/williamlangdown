@@ -14,10 +14,10 @@ export default function Hero() {
             </p>
   
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold leading-[1.1] tracking-tight text-ink mb-8">
-            Helping brands build trust & convert better.
+            Helping you build trust & drive results.
             </h1>
 
-            <p className="text-lg text-secondary leading-relaxed max-w-xl mb-4">
+            <p className="text-lg text-secondary leading-relaxed max-w-xl mb-6">
               I audit, design, and build websites so visitors instantly understand what you do, and trust you enough to buy.
             </p>
 
