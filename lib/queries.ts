@@ -39,7 +39,7 @@ export async function getCaseStudy(slug: string): Promise<CaseStudy | null> {
 
 export async function getFeaturedCaseStudy(): Promise<CaseStudy | null> {
   return client.fetch(
-    `*[_type == "caseStudy"] | order(publishedAt desc)[0] {
+    `*[_type == "caseStudy"] | order(publishedAt desc)[-1] {
       _id,
       _type,
       title,
