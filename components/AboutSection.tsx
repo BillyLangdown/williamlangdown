@@ -36,8 +36,8 @@ export default function AboutSection() {
             <div className="flex flex-col gap-5">
               <p className="text-base text-secondary leading-[1.8]">
                 I&apos;m a UX designer and web consultant with a background in advertising
-                and front-end development. That combination — creative strategy, customer
-                psychology, and the ability to build — means I can take a problem from
+                and front-end development. That combination - creative strategy, customer
+                psychology, and the ability to build - means I can take a problem from
                 insight all the way through to a live website.
               </p>
               <p className="text-base text-secondary leading-[1.8]">
