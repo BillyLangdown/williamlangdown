@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/client'
 import type { CaseStudy } from '@/lib/types'
+import ScrollReveal from '@/components/ScrollReveal'
 
 interface Props {
   caseStudy: CaseStudy | null
@@ -12,9 +13,9 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
   const slug = caseStudy?.slug?.current ?? '#'
 
   return (
-    <section className="py-24 px-6">
+    <section className="py-24 px-6 bg-subtle">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-12">
+        <ScrollReveal className="mb-12">
           <p className="text-xs font-medium tracking-widest text-tertiary uppercase mb-4">
             Case Study
           </p>
@@ -24,9 +25,9 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
           <p className="text-base text-secondary">
             {clientName}: a complete rethink of the customer journey.
           </p>
-        </div>
+        </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <ScrollReveal delay={100} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <div>
             <p className="text-xs text-tertiary uppercase tracking-widest mb-3">
               Before
@@ -67,11 +68,11 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
               </div>
             )}
           </div>
-        </div>
+        </ScrollReveal>
 
         <Link
           href={slug === '#' ? '/case-studies' : `/case-studies/${slug}`}
-          className="inline-flex items-center gap-2 text-sm text-ink underline underline-offset-4 hover:text-secondary transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-ink underline underline-offset-4 hover:text-accent transition-colors"
         >
           View the case study
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

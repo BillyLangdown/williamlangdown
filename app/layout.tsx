@@ -13,6 +13,7 @@ const playfair = Playfair_Display({
   variable: '--font-playfair',
   display: 'swap',
   weight: ['400', '700'],
+  style: ['normal', 'italic'],
 })
 
 export const metadata: Metadata = {
@@ -38,7 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       <head><link rel="icon" href="/favicon.ico" /></head>
-      <body className="font-sans antialiased bg-white text-ink" suppressHydrationWarning>
+      <body className="font-sans antialiased bg-surface text-ink" suppressHydrationWarning>
         {children}
       </body>
     </html>

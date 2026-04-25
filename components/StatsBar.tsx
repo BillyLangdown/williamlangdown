@@ -56,12 +56,13 @@ function StatItem({
   const display = value === 0.1 ? count.toFixed(1) : Math.floor(count)
 
   return (
-    <div className="py-14 md:px-10 first:pl-0 last:pr-0 text-center">
+    <div className="py-14 md:px-10 first:pl-0 last:pr-0 text-center flex flex-col items-center">
+      <div className="w-8 h-0.5 bg-accent mb-5 rounded-full" />
       <span className="block text-5xl font-heading font-bold text-white mb-3 tracking-tight">
         {display}
         {suffix}
       </span>
-      <span className="text-sm text-white/60 leading-relaxed max-w-xs mx-auto block">
+      <span className="text-sm text-white/70 leading-relaxed max-w-xs mx-auto block">
         {label}
       </span>
     </div>

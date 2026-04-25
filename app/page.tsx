@@ -27,10 +27,10 @@ export default async function HomePage() {
         <Hero />
         <StatsBar />
         <FrictionSection />
+        <ProblemsSection />
         <ServicesSection />
         <BeforeAfterSection caseStudy={featuredCaseStudy} />
         <AboutSection />
-        <ProblemsSection />
         <CTABanner />
       </main>
       <Footer />
