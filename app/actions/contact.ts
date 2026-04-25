@@ -41,9 +41,9 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
 }
 
 const serviceLabels: Record<string, string> = {
-  audit: 'Audit (£997)',
-  design: 'Design (£2,497)',
-  build: 'Build (from £4,997)',
+  audit: 'Audit (£149)',
+  design: 'Design (£749)',
+  build: 'Build (from £1,495)',
   unsure: 'Not sure yet',
 }
 
