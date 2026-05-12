@@ -136,13 +136,13 @@ function Form({ defaultService }: { defaultService?: string }) {
           Website URL
         </label>
         <input
-          id="website"
-          name="website"
-          type="url"
-          placeholder="https://yourwebsite.com"
-          disabled={status === 'submitting'}
-          className="w-full border border-border-light rounded-none px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-tertiary transition-colors disabled:opacity-50"
-        />
+  id="website"
+  name="website"
+  type="text"
+  placeholder="yourwebsite.com"
+  disabled={status === 'submitting'}
+  className="w-full border border-border-light rounded-none px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-tertiary transition-colors disabled:opacity-50"
+/>
       </div>
 
       <div className="flex flex-col gap-2">
