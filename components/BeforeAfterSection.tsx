@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { urlFor } from '@/sanity/client'
 import type { CaseStudy } from '@/lib/types'
 import ScrollReveal from '@/components/ScrollReveal'
+import BeforeAfterSlider from '@/components/BeforeAfterSlider'
 
 interface Props {
   caseStudy: CaseStudy | null
@@ -11,6 +11,7 @@ interface Props {
 export default function BeforeAfterSection({ caseStudy }: Props) {
   const clientName = caseStudy?.client ?? 'The Garden Tablecloth Co'
   const slug = caseStudy?.slug?.current ?? '#'
+  const hasImages = caseStudy?.beforeImage && caseStudy?.afterImage
 
   return (
     <section className="py-24 px-6 bg-subtle">
@@ -27,47 +28,31 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
           </p>
         </ScrollReveal>
 
-        <ScrollReveal delay={100} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          <div>
-            <p className="text-xs text-tertiary uppercase tracking-widest mb-3">
-              Before
-            </p>
-            {caseStudy?.beforeImage ? (
-              <div className="relative aspect-[16/9] overflow-hidden bg-subtle">
-                <Image
-                  src={urlFor(caseStudy.beforeImage).width(1400).url()}
-                  alt={caseStudy.beforeImage.alt ?? `${clientName} — before`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
+        <ScrollReveal delay={100} className="mb-8">
+          {hasImages ? (
+            <BeforeAfterSlider
+              beforeSrc={urlFor(caseStudy!.beforeImage!).width(1400).url()}
+              afterSrc={urlFor(caseStudy!.afterImage!).width(1400).url()}
+              beforeAlt={caseStudy!.beforeImage!.alt ?? `${clientName} — before`}
+              afterAlt={caseStudy!.afterImage!.alt ?? `${clientName} — after`}
+            />
+          ) : (
+            /* Fallback static layout when no Sanity images are present */
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <p className="text-xs text-tertiary uppercase tracking-widest mb-3">Before</p>
+                <div className="aspect-[16/9] bg-border-light flex items-center justify-center">
+                  <span className="text-sm text-tertiary">Before image</span>
+                </div>
               </div>
-            ) : (
-              <div className="aspect-[16/9] bg-subtle flex items-center justify-center">
-                <span className="text-sm text-tertiary">Before image</span>
+              <div>
+                <p className="text-xs text-tertiary uppercase tracking-widest mb-3">After</p>
+                <div className="aspect-[16/9] bg-ink flex items-center justify-center">
+                  <span className="text-sm text-secondary">After image</span>
+                </div>
               </div>
-            )}
-          </div>
-          <div>
-            <p className="text-xs text-tertiary uppercase tracking-widest mb-3">
-              After
-            </p>
-            {caseStudy?.afterImage ? (
-              <div className="relative aspect-[16/9] overflow-hidden bg-subtle">
-                <Image
-                  src={urlFor(caseStudy.afterImage).width(1400).url()}
-                  alt={caseStudy.afterImage.alt ?? `${clientName} — after`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                />
-              </div>
-            ) : (
-              <div className="aspect-[16/9] bg-ink flex items-center justify-center">
-                <span className="text-sm text-secondary">After image</span>
-              </div>
-            )}
-          </div>
+            </div>
+          )}
         </ScrollReveal>
 
         <Link
@@ -76,13 +61,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
         >
           View the case study
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path
-              d="M1 7h12M7 1l6 6-6 6"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+            <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Link>
       </div>

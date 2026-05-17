@@ -1,28 +1,34 @@
-import Link from 'next/link'
 import Image from 'next/image'
+import { Link } from 'next-view-transitions'
 import ScrollReveal from '@/components/ScrollReveal'
 
 const services = [
   {
     id: 'audit',
+
     title: 'Audit',
     image: '/images/audit.jpg',
     description:
       "A deep review of your website through the lens of your customers. I identify where you're losing people and why, with a prioritised report of what to fix first.",
+    flip: false,
   },
   {
     id: 'design',
+
     title: 'Design',
     image: '/images/design.jpg',
     description:
       'UX and visual design rooted in customer insight. I redesign the pages and flows that matter most, turning hesitation into confidence.',
+    flip: true,
   },
   {
     id: 'build',
+    
     title: 'Build',
     image: '/images/build.jpg',
     description:
       'Development that brings the designs to life. Fast, accessible, and built to convert, with a CMS so you stay in control.',
+    flip: false,
   },
 ]
 
@@ -30,8 +36,9 @@ export default function ServicesSection() {
   return (
     <section id="services" className="py-24 px-6 bg-surface">
       <div className="max-w-6xl mx-auto">
-        <ScrollReveal className="mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <h2 className="text-4xl md:text-5xl font-heading font-bold leading-tight tracking-tight text-ink max-w-xl">
+
+        <ScrollReveal className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <h2 className="text-4xl md:text-5xl font-heading font-bold leading-[1.05] tracking-tight text-ink max-w-xl">
             Three ways I can help improve your website
           </h2>
           <Link
@@ -42,37 +49,59 @@ export default function ServicesSection() {
           </Link>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="flex flex-col">
           {services.map((service, i) => (
-            <ScrollReveal key={service.id} delay={i * 100}>
-              <div className="bg-white p-8 flex flex-col gap-6 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] group">
-                <div className="w-full aspect-[4/3] relative overflow-hidden bg-subtle">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
+            <ScrollReveal key={service.id} delay={i * 80}>
+              <div
+                className={`group border-t border-border-light py-12 flex flex-col gap-10 ${
+                  service.flip ? 'md:flex-row-reverse' : 'md:flex-row'
+                } md:gap-16 md:items-center`}
+              >
+                {/* Image with accent shadow */}
+                <div className="w-full md:w-[40%] shrink-0">
+                  <div className="relative">
+                    {/* Peach offset shadow — same technique as portrait */}
+                    <div className="absolute -bottom-3 -right-3 w-full h-full bg-accent/20" />
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                        sizes="(max-width: 768px) 100vw, 40vw"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-heading font-bold text-ink mb-3">
+
+                {/* Text */}
+                <div className="relative flex-1 flex flex-col gap-5 overflow-hidden">
+                
+
+                
+                  <h3 className="text-3xl md:text-4xl font-heading font-bold text-ink tracking-tight leading-tight">
                     {service.title}
                   </h3>
-                  <p className="text-sm text-secondary leading-relaxed">
+                  <p className="text-sm text-secondary leading-relaxed max-w-sm">
                     {service.description}
                   </p>
+                  <Link
+                    href="/pricing"
+                    className="inline-flex items-center gap-2 text-sm text-accent hover:text-accent/80 underline underline-offset-4 transition-colors"
+                  >
+                    See pricing
+                    <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                      <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </Link>
                 </div>
-                <Link
-                  href="/pricing"
-                  className="mt-auto text-sm text-accent hover:text-accent/80 underline underline-offset-4 transition-colors"
-                >
-                  See pricing →
-                </Link>
               </div>
             </ScrollReveal>
           ))}
+
+          <div className="border-t border-border-light" />
         </div>
+
       </div>
     </section>
   )

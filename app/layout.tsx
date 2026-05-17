@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
 import Script from 'next/script'
+import { ViewTransitions } from 'next-view-transitions'
+import GaPageTracker from '@/components/GaPageTracker'
 import './globals.css'
 
 const inter = Inter({
@@ -42,7 +44,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-11171125987"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
           strategy="afterInteractive"
         />
         <Script id="gtag-init" strategy="afterInteractive">
@@ -50,13 +52,16 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', { send_page_view: false });
             gtag('config', 'AW-11171125987');
-            gtag('config', 'G-0QS6RL1V09');
           `}
         </Script>
       </head>
       <body className="font-sans antialiased bg-surface text-ink" suppressHydrationWarning>
-        {children}
+        <ViewTransitions>
+          <GaPageTracker />
+          {children}
+        </ViewTransitions>
       </body>
     </html>
   )

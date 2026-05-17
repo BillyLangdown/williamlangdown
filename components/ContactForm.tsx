@@ -3,6 +3,7 @@
 import { useState, useCallback } from 'react'
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { submitContactForm } from '@/app/actions/contact'
+import { gtagEvent } from '@/lib/gtag'
 
 function Form({ defaultService }: { defaultService?: string }) {
   const { executeRecaptcha } = useGoogleReCaptcha()
@@ -44,6 +45,9 @@ function Form({ defaultService }: { defaultService?: string }) {
 
         if (result.success) {
           setStatus('success')
+          gtagEvent('generate_lead', {
+            service: formData.get('service') || 'not_specified',
+          })
           form.reset()
         } else {
           setStatus('error')

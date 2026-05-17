@@ -1,4 +1,7 @@
-import ScrollReveal from '@/components/ScrollReveal'
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+import ClipReveal from '@/components/ClipReveal'
 
 const problems = [
   {
@@ -34,35 +37,55 @@ const problems = [
 ]
 
 export default function ProblemsSection() {
+  const listRef = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.1 }
+    )
+    if (listRef.current) observer.observe(listRef.current)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section className="py-24 px-6 bg-subtle">
       <div className="max-w-6xl mx-auto">
-        <ScrollReveal className="mb-14">
-          <h2 className="text-4xl md:text-5xl font-heading font-bold leading-tight tracking-tight text-ink mb-4">
-            Problems I Fix
+        <ClipReveal className="mb-14">
+          <h2 className="text-4xl md:text-5xl font-heading font-bold leading-tight tracking-tight text-ink">
+            Problems I fix.
           </h2>
-          <p className="text-base text-secondary max-w-xl">
-            These are the issues I most often see in websites.
-          </p>
-        </ScrollReveal>
+        </ClipReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border-light">
+        <div ref={listRef} className="flex flex-col">
           {problems.map((problem, i) => (
-            // ScrollReveal is the grid cell — inner div carries all hover styles
-            <ScrollReveal key={i} delay={i * 70}>
-              <div className="bg-white h-full p-8 flex flex-col gap-4 group cursor-default hover:bg-surface transition-colors duration-200">
-                <span className="text-xs text-tertiary group-hover:text-accent tabular-nums transition-colors duration-200">
-                  0{i + 1}
-                </span>
-                <h3 className="text-base font-medium text-ink">
-                  {problem.title}
-                </h3>
-                <p className="text-sm text-secondary leading-relaxed">
-                  {problem.description}
-                </p>
-              </div>
-            </ScrollReveal>
+            <div
+              key={problem.title}
+              className="group grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-3 md:gap-16 py-7 border-t border-border-light hover:border-tertiary transition-colors duration-200 cursor-default"
+              style={{
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'translateX(0)' : 'translateX(-18px)',
+                transitionProperty: 'opacity, transform',
+                transitionDuration: '0.6s',
+                transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+                transitionDelay: `${i * 70}ms`,
+              }}
+            >
+              <h3 className="text-base font-medium text-ink group-hover:text-accent transition-colors duration-200">
+                {problem.title}
+              </h3>
+              <p className="text-sm text-secondary leading-relaxed">
+                {problem.description}
+              </p>
+            </div>
           ))}
+          <div className="border-t border-border-light" />
         </div>
       </div>
     </section>

@@ -25,3 +25,21 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/* ── View transitions ──────────────────────────────────────────────────── */
+::view-transition-old(root) {
+  animation: 280ms ease both fade-and-slide-out;
+}
+::view-transition-new(root) {
+  animation: 350ms ease both fade-and-slide-in;
+}
+
+@keyframes fade-and-slide-out {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-8px); }
+}
+
+@keyframes fade-and-slide-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
