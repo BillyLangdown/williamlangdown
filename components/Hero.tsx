@@ -68,15 +68,19 @@ export default function Hero() {
             </div>
             <div className="flex items-center gap-3 px-4 py-2.5 rounded-full bg-accent/8 backdrop-blur-sm">
   <div className="relative flex h-2.5 w-2.5">
-    <span className="absolute inline-flex h-full w-full rounded-full bg-accent opacity-75 animate-ping" />
-    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
+    <span className="absolute inline-flex h-full w-full rounded-full bg-[#488710] opacity-75 animate-ping" />
+    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#488710]" />
   </div>
 
-  <p className="text-[13px] text-ink/80 tracking-[0.01em]">
+
+<div className="flex items-center gap-3">
+ 
+
+  <p className="text-[13px] text-secondary italic">
     Currently taking on new projects
-    <span className="text-secondary"> <br/>
- replies within a day</span>
   </p>
+
+</div>
 </div>
           </div>
 

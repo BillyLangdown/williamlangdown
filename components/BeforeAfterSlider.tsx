@@ -12,7 +12,7 @@ interface Props {
 
 export default function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt, afterAlt }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [position, setPosition] = useState(50)
+  const [position, setPosition] = useState(75)
   const [dragging, setDragging] = useState(false)
 
   const updatePosition = useCallback((clientX: number) => {

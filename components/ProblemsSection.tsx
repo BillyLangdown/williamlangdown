@@ -15,7 +15,7 @@ const problems = [
       "No reviews, a vague returns policy, or a dated design. Customers leave before they commit when trust isn't established.",
   },
   {
-    title: 'Weak product pages',
+    title: 'Weak product/service pages',
     description:
       "Thin copy and poor imagery fail to answer the questions customers need answered before they'll hand over their card.",
   },
@@ -25,14 +25,14 @@ const problems = [
       'A navigation or checkout that makes people stop and think is a checkout that makes people leave.',
   },
   {
-    title: 'Generic looking stores',
+    title: 'Generic looking websites',
     description:
-      'A store that looks like every other store gives customers no reason to choose you over the alternatives.',
+      'If you want the best experience for your customer, you need to have the website built with them in mind, not a generic template.',
   },
   {
-    title: 'Mobile journeys',
+    title: 'Technical issues',
     description:
-      'Over half of shoppers browse on mobile. A clunky mobile experience is silently costing you sales every day.',
+      'Does your website look strange on mobile? Are the images loading slowly or pages taking ages to load? I can look into these problems and offer solutions.',
   },
 ]
 

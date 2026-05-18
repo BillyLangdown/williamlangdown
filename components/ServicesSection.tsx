@@ -61,13 +61,13 @@ export default function ServicesSection() {
                 <div className="w-full md:w-[40%] shrink-0">
                   <div className="relative">
                     {/* Peach offset shadow — same technique as portrait */}
-                    <div className="absolute -bottom-3 -right-3 w-full h-full bg-accent/20" />
-                    <div className="relative aspect-[4/3] overflow-hidden">
+                    <div className="absolute -bottom-3 -right-3 w-full h-full bg-accent/20 rounded-[10px]" />
+                    <div className="relative aspect-[4/3] ">
                       <Image
                         src={service.image}
                         alt={service.title}
                         fill
-                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] rounded-[10px]"
                         sizes="(max-width: 768px) 100vw, 40vw"
                       />
                     </div>

@@ -27,9 +27,9 @@ export default async function HomePage() {
         <Hero />
         <StatsBar />
         <FrictionSection />
+        <BeforeAfterSection caseStudy={featuredCaseStudy} />
         <ProblemsSection />
         <ServicesSection />
-        <BeforeAfterSection caseStudy={featuredCaseStudy} />
         <AboutSection />
         <CTABanner />
       </main>
