@@ -4,19 +4,19 @@ import { useEffect, useRef, useState } from 'react'
 
 const stats = [
   {
-    value: 75,
-    suffix: '%',
-    label: 'judge credibility by design',
+    value: 94,
+    suffix: "%",
+    label: "of first impressions are design-related",
   },
   {
-    value: 38,
-    suffix: '%',
-    label: 'leave if the design is poor',
+    value: 75,
+    suffix: "%",
+    label: "judge credibility by your website",
   },
   {
     value: 88,
-    suffix: '%',
-    label: "won't return after a bad experience",
+    suffix: "%",
+    label: "won’t return after a bad experience",
   },
 ]
 

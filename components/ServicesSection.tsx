@@ -32,13 +32,10 @@ function AuditShape() {
   return (
     <div className="w-full aspect-[4/3] rounded-[10px] overflow-hidden flex items-center justify-center" style={{ background: '#F5EDE0' }}>
       <svg viewBox="0 0 400 300" fill="none" className="w-full h-full">
-        {/* Large open arc ~300 degrees */}
-        <path
-          d="M 310 160 A 120 120 0 1 0 222 272"
-          stroke="#C17A3A"
-          strokeWidth="38"
-          strokeLinecap="round"
-        />
+        {/* Lens */}
+        <circle cx="168" cy="130" r="78" stroke="#C17A3A" strokeWidth="36" />
+        {/* Handle */}
+        <line x1="224" y1="188" x2="318" y2="260" stroke="#C17A3A" strokeWidth="36" strokeLinecap="round" />
       </svg>
     </div>
   )
@@ -61,21 +58,10 @@ function SupportShape() {
   return (
     <div className="w-full aspect-[4/3] rounded-[10px] overflow-hidden flex items-center justify-center" style={{ background: '#EDE8DF' }}>
       <svg viewBox="0 0 400 300" fill="none" className="w-full h-full">
-        {/* Two parallel flowing S-curves */}
-        <path
-          d="M 50 200 C 110 200, 140 80, 200 80 S 290 200, 350 200"
-          stroke="#C17A3A"
-          strokeWidth="34"
-          strokeLinecap="round"
-        />
-        <path
-          d="M 50 200 C 110 200, 140 80, 200 80 S 290 200, 350 200"
-          stroke="#C17A3A"
-          strokeWidth="34"
-          strokeLinecap="round"
-          opacity="0.18"
-          transform="translate(0 30)"
-        />
+        {/* Horizontal bar */}
+        <rect x="88" y="132" width="224" height="36" rx="18" fill="#C17A3A" />
+        {/* Vertical bar */}
+        <rect x="182" y="48" width="36" height="204" rx="18" fill="#C17A3A" />
       </svg>
     </div>
   )

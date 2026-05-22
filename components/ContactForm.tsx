@@ -110,7 +110,7 @@ function Form({ defaultService }: { defaultService?: string }) {
             required
             placeholder="Your name"
             disabled={status === 'submitting'}
-            className="w-full border border-border-light rounded-none px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-tertiary transition-colors disabled:opacity-50"
+            className="w-full border border-border-light rounded-none px-4 py-3 text-base md:text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-tertiary transition-colors disabled:opacity-50"
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -127,7 +127,7 @@ function Form({ defaultService }: { defaultService?: string }) {
             required
             placeholder="you@company.com"
             disabled={status === 'submitting'}
-            className="w-full border border-border-light rounded-none px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-tertiary transition-colors disabled:opacity-50"
+            className="w-full border border-border-light rounded-none px-4 py-3 text-base md:text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-tertiary transition-colors disabled:opacity-50"
           />
         </div>
       </div>
@@ -145,7 +145,7 @@ function Form({ defaultService }: { defaultService?: string }) {
   type="text"
   placeholder="yourwebsite.com"
   disabled={status === 'submitting'}
-  className="w-full border border-border-light rounded-none px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-tertiary transition-colors disabled:opacity-50"
+  className="w-full border border-border-light rounded-none px-4 py-3 text-base md:text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-tertiary transition-colors disabled:opacity-50"
 />
       </div>
 
@@ -161,7 +161,7 @@ function Form({ defaultService }: { defaultService?: string }) {
           name="service"
           defaultValue={defaultService ?? ''}
           disabled={status === 'submitting'}
-          className="w-full border border-border-light rounded-none px-4 py-3 text-sm text-ink focus:outline-none focus:border-tertiary transition-colors bg-white disabled:opacity-50"
+          className="w-full border border-border-light rounded-none px-4 py-3 text-base md:text-sm text-ink focus:outline-none focus:border-tertiary transition-colors bg-white disabled:opacity-50"
         >
           <option value="">Select a service</option>
           <option value="audit">Audit (£149)</option>

@@ -175,7 +175,7 @@ function Field({
   onChange: (val: string) => void
 }) {
   const base =
-    'w-full border border-[#E2DDD7] bg-white px-4 py-3 text-sm text-[#1A1A1A] placeholder:text-[#ccc] focus:outline-none focus:border-[#C17A3A] focus:ring-2 focus:ring-[#C17A3A]/10 transition-all duration-150'
+    'w-full border border-[#E2DDD7] bg-white px-4 py-3 text-base md:text-sm text-[#1A1A1A] placeholder:text-[#ccc] focus:outline-none focus:border-[#C17A3A] focus:ring-2 focus:ring-[#C17A3A]/10 transition-all duration-150'
 
   return (
     <div className="flex flex-col gap-1.5">

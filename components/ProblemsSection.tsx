@@ -59,7 +59,7 @@ export default function ProblemsSection() {
       <div className="max-w-6xl mx-auto">
         <ClipReveal className="mb-14">
           <h2 className="text-7xl md:text-[7rem] font-heading font-bold leading-none tracking-tight text-ink">
-            Problems
+            Problems I Fix
           </h2>
         </ClipReveal>
 

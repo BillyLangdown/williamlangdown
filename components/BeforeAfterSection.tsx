@@ -22,8 +22,8 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-white leading-tight tracking-tight mb-4">
             Before &amp; After
           </h2>
-          <p className="text-sm text-white/90 max-w-sm mx-auto leading-relaxed">
-            {clientName}. A complete rethink of the customer journey and conversion flow.
+          <p className="text-md text-white/90 max-w-sm mx-auto leading-relaxed">
+            {clientName}
           </p>
         </ScrollReveal>
 
@@ -37,8 +37,8 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
               <p className="text-5xl md:text-7xl font-heading font-bold text-white leading-none tracking-tight mb-3">
                 +75%
               </p>
-              <p className="text-xs text-white/80 mb-1">2.3% to 4.1%</p>
-              <p className="text-xs text-white/80 leading-relaxed">
+              <p className="text-xs text-white/70 mb-1">2.3% to 4.1%</p>
+              <p className="text-xs text-white/70 leading-relaxed">
                 More visitors completing enquiry forms
               </p>
             </div>
@@ -49,8 +49,8 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
               <p className="text-5xl md:text-7xl font-heading font-bold text-white leading-none tracking-tight mb-3">
                 -21%
               </p>
-              <p className="text-xs text-white/80 mb-1">42% to 33%</p>
-              <p className="text-xs text-white/80 leading-relaxed">
+              <p className="text-xs text-white/70 mb-1">42% to 33%</p>
+              <p className="text-xs text-white/70 leading-relaxed">
                 Fewer users leaving immediately after landing
               </p>
             </div>
