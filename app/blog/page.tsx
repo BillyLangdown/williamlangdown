@@ -90,9 +90,6 @@ export default async function BlogPage() {
         {/* Header */}
         <section className="px-6 mb-16">
           <div className="max-w-6xl mx-auto">
-            <p className="text-xs font-medium tracking-widest text-tertiary uppercase mb-6">
-              Blog
-            </p>
             <h1 className="text-5xl md:text-6xl font-heading font-bold leading-tight tracking-tight text-ink mb-6 max-w-2xl">
               Thoughts &amp; writing
             </h1>

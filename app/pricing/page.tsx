@@ -6,16 +6,18 @@ import Link from 'next/link'
 const tiers = [
   {
     id: 'audit',
-    name: 'Audit',
-    price: '£149',
+    name: 'Website Audits',
+    price: 'From £145',
     description:
-      "A clear, practical breakdown of what's holding your website back and what to fix first.",
+      "A thorough, written review of your website covering UX, messaging, structure, trust signals, responsiveness, performance, and SEO basics.",
     features: [
       'UX and conversion review',
-      'Key issues identified',
-      'Prioritised list of fixes',
-      'Short PDF summary',
-      '10–15 min video walkthrough',
+      'Messaging and clarity review',
+      'Trust signals and structure',
+      'Responsiveness and performance',
+      'SEO basics',
+      'Written report with prioritised recommendations',
+      'Short video walkthrough',
     ],
     cta: 'Get an audit',
     href: '/contact?service=audit',
@@ -23,36 +25,78 @@ const tiers = [
   },
   {
     id: 'design',
-    name: 'Design',
-    price: '£749',
+    name: 'Website Design & Development',
+    price: 'From £1,495',
     description:
-      'A focused redesign of your most important page, based on real user behaviour.',
+      'A complete website designed and built around your customers, ready to launch.',
     features: [
-      'Everything in Audit',
-      'Redesign of 1 key page',
-      'Desktop and mobile layouts',
-      'Clean, developer-ready Figma file',
+      'Up to 5 core pages',
+      'Fully responsive design',
+      'Contact forms',
+      'Basic SEO setup',
+      'Analytics integration',
+      '2 rounds of refinements',
+      'Launch support',
     ],
-    cta: 'Redesign your page',
+    cta: 'Start a project',
     href: '/contact?service=design',
     featured: true,
   },
   {
-    id: 'build',
-    name: 'Build',
-    price: 'From £1,495',
+    id: 'support',
+    name: 'Website Support & Improvements',
+    price: '£30/hour',
     description:
-      'A complete redesign and build of your website, ready to launch.',
+      'Ongoing help with your existing website. Updates, fixes, new content, and improvements on an hourly basis.',
     features: [
-      'Everything in Design',
-      'Frontend development',
-      'Basic CMS setup',
-      'Performance and responsiveness',
-      'Deployment support',
+      'Copy and content changes',
+      'New pages or sections',
+      'Design tweaks and refreshes',
+      'Bug fixes and maintenance',
+      'No retainer required',
     ],
-    cta: 'Get a full build',
-    href: '/contact?service=build',
+    cta: 'Get in touch',
+    href: '/contact?service=support',
     featured: false,
+  },
+]
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Initial Discussion',
+    description:
+      'A short call to understand what you need, what you already have, and whether this project is the right fit. No commitment at this stage.',
+  },
+  {
+    number: '02',
+    title: 'Structure & Planning',
+    description:
+      'We map out the site structure, the pages needed, and what each one needs to achieve. This gives both of us a clear picture before any design work begins.',
+  },
+  {
+    number: '03',
+    title: 'Design Direction',
+    description:
+      'I put together the visual direction and layout for your site, working through feedback until the design feels right before moving into development.',
+  },
+  {
+    number: '04',
+    title: 'Development',
+    description:
+      'The site is built out in full. Responsive across devices, set up with contact forms, analytics, and basic SEO from the start.',
+  },
+  {
+    number: '05',
+    title: 'Review & Refinements',
+    description:
+      'Two rounds of revisions are included. We go through the site together, and I make any adjustments before the final version is signed off.',
+  },
+  {
+    number: '06',
+    title: 'Launch',
+    description:
+      'The site goes live. I handle the deployment and stay available for the first few days to make sure everything is running as it should.',
   },
 ]
 
@@ -64,15 +108,12 @@ export default function PricingPage() {
         {/* Header */}
         <section className="px-6 mb-20">
           <div className="max-w-6xl mx-auto max-w-2xl">
-            <p className="text-xs font-medium tracking-widest text-tertiary uppercase mb-6">
-              Pricing
-            </p>
             <h1 className="text-5xl md:text-6xl font-heading font-bold leading-tight tracking-tight text-ink mb-6">
-              Simple pricing. Clear outcomes.
+              Clear pricing, clear outcomes.
             </h1>
             <p className="text-lg text-secondary leading-relaxed">
-              Three ways to improve your website depending on where you are. Most
-              clients start with an audit to understand what's holding them back.
+              Three ways to work together, depending on what you need. Most
+              clients start with an audit to understand what&apos;s holding their site back.
             </p>
           </div>
         </section>
@@ -90,7 +131,7 @@ export default function PricingPage() {
                 }`}
               >
                 <div>
-                  <p className="text-xs font-medium tracking-widest uppercase mb-3 text-tertiary">
+                  <p className={`text-xs uppercase tracking-widest mb-3 ${tier.featured ? 'text-white/50' : 'text-tertiary'}`}>
                     {tier.name}
                   </p>
                   <p
@@ -102,7 +143,7 @@ export default function PricingPage() {
                   </p>
                   <p
                     className={`text-sm leading-relaxed ${
-                      tier.featured ? 'text-tertiary' : 'text-secondary'
+                      tier.featured ? 'text-white/50' : 'text-secondary'
                     }`}
                   >
                     {tier.description}
@@ -117,7 +158,7 @@ export default function PricingPage() {
                         height="16"
                         viewBox="0 0 16 16"
                         fill="none"
-                        className="mt-0.5 shrink-0 text-tertiary"
+                        className={`mt-0.5 shrink-0 ${tier.featured ? 'text-white/40' : 'text-tertiary'}`}
                       >
                         <path
                           d="M3 8l3.5 3.5L13 4.5"
@@ -129,7 +170,7 @@ export default function PricingPage() {
                       </svg>
                       <span
                         className={`text-sm leading-relaxed ${
-                          tier.featured ? 'text-gray-300' : 'text-gray-600'
+                          tier.featured ? 'text-white/70' : 'text-secondary'
                         }`}
                       >
                         {feature}
@@ -153,24 +194,35 @@ export default function PricingPage() {
           </div>
         </section>
 
-        {/* FAQ note */}
-        <section className="px-6 mb-24">
-          <div className="max-w-6xl mx-auto max-w-2xl">
-            <div className="bg-subtle rounded-none p-10">
-              <h2 className="text-2xl font-heading font-bold text-ink mb-4 tracking-tight">
-                Not sure where to start?
+        {/* Process section */}
+        <section className="px-6 mb-24 bg-subtle py-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-14">
+              <p className="text-xs text-tertiary uppercase tracking-widest mb-4">Design &amp; Development</p>
+              <h2 className="text-4xl md:text-5xl font-heading font-bold leading-tight tracking-tight text-ink">
+                How a project works
               </h2>
-              <p className="text-sm text-secondary leading-relaxed mb-6">
-                The audit is the best starting point. It gives a clear picture of
-                what's working, what's not, and what to improve first. From there,
-                we can decide whether a redesign or full build makes sense.
-              </p>
-              <Link
-                href="/contact"
-                className="inline-block border border-ink text-ink text-sm px-6 py-3 rounded-none hover:bg-ink hover:text-white transition-colors"
-              >
-                Book a free call
-              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+              {processSteps.map((step, i) => (
+                <div
+                  key={step.number}
+                  className={`border-t border-border-light py-10 ${
+                    i % 3 !== 2 ? 'lg:pr-12' : ''
+                  } ${
+                    i % 2 === 0 ? 'md:pr-12' : 'md:pl-12 md:border-l md:border-border-light'
+                  } lg:border-l-0 lg:pl-0`}
+                >
+                  <p className="text-3xl font-heading font-bold text-ink/10 mb-5 tracking-tight">{step.number}</p>
+                  <h3 className="text-lg font-heading font-semibold text-ink mb-3 leading-snug">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-secondary leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

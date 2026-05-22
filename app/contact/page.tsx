@@ -17,9 +17,6 @@ export default async function ContactPage({ searchParams }: Props) {
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20">
             {/* Left */}
             <div>
-              <p className="text-xs font-medium tracking-widest text-tertiary uppercase mb-6">
-                Contact
-              </p>
               <h1 className="text-5xl md:text-6xl font-heading font-bold leading-tight tracking-tight text-ink mb-8">
                 Let&apos;s talk about your website.
               </h1>

@@ -84,9 +84,6 @@ export default async function CaseStudiesPage() {
         {/* Header */}
         <section className="px-6 mb-16">
           <div className="max-w-6xl mx-auto">
-            <p className="text-xs font-medium tracking-widest text-tertiary uppercase mb-6">
-              Case Studies
-            </p>
             <h1 className="text-5xl md:text-6xl font-heading font-bold leading-tight tracking-tight text-ink mb-6 max-w-2xl">
               Projects I&apos;ve worked on
             </h1>

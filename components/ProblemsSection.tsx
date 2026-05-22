@@ -5,34 +5,34 @@ import ClipReveal from '@/components/ClipReveal'
 
 const problems = [
   {
-    title: 'Low conversion rates',
+    title: 'Visitors who don\'t convert',
     description:
-      "Visitors browse but don't buy. Something in the journey is creating doubt, and doubt kills conversions.",
+      "People browse, read, maybe even add things to their basket, then leave. Something in the journey is creating hesitation, and that hesitation adds up.",
   },
   {
-    title: 'Weak trust signals',
+    title: 'Missing trust signals',
     description:
-      "No reviews, a vague returns policy, or a dated design. Customers leave before they commit when trust isn't established.",
+      "A vague returns policy, no reviews, a contact page that feels thin. Customers notice these gaps even when they can't name them.",
   },
   {
-    title: 'Weak product/service pages',
+    title: 'Pages that don\'t answer the question',
     description:
-      "Thin copy and poor imagery fail to answer the questions customers need answered before they'll hand over their card.",
+      "Good copy and imagery do the job of a good salesperson. Without them, customers are left guessing, and guessing rarely leads to buying.",
   },
   {
-    title: 'Confusing shopping',
+    title: 'Navigation that slows people down',
     description:
-      'A navigation or checkout that makes people stop and think is a checkout that makes people leave.',
+      'If someone has to stop and think about where to go, that\'s a moment of friction. Too many of those moments and they leave.',
   },
   {
-    title: 'Generic looking websites',
+    title: 'A design that feels off-brand',
     description:
-      'If you want the best experience for your customer, you need to have the website built with them in mind, not a generic template.',
+      'When a website looks like it could belong to anyone, it\'s harder to build confidence. Design shapes how people feel about you before they read a word.',
   },
   {
-    title: 'Technical issues',
+    title: 'Technical problems eroding trust',
     description:
-      'Does your website look strange on mobile? Are the images loading slowly or pages taking ages to load? I can look into these problems and offer solutions.',
+      'Slow load times, broken layouts on mobile, images that fail to appear. These things happen quietly and cost more than most people realise.',
   },
 ]
 
@@ -58,26 +58,28 @@ export default function ProblemsSection() {
     <section className="py-24 px-6 bg-subtle">
       <div className="max-w-6xl mx-auto">
         <ClipReveal className="mb-14">
-          <h2 className="text-4xl md:text-5xl font-heading font-bold leading-tight tracking-tight text-ink">
-            Problems I fix.
+          <h2 className="text-7xl md:text-[7rem] font-heading font-bold leading-none tracking-tight text-ink">
+            Problems
           </h2>
         </ClipReveal>
 
-        <div ref={listRef} className="flex flex-col">
+        <div ref={listRef} className="grid grid-cols-1 md:grid-cols-2">
           {problems.map((problem, i) => (
             <div
               key={problem.title}
-              className="group grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-3 md:gap-16 py-7 border-t border-border-light hover:border-tertiary transition-colors duration-200 cursor-default"
+              className={`group border-t border-border-light py-10 ${
+                i % 2 === 0 ? 'md:pr-16' : 'md:pl-16 md:border-l md:border-border-light'
+              }`}
               style={{
                 opacity: visible ? 1 : 0,
-                transform: visible ? 'translateX(0)' : 'translateX(-18px)',
+                transform: visible ? 'translateY(0)' : 'translateY(20px)',
                 transitionProperty: 'opacity, transform',
                 transitionDuration: '0.6s',
                 transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-                transitionDelay: `${i * 70}ms`,
+                transitionDelay: `${i * 60}ms`,
               }}
             >
-              <h3 className="text-base font-medium text-ink group-hover:text-accent transition-colors duration-200">
+              <h3 className="text-xl md:text-2xl font-heading font-semibold text-ink group-hover:text-accent transition-colors duration-200 mb-3 leading-snug">
                 {problem.title}
               </h3>
               <p className="text-sm text-secondary leading-relaxed">
@@ -85,7 +87,6 @@ export default function ProblemsSection() {
               </p>
             </div>
           ))}
-          <div className="border-t border-border-light" />
         </div>
       </div>
     </section>

@@ -1,20 +1,17 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import MagneticButton from '@/components/MagneticButton'
+import StatsBar from '@/components/StatsBar'
 
 export default function Hero() {
   return (
-    <section className="relative pt-40 pb-28 px-6 overflow-hidden bg-surface">
+    <section className="relative pt-40 pb-4 px-6 overflow-hidden bg-surface">
 
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row items-center gap-16">
 
           {/* LEFT: TEXT */}
           <div className="max-w-3xl">
-            <p className="text-xs font-medium tracking-widest text-tertiary uppercase mb-8">
-              UX Design &amp; Web Consultancy
-            </p>
-
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold leading-[1.1] tracking-tight text-ink mb-8">
               Helping you build{' '}
               <em className="italic text-accent">trust</em>{' '}
@@ -86,6 +83,7 @@ export default function Hero() {
 
         </div>
       </div>
+      <StatsBar />
     </section>
   )
 }
