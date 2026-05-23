@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
+import StatsBar from '@/components/StatsBar'
 import FrictionSection from '@/components/FrictionSection'
 import ServicesSection from '@/components/ServicesSection'
 import BeforeAfterSection from '@/components/BeforeAfterSection'
@@ -24,6 +25,7 @@ export default async function HomePage() {
       <Nav />
       <main>
         <Hero />
+        <StatsBar />
         <FrictionSection />
         <BeforeAfterSection caseStudy={featuredCaseStudy} />
         <ProblemsSection />

@@ -55,11 +55,11 @@ function StatItem({
   const display = Math.floor(count)
 
   return (
-    <div className={`flex-1 flex flex-col items-center justify-center py-6 px-8 text-center ${!last ? 'border-b md:border-b-0 md:border-r border-[#e8e4dd]' : ''}`}>
-      <span className="block text-4xl font-heading font-bold text-ink tracking-tight leading-none mb-1.5">
+    <div className={`flex-1 flex flex-col items-center justify-center py-8 px-10 text-center ${!last ? 'border-b md:border-b-0 md:border-r border-[#e8e4dd]' : ''}`}>
+      <span className="block text-5xl font-heading font-bold text-ink tracking-tight leading-none mb-2">
         {display}{suffix}
       </span>
-      <span className="text-[11px] text-secondary leading-snug max-w-[110px] block">
+      <span className="text-xs text-secondary leading-snug max-w-[130px] block">
         {label}
       </span>
     </div>
@@ -85,20 +85,18 @@ export default function StatsBar() {
   }, [])
 
   return (
-    <div className="px-6 py-6" ref={ref}>
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row bg-white shadow-[0_2px_20px_rgba(0,0,0,0.06)] rounded-sm overflow-hidden">
-          {stats.map((stat, i) => (
-            <StatItem
-              key={i}
-              value={stat.value}
-              suffix={stat.suffix}
-              label={stat.label}
-              animate={visible}
-              last={i === stats.length - 1}
-            />
-          ))}
-        </div>
+    <div ref={ref} className="w-full bg-white shadow-[0_2px_24px_rgba(0,0,0,0.06)]">
+      <div className="flex flex-col md:flex-row">
+        {stats.map((stat, i) => (
+          <StatItem
+            key={i}
+            value={stat.value}
+            suffix={stat.suffix}
+            label={stat.label}
+            animate={visible}
+            last={i === stats.length - 1}
+          />
+        ))}
       </div>
     </div>
   )

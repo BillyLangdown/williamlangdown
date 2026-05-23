@@ -1,11 +1,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import MagneticButton from '@/components/MagneticButton'
-import StatsBar from '@/components/StatsBar'
 
 export default function Hero() {
   return (
-    <section className="relative pt-40 pb-4 px-6 overflow-hidden bg-surface">
+    <section className="relative pt-40 pb-20 px-6 overflow-hidden bg-surface">
 
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="flex flex-col lg:flex-row items-center gap-16">
@@ -51,7 +50,6 @@ export default function Hero() {
           {/* RIGHT: IMAGE */}
           <div className="shrink-0 w-58 lg:w-full lg:max-w-xs flex flex-col items-center gap-5">
             <div className="relative w-full">
-              {/* Warm offset depth block */}
               <div className="absolute -bottom-3 -right-3 w-full h-full bg-accent/20 rounded-[12px]" />
               <Image
                 src="/images/portrait.png"
@@ -60,30 +58,20 @@ export default function Hero() {
                 width={300}
                 height={300}
                 loading="eager"
-                sizes="(max-width: 1024px) 224px, 300px"
+                sizes="300px"
               />
             </div>
             <div className="flex items-center gap-3 px-4 py-2.5 rounded-full bg-accent/8 backdrop-blur-sm">
-  <div className="relative flex h-2.5 w-2.5">
-    <span className="absolute inline-flex h-full w-full rounded-full bg-[#488710] opacity-75 animate-ping" />
-    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#488710]" />
-  </div>
-
-
-<div className="flex items-center gap-3">
- 
-
-  <p className="text-[13px] text-secondary italic">
-    Currently taking on new projects
-  </p>
-
-</div>
-</div>
+              <div className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-[#488710] opacity-75 animate-ping" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#488710]" />
+              </div>
+              <p className="text-[13px] text-secondary italic">Currently taking on new projects</p>
+            </div>
           </div>
 
         </div>
       </div>
-      <StatsBar />
     </section>
   )
 }

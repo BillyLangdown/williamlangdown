@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import illustration from '../public/images/illustration.png'
 import ScrollReveal from '@/components/ScrollReveal'
+import ClipReveal from '@/components/ClipReveal'
 
 export default function AboutSection() {
   return (
@@ -8,14 +9,20 @@ export default function AboutSection() {
       <div className="max-w-6xl mx-auto">
         <div className="border-t border-border-light" />
 
-        <div className="py-24 flex flex-col md:flex-row gap-12 items-center">
-          {/* Left: Image with warm offset depth block */}
+        <ClipReveal className="pt-16 mb-14">
+          <h2 className="text-7xl md:text-[7rem] font-heading font-bold leading-none tracking-tight text-ink">
+            About <em className="italic text-accent">me.</em>
+          </h2>
+        </ClipReveal>
+
+        <div className="pb-24 flex flex-col md:flex-row gap-12 items-center">
+          {/* Left: Abstract illustration */}
           <ScrollReveal className="flex-shrink-0 w-full md:w-1/2">
             <div className="relative">
               <div className="absolute -bottom-4 -right-4 w-full h-full bg-subtle rounded-lg" />
               <Image
                 src={illustration}
-                alt="Profile picture"
+                alt="William Langdown"
                 width={500}
                 height={500}
                 className="relative rounded-lg object-cover w-full h-full"
@@ -25,9 +32,9 @@ export default function AboutSection() {
 
           {/* Right: Text */}
           <ScrollReveal delay={150} className="flex flex-col gap-8 max-w-xl md:w-1/2">
-            <h2 className="text-4xl md:text-5xl font-heading font-bold leading-tight tracking-tight text-ink">
+            <h3 className="text-4xl md:text-5xl font-heading font-bold leading-tight tracking-tight text-ink">
               Design, Technology, and Human Behaviour
-            </h2>
+            </h3>
             <div className="flex flex-col gap-5">
               <p className="text-base text-secondary leading-[1.8]">
                 I&apos;m a UX designer and web consultant with a background in advertising
