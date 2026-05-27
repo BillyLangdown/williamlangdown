@@ -2,6 +2,18 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CTABanner from '@/components/CTABanner'
 import Link from 'next/link'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Pricing | William Langdown',
+  description: 'Website audits from £145, design and development from £1,495, and hourly support at £30/hour. Clear pricing, no surprises.',
+  alternates: { canonical: 'https://williamlangdown.com/pricing' },
+  openGraph: {
+    title: 'Pricing | William Langdown',
+    description: 'Website audits from £145, design and development from £1,495, and hourly support at £30/hour. Clear pricing, no surprises.',
+    url: 'https://williamlangdown.com/pricing',
+  },
+}
 
 const tiers = [
   {

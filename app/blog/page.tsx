@@ -6,8 +6,20 @@ import Image from 'next/image'
 import { getBlogPosts } from '@/lib/queries'
 import { urlFor } from '@/sanity/client'
 import type { BlogPost } from '@/lib/types'
+import type { Metadata } from 'next'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
+
+export const metadata: Metadata = {
+  title: 'Blog | William Langdown',
+  description: 'Thoughts on web design, UX, conversion rate optimisation, and building websites that work for your business.',
+  alternates: { canonical: 'https://williamlangdown.com/blog' },
+  openGraph: {
+    title: 'Blog | William Langdown',
+    description: 'Thoughts on web design, UX, conversion rate optimisation, and building websites that work for your business.',
+    url: 'https://williamlangdown.com/blog',
+  },
+}
 
 function BlogCard({ post }: { post: BlogPost }) {
   const publishedDate = new Date(post.publishedAt).toLocaleDateString('en-GB', {

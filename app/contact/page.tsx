@@ -1,6 +1,18 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ContactForm from '@/components/ContactForm'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Contact | William Langdown',
+  description: 'Get in touch to discuss your website. Book a free 30-minute call or send a message and I will get back to you within one business day.',
+  alternates: { canonical: 'https://williamlangdown.com/contact' },
+  openGraph: {
+    title: 'Contact | William Langdown',
+    description: 'Get in touch to discuss your website. Book a free 30-minute call or send a message and I will get back to you within one business day.',
+    url: 'https://williamlangdown.com/contact',
+  },
+}
 
 interface Props {
   searchParams: Promise<{ service?: string }>

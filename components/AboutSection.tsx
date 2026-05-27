@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import illustration from '../public/images/illustration.png'
+import illustration from '../public/images/illustrated-portrait.jpeg'
 import ScrollReveal from '@/components/ScrollReveal'
 import ClipReveal from '@/components/ClipReveal'
 

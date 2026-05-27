@@ -57,7 +57,7 @@ const portableTextComponents: PortableTextComponents = {
   },
 }
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -72,9 +72,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // no-op
   }
   if (!study) return {}
+  const ogImage = study.coverImage
+    ? urlFor(study.coverImage).width(1200).height(630).url()
+    : undefined
   return {
     title: `${study.title} | William Langdown`,
     description: study.description,
+    alternates: { canonical: `https://williamlangdown.com/case-studies/${slug}` },
+    openGraph: {
+      title: study.title,
+      description: study.description,
+      url: `https://williamlangdown.com/case-studies/${slug}`,
+      type: 'article',
+      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630 }] }),
+    },
   }
 }
 

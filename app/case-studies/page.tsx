@@ -6,8 +6,20 @@ import Image from 'next/image'
 import { getCaseStudies } from '@/lib/queries'
 import { urlFor } from '@/sanity/client'
 import type { CaseStudy } from '@/lib/types'
+import type { Metadata } from 'next'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
+
+export const metadata: Metadata = {
+  title: 'Case Studies | William Langdown',
+  description: 'Real projects with real businesses: website audits, redesigns, and builds. See the work and results.',
+  alternates: { canonical: 'https://williamlangdown.com/case-studies' },
+  openGraph: {
+    title: 'Case Studies | William Langdown',
+    description: 'Real projects with real businesses: website audits, redesigns, and builds. See the work and results.',
+    url: 'https://williamlangdown.com/case-studies',
+  },
+}
 
 function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (

@@ -58,7 +58,7 @@ const portableTextComponents: PortableTextComponents = {
   },
 }
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -73,9 +73,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // no-op
   }
   if (!post) return {}
+  const ogImage = post.coverImage
+    ? urlFor(post.coverImage).width(1200).height(630).url()
+    : undefined
   return {
     title: `${post.title} | William Langdown`,
     description: post.description,
+    alternates: { canonical: `https://williamlangdown.com/blog/${slug}` },
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      url: `https://williamlangdown.com/blog/${slug}`,
+      type: 'article',
+      publishedTime: post.publishedAt,
+      ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630 }] }),
+    },
   }
 }
 
