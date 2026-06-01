@@ -1,38 +1,23 @@
-import ScrollReveal from '@/components/ScrollReveal'
-
 export default function FrictionSection() {
   return (
-    <section className="relative py-28 px-6">
+    <section className="py-20 px-6 border-t border-border-light">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 md:gap-20">
 
-      {/* Top-right corner mark */}
-      <div className="absolute top-6 right-6 pointer-events-none" aria-hidden="true">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-          <path d="M2 2H26V26" stroke="#C17A3A" strokeWidth="1.5" strokeLinecap="square" />
-        </svg>
-      </div>
-      {/* Bottom-left corner mark */}
-      <div className="absolute bottom-6 left-6 pointer-events-none" aria-hidden="true">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-          <path d="M26 26H2V2" stroke="#C17A3A" strokeWidth="1.5" strokeLinecap="square" />
-        </svg>
-      </div>
-
-      <div className="max-w-6xl mx-auto">
-        <ScrollReveal className="mb-12">
-          <h2 className="text-6xl md:text-7xl lg:text-8xl font-heading font-semibold leading-[0.95] tracking-tight text-ink">
-            <span className="italic">Small moments<br />of doubt</span> cause{' '}
-            <span className="underline decoration-accent underline-offset-[6px]">friction.</span>
+        <div className="md:w-[38%] shrink-0">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-ink leading-snug">
+            Most small business websites lose customers before they get a chance to say hello.
           </h2>
-        </ScrollReveal>
+        </div>
 
-        <ScrollReveal delay={150} className="flex flex-col gap-6 max-w-xl ml-auto">
-          <p className="text-base text-secondary leading-relaxed">
-            The gap between what a visitor expects and what they find is what creates hesitation. That can come from messaging that isn't quite right, a structure that doesn't guide them, or pages that don't answer what they came to find.
+        <div className="flex-1 flex flex-col gap-5 justify-center">
+          <p className="text-sm text-secondary leading-relaxed">
+            The issue usually isn&apos;t the product or service — it&apos;s the website. Unclear messaging, a layout that doesn&apos;t guide visitors, missing trust signals, and pages that don&apos;t answer the questions people actually have.
           </p>
-          <p className="text-base text-secondary leading-relaxed">
-            These things rarely look like problems. But they affect whether someone understands what you offer, feels confident enough to take action, and decides to come back.
+          <p className="text-sm text-secondary leading-relaxed">
+            These things don&apos;t look like problems on the surface. But they&apos;re why people land on your site, look around for a few seconds, and leave without getting in touch.
           </p>
-        </ScrollReveal>
+        </div>
+
       </div>
     </section>
   )

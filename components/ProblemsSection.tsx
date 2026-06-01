@@ -1,38 +1,37 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import ClipReveal from '@/components/ClipReveal'
 
 const problems = [
   {
-    title: 'Visitors who don\'t convert',
+    title: 'Visitors who don\'t enquire',
     description:
-      "People browse, read, maybe even add things to their basket, then leave. Something in the journey is creating hesitation, and that hesitation adds up.",
+      "People land on your site, look around, and leave without getting in touch. Something in the journey is putting them off — and it's usually fixable.",
   },
   {
-    title: 'Missing trust signals',
+    title: 'No trust signals',
     description:
-      "A vague returns policy, no reviews, a contact page that feels thin. Customers notice these gaps even when they can't name them.",
+      "No reviews, a thin contact page, vague policies. Customers notice these gaps even when they can't name them, and they move on to someone else.",
   },
   {
-    title: 'Pages that don\'t answer the question',
+    title: 'Copy that doesn\'t sell',
     description:
-      "Good copy and imagery do the job of a good salesperson. Without them, customers are left guessing, and guessing rarely leads to buying.",
+      "If your website doesn't clearly explain what you do, who it's for, and why you're the right choice, visitors won't stick around long enough to find out.",
   },
   {
-    title: 'Navigation that slows people down',
+    title: 'Navigation that gets in the way',
     description:
-      'If someone has to stop and think about where to go, that\'s a moment of friction. Too many of those moments and they leave.',
+      'If someone has to think about where to go next, that\'s friction. Too much friction and they leave. Good structure makes the next step obvious.',
   },
   {
-    title: 'A design that feels off-brand',
+    title: 'A design that doesn\'t reflect your quality',
     description:
-      'When a website looks like it could belong to anyone, it\'s harder to build confidence. Design shapes how people feel about you before they read a word.',
+      'If your website looks like it could belong to anyone, it\'s harder to build confidence. Design shapes how people feel about you before they read a word.',
   },
   {
-    title: 'Technical problems eroding trust',
+    title: 'Technical issues quietly costing you',
     description:
-      'Slow load times, broken layouts on mobile, images that fail to appear. These things happen quietly and cost more than most people realise.',
+      'Slow load times, broken mobile layouts, images that don\'t load. These happen quietly and cost more in lost business than most people realise.',
   },
 ]
 
@@ -55,31 +54,33 @@ export default function ProblemsSection() {
   }, [])
 
   return (
-    <section className="py-24 px-6 bg-subtle">
+    <section className="py-20 px-6 bg-subtle">
       <div className="max-w-6xl mx-auto">
-        <ClipReveal className="mb-14">
-          <h2 className="text-7xl md:text-[7rem] font-heading font-bold leading-none tracking-tight text-ink">
-            Problems I Fix
+
+        <div className="mb-12">
+          <p className="text-xs font-medium uppercase tracking-widest text-accent mb-3">Common problems</p>
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">
+            Sound familiar?
           </h2>
-        </ClipReveal>
+        </div>
 
         <div ref={listRef} className="grid grid-cols-1 md:grid-cols-2">
           {problems.map((problem, i) => (
             <div
               key={problem.title}
-              className={`group border-t border-border-light py-10 ${
-                i % 2 === 0 ? 'md:pr-16' : 'md:pl-16 md:border-l md:border-border-light'
+              className={`border-t border-border-light py-8 ${
+                i % 2 === 0 ? 'md:pr-14' : 'md:pl-14 md:border-l md:border-border-light'
               }`}
               style={{
                 opacity: visible ? 1 : 0,
-                transform: visible ? 'translateY(0)' : 'translateY(20px)',
+                transform: visible ? 'translateY(0)' : 'translateY(16px)',
                 transitionProperty: 'opacity, transform',
-                transitionDuration: '0.6s',
+                transitionDuration: '0.5s',
                 transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-                transitionDelay: `${i * 60}ms`,
+                transitionDelay: `${i * 50}ms`,
               }}
             >
-              <h3 className="text-xl md:text-2xl font-heading font-semibold text-ink group-hover:text-accent transition-colors duration-200 mb-3 leading-snug">
+              <h3 className="text-base font-semibold text-ink mb-2">
                 {problem.title}
               </h3>
               <p className="text-sm text-secondary leading-relaxed">
@@ -88,6 +89,7 @@ export default function ProblemsSection() {
             </div>
           ))}
         </div>
+
       </div>
     </section>
   )

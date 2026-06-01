@@ -1,137 +1,94 @@
-import { Link } from 'next-view-transitions'
-import ScrollReveal from '@/components/ScrollReveal'
+import Link from 'next/link'
 
 const services = [
   {
-    id: 'audit',
-    title: 'Website Audits',
+    number: '01',
+    title: 'Website Audit',
     price: 'From £145',
     description:
-      "A thorough review of your website covering UX, messaging, conversion friction, structure, responsiveness, trust signals, performance, and SEO basics. You get a clear written report and a short video walkthrough of what I found and where to focus first.",
-    flip: false,
+      "A thorough review of your website covering messaging, UX, conversion friction, trust signals, responsiveness, performance, and SEO basics. You get a clear written report and a short video walkthrough so you know exactly what to fix and where to start.",
+    href: '/pricing',
   },
   {
-    id: 'design',
+    number: '02',
     title: 'Website Design & Development',
     price: 'From £1,495',
     description:
-      "A complete website designed and built around your customers and what you want them to do. Up to five core pages, fully responsive, with contact forms, basic SEO setup, analytics, and two rounds of refinements before launch.",
-    flip: true,
+      "A complete website designed and built around your customers and what you want them to do. Up to five core pages, fully responsive, with contact forms, basic SEO, analytics, and two rounds of revisions before launch.",
+    href: '/pricing',
   },
   {
-    id: 'support',
+    number: '03',
     title: 'Website Support & Improvements',
-    price: '£30/hour',
+    price: '£30 / hour',
     description:
-      "Ongoing help with your existing website. Whether you need copy changes, new pages, a refresh to specific sections, or regular maintenance, I can pick things up on an hourly basis without the overhead of a retainer.",
-    flip: false,
+      "Ongoing help with your existing website. Copy changes, new pages, section refreshes, or regular maintenance — picked up on an hourly basis without the overhead of a retainer.",
+    href: '/pricing',
   },
 ]
 
-function AuditShape() {
-  return (
-    <div className="w-full aspect-[4/3] rounded-[10px] overflow-hidden flex items-center justify-center" style={{ background: '#F5EDE0' }}>
-      <svg viewBox="0 0 400 300" fill="none" className="w-full h-full">
-        {/* Lens */}
-        <circle cx="168" cy="130" r="78" stroke="#C17A3A" strokeWidth="36" />
-        {/* Handle */}
-        <line x1="224" y1="188" x2="318" y2="260" stroke="#C17A3A" strokeWidth="36" strokeLinecap="round" />
-      </svg>
-    </div>
-  )
-}
-
-function DesignShape() {
-  return (
-    <div className="w-full aspect-[4/3] rounded-[10px] overflow-hidden flex items-center justify-center" style={{ background: '#ECEAE5' }}>
-      <svg viewBox="0 0 400 300" fill="none" className="w-full h-full">
-        {/* Three staggered horizontal bars */}
-        <rect x="60" y="95" width="230" height="30" rx="15" fill="#1A1A1A" />
-        <rect x="110" y="145" width="180" height="30" rx="15" fill="#1A1A1A" opacity="0.55" />
-        <rect x="60" y="195" width="270" height="30" rx="15" fill="#1A1A1A" opacity="0.25" />
-      </svg>
-    </div>
-  )
-}
-
-function SupportShape() {
-  return (
-    <div className="w-full aspect-[4/3] rounded-[10px] overflow-hidden flex items-center justify-center" style={{ background: '#EDE8DF' }}>
-      <svg viewBox="0 0 400 300" fill="none" className="w-full h-full">
-        {/* Horizontal bar */}
-        <rect x="88" y="132" width="224" height="36" rx="18" fill="#C17A3A" />
-        {/* Vertical bar */}
-        <rect x="182" y="48" width="36" height="204" rx="18" fill="#C17A3A" />
-      </svg>
-    </div>
-  )
-}
-
-const shapes: Record<string, React.FC> = {
-  audit: AuditShape,
-  design: DesignShape,
-  support: SupportShape,
-}
-
 export default function ServicesSection() {
   return (
-    <section id="services" className="py-24 px-6 bg-surface">
+    <section id="services" className="py-20 px-6 bg-surface border-t border-border-light">
       <div className="max-w-6xl mx-auto">
 
-        <ScrollReveal className="mb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold leading-[1.02] tracking-tight text-ink max-w-2xl">
-            Three ways I can help
-          </h2>
+        <div className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-widest text-accent mb-3">What I do</p>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">
+              Three ways I can help
+            </h2>
+          </div>
           <Link
             href="/pricing"
             className="text-sm text-secondary hover:text-ink transition-colors underline underline-offset-4 shrink-0"
           >
-            View pricing
+            View all pricing
           </Link>
-        </ScrollReveal>
+        </div>
 
         <div className="flex flex-col">
-          {services.map((service, i) => {
-            const Shape = shapes[service.id]
-            return (
-              <ScrollReveal key={service.id} delay={i * 80}>
-                <div
-                  className={`group border-t border-border-light py-12 flex flex-col gap-10 ${
-                    service.flip ? 'md:flex-row-reverse' : 'md:flex-row'
-                  } md:gap-16 md:items-center`}
-                >
-                  {/* Shape */}
-                  <div className="w-full md:w-[40%] shrink-0">
-                    <Shape />
-                  </div>
-
-                  {/* Text */}
-                  <div className="relative flex-1 flex flex-col gap-5 overflow-hidden">
-                    <div>
-                      <p className="text-xs text-tertiary uppercase tracking-widest mb-3">{service.price}</p>
-                      <h3 className="text-3xl md:text-4xl font-heading font-bold text-ink tracking-tight leading-tight">
-                        {service.title}
-                      </h3>
-                    </div>
-                    <p className="text-sm text-secondary leading-relaxed max-w-sm">
-                      {service.description}
-                    </p>
-                    <Link
-                      href="/pricing"
-                      className="inline-flex items-center gap-2 text-sm text-accent hover:text-accent/80 underline underline-offset-4 transition-colors"
-                    >
-                      See pricing
-                      <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                        <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </Link>
-                  </div>
+          {services.map((service) => (
+            <div key={service.number} className="border-t border-border-light py-10 flex flex-col md:flex-row md:items-start gap-6 md:gap-12">
+              <span className="text-xs font-medium text-tertiary tabular-nums shrink-0 mt-0.5">{service.number}</span>
+              <div className="flex-1 flex flex-col md:flex-row gap-6 md:gap-12">
+                <div className="md:w-[220px] shrink-0">
+                  <h3 className="text-lg font-semibold text-ink leading-snug mb-1">{service.title}</h3>
+                  <p className="text-sm font-medium text-accent">{service.price}</p>
                 </div>
-              </ScrollReveal>
-            )
-          })}
-
+                <div className="flex-1 flex flex-col gap-4">
+                  <p className="text-sm text-secondary leading-relaxed">{service.description}</p>
+                  <Link
+                    href={service.href}
+                    className="inline-flex items-center gap-1.5 text-sm text-ink hover:text-accent transition-colors font-medium"
+                  >
+                    See pricing
+                    <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                      <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
           <div className="border-t border-border-light" />
+        </div>
+
+        {/* Booking systems callout */}
+        <div className="mt-10 p-6 bg-subtle border border-border-light rounded-sm flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex-1">
+            <p className="text-sm font-semibold text-ink mb-1">Also building custom booking systems</p>
+            <p className="text-sm text-secondary leading-relaxed">
+              For service businesses that need online bookings — class scheduling, appointment booking, and more.
+              Built to fit your business, not the other way around.
+            </p>
+          </div>
+          <Link
+            href="/contact"
+            className="shrink-0 inline-flex items-center gap-2 bg-ink text-white text-sm px-5 py-2.5 rounded-sm hover:bg-ink/85 transition-colors whitespace-nowrap"
+          >
+            Find out more
+          </Link>
         </div>
 
       </div>
