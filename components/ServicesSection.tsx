@@ -1,4 +1,8 @@
+'use client'
+
 import Link from 'next/link'
+import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 
 const services = [
   {
@@ -25,11 +29,30 @@ const services = [
 ]
 
 export default function ServicesSection() {
+  const [visible, setVisible] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect() } },
+      { threshold: 0.1 }
+    )
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section id="services" className="py-20 px-6 bg-surface border-t border-border-light">
+    <section id="services" ref={sectionRef} className="py-20 px-6 bg-surface border-t border-border-light">
       <div className="max-w-6xl mx-auto">
 
-        <div className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div
+          className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'none' : 'translateY(12px)',
+            transition: 'opacity 0.5s ease, transform 0.5s ease',
+          }}
+        >
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">
             What I do
           </h2>
@@ -42,8 +65,15 @@ export default function ServicesSection() {
         </div>
 
         <div className="flex flex-col">
-          {services.map((service) => (
-            <div key={service.title} className="border-t border-border-light py-10 flex flex-col md:flex-row md:items-start gap-6 md:gap-12">
+          {services.map((service, i) => (
+            <div
+              key={service.title}
+              className="border-t border-border-light py-10 flex flex-col md:flex-row md:items-start gap-6 md:gap-12"
+              style={{
+                clipPath: visible ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)',
+                transition: `clip-path 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${80 + i * 130}ms`,
+              }}
+            >
               <div className="flex-1 flex flex-col md:flex-row gap-6 md:gap-12">
                 <div className="md:w-[220px] shrink-0">
                   <h3 className="text-lg font-semibold text-ink leading-snug mb-1">{service.title}</h3>
@@ -64,22 +94,48 @@ export default function ServicesSection() {
               </div>
             </div>
           ))}
-          <div className="border-t border-border-light" />
+          <div
+            className="border-t border-border-light"
+            style={{
+              clipPath: visible ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)',
+              transition: `clip-path 0.75s cubic-bezier(0.16, 1, 0.3, 1) ${80 + services.length * 130}ms`,
+            }}
+          />
         </div>
 
-        <div className="mt-10 p-6 bg-subtle border border-border-light rounded-sm flex flex-col sm:flex-row sm:items-center gap-4">
-          <div className="flex-1">
-            <p className="text-sm font-semibold text-ink mb-1">Also building custom booking systems</p>
-            <p className="text-sm text-secondary leading-relaxed">
-              For businesses that need customers to book online. Class schedules, appointment slots, custom flows. Built around how you actually work.
-            </p>
+        {/* Slick Booking */}
+        <div
+          className="mt-10 rounded-sm overflow-hidden"
+          style={{
+            background: '#0F172A',
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'none' : 'translateY(16px)',
+            transition: `opacity 0.6s ease ${80 + services.length * 130 + 80}ms, transform 0.6s ease ${80 + services.length * 130 + 80}ms`,
+          }}
+        >
+          <div className="p-6 flex flex-col sm:flex-row sm:items-center gap-6">
+            <div className="flex-1">
+              <div className="mb-3">
+                <Image
+                  src="/images/slick-booking.png"
+                  alt="Slick Booking"
+                  height={36}
+                  width={140}
+                  className="object-contain object-left"
+                />
+              </div>
+              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                My own booking platform built for businesses that need customers to book online. Class schedules, appointment slots, custom flows — built around how you actually work.
+              </p>
+            </div>
+            <Link
+              href="/contact"
+              className="shrink-0 inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-sm transition-colors whitespace-nowrap border"
+              style={{ color: 'rgba(255,255,255,0.85)', borderColor: 'rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.06)' }}
+            >
+              Find out more
+            </Link>
           </div>
-          <Link
-            href="/contact"
-            className="shrink-0 inline-flex items-center gap-2 bg-ink text-white text-sm px-5 py-2.5 rounded-sm hover:bg-ink/85 transition-colors whitespace-nowrap"
-          >
-            Find out more
-          </Link>
         </div>
 
       </div>

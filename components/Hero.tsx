@@ -147,12 +147,15 @@ export default function Hero() {
                   <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </a>
-              <Link
-                href="/case-studies"
+              <button
+                onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
                 className="inline-flex justify-center items-center gap-2 border border-border-light text-ink text-sm px-6 py-3.5 rounded-sm"
               >
-                See my work
-              </Link>
+                My services
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                  <path d="M7 1v12M1 7l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
             </div>
           </div>
 
@@ -198,9 +201,15 @@ export default function Hero() {
                   <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </a>
-              <Link href="/case-studies" className="inline-flex items-center gap-2 border border-border-light text-ink text-sm px-6 py-3 rounded-sm hover:bg-subtle transition-colors">
-                See my work
-              </Link>
+              <button
+                onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+                className="inline-flex items-center gap-2 border border-border-light text-ink text-sm px-6 py-3 rounded-sm hover:bg-subtle transition-colors"
+              >
+                My services
+                <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                  <path d="M7 1v12M1 7l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
             </div>
             <p className="font-sans text-sm font-bold italic" style={{ color: '#1e3a8a' }}>Just me — no agency, start to finish.</p>
           </div>
