@@ -157,15 +157,15 @@ export default function ServicesSection() {
               />
             </div>
             <p className="text-sm text-center leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              My own booking software for small businesses. Customers book online, you confirm from your phone.
+              My own booking software. Customers book online, you confirm from your phone.
             </p>
             <div className="flex justify-center">
               <Link
-                href="/contact"
+                href="/slick-booking"
                 className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-sm transition-colors border"
                 style={{ color: 'rgba(255,255,255,0.85)', borderColor: 'rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.06)' }}
               >
-                Message me
+                Find out more
               </Link>
             </div>
           </div>

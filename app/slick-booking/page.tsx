@@ -75,15 +75,15 @@ export default function SlickBookingPage() {
             <p className="text-sm leading-relaxed mb-8" style={{ color: 'rgba(255,255,255,0.5)' }}>
               Booking software for small businesses. Customers book, you confirm from your phone.
             </p>
-            <a
-              href="mailto:hello@williamlangdown.com?subject=Slick Booking"
+            <Link
+              href="/contact"
               className="inline-flex items-center gap-2 bg-white text-[#0F172A] text-sm px-5 py-3 rounded-sm font-semibold hover:bg-white/90 transition-colors"
             >
               Get in touch
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
                 <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </a>
+            </Link>
           </div>
         </section>
 
@@ -136,12 +136,12 @@ export default function SlickBookingPage() {
               Not publicly available yet. Drop me a message and I will fill you in.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a
-                href="mailto:hello@williamlangdown.com?subject=Slick Booking"
+              <Link
+                href="/contact"
                 className="inline-flex items-center gap-2 bg-white text-[#0F172A] text-sm px-5 py-3 rounded-sm font-semibold hover:bg-white/90 transition-colors"
               >
                 Message me
-              </a>
+              </Link>
               <Link
                 href="/"
                 className="inline-flex items-center text-sm px-5 py-3 rounded-sm border transition-colors"
