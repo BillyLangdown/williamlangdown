@@ -4,46 +4,24 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 
 export const metadata = {
-  title: 'Slick Booking — Online Booking Software | William Langdown',
-  description: 'Slick Booking is a custom online booking platform for businesses — class schedules, appointment slots, and admin tools, all built around how you actually work.',
+  title: 'Slick Booking | William Langdown',
+  description: 'Slick Booking is online booking software for small businesses. Take bookings, confirm them from your phone, and cut out the back-and-forth.',
 }
 
-const features = [
+const points = [
   {
-    title: 'Online booking for your customers',
-    description: 'A clean, fast booking page your customers can use on any device. No logins required. Pick a slot, fill in their details, done.',
+    title: 'Runs on your phone, no app needed',
+    body: 'You manage your bookings from your phone or laptop, whichever is closer. Customers book from theirs. Nobody downloads anything.',
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <rect x="3" y="4" width="14" height="13" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M7 2v4M13 2v4M3 9h14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <rect x="6" y="2" width="8" height="16" rx="2" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M9.5 14.5h1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
       </svg>
     ),
   },
   {
-    title: 'Class schedules or appointment slots',
-    description: 'Whether you run fixed classes with limited spaces, or one-to-one appointments — Slick handles both. Set your availability, and it takes care of the rest.',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M10 6v4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Admin dashboard',
-    description: "See all your bookings in one place. Confirm or deny requests, manage availability, add resources like staff or locations — all from a simple dashboard.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <rect x="2.5" y="2.5" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5" />
-        <rect x="11.5" y="2.5" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5" />
-        <rect x="2.5" y="11.5" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5" />
-        <rect x="11.5" y="11.5" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Automated confirmation emails',
-    description: 'When a booking comes in, you get an email to confirm or decline. Your customer gets a confirmation automatically — no manual follow-up needed.',
+    title: 'Confirm bookings straight from your inbox',
+    body: 'When a customer books, you get an email with all the details. One click to confirm, one click to decline. No logging in. Or turn on auto-confirm and it handles itself.',
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
         <rect x="2.5" y="5" width="15" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
@@ -52,22 +30,21 @@ const features = [
     ),
   },
   {
-    title: 'Built for your business, not a template',
-    description: "Every business works differently. Slick Booking is configured around how you actually run — your slot types, your resources, your flow. Not a generic out-of-the-box system.",
+    title: 'No technical knowledge needed',
+    body: "You set up your availability, share your booking link, and that's it. It's built for people who want to run their business, not figure out software.",
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <path d="M10 2l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+        <circle cx="10" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M4 17c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
       </svg>
     ),
   },
   {
-    title: 'Hosted and managed',
-    description: 'No software to install, no servers to manage. I handle the hosting, updates, and technical side. You just run your business.',
+    title: 'Cut out the back and forth',
+    body: 'No more text chains trying to pin down a time. No more reply-all emails. Customers pick a slot, you get notified, everyone moves on.',
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <path d="M5 9a5 5 0 0110 0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <rect x="4" y="9" width="12" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M10 13v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M4 6h12M4 10h8M4 14h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
       </svg>
     ),
   },
@@ -81,7 +58,7 @@ export default function SlickBookingPage() {
 
         {/* Hero */}
         <section className="pt-32 pb-20 px-6" style={{ background: '#0F172A' }}>
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-2xl mx-auto text-center">
             <div className="flex justify-center mb-8">
               <Image
                 src="/images/slick-booking.png"
@@ -91,21 +68,24 @@ export default function SlickBookingPage() {
                 className="object-contain"
               />
             </div>
-            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border text-xs font-medium uppercase tracking-wider" style={{ borderColor: 'rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.5)' }}>
+            <div
+              className="inline-flex items-center gap-2 mb-8 px-3 py-1.5 rounded-full border text-xs font-medium uppercase tracking-wider"
+              style={{ borderColor: 'rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.45)' }}
+            >
               <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
               Coming soon
             </div>
-            <h1 className="text-3xl md:text-5xl font-heading font-bold text-white mb-6 leading-tight">
-              Online booking that works the way your business does
+            <h1 className="text-3xl md:text-4xl font-heading font-bold text-white mb-5 leading-tight">
+              Take bookings online and cut out the back and forth
             </h1>
-            <p className="text-base md:text-lg leading-relaxed mb-10" style={{ color: 'rgba(255,255,255,0.55)' }}>
-              Slick Booking is a booking platform I&apos;m building for businesses that need more than a generic scheduling tool. Class schedules, appointment slots, admin controls, and automated emails — all set up around how you actually run.
+            <p className="text-sm md:text-base leading-relaxed mb-10" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              Slick Booking is booking software for small businesses. Customers book online, you confirm from your phone, and everyone gets on with their day.
             </p>
             <a
-              href="mailto:hello@williamlangdown.com?subject=Slick Booking enquiry"
+              href="mailto:hello@williamlangdown.com?subject=Slick Booking"
               className="inline-flex items-center gap-2 bg-white text-[#0F172A] text-sm px-6 py-3.5 rounded-sm font-semibold hover:bg-white/90 transition-colors"
             >
-              Get in touch to find out more
+              Message me to find out more
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
                 <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -113,66 +93,58 @@ export default function SlickBookingPage() {
           </div>
         </section>
 
-        {/* Features */}
+        {/* Key points */}
         <section className="py-20 px-6 bg-surface">
-          <div className="max-w-5xl mx-auto">
-            <div className="mb-12 text-center">
-              <h2 className="text-2xl md:text-3xl font-heading font-bold text-ink mb-3">What it does</h2>
-              <p className="text-sm text-secondary">Built from the ground up — no third-party tools bolted together.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {features.map((feature) => (
-                <div key={feature.title} className="bg-subtle border border-border-light rounded-sm p-6">
-                  <div className="w-9 h-9 rounded-sm bg-[#0F172A] text-white flex items-center justify-center mb-4">
-                    {feature.icon}
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-heading font-bold text-ink mb-12">How it works</h2>
+            <div className="flex flex-col">
+              {points.map((point, i) => (
+                <div key={point.title} className={`flex gap-5 py-8 ${i < points.length - 1 ? 'border-b border-border-light' : ''}`}>
+                  <div className="w-10 h-10 shrink-0 rounded-sm bg-[#0F172A] text-white flex items-center justify-center mt-0.5">
+                    {point.icon}
                   </div>
-                  <h3 className="text-sm font-semibold text-ink mb-2 leading-snug">{feature.title}</h3>
-                  <p className="text-sm text-secondary leading-relaxed">{feature.description}</p>
+                  <div>
+                    <h3 className="text-base font-semibold text-ink mb-2">{point.title}</h3>
+                    <p className="text-sm text-secondary leading-relaxed">{point.body}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Who it's for */}
-        <section className="py-20 px-6 bg-subtle border-t border-border-light">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-ink mb-6">Who it&apos;s for</h2>
-            <p className="text-base text-secondary leading-relaxed mb-4">
-              Slick Booking is built for small businesses that need a professional booking system without the enterprise price tag or the complexity of something like Bookwhen or Acuity.
-            </p>
-            <p className="text-base text-secondary leading-relaxed mb-4">
-              If you run a training school, a studio, a clinic, or any service business where customers need to book a time — and you&apos;re currently managing it by email, phone, or a cobbled-together workaround — this is for you.
-            </p>
-            <p className="text-base text-secondary leading-relaxed">
-              It&apos;s currently in development. The first version is built specifically for motorbike training schools, with more business types coming soon.
+        {/* Coming soon note */}
+        <section className="py-16 px-6 bg-subtle border-t border-border-light">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-xl font-heading font-bold text-ink mb-3">What&apos;s coming</h2>
+            <p className="text-sm text-secondary leading-relaxed max-w-xl">
+              The first version is being built for motorbike training schools. WhatsApp booking confirmations are on the roadmap, so you can manage everything without leaving your phone.
             </p>
           </div>
         </section>
 
         {/* CTA */}
         <section className="py-20 px-6 border-t border-border-light" style={{ background: '#0F172A' }}>
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-4">Interested?</h2>
-            <p className="text-sm leading-relaxed mb-8" style={{ color: 'rgba(255,255,255,0.5)' }}>
-              Slick Booking isn&apos;t publicly available yet, but I&apos;m taking on early businesses to set up on the platform. If you think it could work for you, drop me a message and I&apos;ll tell you more.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="max-w-4xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+              <h2 className="text-xl md:text-2xl font-heading font-bold text-white mb-2">Want to know more?</h2>
+              <p className="text-sm" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                Not publicly available yet. Message me and I will tell you more.
+              </p>
+            </div>
+            <div className="flex gap-3 shrink-0">
               <a
-                href="mailto:hello@williamlangdown.com?subject=Slick Booking enquiry"
-                className="inline-flex justify-center items-center gap-2 bg-white text-[#0F172A] text-sm px-6 py-3.5 rounded-sm font-semibold hover:bg-white/90 transition-colors"
+                href="mailto:hello@williamlangdown.com?subject=Slick Booking"
+                className="inline-flex items-center gap-2 bg-white text-[#0F172A] text-sm px-5 py-3 rounded-sm font-semibold hover:bg-white/90 transition-colors whitespace-nowrap"
               >
                 Message me
-                <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                  <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
               </a>
               <Link
                 href="/"
-                className="inline-flex justify-center items-center gap-2 border text-sm px-6 py-3.5 rounded-sm transition-colors"
-                style={{ color: 'rgba(255,255,255,0.6)', borderColor: 'rgba(255,255,255,0.15)' }}
+                className="inline-flex items-center gap-2 text-sm px-5 py-3 rounded-sm border transition-colors whitespace-nowrap"
+                style={{ color: 'rgba(255,255,255,0.55)', borderColor: 'rgba(255,255,255,0.15)' }}
               >
-                Back to main site
+                Back to site
               </Link>
             </div>
           </div>
