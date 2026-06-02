@@ -29,79 +29,89 @@ const problems = [
   },
 ]
 
-const CARD_SCROLL = 160
-const TOTAL_SCROLL = (problems.length - 1) * CARD_SCROLL
-
 export default function ProblemsSection() {
-  const outerRef = useRef<HTMLDivElement>(null)
-  const listRef = useRef<HTMLDivElement>(null)
-  const [cardProgress, setCardProgress] = useState(0)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLElement>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
   const [visible, setVisible] = useState(false)
 
-  // Mobile: scroll-driven card progress
-  useEffect(() => {
-    const onScroll = () => {
-      if (!outerRef.current) return
-      const rect = outerRef.current.getBoundingClientRect()
-      const scrolled = Math.max(0, -rect.top)
-      setCardProgress(Math.min(problems.length - 1, scrolled / CARD_SCROLL))
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  const onCardScroll = () => {
+    const el = scrollRef.current
+    if (!el) return
+    const step = el.offsetWidth - 48
+    setActiveIndex(Math.min(Math.round(el.scrollLeft / step), problems.length - 1))
+  }
 
-  // Desktop: intersection observer fade-in
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect() } },
-      { threshold: 0.1 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.05 }
     )
-    if (listRef.current) observer.observe(listRef.current)
+    if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
   }, [])
 
-  const activeIndex = Math.floor(cardProgress)
-  const exitProgress = cardProgress - activeIndex
-
-  const getCardStyle = (i: number): React.CSSProperties => {
-    if (i < activeIndex) {
-      return { transform: 'translateX(-115%) rotate(-6deg)', zIndex: 0, pointerEvents: 'none', opacity: 0 }
-    }
-    if (i === activeIndex && i < problems.length - 1) {
-      return {
-        transform: `translateX(${-exitProgress * 115}%) rotate(${-exitProgress * 6}deg)`,
-        zIndex: problems.length - i,
-        opacity: 1,
-      }
-    }
-    const d = i - activeIndex
-    return {
-      transform: `translateY(${d * 9}px) scale(${1 - d * 0.025})`,
-      zIndex: problems.length - i,
-      opacity: d > 2 ? 0 : 1,
-    }
-  }
-
   return (
-    <section className="bg-subtle">
+    <section ref={sectionRef} className="bg-subtle">
 
-      {/* ── MOBILE: stacked cards peeling off on scroll ── */}
-      <div ref={outerRef} className="md:hidden" style={{ height: `calc(100svh + ${TOTAL_SCROLL}px)` }}>
-        <div className="sticky top-0 overflow-hidden flex flex-col pt-24 pb-8 px-6" style={{ height: '100svh' }}>
+      {/* ── MOBILE: horizontal snap cards on dot-grid canvas ── */}
+      <div className="md:hidden pt-10 pb-8">
+        <div className="mb-6 px-6 text-center">
+          <h2 className="text-3xl font-heading font-bold text-ink">Common problems</h2>
+          <p className="text-sm text-secondary mt-1">Which of these is you?</p>
+        </div>
 
-          <h2 className="text-3xl font-heading font-bold text-ink mb-6">What I see most</h2>
+        {/* Textured scroll track */}
+        <div
+          className="relative"
+          style={{
+            background: 'radial-gradient(circle, rgba(15,23,42,0.1) 1.5px, transparent 1.5px)',
+            backgroundSize: '22px 22px',
+            backgroundColor: '#e8edf3',
+          }}
+        >
+          {/* Left/right fade edges */}
+          <div
+            className="absolute left-0 top-0 bottom-0 w-10 z-10 pointer-events-none"
+            style={{ background: 'linear-gradient(to right, #e8edf3, transparent)' }}
+          />
+          <div
+            className="absolute right-0 top-0 bottom-0 w-10 z-10 pointer-events-none"
+            style={{ background: 'linear-gradient(to left, #e8edf3, transparent)' }}
+          />
 
-          {/* Card stack — fixed height so cards don't stretch to fill viewport */}
-          <div className="relative" style={{ height: '280px' }}>
+          {/* Cards */}
+          <div
+            ref={scrollRef}
+            onScroll={onCardScroll}
+            style={{
+              display: 'flex',
+              overflowX: 'auto',
+              scrollSnapType: 'x mandatory',
+              scrollPaddingLeft: '24px',
+              paddingLeft: '24px',
+              paddingRight: '24px',
+              paddingTop: '28px',
+              paddingBottom: '28px',
+              gap: '16px',
+              scrollbarWidth: 'none',
+              WebkitOverflowScrolling: 'touch',
+            } as React.CSSProperties}
+          >
             {problems.map((problem, i) => (
               <div
                 key={problem.title}
-                className="absolute inset-0"
-                style={getCardStyle(i)}
+                style={{ flexShrink: 0, width: 'calc(100vw - 64px)', scrollSnapAlign: 'start' }}
               >
-                <div className="bg-white border border-border-light rounded-sm p-6 h-full flex flex-col relative overflow-hidden shadow-sm">
-                  {/* Ghost number */}
+                <div
+                  className="bg-white border border-border-light rounded-sm p-6 relative overflow-hidden shadow-sm"
+                  style={{ minHeight: '195px' }}
+                >
                   <span
                     className="absolute -bottom-3 -right-1 font-heading font-bold leading-none select-none pointer-events-none"
                     style={{ fontSize: '100px', color: '#f1f5f9' }}
@@ -121,31 +131,31 @@ export default function ProblemsSection() {
               </div>
             ))}
           </div>
+        </div>
 
-          {/* Progress dots */}
-          <div className="flex gap-1.5 mt-6 shrink-0">
-            {problems.map((_, i) => (
-              <div
-                key={i}
-                className="h-1.5 rounded-full transition-all duration-300"
-                style={{
-                  width: i === activeIndex ? '24px' : '6px',
-                  backgroundColor: i < activeIndex ? '#94A3B8' : i === activeIndex ? '#2563EB' : '#E2E8F0',
-                }}
-              />
-            ))}
-          </div>
-
+        {/* Progress dots */}
+        <div className="flex gap-1.5 mt-4 px-6">
+          {problems.map((_, i) => (
+            <div
+              key={i}
+              className="h-1.5 rounded-full transition-all duration-300"
+              style={{
+                width: i === activeIndex ? '24px' : '6px',
+                backgroundColor: i === activeIndex ? '#2563EB' : '#E2E8F0',
+              }}
+            />
+          ))}
         </div>
       </div>
 
-      {/* ── DESKTOP: existing grid ── */}
+      {/* ── DESKTOP: grid ── */}
       <div className="hidden md:block py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">What I see most</h2>
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">Common problems</h2>
+            <p className="text-sm text-secondary mt-1">Which of these is you?</p>
           </div>
-          <div ref={listRef} className="grid grid-cols-1 md:grid-cols-2">
+          <div className="grid grid-cols-1 md:grid-cols-2">
             {problems.map((problem, i) => (
               <div
                 key={problem.title}

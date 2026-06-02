@@ -13,6 +13,7 @@ export default function Hero() {
   const [desktopVisible, setDesktopVisible] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
+  const heroScrollRef = useRef<HTMLDivElement>(null)
   const [ripples, setRipples] = useState<Ripple[]>([])
   const rippleId = useRef(0)
   const lastRipple = useRef(0)
@@ -20,16 +21,17 @@ export default function Hero() {
   useEffect(() => {
     const raf = requestAnimationFrame(() => setDesktopVisible(true))
 
+    const el = heroScrollRef.current
     const onScroll = () => {
-      const p = Math.min(1, Math.max(0, window.scrollY / SCROLL_RANGE))
+      if (!el) return
+      const p = Math.min(1, Math.max(0, el.scrollTop / SCROLL_RANGE))
       setScrollProgress(p)
     }
-
-    window.addEventListener('scroll', onScroll, { passive: true })
+    el?.addEventListener('scroll', onScroll, { passive: true })
 
     return () => {
       cancelAnimationFrame(raf)
-      window.removeEventListener('scroll', onScroll)
+      el?.removeEventListener('scroll', onScroll)
     }
   }, [])
 
@@ -52,7 +54,12 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-surface lg:overflow-hidden"
+      className="relative lg:overflow-hidden"
+      style={{
+        backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+        backgroundSize: '22px 22px',
+        backgroundColor: '#F8FAFC',
+      }}
       onMouseMove={spawnRipple}
     >
       {ripples.map(r => (
@@ -64,26 +71,40 @@ export default function Hero() {
       ))}
 
       {/* ── MOBILE HERO ──
-          Outer div is 100svh + SCROLL_RANGE tall so there's real scroll space.
-          Inner div is sticky so the content stays pinned at the top while scroll
-          drives the horizontal animation. Works forward and backward infinitely. */}
-      <div className="lg:hidden" style={{ height: `calc(100svh + ${SCROLL_RANGE}px)` }}>
+          Scroll container snaps between the two panel states.
+          scrollTop drives the horizontal slide animation. */}
+      <div
+        ref={heroScrollRef}
+        className="lg:hidden"
+        style={{
+          height: '100svh',
+          overflowY: 'scroll',
+          scrollSnapType: 'y mandatory',
+          scrollbarWidth: 'none',
+        }}
+      >
+        {/* snap point 1: text panel (scrollTop = 0) */}
+        <div style={{ height: 0, scrollSnapAlign: 'start' }} />
         <div className="sticky top-0 overflow-hidden" style={{ height: '100svh' }}>
 
           {/* Portrait + badge — enters from right as user scrolls */}
           <div
-            className="absolute inset-0 bg-surface z-10 flex flex-col items-center justify-center"
+            className="absolute inset-0 z-10 flex flex-col items-center justify-center"
             style={{
               padding: '20px',
               paddingTop: '84px',
               transform: `translateX(${portraitX}%)`,
+              backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+              backgroundSize: '22px 22px',
+              backgroundColor: '#F8FAFC',
             }}
           >
             {/* Wrapper without overflow-hidden so the Me arrow can sit outside the image */}
             <div className="relative" style={{ maxWidth: '260px', width: '100%' }}>
+
               <div
                 className="relative w-full overflow-hidden rounded-[4px] shadow-lg"
-                style={{ aspectRatio: '801 / 1022' }}
+                style={{ aspectRatio: '801 / 1022', borderLeft: '3px solid #2563EB' }}
               >
                 <Image
                   src="/images/portrait.png"
@@ -108,15 +129,25 @@ export default function Hero() {
               </div>
             </div>
 
-            <p className="mt-10 font-sans text-base font-bold italic" style={{ color: '#0f172a' }}>Just me, no agency, start to finish.</p>
+            <p className="mt-10 font-sans text-base font-medium " style={{ color: '#0f172a' }}>Just me, no agency, start to finish.</p>
+
+            {/* Down arrow — bottom centre of portrait panel */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <path d="M11 4v14M5 13l6 6 6-6" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
           </div>
 
           {/* Text panel — visible on load, exits left as portrait enters */}
           <div
-            className="absolute inset-0 bg-surface flex flex-col justify-center px-6"
+            className="absolute inset-0 flex flex-col justify-center px-6"
             style={{
               paddingTop: '40px',
               transform: `translateX(${textX}%)`,
+              backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+              backgroundSize: '22px 22px',
+              backgroundColor: '#F8FAFC',
             }}
           >
             <div className="mb-5 flex justify-center">
@@ -142,54 +173,44 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="inline-flex justify-center items-center gap-2 bg-accent text-white text-sm px-6 py-3.5 rounded-sm font-medium"
               >
-                Book a free call
-                <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                  <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+               Lets talk!
+               
               </a>
               <button
                 onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
                 className="inline-flex justify-center items-center gap-2 border border-border-light text-ink text-sm px-6 py-3.5 rounded-sm"
               >
                 My services
-                <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                  <path d="M7 1v12M1 7l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+            
               </button>
+            </div>
+
+            <div className="absolute top-1/2 -translate-y-1/2 right-6 pointer-events-none">
+              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                <path d="M4 11h14M13 5l6 6-6 6" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </div>
           </div>
 
+
         </div>
+        {/* snap point 2: portrait panel — end-aligns at scrollTop = SCROLL_RANGE */}
+        <div style={{ height: `${SCROLL_RANGE}px`, scrollSnapAlign: 'end' }} />
       </div>
 
       {/* ── DESKTOP HERO ── */}
       <div className="hidden lg:block pt-8 relative max-w-6xl mx-auto px-6">
         {/* Portrait — outer div has no overflow-hidden so annotation can sit outside */}
         <div
-          className="absolute right-6 top-14"
+          className="absolute right-6 top-8"
           style={{ aspectRatio: '801 / 1022', width: '36%' }}
         >
           {/* Me annotation — left of portrait, arrow flipped to point right */}
-          <div className="absolute top-24 left-4 pointer-events-none select-none z-20">
-            <div className="relative">
-              <Image
-                src="/images/Arrow 1.png"
-                alt=""
-                width={44}
-                height={62}
-                unoptimized
-                style={{ transform: 'scaleX(-1)' }}
-              />
-              <span className="absolute -top-6 -left-2 font-sans text-[22px] font-bold italic leading-none" style={{ color: '#0f172a' }}>Me</span>
-            </div>
-          </div>
+          
           {/* Image clipping wrapper */}
           <div className="relative w-full h-full overflow-hidden">
             <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
-            <div
-              className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent/40 pointer-events-none"
-              style={{ clipPath: 'polygon(0 4%, 100% 0, 100% 100%, 0 96%)' }}
-            />
+            <div className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent pointer-events-none" />
           </div>
         </div>
         <div
@@ -201,9 +222,7 @@ export default function Hero() {
           }}
         >
           <div className="lg:max-w-[55%]">
-            <div className="mb-5">
-              <Image src="/images/laptop.png" alt="" width={200} height={200} unoptimized />
-            </div>
+            
             <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-heading font-extrabold leading-[1.06] tracking-tight text-ink mb-5">
             I build websites that turn visitors into customers
             </h1>
@@ -232,7 +251,7 @@ export default function Hero() {
                 </svg>
               </button>
             </div>
-            <p className="font-sans text-sm font-bold italic" style={{ color: '#1e3a8a' }}>Just me — no agency, start to finish.</p>
+            <p className="font-sans text-sm font-medium italic" style={{ color: '#1e3a8a' }}>Just me, no agency, start to finish.</p>
           </div>
         </div>
       </div>

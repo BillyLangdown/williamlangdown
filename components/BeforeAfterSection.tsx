@@ -32,11 +32,11 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
   const [visible, setVisible] = useState(false)
   const [statsActive, setStatsActive] = useState(false)
   const [headingProgress, setHeadingProgress] = useState(0)
+  const [parallaxY, setParallaxY] = useState(0)
 
   const conversionUp = useCountUp(75, statsActive)
   const bounceDown = useCountUp(21, statsActive, 1600)
 
-  // Scroll-driven heading: slides in from left, reverses on scroll up
   useEffect(() => {
     const onScroll = () => {
       if (!sectionRef.current) return
@@ -44,6 +44,9 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
       const wh = window.innerHeight
       const p = Math.min(1, Math.max(0, (wh - rect.top) / (wh * 0.6)))
       setHeadingProgress(p)
+      // parallax: blob layer drifts at 28% of scroll relative to section center
+      const distFromCenter = (wh / 2) - (rect.top + rect.height / 2)
+      setParallaxY(distFromCenter * 0.28)
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
@@ -76,8 +79,39 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
   })
 
   return (
-    <section ref={sectionRef} className="py-20 px-6 bg-[#0F172A]">
-      <div className="max-w-6xl mx-auto">
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden py-20 px-6"
+      style={{ background: '#080e1c' }}
+    >
+
+      {/* Parallax blob layer — moves at 28% scroll speed, sits behind glass content */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ transform: `translateY(${parallaxY}px)`, willChange: 'transform' }}
+      >
+        {/* Large accent blue blob — top right */}
+        <div style={{
+          position: 'absolute', top: '-120px', right: '-80px',
+          width: '520px', height: '520px', borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(37,99,235,0.45) 0%, transparent 68%)',
+        }} />
+        {/* Deep indigo blob — bottom left */}
+        <div style={{
+          position: 'absolute', bottom: '-140px', left: '-100px',
+          width: '480px', height: '480px', borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(79,70,229,0.3) 0%, transparent 68%)',
+        }} />
+        {/* Subtle mid blob — center */}
+        <div style={{
+          position: 'absolute', top: '40%', left: '45%',
+          width: '340px', height: '340px', borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%)',
+          transform: 'translate(-50%, -50%)',
+        }} />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto">
 
         {/* Header — scroll-driven, slides in from left and reverses */}
         <div
@@ -88,16 +122,19 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
           }}
         >
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2">
-            Before & After
+            The numbers after
           </h2>
-          <p className="text-sm text-white/40">{clientName}</p>
+          <p className="text-sm text-white/40">Garden Tablecloth Co. Two months post-redesign.</p>
         </div>
 
         {/* Stat cards */}
         <div className="grid grid-cols-2 gap-4 md:gap-6 mb-12" style={fadeIn(80)}>
 
           {/* Conversion rate */}
-          <div className="bg-white/[0.04] border border-white/10 rounded-sm p-5 md:p-7">
+          <div
+            className="border border-white/10 rounded-sm p-5 md:p-7 flex flex-col items-center text-center"
+            style={{ background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
+          >
             <p className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-white/35 mb-4 truncate">
               Conversion rate
             </p>
@@ -117,7 +154,10 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
           </div>
 
           {/* Bounce rate */}
-          <div className="bg-white/[0.04] border border-white/10 rounded-sm p-5 md:p-7">
+          <div
+            className="border border-white/10 rounded-sm p-5 md:p-7 flex flex-col items-center text-center"
+            style={{ background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
+          >
             <p className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-white/35 mb-4 truncate">
               Bounce rate
             </p>
@@ -139,7 +179,13 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
         </div>
 
         {/* Before / After slider */}
-        <div style={fadeIn(160)}>
+        <div
+          style={{
+            ...fadeIn(160),
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+          }}
+        >
           {hasImages ? (
             <BeforeAfterSlider
               beforeSrc={urlFor(caseStudy!.beforeImage!).width(1400).url()}

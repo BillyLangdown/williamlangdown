@@ -9,11 +9,11 @@ export default function CTABanner() {
 
           {/* Heading + subtext — left */}
           <div className="max-w-xl">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.05] tracking-tight text-white mb-5">
-              Book a call. I will tell you what I think.
+            <h2 className="text-4xl md:text-5xl  lg:text-6xl font-heading font-bold leading-[1.05] tracking-tight text-white mb-5">
+              Book a call or send a message
             </h2>
             <p className="text-white/40 text-sm leading-relaxed">
-              Half an hour. Free. I will look at your site beforehand and give you my honest take.
+              No commitment neeeded. <br/> Message if you have any questions.
             </p>
           </div>
 

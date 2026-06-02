@@ -67,17 +67,19 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
   }, [])
 
   return (
-    <div ref={rowRef} className={`border-t border-border-light overflow-hidden${service.featured ? ' bg-subtle/50' : ''}`}>
+    <div
+      ref={rowRef}
+      className={`border-t border-border-light overflow-hidden lg:border lg:border-border-light lg:rounded-sm${service.featured ? ' lg:border-t-[3px] lg:border-t-accent lg:bg-accent/[0.03]' : ''}`}
+    >
       <div
-        className="py-10 px-0 flex flex-col md:flex-row md:items-start gap-6 md:gap-12"
+        className="py-10 px-0 flex flex-col md:flex-row md:items-start gap-6 md:gap-12 lg:flex-col lg:p-8 lg:h-full"
         style={{
           clipPath: visible ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)',
           transition: 'clip-path 0.85s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
-        <div className="flex-1 flex flex-col md:flex-row gap-6 md:gap-12">
-          <div className="md:w-[220px] shrink-0">
-            {/* Icon */}
+        <div className="flex-1 flex flex-col md:flex-row gap-6 md:gap-12 lg:flex-col lg:flex-1 lg:gap-5">
+          <div className="md:w-[220px] lg:w-auto shrink-0">
             <div
               className="w-8 h-8 rounded-sm flex items-center justify-center mb-3"
               style={{ background: `${service.color}18`, color: service.color }}
@@ -126,7 +128,7 @@ export default function ServicesSection() {
 
         <div
           ref={headingRef}
-          className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4"
+          className="mb-12 pl-4 border-l-4 border-accent"
           style={{
             opacity: headingVisible ? 1 : 0,
             transform: headingVisible ? 'none' : 'translateY(14px)',
@@ -134,17 +136,21 @@ export default function ServicesSection() {
           }}
         >
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">What I do</h2>
-          <Link href="/pricing" className="text-sm text-secondary hover:text-ink transition-colors underline underline-offset-4 shrink-0">
+          <Link href="/pricing" className="text-sm text-secondary hover:text-ink transition-colors underline underline-offset-4 mt-1 inline-block">
             View all pricing
           </Link>
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-5">
           {services.map((service, i) => (
-            <ServiceRow key={service.title} service={service} index={i} />
+            <ServiceRow
+              key={service.title}
+              service={service}
+              index={i}
+            />
           ))}
-          <div className="border-t border-border-light" />
         </div>
+        <div className="border-t border-border-light lg:hidden" />
 
         {/* Slick Booking */}
         <div className="mt-10 rounded-sm overflow-hidden" style={{ background: '#0F172A' }}>
