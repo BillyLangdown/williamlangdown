@@ -15,8 +15,8 @@ html {
 }
 
 body {
-  color: #1A1A1A;
-  background: #FAFAF7;
+  color: #0F172A;
+  background: #F8FAFC;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -24,6 +24,18 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* ── Cursor ripple ─────────────────────────────────────────────────────── */
+@keyframes ripple-expand {
+  from { width: 0; height: 0; opacity: 0.45; transform: translate(-50%, -50%); }
+  to   { width: 280px; height: 280px; opacity: 0; transform: translate(-50%, -50%); }
+}
+
+/* ── Mobile hero portrait — subtle zoom while waiting to be pushed ──────── */
+@keyframes portrait-breathe {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1); }
 }
 
 /* ── View transitions ──────────────────────────────────────────────────── */

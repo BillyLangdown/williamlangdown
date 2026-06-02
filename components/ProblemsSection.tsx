@@ -4,34 +4,34 @@ import { useEffect, useRef, useState } from 'react'
 
 const problems = [
   {
-    title: 'Visitors who don\'t enquire',
+    title: 'People visit but never get in touch',
     description:
-      "People land on your site, look around, and leave without getting in touch. Something in the journey is putting them off — and it's usually fixable.",
+      "They find your site, look around, and leave. Something in the journey is putting them off. It is usually fixable once you know what it is.",
   },
   {
-    title: 'No trust signals',
+    title: 'Nothing to make them trust you',
     description:
-      "No reviews, a thin contact page, vague policies. Customers notice these gaps even when they can't name them, and they move on to someone else.",
+      "No reviews, a thin contact page, no face behind the business. People notice these gaps even when they cannot name them, and they move on.",
   },
   {
-    title: 'Copy that doesn\'t sell',
+    title: 'The writing does not explain what you do',
     description:
-      "If your website doesn't clearly explain what you do, who it's for, and why you're the right choice, visitors won't stick around long enough to find out.",
+      "If someone lands on your site and cannot tell in ten seconds what you offer and who it is for, they will not stick around to find out.",
   },
   {
-    title: 'Navigation that gets in the way',
+    title: 'Hard to know where to go next',
     description:
-      'If someone has to think about where to go next, that\'s friction. Too much friction and they leave. Good structure makes the next step obvious.',
+      "If the next step is not obvious, most people will not look for it. They will just leave. The layout should do that work for them.",
   },
   {
-    title: 'A design that doesn\'t reflect your quality',
+    title: 'Looks like every other website',
     description:
-      'If your website looks like it could belong to anyone, it\'s harder to build confidence. Design shapes how people feel about you before they read a word.',
+      "If your site could belong to any business in your space, it is harder to stand out. People form an opinion on design before they read anything.",
   },
   {
-    title: 'Technical issues quietly costing you',
+    title: 'Slow or broken on mobile',
     description:
-      'Slow load times, broken mobile layouts, images that don\'t load. These happen quietly and cost more in lost business than most people realise.',
+      "Slow load times, layouts that break on phones, images that do not appear. Most of your visitors are on mobile. These things cost you enquiries.",
   },
 ]
 
@@ -58,7 +58,6 @@ export default function ProblemsSection() {
       <div className="max-w-6xl mx-auto">
 
         <div className="mb-12">
-          <p className="text-xs font-medium uppercase tracking-widest text-accent mb-3">Common problems</p>
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">
             Sound familiar?
           </h2>

@@ -10,17 +10,17 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        heading: ['var(--font-playfair)', 'Georgia', 'serif'],
+        sans: ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
+        heading: ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
       },
       colors: {
-        ink: '#1A1A1A',
-        secondary: '#666666',
-        tertiary: '#999999',
-        surface: '#FAFAF7',
-        subtle: '#F0EBE3',
-        'border-light': '#E2DDD7',
-        accent: '#C17A3A',
+        ink: '#0F172A',
+        secondary: '#64748B',
+        tertiary: '#94A3B8',
+        surface: '#F8FAFC',
+        subtle: '#F1F5F9',
+        'border-light': '#E2E8F0',
+        accent: '#2563EB',
       },
     },
   },

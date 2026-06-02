@@ -10,10 +10,10 @@ export default function CTABanner() {
           {/* Heading + subtext — left */}
           <div className="max-w-xl">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.05] tracking-tight text-white mb-5">
-              Feel free to schedule a quick call.
+              Book a call. I will tell you what I think.
             </h2>
             <p className="text-white/40 text-sm leading-relaxed">
-              No commitment needed. Just a conversation to understand where you are and whether I can help.
+              Half an hour. Free. I will look at your site beforehand and give you my honest take.
             </p>
           </div>
 
@@ -38,7 +38,7 @@ export default function CTABanner() {
                 Send a message
               </Link>
             </div>
-            <p className="text-white/25 text-xs">Response within 24 hours &middot; No sales pitch</p>
+            <p className="text-white/25 text-xs">Response within 24 hours</p>
           </div>
 
         </ScrollReveal>

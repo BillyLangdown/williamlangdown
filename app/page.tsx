@@ -1,11 +1,8 @@
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
-import StatsBar from '@/components/StatsBar'
-import FrictionSection from '@/components/FrictionSection'
-import ServicesSection from '@/components/ServicesSection'
 import BeforeAfterSection from '@/components/BeforeAfterSection'
-import AboutSection from '@/components/AboutSection'
 import ProblemsSection from '@/components/ProblemsSection'
+import ServicesSection from '@/components/ServicesSection'
 import CTABanner from '@/components/CTABanner'
 import Footer from '@/components/Footer'
 import { getFeaturedCaseStudy } from '@/lib/queries'
@@ -83,12 +80,9 @@ export default async function HomePage() {
       <Nav />
       <main>
         <Hero />
-        <StatsBar />
-        <FrictionSection />
         <BeforeAfterSection caseStudy={featuredCaseStudy} />
         <ProblemsSection />
         <ServicesSection />
-        <AboutSection />
         <CTABanner />
       </main>
       <Footer />

@@ -65,53 +65,53 @@ export default function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt, afte
   }, [updatePosition])
 
   return (
-    <div
-      ref={containerRef}
-      className="relative aspect-[16/9] overflow-hidden select-none cursor-col-resize"
-      onMouseDown={(e) => startDrag(e.clientX)}
-      onTouchStart={(e) => startDrag(e.touches[0].clientX)}
-      onTouchMove={(e) => { if (dragging) updatePosition(e.touches[0].clientX) }}
-      onTouchEnd={() => setDragging(false)}
-    >
-      {/* Before */}
-      <div className="absolute inset-0">
-        <Image src={beforeSrc} alt={beforeAlt} fill className="object-cover" sizes="100vw" draggable={false} />
-      </div>
-
-      {/* After — clipped, smooth transition when not dragging */}
+    <div>
       <div
-        className="absolute inset-0"
-        style={{
-          clipPath: `inset(0 0 0 ${position}%)`,
-          transition: dragging ? 'none' : 'clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
-        }}
+        ref={containerRef}
+        className="relative aspect-[16/9] overflow-hidden select-none cursor-col-resize"
+        onMouseDown={(e) => startDrag(e.clientX)}
+        onTouchStart={(e) => startDrag(e.touches[0].clientX)}
+        onTouchMove={(e) => { if (dragging) updatePosition(e.touches[0].clientX) }}
+        onTouchEnd={() => setDragging(false)}
       >
-        <Image src={afterSrc} alt={afterAlt} fill className="object-cover" sizes="100vw" draggable={false} />
-      </div>
-
-      {/* Labels */}
-      <span className="absolute bottom-4 left-4 z-20 text-xs font-semibold uppercase tracking-widest text-white bg-black/70 px-3 py-1.5 rounded-sm pointer-events-none">
-        Before
-      </span>
-      <span className="absolute bottom-4 right-4 z-20 text-xs font-semibold uppercase tracking-widest text-white bg-black/70 px-3 py-1.5 rounded-sm pointer-events-none">
-        After
-      </span>
-
-      {/* Divider */}
-      <div
-        className="absolute inset-y-0 z-10 flex items-center justify-center"
-        style={{
-          left: `${position}%`,
-          transform: 'translateX(-50%)',
-          transition: dragging ? 'none' : 'left 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
-        }}
-      >
-        <div className="w-[3px] h-full bg-white shadow-[0_0_8px_rgba(0,0,0,0.5)]" />
-        <div className="absolute w-12 h-12 rounded-full bg-white shadow-[0_4px_24px_rgba(0,0,0,0.35)] flex items-center justify-center border-2 border-white/20">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M7 5l-5 5 5 5M13 5l5 5-5 5" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+        {/* Before */}
+        <div className="absolute inset-0">
+          <Image src={beforeSrc} alt={beforeAlt} fill className="object-cover" sizes="100vw" draggable={false} />
         </div>
+
+        {/* After — clipped, smooth transition when not dragging */}
+        <div
+          className="absolute inset-0"
+          style={{
+            clipPath: `inset(0 0 0 ${position}%)`,
+            transition: dragging ? 'none' : 'clip-path 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+        >
+          <Image src={afterSrc} alt={afterAlt} fill className="object-cover" sizes="100vw" draggable={false} />
+        </div>
+
+        {/* Divider */}
+        <div
+          className="absolute inset-y-0 z-10 flex items-center justify-center"
+          style={{
+            left: `${position}%`,
+            transform: 'translateX(-50%)',
+            transition: dragging ? 'none' : 'left 0.45s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+        >
+          <div className="w-[3px] h-full bg-white shadow-[0_0_8px_rgba(0,0,0,0.5)]" />
+          <div className="absolute w-12 h-12 rounded-full bg-white shadow-[0_4px_24px_rgba(0,0,0,0.35)] flex items-center justify-center border-2 border-white/20">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M7 5l-5 5 5 5M13 5l5 5-5 5" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      {/* Labels below slider */}
+      <div className="flex justify-between mt-2 px-1">
+        <span className="text-[10px] font-semibold uppercase tracking-widest text-white/35">Before</span>
+        <span className="text-[10px] font-semibold uppercase tracking-widest text-white/35">After</span>
       </div>
     </div>
   )
