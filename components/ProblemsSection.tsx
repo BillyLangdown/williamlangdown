@@ -109,12 +109,11 @@ export default function ProblemsSection() {
                   >
                     {i + 1}
                   </span>
-                  {/* Counter + accent dot */}
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#94a3b8' }}>
-                      {String(i + 1).padStart(2, '0')} / {String(problems.length).padStart(2, '0')}
+                      {i + 1} / {problems.length}
                     </span>
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#2563EB' }} />
+                    <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: '#2563EB' }} />
                   </div>
                   <h3 className="text-base font-bold text-ink mb-2 leading-snug relative">{problem.title}</h3>
                   <p className="text-sm text-secondary leading-relaxed relative">{problem.description}</p>

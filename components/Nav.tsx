@@ -69,18 +69,12 @@ export default function Nav() {
         {/* Mobile burger */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden flex flex-col gap-1.5 p-1"
+          className="md:hidden flex flex-col gap-[5px] p-1"
           aria-label={open ? 'Close menu' : 'Open menu'}
         >
-          <span
-            className={`block w-5 h-px bg-gray-900 transition-transform duration-200 ${open ? 'translate-y-2 rotate-45' : ''}`}
-          />
-          <span
-            className={`block w-5 h-px bg-gray-900 transition-opacity duration-200 ${open ? 'opacity-0' : ''}`}
-          />
-          <span
-            className={`block w-5 h-px bg-gray-900 transition-transform duration-200 ${open ? '-translate-y-2 -rotate-45' : ''}`}
-          />
+          <span className={`block w-5 h-px bg-gray-900 transition-all duration-200 origin-center ${open ? 'translate-y-[6px] rotate-45' : ''}`} />
+          <span className={`block w-5 h-px bg-gray-900 transition-all duration-200 ${open ? 'opacity-0' : ''}`} />
+          <span className={`block w-5 h-px bg-gray-900 transition-all duration-200 origin-center ${open ? '-translate-y-[6px] -rotate-45' : ''}`} />
         </button>
       </div>
 
