@@ -45,9 +45,9 @@ export default function Hero() {
     setTimeout(() => setRipples(prev => prev.filter(r => r.id !== id)), 1600)
   }, [])
 
-  // Text is visible first; portrait enters from left as user scrolls
-  const portraitX = (scrollProgress - 1) * 100
-  const textX = scrollProgress * 100
+  // Text is visible first; portrait enters from right as user scrolls, text exits left
+  const portraitX = (1 - scrollProgress) * 100
+  const textX = -scrollProgress * 100
 
   return (
     <section
@@ -70,7 +70,7 @@ export default function Hero() {
       <div className="lg:hidden" style={{ height: `calc(100svh + ${SCROLL_RANGE}px)` }}>
         <div className="sticky top-0 overflow-hidden" style={{ height: '100svh' }}>
 
-          {/* Portrait + badge — enters from left as user scrolls */}
+          {/* Portrait + badge — enters from right as user scrolls */}
           <div
             className="absolute inset-0 bg-surface z-10 flex flex-col items-center justify-center"
             style={{
@@ -79,29 +79,39 @@ export default function Hero() {
               transform: `translateX(${portraitX}%)`,
             }}
           >
-            <div
-              className="relative w-full overflow-hidden rounded-[4px] shadow-lg"
-              style={{ maxWidth: '260px', aspectRatio: '801 / 1022' }}
-            >
-              <Image
-                src="/images/portrait.png"
-                alt="William Langdown"
-                fill
-                className="object-cover object-top"
-                priority
-                sizes="260px"
-              />
-            </div>
-            <div className="mt-5 inline-flex items-center gap-2.5 px-3.5 py-2 bg-white border border-border-light rounded-sm">
-              <div className="relative flex h-2 w-2 shrink-0">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-[#16a34a] opacity-75 animate-ping" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#16a34a]" />
+            {/* Wrapper without overflow-hidden so the Me arrow can sit outside the image */}
+            <div className="relative" style={{ maxWidth: '260px', width: '100%' }}>
+              <div
+                className="relative w-full overflow-hidden rounded-[4px] shadow-lg"
+                style={{ aspectRatio: '801 / 1022' }}
+              >
+                <Image
+                  src="/images/portrait.png"
+                  alt="William Langdown"
+                  fill
+                  className="object-cover object-top"
+                  priority
+                  sizes="260px"
+                />
               </div>
-              <p className="text-xs text-secondary">Currently taking on new projects</p>
+
+              {/* Me arrow annotation */}
+              <div className="absolute top-3 right-3 flex flex-col items-end pointer-events-none select-none z-20">
+                <span className="font-sans text-[17px] font-bold italic leading-none mb-1" style={{ color: '#0f172a' }}>Me</span>
+                <Image
+                  src="/images/Arrow 1.png"
+                  alt=""
+                  width={44}
+                  height={62}
+                  className="object-contain"
+                />
+              </div>
             </div>
+
+            <p className="mt-10 font-sans text-base font-bold italic" style={{ color: '#0f172a' }}>Just me, no agency, start to finish.</p>
           </div>
 
-          {/* Text panel — visible on load, exits right as portrait enters */}
+          {/* Text panel — visible on load, exits left as portrait enters */}
           <div
             className="absolute inset-0 bg-surface flex flex-col justify-center px-6"
             style={{
@@ -109,11 +119,21 @@ export default function Hero() {
               transform: `translateX(${textX}%)`,
             }}
           >
+            <div className="mb-5 flex justify-center">
+              <Image
+                src="/images/laptop.png"
+                alt=""
+                width={160}
+                height={160}
+                className="object-contain"
+              />
+            </div>
+
             <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4">
               Websites that turn visitors into customers
             </h1>
-            <p className="text-sm text-secondary leading-relaxed mb-8">
-              I design and build websites for small businesses. If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
+            <p className="text-sm  leading-relaxed mb-8"  style={{ color: '#0f172a' }}>
+            I build fast, clean and effective websites. <br/> If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
             </p>
             <div className="flex flex-col gap-3">
               <a
@@ -182,13 +202,7 @@ export default function Hero() {
                 See my work
               </Link>
             </div>
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-2 bg-white border border-border-light rounded-sm">
-              <div className="relative flex h-2 w-2 shrink-0">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-[#16a34a] opacity-75 animate-ping" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#16a34a]" />
-              </div>
-              <p className="text-xs text-secondary">Currently taking on new projects</p>
-            </div>
+            <p className="font-sans text-sm font-bold italic" style={{ color: '#1e3a8a' }}>Just me — no agency, start to finish.</p>
           </div>
         </div>
       </div>

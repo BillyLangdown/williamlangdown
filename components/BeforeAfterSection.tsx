@@ -81,7 +81,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
 
         {/* Header — scroll-driven, slides in from left and reverses */}
         <div
-          className="mb-12 text-center"
+          className="mb-12"
           style={{
             transform: `translateX(${(headingProgress - 1) * 60}px)`,
             opacity: headingProgress,
@@ -166,7 +166,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
         </div>
 
         {/* CTA */}
-        <div className="mt-8 text-center md:text-right" style={fadeIn(200)}>
+        <div className="mt-8 text-right" style={fadeIn(200)}>
           <Link
             href={slug === '#' ? '/case-studies' : `/case-studies/${slug}`}
             className="inline-flex items-center gap-2 text-sm text-white/35 hover:text-white underline underline-offset-4 transition-colors"
