@@ -104,7 +104,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
             <div className="flex items-end gap-2 mb-3">
               <span
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold leading-none tabular-nums"
-                style={{ color: '#60a5fa' }}
+                style={{ color: '#ffffff' }}
               >
                 +{conversionUp}
               </span>
@@ -124,7 +124,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
             <div className="flex items-end gap-2 mb-3">
               <span
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold leading-none tabular-nums"
-                style={{ color: '#60a5fa' }}
+                style={{ color: '#ffffff' }}
               >
                 -{bounceDown}
               </span>

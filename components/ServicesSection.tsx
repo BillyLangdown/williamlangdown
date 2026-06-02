@@ -43,7 +43,9 @@ const services = [
     href: '/pricing',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-        <path d="M3.5 14.5l5.5-5.5m3-6.5a3 3 0 013 3c0 .4-.08.78-.22 1.13L13 8.38l-1.5 1.5-1.76-1.76A3 3 0 016.5 5.5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M3 15l7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="12.5" cy="5.5" r="3.5" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M12.5 4l1.3.75v1.5l-1.3.75-1.3-.75v-1.5z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" />
       </svg>
     ),
   },

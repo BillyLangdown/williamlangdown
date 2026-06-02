@@ -103,7 +103,7 @@ export default function Hero() {
                   alt=""
                   width={44}
                   height={62}
-                  className="object-contain"
+                  unoptimized
                 />
               </div>
             </div>
@@ -115,7 +115,7 @@ export default function Hero() {
           <div
             className="absolute inset-0 bg-surface flex flex-col justify-center px-6"
             style={{
-              paddingTop: '80px',
+              paddingTop: '40px',
               transform: `translateX(${textX}%)`,
             }}
           >
@@ -125,15 +125,15 @@ export default function Hero() {
                 alt=""
                 width={160}
                 height={160}
-                className="object-contain"
+                unoptimized
               />
             </div>
 
-            <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4">
-              Websites that turn visitors into customers
-            </h1>
-            <p className="text-sm  leading-relaxed mb-8"  style={{ color: '#0f172a' }}>
-            I build fast, clean and effective websites. <br/> If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
+            <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4 text-center">
+  I build websites that turn visitors into customers
+</h1>
+            <p className="text-sm  leading-relaxed mb-8 text-center"  style={{ color: '#0f172a' }}>
+            Fast, beautiful and effective. <br/> If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
             </p>
             <div className="flex flex-col gap-3">
               <a
@@ -164,15 +164,33 @@ export default function Hero() {
 
       {/* ── DESKTOP HERO ── */}
       <div className="hidden lg:block pt-8 relative max-w-6xl mx-auto px-6">
+        {/* Portrait — outer div has no overflow-hidden so annotation can sit outside */}
         <div
-          className="absolute right-6 top-3 bottom-0 overflow-hidden"
-          style={{ aspectRatio: '801 / 1022' }}
+          className="absolute right-6 top-14"
+          style={{ aspectRatio: '801 / 1022', width: '36%' }}
         >
-          <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
-          <div
-            className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent/40 pointer-events-none"
-            style={{ clipPath: 'polygon(0 4%, 100% 0, 100% 100%, 0 96%)' }}
-          />
+          {/* Me annotation — left of portrait, arrow flipped to point right */}
+          <div className="absolute top-24 left-4 pointer-events-none select-none z-20">
+            <div className="relative">
+              <Image
+                src="/images/Arrow 1.png"
+                alt=""
+                width={44}
+                height={62}
+                unoptimized
+                style={{ transform: 'scaleX(-1)' }}
+              />
+              <span className="absolute -top-6 -left-2 font-sans text-[22px] font-bold italic leading-none" style={{ color: '#0f172a' }}>Me</span>
+            </div>
+          </div>
+          {/* Image clipping wrapper */}
+          <div className="relative w-full h-full overflow-hidden">
+            <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
+            <div
+              className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent/40 pointer-events-none"
+              style={{ clipPath: 'polygon(0 4%, 100% 0, 100% 100%, 0 96%)' }}
+            />
+          </div>
         </div>
         <div
           className="relative z-10 py-24"
@@ -183,11 +201,14 @@ export default function Hero() {
           }}
         >
           <div className="lg:max-w-[55%]">
+            <div className="mb-5">
+              <Image src="/images/laptop.png" alt="" width={200} height={200} unoptimized />
+            </div>
             <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-heading font-extrabold leading-[1.06] tracking-tight text-ink mb-5">
-              Websites that turn visitors into customers
+            I build websites that turn visitors into customers
             </h1>
             <p className="text-base text-secondary leading-relaxed mb-8">
-              I build fast, clean and effective websites. <br/> If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
+              Fast, beautiful and effective. <br/> If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
             </p>
             <div className="flex flex-wrap gap-3 mb-8">
               <a
