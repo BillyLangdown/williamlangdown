@@ -66,19 +66,20 @@ export default function ProblemsSection() {
 
   const getCardStyle = (i: number): React.CSSProperties => {
     if (i < activeIndex) {
-      return { transform: 'translateX(-115%) rotate(-6deg)', zIndex: 0, pointerEvents: 'none' }
+      return { transform: 'translateX(-115%) rotate(-6deg)', zIndex: 0, pointerEvents: 'none', opacity: 0 }
     }
     if (i === activeIndex && i < problems.length - 1) {
       return {
         transform: `translateX(${-exitProgress * 115}%) rotate(${-exitProgress * 6}deg)`,
         zIndex: problems.length - i,
+        opacity: 1,
       }
     }
     const d = i - activeIndex
     return {
-      transform: `translateY(${d * 10}px) scale(${1 - d * 0.04})`,
+      transform: `translateY(${d * 9}px) scale(${1 - d * 0.025})`,
       zIndex: problems.length - i,
-      opacity: Math.max(0.4, 1 - d * 0.15),
+      opacity: d > 2 ? 0 : 1,
     }
   }
 
@@ -87,21 +88,36 @@ export default function ProblemsSection() {
 
       {/* ── MOBILE: stacked cards peeling off on scroll ── */}
       <div ref={outerRef} className="md:hidden" style={{ height: `calc(100svh + ${TOTAL_SCROLL}px)` }}>
-        <div className="sticky top-0 overflow-hidden flex flex-col pt-20 pb-8 px-6" style={{ height: '100svh' }}>
+        <div className="sticky top-0 overflow-hidden flex flex-col pt-24 pb-8 px-6" style={{ height: '100svh' }}>
 
-          <h2 className="text-3xl font-heading font-bold text-ink mb-8">What I see most</h2>
+          <h2 className="text-3xl font-heading font-bold text-ink mb-6">What I see most</h2>
 
-          {/* Card stack */}
-          <div className="relative flex-1">
+          {/* Card stack — fixed height so cards don't stretch to fill viewport */}
+          <div className="relative" style={{ height: '280px' }}>
             {problems.map((problem, i) => (
               <div
                 key={problem.title}
                 className="absolute inset-0"
                 style={getCardStyle(i)}
               >
-                <div className="bg-white border border-border-light rounded-sm p-6 h-full flex flex-col">
-                  <h3 className="text-lg font-semibold text-ink mb-3 leading-snug">{problem.title}</h3>
-                  <p className="text-sm text-secondary leading-relaxed">{problem.description}</p>
+                <div className="bg-white border border-border-light rounded-sm p-6 h-full flex flex-col relative overflow-hidden shadow-sm">
+                  {/* Ghost number */}
+                  <span
+                    className="absolute -bottom-3 -right-1 font-heading font-bold leading-none select-none pointer-events-none"
+                    style={{ fontSize: '100px', color: '#f1f5f9' }}
+                    aria-hidden
+                  >
+                    {i + 1}
+                  </span>
+                  {/* Counter + accent dot */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#94a3b8' }}>
+                      {String(i + 1).padStart(2, '0')} / {String(problems.length).padStart(2, '0')}
+                    </span>
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#2563EB' }} />
+                  </div>
+                  <h3 className="text-base font-bold text-ink mb-2 leading-snug relative">{problem.title}</h3>
+                  <p className="text-sm text-secondary leading-relaxed relative">{problem.description}</p>
                 </div>
               </div>
             ))}
