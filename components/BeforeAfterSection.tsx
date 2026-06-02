@@ -88,7 +88,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
           }}
         >
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2">
-            Results from real work
+            Before & After
           </h2>
           <p className="text-sm text-white/40">{clientName}</p>
         </div>
@@ -124,7 +124,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
             <div className="flex items-end gap-2 mb-3">
               <span
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold leading-none tabular-nums"
-                style={{ color: '#4ade80' }}
+                style={{ color: '#60a5fa' }}
               >
                 -{bounceDown}
               </span>

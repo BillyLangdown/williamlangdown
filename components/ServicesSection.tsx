@@ -22,7 +22,7 @@ const services = [
   {
     title: 'Website Design & Development',
     price: 'From £1,495',
-    color: '#7C3AED',
+    color: '#2563EB',
     featured: true,
     description:
       "A website built to get people in touch. Up to five pages, works on every device, includes contact forms, basic SEO, and analytics. Two rounds of changes before it goes live.",
@@ -37,13 +37,13 @@ const services = [
   {
     title: 'Website Support & Improvements',
     price: '£30 / hour',
-    color: '#059669',
+    color: '#2563EB',
     description:
       "Help with what you've already got. Copy changes, new pages, design tweaks, or general upkeep. Billed by the hour, no contract.",
     href: '/pricing',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-        <path d="M14.5 3.5a3 3 0 00-4.24 4.24L3 15l1 1 7.26-7.26A3 3 0 0014.5 3.5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M3.5 14.5l5.5-5.5m3-6.5a3 3 0 013 3c0 .4-.08.78-.22 1.13L13 8.38l-1.5 1.5-1.76-1.76A3 3 0 016.5 5.5z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
