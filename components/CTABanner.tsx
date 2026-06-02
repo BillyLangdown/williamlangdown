@@ -3,7 +3,7 @@ import ScrollReveal from '@/components/ScrollReveal'
 
 export default function CTABanner() {
   return (
-    <section className="relative py-20 px-6 bg-ink overflow-hidden">
+    <section className="relative py-20 px-6 bg-ink overflow-hidden" style={{ scrollSnapAlign: 'start' }}>
       <div className="relative z-10 max-w-6xl mx-auto">
         <ScrollReveal className="flex flex-col md:flex-row md:items-end md:justify-between gap-12 md:gap-20">
 

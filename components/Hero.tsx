@@ -56,6 +56,7 @@ export default function Hero() {
       ref={sectionRef}
       className="relative lg:overflow-hidden"
       style={{
+        scrollSnapAlign: 'start',
         backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
         backgroundSize: '22px 22px',
         backgroundColor: '#F8FAFC',
@@ -178,10 +179,10 @@ export default function Hero() {
               </a>
               <button
                 onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-                className="inline-flex justify-center items-center gap-2 border border-border-light text-ink text-sm px-6 py-3.5 rounded-sm"
+                className="inline-flex justify-center items-center gap-2 text-ink text-sm px-6 py-3.5 rounded-sm"
+                style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(15,23,42,0.1)' }}
               >
                 My services
-            
               </button>
             </div>
 
@@ -243,7 +244,8 @@ export default function Hero() {
               </a>
               <button
                 onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-                className="inline-flex items-center gap-2 border border-border-light text-ink text-sm px-6 py-3 rounded-sm hover:bg-subtle transition-colors"
+                className="inline-flex items-center gap-2 text-ink text-sm px-6 py-3 rounded-sm transition-colors"
+                style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(15,23,42,0.1)' }}
               >
                 My services
                 <svg width="13" height="13" viewBox="0 0 14 14" fill="none">

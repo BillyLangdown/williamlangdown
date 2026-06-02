@@ -123,7 +123,7 @@ export default function ServicesSection() {
   }, [])
 
   return (
-    <section id="services" className="py-20 px-6 bg-surface border-t border-border-light">
+    <section id="services" className="py-20 px-6 bg-surface border-t border-border-light" style={{ scrollSnapAlign: 'start' }}>
       <div className="max-w-6xl mx-auto">
 
         <div
@@ -150,7 +150,7 @@ export default function ServicesSection() {
             />
           ))}
         </div>
-        <div className="border-t border-border-light lg:hidden" />
+   
 
         {/* Slick Booking */}
         <div className="mt-10 rounded-sm overflow-hidden" style={{ background: '#0F172A' }}>

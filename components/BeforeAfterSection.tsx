@@ -82,7 +82,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
     <section
       ref={sectionRef}
       className="relative overflow-hidden py-20 px-6"
-      style={{ background: '#080e1c' }}
+      style={{ background: '#080e1c', scrollSnapAlign: 'start' }}
     >
 
       {/* Parallax blob layer — moves at 28% scroll speed, sits behind glass content */}

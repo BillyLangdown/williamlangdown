@@ -57,10 +57,10 @@ export default function ProblemsSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="bg-subtle">
+    <section ref={sectionRef} className="bg-subtle" style={{ scrollSnapAlign: 'start' }}>
 
       {/* ── MOBILE: horizontal snap cards on dot-grid canvas ── */}
-      <div className="md:hidden pt-10 pb-8">
+      <div className="md:hidden flex flex-col justify-center py-10" style={{ minHeight: '100svh' }}>
         <div className="mb-6 px-6 text-center">
           <h2 className="text-3xl font-heading font-bold text-ink">Common problems</h2>
           <p className="text-sm text-secondary mt-1">Which of these is you?</p>
@@ -149,7 +149,7 @@ export default function ProblemsSection() {
       </div>
 
       {/* ── DESKTOP: grid ── */}
-      <div className="hidden md:block py-20 px-6">
+      <div className="hidden md:flex md:flex-col md:justify-center py-20 px-6" style={{ minHeight: '100svh' }}>
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">Common problems</h2>
