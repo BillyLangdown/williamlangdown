@@ -91,9 +91,10 @@ export default async function ContactPage({ searchParams }: Props) {
                   </svg>
                 </a>
 
-                {/* Form — active indicator */}
-                <div
-                  className="flex items-center gap-4 border rounded-sm px-5 py-4"
+                {/* Form — scrolls to form on mobile */}
+                <a
+                  href="#contact-form"
+                  className="flex items-center gap-4 border rounded-sm px-5 py-4 lg:cursor-default"
                   style={{ borderColor: 'rgba(37,99,235,0.3)', background: 'rgba(37,99,235,0.04)' }}
                 >
                   <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style={{ background: '#2563EB18', color: '#2563EB' }}>
@@ -105,12 +106,13 @@ export default async function ContactPage({ searchParams }: Props) {
                     <p className="text-sm font-semibold text-ink">Fill in the form</p>
                     <p className="text-xs text-secondary">Reply within one business day</p>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
 
             {/* Right: Form */}
             <div
+              id="contact-form"
               className="rounded-sm p-6 md:p-8"
               style={{
                 background: 'rgba(255,255,255,0.72)',
