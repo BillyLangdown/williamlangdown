@@ -183,12 +183,12 @@ export default function ServicesSection() {
                 className="object-contain"
               />
             </div>
-            {/* Info + CTA */}
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between md:flex-1 gap-4">
+            {/* Info + CTA stacked */}
+            <div className="flex flex-col gap-4">
               <p className="text-sm text-center md:text-left leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
                 My own booking software. Customers book online, you confirm from your phone.
               </p>
-              <div className="flex justify-center md:justify-end md:shrink-0">
+              <div className="flex justify-center md:justify-start">
                 <Link
                   href="/slick-booking"
                   className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-sm transition-colors border whitespace-nowrap"

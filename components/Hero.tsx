@@ -54,9 +54,8 @@ export default function Hero() {
       {/* ── MOBILE HERO ──
           Swipe RIGHT to see portrait. Swipe DOWN to continue. */}
       <div
-        className="lg:hidden"
+        className="flex lg:hidden"
         style={{
-          display: 'flex',
           height: '100svh',
           overflowX: 'scroll',
           scrollSnapType: 'x mandatory',
