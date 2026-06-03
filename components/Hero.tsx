@@ -159,7 +159,7 @@ export default function Hero() {
           <div className="mt-6 text-center" style={{ maxWidth: '268px' }}>
             <p className="text-sm font-semibold text-ink mb-1.5">Hi, I&apos;m William.</p>
             <p className="text-sm leading-relaxed" style={{ color: '#374151' }}>
-              I&apos;m a web designer and UX consultant based in the UK. I work with businesses of all kinds. Just me, no agency, start to finish.
+              &ldquo;I&apos;m a web designer and UX consultant based in the UK. I work with businesses of all kinds. Just me, no agency, start to finish.&rdquo;
             </p>
           </div>
 
