@@ -91,18 +91,22 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
         <div className="flex-1 flex flex-col md:flex-row gap-6 md:gap-12 lg:flex-col lg:flex-1 lg:gap-5">
           <div className="md:w-[220px] lg:w-auto shrink-0">
             {/* Icon inline with title on mobile, stacked above on desktop */}
-            <div className="flex items-start gap-3 lg:block">
-              <div
-                className={`w-8 h-8 rounded-sm flex items-center justify-center shrink-0 lg:mb-3 ${service.featured ? 'bg-white/10 text-white lg:text-accent' : ''}`}
-                style={!service.featured ? { background: `${service.color}18`, color: service.color } : undefined}
-              >
-                {service.icon}
-              </div>
-              <div>
-                <h3 className={`text-lg font-semibold leading-snug mb-1 ${service.featured ? 'text-white lg:text-ink' : 'text-ink'}`}>{service.title}</h3>
-                <p className="text-sm font-medium" style={{ color: service.color }}>{service.price}</p>
+            <div className="md:hidden h-px mb-4" style={{ backgroundColor: service.featured ? 'rgba(255,255,255,0.12)' : 'rgba(37,99,235,0.18)' }} />
+            <div className="flex justify-start md:justify-start lg:block">
+              <div className="flex items-start gap-3 lg:block">
+                <div
+                  className={`w-8 h-8 rounded-sm flex items-center justify-center shrink-0 lg:mb-3 ${service.featured ? 'bg-white/10 text-white lg:text-accent' : ''}`}
+                  style={!service.featured ? { background: `${service.color}18`, color: service.color } : undefined}
+                >
+                  {service.icon}
+                </div>
+                <div className="max-w-[150px] md:max-w-none">
+                  <h3 className={`text-lg font-semibold leading-snug mb-1 ${service.featured ? 'text-white lg:text-ink' : 'text-ink'}`}>{service.title}</h3>
+                  <p className="text-sm font-medium" style={{ color: service.color }}>{service.price}</p>
+                </div>
               </div>
             </div>
+            <div className="md:hidden h-px mt-4" style={{ backgroundColor: service.featured ? 'rgba(255,255,255,0.12)' : 'rgba(37,99,235,0.18)' }} />
           </div>
           <div className="flex-1 flex flex-col gap-4">
             <p className={`text-sm leading-relaxed ${service.featured ? 'text-white/60 lg:text-secondary' : 'text-secondary'}`}>{service.description}</p>
@@ -171,33 +175,52 @@ export default function ServicesSection() {
    
 
         {/* Slick Booking */}
-        <div className="mt-10 rounded-sm overflow-hidden" style={{ background: '#0F172A' }}>
-          <div className="px-8 py-6 flex flex-col md:flex-row md:items-center md:gap-12 gap-5 max-w-2xl mx-auto w-full">
-            {/* Logo — left on desktop, centred on mobile */}
-            <div className="flex justify-center md:justify-start md:shrink-0">
+        <div className="mt-10 rounded-sm overflow-hidden relative" style={{ background: '#080e1c', borderTop: '2px solid #2563EB' }}>
+
+          {/* Blobs */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            <div style={{ position: 'absolute', top: '-60px', right: '-40px', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.38) 0%, transparent 68%)' }} />
+            <div style={{ position: 'absolute', bottom: '-60px', left: '-40px', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.25) 0%, transparent 68%)' }} />
+          </div>
+
+          <div className="relative z-10 px-6 py-8 md:px-10 md:py-9 flex flex-col md:flex-row md:items-center md:gap-10">
+
+            {/* Badge + logo */}
+            <div className="flex flex-col items-center md:items-start gap-3 md:shrink-0">
+              <span
+                className="text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full"
+                style={{ background: 'rgba(37,99,235,0.18)', color: '#93c5fd', border: '1px solid rgba(37,99,235,0.35)' }}
+              >
+                My own product
+              </span>
               <Image
                 src="/images/slick-booking.png"
                 alt="Slick Booking"
-                height={40}
-                width={160}
+                height={36}
+                width={144}
                 className="object-contain"
               />
             </div>
-            {/* Copy + button stacked, button centred */}
-            <div className="flex flex-col gap-3 flex-1">
-              <p className="text-sm text-center md:text-left leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
-                My own booking software. <br/> Customers book online, you confirm from your phone.
+
+            {/* Divider */}
+            <div className="hidden md:block w-px self-stretch my-1" style={{ background: 'rgba(255,255,255,0.08)' }} />
+
+            {/* Copy + CTA */}
+            <div className="flex flex-col gap-4 flex-1 mt-6 md:mt-0">
+              <p className="text-sm leading-relaxed text-center md:text-left" style={{ color: 'rgba(255,255,255,0.55)' }}>
+                Customers book online, you confirm from your phone. No agency, built by me.
               </p>
-              <div className="flex justify-center">
-                <Link
-                  href="/slick-booking"
-                  className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-sm transition-colors border"
-                  style={{ color: 'rgba(255,255,255,0.85)', borderColor: 'rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.06)' }}
-                >
-                  Find out more
-                </Link>
-              </div>
+              <Link
+                href="/slick-booking"
+                className="w-full md:w-auto md:self-start inline-flex items-center justify-center gap-2 text-sm px-6 py-3 rounded-sm font-medium bg-accent text-white hover:bg-accent/90 transition-colors"
+              >
+                Find out more
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                  <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
             </div>
+
           </div>
         </div>
 

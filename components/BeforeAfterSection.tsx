@@ -115,16 +115,20 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
 
         {/* Header — scroll-driven, slides in from left and reverses */}
         <div
-          className="mb-12"
+          className="mb-12 text-center"
           style={{
-            transform: `translateX(${(headingProgress - 1) * 60}px)`,
             opacity: headingProgress,
+            transform: `translateY(${(1 - headingProgress) * 16}px)`,
           }}
         >
-          <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-2">
-            The numbers after
+          <div className="w-10 h-[2px] bg-white/30 mx-auto mb-4" />
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-3">
+            The Data
           </h2>
-          <p className="text-sm text-white/55">Garden Tablecloth Co. Two months post-redesign.</p>
+          <p className="text-sm text-white/55 max-w-2xl mx-auto leading-relaxed">
+            <span className="md:hidden">Garden Tablecloth Co. Two months post-redesign.</span>
+            <span className="hidden md:inline">Whenever possible, I get into the numbers and track what actually changed. Here is what happened with Garden Tablecloth Co. Two months post-redesign.</span>
+          </p>
         </div>
 
         {/* Stat cards */}

@@ -14,10 +14,18 @@ const dotGrid = {
 
 export default function Hero() {
   const [desktopVisible, setDesktopVisible] = useState(false)
+  const [activePanel, setActivePanel] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
+  const heroScrollRef = useRef<HTMLDivElement>(null)
   const [ripples, setRipples] = useState<Ripple[]>([])
   const rippleId = useRef(0)
   const lastRipple = useRef(0)
+
+  const onHeroScroll = useCallback(() => {
+    const el = heroScrollRef.current
+    if (!el) return
+    setActivePanel(el.scrollLeft > el.offsetWidth / 2 ? 1 : 0)
+  }, [])
 
   useEffect(() => {
     const raf = requestAnimationFrame(() => setDesktopVisible(true))
@@ -51,17 +59,38 @@ export default function Hero() {
         />
       ))}
 
-      {/* ── MOBILE HERO ──
-          Swipe RIGHT to see portrait. Swipe DOWN to continue. */}
-      <div
-        className="flex lg:hidden"
-        style={{
-          height: '100svh',
-          overflowX: 'scroll',
-          scrollSnapType: 'x mandatory',
-          scrollbarWidth: 'none',
-        } as React.CSSProperties}
-      >
+      {/* ── MOBILE HERO ── */}
+      <div className="relative flex lg:hidden flex-col" style={{ height: '100svh' }}>
+
+        {/* Panel dots + swipe arrow — top centre */}
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 pointer-events-none">
+          <div
+            className="rounded-full transition-all duration-300"
+            style={{ height: '6px', width: activePanel === 0 ? '20px' : '6px', backgroundColor: activePanel === 0 ? '#2563EB' : 'rgba(15,23,42,0.2)' }}
+          />
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none" style={{ opacity: 0.3, transition: 'opacity 0.3s' }}>
+            {activePanel === 0
+              ? <path d="M1 7h12M7 1l6 6-6 6" stroke="#0f172a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              : <path d="M13 7H1M7 1L1 7l6 6" stroke="#0f172a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            }
+          </svg>
+          <div
+            className="rounded-full transition-all duration-300"
+            style={{ height: '6px', width: activePanel === 1 ? '20px' : '6px', backgroundColor: activePanel === 1 ? '#2563EB' : 'rgba(15,23,42,0.2)' }}
+          />
+        </div>
+
+        <div
+          ref={heroScrollRef}
+          onScroll={onHeroScroll}
+          style={{
+            flex: 1,
+            display: 'flex',
+            overflowX: 'scroll',
+            scrollSnapType: 'x mandatory',
+            scrollbarWidth: 'none',
+          } as React.CSSProperties}
+        >
 
         {/* Panel 1 — text */}
         <div
@@ -102,18 +131,6 @@ export default function Hero() {
             </Link>
           </div>
 
-          {/* Swipe hint */}
-          <div className="mt-5 flex items-center justify-end gap-2 pointer-events-none">
-            <span className="font-sans text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.35)' }}>
-              About me
-            </span>
-            <span style={{ display: 'inline-flex', animation: 'nudge-right 1.8s ease-in-out infinite', color: 'rgba(15,23,42,0.35)' }}>
-              <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
-                <circle cx="4" cy="8" r="3" stroke="currentColor" strokeWidth="1.4" />
-                <path d="M9 8h10M15 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </div>
 
           {/* Down arrow — absolute bottom centre */}
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none">
@@ -131,13 +148,16 @@ export default function Hero() {
             flexShrink: 0,
             width: '100vw',
             scrollSnapAlign: 'start',
-            paddingTop: '72px',
-            paddingBottom: '64px',
+            paddingTop: '84px',
+            paddingBottom: '80px',
             ...dotGrid,
           }}
         >
+          {/* About me title */}
+          <h2 className="text-2xl font-heading font-bold text-ink mb-5 self-center">About me</h2>
+
           {/* Portrait */}
-          <div className="relative" style={{ maxWidth: '180px', width: '100%' }}>
+          <div className="relative" style={{ maxWidth: '220px', width: '100%' }}>
             <div
               className="relative w-full overflow-hidden rounded-[4px] shadow-lg"
               style={{ aspectRatio: '801 / 1022', borderLeft: '3px solid #2563EB' }}
@@ -151,29 +171,14 @@ export default function Hero() {
                 sizes="220px"
               />
             </div>
-            {/* Me annotation */}
-            <div className="absolute top-3 right-3 flex flex-col items-end pointer-events-none select-none z-20">
-              <span className="font-sans text-[17px] font-bold leading-none mb-1" style={{ color: '#0f172a' }}>Me</span>
-              <Image src="/images/Arrow 1.png" alt="" width={40} height={56} />
-            </div>
           </div>
 
           {/* Friendly intro */}
-          <div className="mt-4 text-center" style={{ maxWidth: '260px' }}>
+          <div className="mt-6 text-center" style={{ maxWidth: '260px' }}>
             <p className="text-sm font-semibold text-ink mb-1.5">Hi, I&apos;m William.</p>
             <p className="text-sm leading-relaxed" style={{ color: '#374151' }}>
               &ldquo;I&apos;m a web designer and UX consultant based in the UK. I work with businesses of all kinds. Just me, no agency, start to finish.&rdquo;
             </p>
-          </div>
-
-          {/* Back swipe — inline, sits just below intro */}
-          <div className="mt-4 self-start flex items-center gap-1.5 pointer-events-none">
-            <svg width="14" height="14" viewBox="0 0 22 22" fill="none">
-              <path d="M18 11H4M9 5l-6 6 6 6" stroke="rgba(15,23,42,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <span className="font-sans text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.35)' }}>
-              Back
-            </span>
           </div>
 
           {/* Down arrow — absolute bottom centre */}
@@ -185,6 +190,7 @@ export default function Hero() {
           </div>
         </div>
 
+        </div>
       </div>
 
       {/* ── DESKTOP HERO ── */}
