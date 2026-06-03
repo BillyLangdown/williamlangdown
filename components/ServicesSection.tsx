@@ -172,7 +172,7 @@ export default function ServicesSection() {
 
         {/* Slick Booking */}
         <div className="mt-10 rounded-sm overflow-hidden" style={{ background: '#0F172A' }}>
-          <div className="px-8 py-6 flex flex-col md:flex-row md:items-center md:gap-12 gap-5">
+          <div className="px-8 py-6 flex flex-col md:flex-row md:items-center md:gap-12 gap-5 max-w-2xl mx-auto w-full">
             {/* Logo — left on desktop, centred on mobile */}
             <div className="flex justify-center md:justify-start md:shrink-0">
               <Image
@@ -186,7 +186,7 @@ export default function ServicesSection() {
             {/* Copy + button stacked, left-aligned */}
             <div className="flex flex-col gap-3">
               <p className="text-sm text-center md:text-left leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
-                My own booking software. Customers book online, you confirm from your phone.
+                My own booking software. <br/> Customers book online, you confirm from your phone.
               </p>
               <div className="flex justify-center md:justify-start">
                 <Link
