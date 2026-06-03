@@ -11,7 +11,7 @@ export default function FrictionSection() {
 
         <div className="flex-1 flex flex-col gap-5 justify-center">
           <p className="text-sm text-secondary leading-relaxed">
-            The issue usually isn&apos;t the product or service — it&apos;s the website. Unclear messaging, a layout that doesn&apos;t guide visitors, missing trust signals, and pages that don&apos;t answer the questions people actually have.
+            The issue usually is not the product or service. It is the website. Unclear messaging, a layout that does not guide visitors, no trust signals, and pages that do not answer the questions people actually have.
           </p>
           <p className="text-sm text-secondary leading-relaxed">
             These things don&apos;t look like problems on the surface. But they&apos;re why people land on your site, look around for a few seconds, and leave without getting in touch.

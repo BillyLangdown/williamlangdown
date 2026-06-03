@@ -117,47 +117,56 @@ export default async function CaseStudyPage({ params }: Props) {
   return (
     <>
       <Nav />
-      <main className="pt-40 pb-24">
+      <main
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+          backgroundSize: '22px 22px',
+          backgroundColor: '#F8FAFC',
+        }}
+      >
 
         {/* Header */}
-        <section className="px-6 mb-16">
+        <section className="px-6 pt-32 pb-12 md:pt-36 md:pb-16">
           <div className="max-w-3xl mx-auto">
             {study.services && study.services.length > 0 && (
-              <div className="flex flex-wrap gap-3 mb-8">
+              <div className="flex flex-wrap gap-2 mb-6">
                 {study.services.map((service) => (
                   <span
                     key={service}
-                    className="text-xs text-tertiary uppercase tracking-widest"
+                    className="text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-sm"
+                    style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
                   >
                     {service}
                   </span>
                 ))}
               </div>
             )}
-            <h1 className="text-5xl md:text-6xl font-heading font-bold leading-tight tracking-tight text-ink mb-6">
-              {study.title}
-            </h1>
-            <p className="text-lg text-secondary leading-relaxed mb-10">
+            <div className="pl-4 border-l-4 border-accent mb-8">
+              <h1 className="text-4xl md:text-5xl font-heading font-bold leading-[1.06] tracking-tight text-ink">
+                {study.title}
+              </h1>
+            </div>
+            <p className="text-base text-secondary leading-relaxed mb-10">
               {study.description}
             </p>
-            <div className="flex flex-wrap gap-10 pt-6 border-t border-border-light">
+            <div className="flex flex-wrap gap-8 pt-6 border-t border-border-light">
               <div>
-                <p className="text-xs text-tertiary uppercase tracking-widest mb-1">Client</p>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-tertiary mb-1">Client</p>
                 <p className="text-sm text-ink">{study.client}</p>
               </div>
               <div>
-                <p className="text-xs text-tertiary uppercase tracking-widest mb-1">Published</p>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-tertiary mb-1">Published</p>
                 <p className="text-sm text-ink">{publishedDate}</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Cover image */}
-        {study.coverImage && (
+        {/* Cover image — or audit-only branded hero if no image */}
+        {study.coverImage ? (
           <section className="px-6 mb-16">
             <div className="max-w-6xl mx-auto">
-              <div className="relative aspect-[16/7] overflow-hidden bg-subtle">
+              <div className="relative aspect-[16/7] overflow-hidden rounded-sm">
                 <Image
                   src={urlFor(study.coverImage).width(1800).url()}
                   alt={study.coverImage.alt ?? study.title}
@@ -166,6 +175,47 @@ export default async function CaseStudyPage({ params }: Props) {
                   sizes="100vw"
                   priority
                 />
+              </div>
+            </div>
+          </section>
+        ) : (
+          <section className="px-6 mb-16">
+            <div className="max-w-6xl mx-auto">
+              <div
+                className="relative overflow-hidden rounded-sm"
+                style={{ background: '#080e1c', minHeight: '220px' }}
+              >
+                {/* Blobs */}
+                <div className="absolute inset-0 pointer-events-none">
+                  <div style={{ position: 'absolute', top: '-80px', right: '-60px', width: '380px', height: '380px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.4) 0%, transparent 68%)' }} />
+                  <div style={{ position: 'absolute', bottom: '-80px', left: '-60px', width: '320px', height: '320px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.25) 0%, transparent 68%)' }} />
+                </div>
+                <div
+                  className="relative z-10 px-10 py-16 md:py-20 flex flex-col md:flex-row md:items-center md:justify-between gap-6"
+                  style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
+                >
+                  <div>
+                    {study.services && study.services.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {study.services.map((service) => (
+                          <span
+                            key={service}
+                            className="text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-sm"
+                            style={{ background: 'rgba(37,99,235,0.25)', color: 'rgba(255,255,255,0.8)' }}
+                          >
+                            {service}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <p className="text-3xl md:text-4xl font-heading font-bold text-white leading-tight">
+                      {study.client}
+                    </p>
+                  </div>
+                  <p className="text-sm text-white/50 max-w-sm leading-relaxed md:text-right">
+                    {study.description}
+                  </p>
+                </div>
               </div>
             </div>
           </section>

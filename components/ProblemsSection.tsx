@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 const problems = [
   {
     title: 'People visit but never get in touch',
-    description: "They find your site, look around, and leave. Something in the journey is putting them off. It is usually fixable once you know what it is.",
+    description: "They find your site, look around, and leave. Something is putting them off. It is usually fixable once you know what it is.",
   },
   {
     title: 'Nothing to make them trust you',
@@ -60,10 +60,20 @@ export default function ProblemsSection() {
     <section ref={sectionRef} className="bg-subtle" style={{ scrollSnapAlign: 'start' }}>
 
       {/* ── MOBILE: horizontal snap cards on dot-grid canvas ── */}
-      <div className="md:hidden flex flex-col justify-center py-10" style={{ minHeight: '100svh' }}>
+      <div
+        className="md:hidden relative flex flex-col justify-center py-10"
+        style={{
+          minHeight: '100svh',
+          backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.1) 1.5px, transparent 1.5px)',
+          backgroundSize: '22px 22px',
+          backgroundColor: '#e8edf3',
+        }}
+      >
         <div className="mb-6 px-6 text-center">
-          <h2 className="text-3xl font-heading font-bold text-ink">Common problems</h2>
-          <p className="text-sm text-secondary mt-1">Which of these is you?</p>
+          <div className="inline-block px-4 py-2.5 rounded-sm" style={{ background: 'rgba(255,255,255,0.88)' }}>
+            <h2 className="text-3xl font-heading font-bold text-ink">Common problems</h2>
+            <p className="text-sm text-secondary mt-1">Which of these is you?</p>
+          </div>
         </div>
 
         {/* Textured scroll track */}
@@ -141,10 +151,16 @@ export default function ProblemsSection() {
               className="h-1.5 rounded-full transition-all duration-300"
               style={{
                 width: i === activeIndex ? '24px' : '6px',
-                backgroundColor: i === activeIndex ? '#2563EB' : '#E2E8F0',
+                backgroundColor: i === activeIndex ? '#2563EB' : '#ffffff',
               }}
             />
           ))}
+        </div>
+
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M11 4v14M5 13l6 6 6-6" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </div>
       </div>
 

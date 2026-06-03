@@ -11,7 +11,7 @@ const services = [
     color: '#2563EB',
     description:
       "A proper look at your website: what's putting people off, where the copy falls flat, how it performs on mobile, and how it sits in search. You get a written report and a short video walkthrough so you know what to tackle first.",
-    href: '/pricing',
+    href: '/services',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
         <circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.5" />
@@ -26,7 +26,7 @@ const services = [
     featured: true,
     description:
       "A website built to get people in touch. Up to five pages, works on every device, includes contact forms, basic SEO, and analytics. Two rounds of changes before it goes live.",
-    href: '/pricing',
+    href: '/services',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
         <path d="M2 14l2-2 8-8 2 2-8 8-2 2H2v-2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
@@ -40,7 +40,7 @@ const services = [
     color: '#2563EB',
     description:
       "Help with what you've already got. Copy changes, new pages, design tweaks, or general upkeep. Billed by the hour, no contract.",
-    href: '/pricing',
+    href: '/services',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
         <path d="M3 15l7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -69,33 +69,48 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
   return (
     <div
       ref={rowRef}
-      className={`border-t border-border-light overflow-hidden lg:border lg:border-border-light lg:rounded-sm${service.featured ? ' lg:border-t-[3px] lg:border-t-accent lg:bg-accent/[0.03]' : ''}`}
+      className={`border-t border-border-light overflow-hidden lg:border lg:border-border-light lg:rounded-sm${service.featured ? ' relative -mx-6 lg:mx-0 max-lg:bg-[#080e1c] lg:bg-accent/[0.03] lg:border-t-[3px] lg:border-t-accent' : ''}`}
     >
+
+      {/* Gradient blobs — mobile only, hidden on desktop */}
+      {service.featured && (
+        <div className="absolute inset-0 pointer-events-none lg:hidden" style={{ zIndex: 0 }}>
+          <div style={{ position: 'absolute', top: '-80px', right: '-40px', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.5) 0%, transparent 68%)' }} />
+          <div style={{ position: 'absolute', bottom: '-80px', left: '-40px', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.35) 0%, transparent 68%)' }} />
+        </div>
+      )}
+
       <div
-        className="py-10 px-0 flex flex-col md:flex-row md:items-start gap-6 md:gap-12 lg:flex-col lg:p-8 lg:h-full"
+        className={`py-10 flex flex-col md:flex-row md:items-start gap-6 md:gap-12 lg:flex-col lg:p-8 lg:h-full relative z-10 ${service.featured ? 'px-6' : 'px-0'}`}
         style={{
           clipPath: visible ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)',
           transition: 'clip-path 0.85s cubic-bezier(0.16, 1, 0.3, 1)',
+          ...(service.featured ? { backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' } : {}),
         }}
       >
         <div className="flex-1 flex flex-col md:flex-row gap-6 md:gap-12 lg:flex-col lg:flex-1 lg:gap-5">
           <div className="md:w-[220px] lg:w-auto shrink-0">
-            <div
-              className="w-8 h-8 rounded-sm flex items-center justify-center mb-3"
-              style={{ background: `${service.color}18`, color: service.color }}
-            >
-              {service.icon}
+            {/* Icon inline with title on mobile, stacked above on desktop */}
+            <div className="flex items-start gap-3 lg:block">
+              <div
+                className={`w-8 h-8 rounded-sm flex items-center justify-center shrink-0 lg:mb-3 ${service.featured ? 'bg-white/10 text-white lg:text-accent' : ''}`}
+                style={!service.featured ? { background: `${service.color}18`, color: service.color } : undefined}
+              >
+                {service.icon}
+              </div>
+              <div>
+                <h3 className={`text-lg font-semibold leading-snug mb-1 ${service.featured ? 'text-white lg:text-ink' : 'text-ink'}`}>{service.title}</h3>
+                <p className="text-sm font-medium" style={{ color: service.color }}>{service.price}</p>
+              </div>
             </div>
-            <h3 className="text-lg font-semibold text-ink leading-snug mb-1">{service.title}</h3>
-            <p className="text-sm font-medium" style={{ color: service.color }}>{service.price}</p>
           </div>
           <div className="flex-1 flex flex-col gap-4">
-            <p className="text-sm text-secondary leading-relaxed">{service.description}</p>
+            <p className={`text-sm leading-relaxed ${service.featured ? 'text-white/60 lg:text-secondary' : 'text-secondary'}`}>{service.description}</p>
             <Link
               href={service.href}
-              className="inline-flex items-center gap-1.5 text-sm text-ink hover:text-accent transition-colors font-medium"
+              className={`inline-flex items-center gap-1.5 text-sm font-medium transition-colors ${service.featured ? 'text-white/60 hover:text-white lg:text-ink lg:hover:text-accent' : 'text-ink hover:text-accent'}`}
             >
-              See pricing
+              Learn more
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                 <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -136,9 +151,12 @@ export default function ServicesSection() {
           }}
         >
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">What I do</h2>
-          <Link href="/pricing" className="text-sm text-secondary hover:text-ink transition-colors underline underline-offset-4 mt-1 inline-block">
-            View all pricing
-          </Link>
+          <p className="text-sm text-secondary mt-1">
+            Can&apos;t find what you need?{' '}
+            <Link href="/contact" className="underline underline-offset-4 hover:text-ink transition-colors">
+              Send me a message
+            </Link>
+          </p>
         </div>
 
         <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-5">

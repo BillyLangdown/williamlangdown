@@ -174,7 +174,7 @@ export async function submitQuestionnaire(
       from: 'William Langdown Website <noreply@williamlangdown.com>',
       to: 'hello@williamlangdown.com',
       replyTo: clientEmail,
-      subject: `New project brief — ${clientName}`,
+      subject: `New project brief: ${clientName}`,
       html: buildEmailHtml(clientName, clientEmail, answers, skipped),
     })
 

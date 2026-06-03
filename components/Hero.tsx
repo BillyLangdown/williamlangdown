@@ -119,7 +119,7 @@ export default function Hero() {
 
               {/* Me arrow annotation */}
               <div className="absolute top-3 right-3 flex flex-col items-end pointer-events-none select-none z-20">
-                <span className="font-sans text-[17px] font-bold italic leading-none mb-1" style={{ color: '#0f172a' }}>Me</span>
+                <span className="font-sans text-[17px] font-bold leading-none mb-1" style={{ color: '#0f172a' }}>Me</span>
                 <Image
                   src="/images/Arrow 1.png"
                   alt=""
@@ -130,7 +130,7 @@ export default function Hero() {
               </div>
             </div>
 
-            <p className="mt-10 font-sans text-base font-medium " style={{ color: '#0f172a' }}>Just me, no agency, start to finish.</p>
+            <p className="mt-10 font-sans text-base font-medium " style={{ color: '#0f172a' }}>"Just me, no agency, start to finish."</p>
 
             {/* Down arrow — bottom centre of portrait panel */}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none">
@@ -168,27 +168,25 @@ export default function Hero() {
             Fast, beautiful and effective. <br/> If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
             </p>
             <div className="flex flex-col gap-3">
-              <a
-                href="https://calendly.com/billy-langdown01/30min"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/contact"
                 className="inline-flex justify-center items-center gap-2 bg-accent text-white text-sm px-6 py-3.5 rounded-sm font-medium"
               >
-               Lets talk!
-               
-              </a>
-              <button
-                onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+                Let&apos;s talk
+              </Link>
+              <Link
+                href="/services"
                 className="inline-flex justify-center items-center gap-2 text-ink text-sm px-6 py-3.5 rounded-sm"
                 style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(15,23,42,0.1)' }}
               >
                 My services
-              </button>
+              </Link>
             </div>
 
-            <div className="absolute top-1/2 -translate-y-1/2 right-6 pointer-events-none">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                <path d="M4 11h14M13 5l6 6-6 6" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none">
+              <svg width="32" height="28" viewBox="0 0 32 28" fill="none">
+                <path d="M10,2 L10,20 L28,20" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M22,14 L28,20 L22,26" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
           </div>
@@ -242,8 +240,8 @@ export default function Hero() {
                   <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </a>
-              <button
-                onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+              <Link
+                href="/services"
                 className="inline-flex items-center gap-2 text-ink text-sm px-6 py-3 rounded-sm transition-colors"
                 style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(15,23,42,0.1)' }}
               >
@@ -251,7 +249,7 @@ export default function Hero() {
                 <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
                   <path d="M7 1v12M1 7l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-              </button>
+              </Link>
             </div>
             <p className="font-sans text-sm font-medium italic" style={{ color: '#1e3a8a' }}>Just me, no agency, start to finish.</p>
           </div>

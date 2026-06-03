@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/pricing', label: 'Pricing' },
+  { href: '/services', label: 'Services' },
   { href: '/case-studies', label: 'Case Studies' },
   { href: '/blog', label: 'Blog' },
   { href: '/contact', label: 'Contact' },
@@ -79,27 +79,54 @@ export default function Nav() {
       </div>
 
       {/* Mobile menu */}
-      {open && (
-        <div className="md:hidden bg-surface border-t border-border-light px-6 py-6 flex flex-col gap-5">
-          {links.map(({ href, label }) => (
+      <div
+        className="md:hidden overflow-hidden"
+        style={{
+          maxHeight: open ? '480px' : '0',
+          opacity: open ? 1 : 0,
+          transition: 'max-height 0.38s cubic-bezier(0.16,1,0.3,1), opacity 0.22s ease',
+        }}
+      >
+        <div
+          className="border-t"
+          style={{
+            borderBottom: '2px solid rgba(15,23,42,0.12)',
+            boxShadow: '0 8px 24px rgba(15,23,42,0.08)',
+            backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+            backgroundSize: '22px 22px',
+            backgroundColor: '#F8FAFC',
+          }}
+        >
+          <nav className="px-6 pt-2 pb-6 flex flex-col">
+            {links.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                className={`flex items-center justify-between py-4 border-b border-border-light text-base font-medium transition-colors ${
+                  pathname === href ? 'text-ink' : 'text-secondary hover:text-ink'
+                }`}
+              >
+                {label}
+                {pathname === href && (
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: '#2563EB' }} />
+                )}
+              </Link>
+            ))}
             <Link
-              key={href}
-              href={href}
-              className="text-sm text-tertiary hover:text-ink"
+              href="/contact"
               onClick={() => setOpen(false)}
+              className="mt-5 inline-flex justify-center items-center gap-2 text-white text-sm px-6 py-3.5 rounded-sm font-medium"
+              style={{ background: '#2563EB' }}
             >
-              {label}
+              Let&apos;s talk
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </Link>
-          ))}
-          <Link
-            href="/contact"
-            className="inline-block bg-accent text-white text-sm px-5 py-3 rounded-sm text-center"
-            onClick={() => setOpen(false)}
-          >
-            Let&apos;s talk
-          </Link>
+          </nav>
         </div>
-      )}
+      </div>
     </header>
   )
 }

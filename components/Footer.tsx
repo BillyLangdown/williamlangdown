@@ -2,7 +2,7 @@ import { Link } from 'next-view-transitions'
 
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/pricing', label: 'Pricing' },
+  { href: '/services', label: 'Services' },
   { href: '/case-studies', label: 'Case Studies' },
   { href: '/contact', label: 'Contact' },
 ]
