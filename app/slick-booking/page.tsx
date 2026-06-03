@@ -82,7 +82,7 @@ export default function SlickBookingPage() {
               {/* Left — text */}
               <div className="flex-1">
                 {/* Logo */}
-                <div className="mb-8">
+                <div className="mb-8 flex justify-center lg:justify-start">
                   <Image
                     src="/images/slick-booking.png"
                     alt="Slick Booking"
@@ -93,12 +93,14 @@ export default function SlickBookingPage() {
                 </div>
 
                 {/* Coming soon badge */}
-                <div
-                  className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border text-[11px] font-semibold uppercase tracking-wider"
-                  style={{ borderColor: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.45)', background: 'rgba(255,255,255,0.04)' }}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-                  Coming soon
+                <div className="flex justify-center lg:justify-start mb-6">
+                  <div
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-[11px] font-semibold uppercase tracking-wider"
+                    style={{ borderColor: 'rgba(255,255,255,0.12)', color: 'rgba(255,255,255,0.45)', background: 'rgba(255,255,255,0.04)' }}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                    Coming soon
+                  </div>
                 </div>
 
                 <div className="pl-4 border-l-4 border-accent mb-6">
@@ -111,25 +113,16 @@ export default function SlickBookingPage() {
                   Booking software built for small businesses. Customers pick a time, you get notified. Confirm from your phone. No app, no contract, no faff.
                 </p>
 
-                <div className="flex flex-wrap gap-3">
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 text-sm px-6 py-3.5 rounded-sm font-medium transition-opacity hover:opacity-90"
-                    style={{ background: '#2563EB', color: '#fff' }}
-                  >
-                    Get early access
-                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                      <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </Link>
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center gap-2 text-sm px-6 py-3.5 rounded-sm border transition-colors"
-                    style={{ color: 'rgba(255,255,255,0.6)', borderColor: 'rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.04)' }}
-                  >
-                    Ask a question
-                  </Link>
-                </div>
+                <Link
+                  href="/contact"
+                  className="flex lg:inline-flex justify-center items-center gap-2 text-sm px-6 py-3.5 rounded-sm font-medium transition-opacity hover:opacity-90"
+                  style={{ background: '#2563EB', color: '#fff' }}
+                >
+                  Get in touch — I&apos;d love to hear from you
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="shrink-0">
+                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
               </div>
 
               {/* Right — booking card mockup */}
@@ -214,7 +207,7 @@ export default function SlickBookingPage() {
         <section className="px-6 py-16 bg-subtle border-t border-border-light">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal>
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div className="flex gap-4 items-start">
                 <div className="flex gap-4 items-start">
                   <div
                     className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0 mt-0.5"
@@ -233,15 +226,6 @@ export default function SlickBookingPage() {
                     </p>
                   </div>
                 </div>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-accent transition-colors shrink-0 self-start md:self-center"
-                >
-                  Stay in the loop
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
               </div>
             </ScrollReveal>
           </div>
