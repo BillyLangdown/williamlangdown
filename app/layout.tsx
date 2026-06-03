@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from 'next/font/google'
 import Script from 'next/script'
 import { ViewTransitions } from 'next-view-transitions'
 import GaPageTracker from '@/components/GaPageTracker'
+import ViewTransitionGuard from '@/components/ViewTransitionGuard'
 import './globals.css'
 
 const jakarta = Plus_Jakarta_Sans({
@@ -58,6 +59,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased bg-surface text-ink" suppressHydrationWarning>
         <ViewTransitions>
+          <ViewTransitionGuard />
           <GaPageTracker />
           {children}
         </ViewTransitions>
