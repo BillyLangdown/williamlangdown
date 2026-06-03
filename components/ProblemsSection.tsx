@@ -61,9 +61,9 @@ export default function ProblemsSection() {
 
       {/* ── MOBILE: horizontal snap cards on dot-grid canvas ── */}
       <div
-        className="md:hidden relative flex flex-col justify-center py-10"
+        className="md:hidden relative flex flex-col justify-start pt-36 pb-10"
         style={{
-          minHeight: '100svh',
+          minHeight: '88svh',
           backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.1) 1.5px, transparent 1.5px)',
           backgroundSize: '22px 22px',
           backgroundColor: '#e8edf3',
@@ -165,7 +165,7 @@ export default function ProblemsSection() {
       </div>
 
       {/* ── DESKTOP: grid ── */}
-      <div className="hidden md:flex md:flex-col md:justify-center py-20 px-6" style={{ minHeight: '100svh' }}>
+      <div className="hidden md:flex md:flex-col md:justify-center pt-40 pb-20 px-6" style={{ minHeight: '100svh' }}>
         <div className="max-w-6xl mx-auto">
           <div className="mb-12">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">Common problems</h2>

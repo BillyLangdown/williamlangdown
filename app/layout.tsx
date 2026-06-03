@@ -13,17 +13,23 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'William Langdown | UX Designer & Web Consultant',
+  title: 'William Langdown | Web Designer & Consultant',
   description:
-    'I audit, design, and build websites guided by customer insight. Helping ecommerce stores convert more visitors into buyers.',
+    'I build websites that turn visitors into customers. Fast, clear, and designed to get enquiries for small businesses across the UK.',
+  alternates: { canonical: 'https://williamlangdown.com' },
   openGraph: {
-    title: 'William Langdown | UX Designer & Web Consultant',
+    title: 'William Langdown | Web Designer & Consultant',
     description:
-      'I audit, design, and build websites guided by customer insight.',
+      'I build websites that turn visitors into customers. Fast, clear, and designed to get enquiries.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'William Langdown | Web Designer & Consultant',
+    description: 'I build websites that turn visitors into customers.',
   },
 }
 

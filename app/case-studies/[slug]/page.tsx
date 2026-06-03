@@ -86,6 +86,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'article',
       ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630 }] }),
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: study.title,
+      description: study.description ?? undefined,
+      ...(ogImage && { images: [ogImage] }),
+    },
   }
 }
 

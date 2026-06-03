@@ -13,7 +13,14 @@ export default function ClientBriefPage() {
   return (
     <>
       <Nav />
-      <main className="pt-16 min-h-screen bg-[#FAFAF7]">
+      <main
+        className="pt-16 min-h-screen"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+          backgroundSize: '22px 22px',
+          backgroundColor: '#F8FAFC',
+        }}
+      >
         <Questionnaire />
       </main>
       <Footer />

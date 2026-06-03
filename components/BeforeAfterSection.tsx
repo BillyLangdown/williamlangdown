@@ -81,7 +81,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden py-20 px-6"
+      className="relative overflow-hidden py-16 md:pt-28 md:pb-16 px-6"
       style={{ background: '#080e1c', scrollSnapAlign: 'start' }}
     >
 
@@ -121,57 +121,57 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
             opacity: headingProgress,
           }}
         >
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-2">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-2">
             The numbers after
           </h2>
-          <p className="text-sm text-white/40">Garden Tablecloth Co. Two months post-redesign.</p>
+          <p className="text-sm text-white/55">Garden Tablecloth Co. Two months post-redesign.</p>
         </div>
 
         {/* Stat cards */}
-        <div className="grid grid-cols-2 gap-4 md:gap-6 mb-12" style={fadeIn(80)}>
+        <div className="grid grid-cols-2 gap-4 md:gap-5 mb-8 md:mb-10" style={fadeIn(80)}>
 
           {/* Conversion rate */}
           <div
-            className="border border-white/10 rounded-sm p-5 md:p-7 flex flex-col items-center text-center"
+            className="border border-white/10 rounded-sm p-5 md:p-5 flex flex-col items-center text-center"
             style={{ background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
           >
-            <p className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-white/35 mb-4 truncate">
+            <p className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-white/55 mb-4 truncate">
               Conversion rate
             </p>
             <div className="flex items-end gap-2 mb-3">
               <span
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold leading-none tabular-nums"
+                className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl font-heading font-bold leading-none tabular-nums"
                 style={{ color: '#ffffff' }}
               >
                 +{conversionUp}
               </span>
-              <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white/40 mb-1 leading-none">%</span>
+              <span className="text-xl sm:text-2xl md:text-2xl font-bold text-white/40 mb-1 leading-none">%</span>
             </div>
-            <p className="text-xs text-white/30 mb-1">2.3% → 4.1%</p>
-            <p className="text-xs text-white/25 leading-relaxed hidden sm:block">
+            <p className="text-xs text-white/55 mb-1">2.3% → 4.1%</p>
+            <p className="text-xs text-white/50 leading-relaxed hidden sm:block">
               More visitors completing enquiry forms
             </p>
           </div>
 
           {/* Bounce rate */}
           <div
-            className="border border-white/10 rounded-sm p-5 md:p-7 flex flex-col items-center text-center"
+            className="border border-white/10 rounded-sm p-5 md:p-5 flex flex-col items-center text-center"
             style={{ background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
           >
-            <p className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-white/35 mb-4 truncate">
+            <p className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-white/55 mb-4 truncate">
               Bounce rate
             </p>
             <div className="flex items-end gap-2 mb-3">
               <span
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold leading-none tabular-nums"
+                className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl font-heading font-bold leading-none tabular-nums"
                 style={{ color: '#ffffff' }}
               >
                 -{bounceDown}
               </span>
-              <span className="text-xl sm:text-2xl md:text-3xl font-bold text-white/40 mb-1 leading-none">%</span>
+              <span className="text-xl sm:text-2xl md:text-2xl font-bold text-white/40 mb-1 leading-none">%</span>
             </div>
-            <p className="text-xs text-white/30 mb-1">42% → 33%</p>
-            <p className="text-xs text-white/25 leading-relaxed hidden sm:block">
+            <p className="text-xs text-white/55 mb-1">42% → 33%</p>
+            <p className="text-xs text-white/50 leading-relaxed hidden sm:block">
               Fewer users leaving immediately after landing
             </p>
           </div>
@@ -215,7 +215,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
         <div className="mt-8 text-right" style={fadeIn(200)}>
           <Link
             href={slug === '#' ? '/case-studies' : `/case-studies/${slug}`}
-            className="inline-flex items-center gap-2 text-sm text-white/35 hover:text-white underline underline-offset-4 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-white/65 hover:text-white underline underline-offset-4 transition-colors"
           >
             View the case study
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

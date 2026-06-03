@@ -78,7 +78,7 @@ const SECTIONS: Section[] = [
     heading: 'Your audience',
     subheading: 'Tell me about the people you want to reach.',
     skippable: true,
-    milestone: 'Halfway there. You are doing great.',
+    milestone: 'Halfway there!',
     fields: [
       { id: 'idealCustomers', label: 'Who are your ideal customers, and what type of client do you want to attract more of?', type: 'textarea', placeholder: 'Who they are, what they need, and who you want more of...' },
       { id: 'bToB', label: 'Are you targeting businesses, consumers, or both?', type: 'text', placeholder: 'B2B, B2C, or both' },
@@ -158,9 +158,9 @@ const TOTAL_STEPS = SECTIONS.length
 /* ── Variants ────────────────────────────────────────────────────────── */
 
 const variants = {
-  enter: (dir: number) => ({ x: dir > 0 ? 36 : -36, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir: number) => ({ x: dir > 0 ? -36 : 36, opacity: 0 }),
+  enter: { opacity: 0 },
+  center: { opacity: 1 },
+  exit: { opacity: 0 },
 }
 
 /* ── Field ───────────────────────────────────────────────────────────── */
@@ -175,16 +175,16 @@ function Field({
   onChange: (val: string) => void
 }) {
   const base =
-    'w-full border border-[#E2DDD7] bg-white px-4 py-3 text-base md:text-sm text-[#1A1A1A] placeholder:text-[#ccc] focus:outline-none focus:border-[#C17A3A] focus:ring-2 focus:ring-[#C17A3A]/10 transition-all duration-150'
+    'w-full border border-border-light bg-white/80 px-4 py-3 text-base md:text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all duration-150 rounded-sm'
 
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#999]">
+      <label className="text-[10px] font-semibold uppercase tracking-wider text-secondary">
         {field.label}
-        {field.required && <span className="ml-1 text-[#C17A3A]">*</span>}
+        {field.required && <span className="ml-1 text-accent">*</span>}
       </label>
       {field.hint && (
-        <p className="text-[11px] text-[#bbb] leading-relaxed">{field.hint}</p>
+        <p className="text-[11px] text-tertiary leading-relaxed">{field.hint}</p>
       )}
       {field.type === 'textarea' ? (
         <textarea
@@ -223,12 +223,13 @@ function SuccessScreen({ name, skipped }: { name: string; skipped: string[] }) {
         initial={{ scale: 0.7, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.1, duration: 0.4, type: 'spring', stiffness: 200 }}
-        className="mb-8 flex h-16 w-16 items-center justify-center border border-[#E2DDD7] bg-[#F0EBE3]"
+        className="mb-8 flex h-14 w-14 items-center justify-center rounded-sm"
+        style={{ background: '#2563EB' }}
       >
-        <svg viewBox="0 0 24 24" fill="none" className="h-7 w-7">
+        <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
           <motion.path
             d="M5 13l4 4L19 7"
-            stroke="#C17A3A"
+            stroke="white"
             strokeWidth="1.75"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -245,15 +246,15 @@ function SuccessScreen({ name, skipped }: { name: string; skipped: string[] }) {
         transition={{ delay: 0.25, duration: 0.4 }}
         className="max-w-sm"
       >
-        <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C17A3A]">
+        <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-accent">
           Brief received
         </p>
-        <h2 className="font-heading text-3xl text-[#1A1A1A] mb-4">
+        <h2 className="font-heading text-3xl text-ink mb-4">
           Thanks{name ? `, ${name.split(' ')[0]}` : ''}
         </h2>
-        <p className="text-sm text-[#666] leading-relaxed mb-10">
+        <p className="text-sm text-secondary leading-relaxed mb-10">
           Your brief has been sent. I will review it and be in touch shortly. You completed{' '}
-          <span className="font-semibold text-[#1A1A1A]">{completed} of {CONTENT_SECTIONS.length}</span> sections, which is plenty to get started.
+          <span className="font-semibold text-ink">{completed} of {CONTENT_SECTIONS.length}</span> sections, which is plenty to get started.
         </p>
 
         <div className="grid grid-cols-2 gap-2 text-left mb-10">
@@ -261,16 +262,16 @@ function SuccessScreen({ name, skipped }: { name: string; skipped: string[] }) {
             const done = !skipped.includes(s.id)
             return (
               <div key={s.id} className="flex items-center gap-2 text-xs">
-                <span className={done ? 'text-[#C17A3A]' : 'text-[#ddd]'}>
+                <span style={{ color: done ? '#2563EB' : 'rgba(15,23,42,0.2)' }}>
                   {done ? '✓' : '○'}
                 </span>
-                <span className={done ? 'text-[#555]' : 'text-[#ccc]'}>{s.label}</span>
+                <span className={done ? 'text-secondary' : 'text-tertiary'}>{s.label}</span>
               </div>
             )
           })}
         </div>
 
-        <p className="text-xs text-[#bbb]">You can close this window whenever you are ready.</p>
+        <p className="text-xs text-tertiary">You can close this window whenever you are ready.</p>
       </motion.div>
     </motion.div>
   )
@@ -280,7 +281,6 @@ function SuccessScreen({ name, skipped }: { name: string; skipped: string[] }) {
 
 export default function Questionnaire() {
   const [step, setStep] = useState(0)
-  const [dir, setDir] = useState(1)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [skipped, setSkipped] = useState<string[]>([])
   const [submitting, setSubmitting] = useState(false)
@@ -306,21 +306,18 @@ export default function Questionnaire() {
 
   function goNext() {
     if (!canAdvance()) return
-    setDir(1)
     setStep((s) => s + 1)
     scrollTop()
   }
 
   function goBack() {
     if (step === 0) return
-    setDir(-1)
     setStep((s) => s - 1)
     scrollTop()
   }
 
   function skipSection() {
     setSkipped((prev) => [...prev, section.id])
-    setDir(1)
     setStep((s) => s + 1)
     scrollTop()
   }
@@ -348,11 +345,20 @@ export default function Questionnaire() {
   return (
     <div ref={topRef}>
       {/* Sticky progress strip */}
-      <div className="sticky top-16 z-40 bg-[#FAFAF7] border-b border-[#E2DDD7]">
-        {/* Bar */}
-        <div className="h-0.5 w-full bg-[#E2DDD7]">
+      <div
+        className="sticky top-16 z-40 border-b"
+        style={{
+          borderColor: 'rgba(15,23,42,0.08)',
+          backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+          backgroundSize: '22px 22px',
+          backgroundColor: '#F8FAFC',
+        }}
+      >
+        {/* Progress bar */}
+        <div className="h-0.5 w-full" style={{ background: 'rgba(15,23,42,0.08)' }}>
           <motion.div
-            className="h-full bg-[#C17A3A]"
+            className="h-full"
+            style={{ background: '#2563EB' }}
             initial={{ width: 0 }}
             animate={{ width: `${pct}%` }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -363,7 +369,7 @@ export default function Questionnaire() {
           {step > 0 && !submitted ? (
             <button
               onClick={goBack}
-              className="flex items-center gap-1.5 text-xs text-[#aaa] hover:text-[#666] transition-colors"
+              className="flex items-center gap-1.5 text-xs text-tertiary hover:text-secondary transition-colors"
             >
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none">
                 <path d="M19 12H5M12 5l-7 7 7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -374,7 +380,7 @@ export default function Questionnaire() {
             <span />
           )}
 
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#bbb]">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-tertiary">
             {submitted
               ? 'Complete'
               : step === 0
@@ -387,13 +393,12 @@ export default function Questionnaire() {
             {SECTIONS.map((_, i) => (
               <div
                 key={i}
-                className={`rounded-full transition-all duration-300 ${
-                  i < step
-                    ? 'h-1 w-3 bg-[#C17A3A]'
-                    : i === step
-                    ? 'h-1 w-5 bg-[#C17A3A]'
-                    : 'h-1 w-1.5 bg-[#E2DDD7]'
-                }`}
+                className="rounded-full transition-all duration-300"
+                style={{
+                  height: '4px',
+                  width: i < step ? '12px' : i === step ? '20px' : '6px',
+                  background: i <= step ? '#2563EB' : 'rgba(15,23,42,0.12)',
+                }}
               />
             ))}
           </div>
@@ -415,32 +420,29 @@ export default function Questionnaire() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="mb-6 border border-[#E2DDD7] bg-[#F0EBE3] px-4 py-3 text-xs text-[#9a6535] leading-relaxed"
+                  className="mb-6 border rounded-sm px-4 py-3 text-xs leading-relaxed"
+                  style={{ borderColor: 'rgba(37,99,235,0.2)', background: 'rgba(37,99,235,0.05)', color: '#2563EB' }}
                 >
                   {section.milestone}
                 </motion.div>
               )}
             </AnimatePresence>
 
-            <AnimatePresence mode="wait" custom={dir}>
+            <AnimatePresence mode="wait">
               <motion.div
                 key={step}
-                custom={dir}
                 variants={variants}
                 initial="enter"
                 animate="center"
                 exit="exit"
-                transition={{ duration: 0.22, ease: 'easeInOut' }}
+                transition={{ duration: 0.18, ease: 'easeInOut' }}
               >
                 {/* Header */}
                 <div className="mb-10">
-                  <span className="font-heading text-6xl font-bold text-[#C17A3A]/20 select-none leading-none block mb-4">
-                    {section.num}
-                  </span>
-                  <h1 className="font-heading text-3xl sm:text-4xl text-[#1A1A1A] mb-3">
+                  <h1 className="font-heading text-3xl sm:text-4xl text-ink mb-3 pl-4 border-l-4 border-accent">
                     {section.heading}
                   </h1>
-                  <p className="text-sm text-[#666] leading-relaxed">{section.subheading}</p>
+                  <p className="text-sm text-secondary leading-relaxed mt-3">{section.subheading}</p>
                 </div>
 
                 {/* Fields */}
@@ -465,7 +467,8 @@ export default function Questionnaire() {
                     <button
                       onClick={handleSubmit}
                       disabled={submitting}
-                      className="w-full bg-[#C17A3A] text-white py-4 text-sm font-medium tracking-wide hover:bg-[#a86830] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full text-white py-4 text-sm font-medium tracking-wide transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 rounded-sm"
+                      style={{ background: '#2563EB' }}
                     >
                       {submitting ? (
                         <>
@@ -485,7 +488,8 @@ export default function Questionnaire() {
                     <button
                       onClick={goNext}
                       disabled={!canAdvance()}
-                      className="w-full bg-[#1A1A1A] text-white py-4 text-sm font-medium tracking-wide hover:bg-[#2a2a2a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full text-white py-4 text-sm font-medium tracking-wide transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 rounded-sm"
+                      style={{ background: '#2563EB' }}
                     >
                       Continue
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
@@ -497,7 +501,7 @@ export default function Questionnaire() {
                   {section.skippable && (
                     <button
                       onClick={skipSection}
-                      className="text-center text-xs text-[#ccc] hover:text-[#999] transition-colors py-1 underline underline-offset-4"
+                      className="text-center text-xs text-tertiary hover:text-secondary transition-colors py-1 underline underline-offset-4"
                     >
                       Skip this section
                     </button>

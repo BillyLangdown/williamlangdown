@@ -6,33 +6,22 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 interface Ripple { id: number; x: number; y: number }
 
-// How many pixels of scroll drive the full animation
-const SCROLL_RANGE = 280
+const dotGrid = {
+  backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+  backgroundSize: '22px 22px',
+  backgroundColor: '#F8FAFC',
+}
 
 export default function Hero() {
   const [desktopVisible, setDesktopVisible] = useState(false)
-  const [scrollProgress, setScrollProgress] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
-  const heroScrollRef = useRef<HTMLDivElement>(null)
   const [ripples, setRipples] = useState<Ripple[]>([])
   const rippleId = useRef(0)
   const lastRipple = useRef(0)
 
   useEffect(() => {
     const raf = requestAnimationFrame(() => setDesktopVisible(true))
-
-    const el = heroScrollRef.current
-    const onScroll = () => {
-      if (!el) return
-      const p = Math.min(1, Math.max(0, el.scrollTop / SCROLL_RANGE))
-      setScrollProgress(p)
-    }
-    el?.addEventListener('scroll', onScroll, { passive: true })
-
-    return () => {
-      cancelAnimationFrame(raf)
-      el?.removeEventListener('scroll', onScroll)
-    }
+    return () => cancelAnimationFrame(raf)
   }, [])
 
   const spawnRipple = useCallback((e: React.MouseEvent<HTMLElement>) => {
@@ -47,20 +36,11 @@ export default function Hero() {
     setTimeout(() => setRipples(prev => prev.filter(r => r.id !== id)), 1600)
   }, [])
 
-  // Text is visible first; portrait enters from right as user scrolls, text exits left
-  const portraitX = (1 - scrollProgress) * 100
-  const textX = -scrollProgress * 100
-
   return (
     <section
       ref={sectionRef}
       className="relative lg:overflow-hidden"
-      style={{
-        scrollSnapAlign: 'start',
-        backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
-        backgroundSize: '22px 22px',
-        backgroundColor: '#F8FAFC',
-      }}
+      style={{ scrollSnapAlign: 'start', ...dotGrid }}
       onMouseMove={spawnRipple}
     >
       {ripples.map(r => (
@@ -72,141 +52,145 @@ export default function Hero() {
       ))}
 
       {/* ── MOBILE HERO ──
-          Scroll container snaps between the two panel states.
-          scrollTop drives the horizontal slide animation. */}
+          Swipe RIGHT to see portrait. Swipe DOWN to continue. */}
       <div
-        ref={heroScrollRef}
         className="lg:hidden"
         style={{
+          display: 'flex',
           height: '100svh',
-          overflowY: 'scroll',
-          scrollSnapType: 'y mandatory',
+          overflowX: 'scroll',
+          scrollSnapType: 'x mandatory',
           scrollbarWidth: 'none',
-        }}
+        } as React.CSSProperties}
       >
-        {/* snap point 1: text panel (scrollTop = 0) */}
-        <div style={{ height: 0, scrollSnapAlign: 'start' }} />
-        <div className="sticky top-0 overflow-hidden" style={{ height: '100svh' }}>
 
-          {/* Portrait + badge — enters from right as user scrolls */}
-          <div
-            className="absolute inset-0 z-10 flex flex-col items-center justify-center"
-            style={{
-              padding: '20px',
-              paddingTop: '84px',
-              transform: `translateX(${portraitX}%)`,
-              backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
-              backgroundSize: '22px 22px',
-              backgroundColor: '#F8FAFC',
-            }}
-          >
-            {/* Wrapper without overflow-hidden so the Me arrow can sit outside the image */}
-            <div className="relative" style={{ maxWidth: '260px', width: '100%' }}>
-
-              <div
-                className="relative w-full overflow-hidden rounded-[4px] shadow-lg"
-                style={{ aspectRatio: '801 / 1022', borderLeft: '3px solid #2563EB' }}
-              >
-                <Image
-                  src="/images/portrait.png"
-                  alt="William Langdown"
-                  fill
-                  className="object-cover object-top"
-                  priority
-                  sizes="260px"
-                />
-              </div>
-
-              {/* Me arrow annotation */}
-              <div className="absolute top-3 right-3 flex flex-col items-end pointer-events-none select-none z-20">
-                <span className="font-sans text-[17px] font-bold leading-none mb-1" style={{ color: '#0f172a' }}>Me</span>
-                <Image
-                  src="/images/Arrow 1.png"
-                  alt=""
-                  width={44}
-                  height={62}
-                  unoptimized
-                />
-              </div>
-            </div>
-
-            <p className="mt-10 font-sans text-base font-medium " style={{ color: '#0f172a' }}>"Just me, no agency, start to finish."</p>
-
-            {/* Down arrow — bottom centre of portrait panel */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                <path d="M11 4v14M5 13l6 6 6-6" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
+        {/* Panel 1 — text */}
+        <div
+          className="relative flex flex-col justify-center px-6"
+          style={{
+            flexShrink: 0,
+            width: '100vw',
+            scrollSnapAlign: 'start',
+            paddingTop: '72px',
+            paddingBottom: '72px',
+            ...dotGrid,
+          }}
+        >
+          <div className="mb-5 flex justify-center">
+            <Image src="/images/laptop.png" alt="" width={140} height={140} />
           </div>
 
-          {/* Text panel — visible on load, exits left as portrait enters */}
-          <div
-            className="absolute inset-0 flex flex-col justify-center px-6"
-            style={{
-              paddingTop: '40px',
-              transform: `translateX(${textX}%)`,
-              backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
-              backgroundSize: '22px 22px',
-              backgroundColor: '#F8FAFC',
-            }}
-          >
-            <div className="mb-5 flex justify-center">
+          <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4 text-center">
+            I build websites that turn visitors into customers
+          </h1>
+          <p className="text-sm leading-relaxed mb-8 text-center" style={{ color: '#0f172a' }}>
+            Fast, beautiful and effective.<br />If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
+          </p>
+
+          <div className="flex flex-col gap-3">
+            <Link
+              href="/contact"
+              className="inline-flex justify-center items-center gap-2 bg-accent text-white text-sm px-6 py-3.5 rounded-sm font-medium"
+            >
+              Let&apos;s talk
+            </Link>
+            <Link
+              href="/services"
+              className="inline-flex justify-center items-center gap-2 text-ink text-sm px-6 py-3.5 rounded-sm"
+              style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(15,23,42,0.1)' }}
+            >
+              My services
+            </Link>
+          </div>
+
+          {/* About me swipe — inline, sits just below CTAs */}
+          <div className="mt-5 flex items-center justify-end gap-1.5 pointer-events-none">
+            <span className="font-sans text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.35)' }}>
+              About me
+            </span>
+            <svg width="14" height="14" viewBox="0 0 22 22" fill="none">
+              <path d="M4 11h14M13 5l6 6-6 6" stroke="rgba(15,23,42,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+
+          {/* Down arrow — absolute bottom centre */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none">
+            <span className="font-sans text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.35)' }}>Learn more</span>
+            <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
+              <path d="M11 4v14M5 13l6 6 6-6" stroke="rgba(15,23,42,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+        </div>
+
+        {/* Panel 2 — portrait + intro */}
+        <div
+          className="relative flex flex-col items-center justify-center px-6"
+          style={{
+            flexShrink: 0,
+            width: '100vw',
+            scrollSnapAlign: 'start',
+            paddingTop: '84px',
+            paddingBottom: '80px',
+            ...dotGrid,
+          }}
+        >
+          {/* Portrait */}
+          <div className="relative" style={{ maxWidth: '220px', width: '100%' }}>
+            <div
+              className="relative w-full overflow-hidden rounded-[4px] shadow-lg"
+              style={{ aspectRatio: '801 / 1022', borderLeft: '3px solid #2563EB' }}
+            >
               <Image
-                src="/images/laptop.png"
-                alt=""
-                width={160}
-                height={160}
-                unoptimized
+                src="/images/portrait.png"
+                alt="William Langdown — web designer and UX consultant"
+                fill
+                className="object-cover object-top"
+                priority
+                sizes="220px"
               />
             </div>
-
-            <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4 text-center">
-  I build websites that turn visitors into customers
-</h1>
-            <p className="text-sm  leading-relaxed mb-8 text-center"  style={{ color: '#0f172a' }}>
-            Fast, beautiful and effective. <br/> If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
-            </p>
-            <div className="flex flex-col gap-3">
-              <Link
-                href="/contact"
-                className="inline-flex justify-center items-center gap-2 bg-accent text-white text-sm px-6 py-3.5 rounded-sm font-medium"
-              >
-                Let&apos;s talk
-              </Link>
-              <Link
-                href="/services"
-                className="inline-flex justify-center items-center gap-2 text-ink text-sm px-6 py-3.5 rounded-sm"
-                style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(15,23,42,0.1)' }}
-              >
-                My services
-              </Link>
-            </div>
-
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none">
-              <svg width="32" height="28" viewBox="0 0 32 28" fill="none">
-                <path d="M10,2 L10,20 L28,20" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M22,14 L28,20 L22,26" stroke="#000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+            {/* Me annotation */}
+            <div className="absolute top-3 right-3 flex flex-col items-end pointer-events-none select-none z-20">
+              <span className="font-sans text-[17px] font-bold leading-none mb-1" style={{ color: '#0f172a' }}>Me</span>
+              <Image src="/images/Arrow 1.png" alt="" width={40} height={56} />
             </div>
           </div>
 
+          {/* Friendly intro */}
+          <div className="mt-6 text-center" style={{ maxWidth: '268px' }}>
+            <p className="text-sm font-semibold text-ink mb-1.5">Hi, I&apos;m William.</p>
+            <p className="text-sm leading-relaxed" style={{ color: '#374151' }}>
+              I&apos;m a web designer and UX consultant based in the UK. I work with businesses of all kinds. Just me, no agency, start to finish.
+            </p>
+          </div>
 
+          {/* Back swipe — inline, sits just below intro */}
+          <div className="mt-5 self-start flex items-center gap-1.5 pointer-events-none">
+            <svg width="14" height="14" viewBox="0 0 22 22" fill="none">
+              <path d="M18 11H4M9 5l-6 6 6 6" stroke="rgba(15,23,42,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="font-sans text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.35)' }}>
+              Back
+            </span>
+          </div>
+
+          {/* Down arrow — absolute bottom centre */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none">
+            <span className="font-sans text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.35)' }}>Continue</span>
+            <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
+              <path d="M11 4v14M5 13l6 6 6-6" stroke="rgba(15,23,42,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
         </div>
-        {/* snap point 2: portrait panel — end-aligns at scrollTop = SCROLL_RANGE */}
-        <div style={{ height: `${SCROLL_RANGE}px`, scrollSnapAlign: 'end' }} />
+
       </div>
 
       {/* ── DESKTOP HERO ── */}
       <div className="hidden lg:block pt-8 relative max-w-6xl mx-auto px-6">
-        {/* Portrait — outer div has no overflow-hidden so annotation can sit outside */}
         <div
           className="absolute right-6 top-8"
           style={{ aspectRatio: '801 / 1022', width: '36%' }}
         >
-          {/* Me annotation — left of portrait, arrow flipped to point right */}
-          
-          {/* Image clipping wrapper */}
           <div className="relative w-full h-full overflow-hidden">
             <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
             <div className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent pointer-events-none" />
@@ -221,12 +205,11 @@ export default function Hero() {
           }}
         >
           <div className="lg:max-w-[55%]">
-            
             <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-heading font-extrabold leading-[1.06] tracking-tight text-ink mb-5">
-            I build websites that turn visitors into customers
+              I build websites that turn visitors into customers
             </h1>
             <p className="text-base text-secondary leading-relaxed mb-8">
-              Fast, beautiful and effective. <br/> If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
+              Fast, beautiful and effective.<br />If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
             </p>
             <div className="flex flex-wrap gap-3 mb-8">
               <a
@@ -235,10 +218,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-accent text-white text-sm px-6 py-3 rounded-sm font-medium hover:bg-accent/90 transition-colors"
               >
-                Book a free call
-                <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                  <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                Let&apos;s Talk
               </a>
               <Link
                 href="/services"
@@ -246,12 +226,9 @@ export default function Hero() {
                 style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(15,23,42,0.1)' }}
               >
                 My services
-                <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                  <path d="M7 1v12M1 7l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
               </Link>
             </div>
-            <p className="font-sans text-sm font-medium italic" style={{ color: '#1e3a8a' }}>Just me, no agency, start to finish.</p>
+            <p className="font-sans text-sm font-medium italic" style={{ color: '#1e3a8a' }}>"Just me, no agency, start to finish."</p>
           </div>
         </div>
       </div>

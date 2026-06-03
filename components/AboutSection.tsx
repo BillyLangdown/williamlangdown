@@ -22,9 +22,10 @@ export default function AboutSection() {
               <div className="absolute -bottom-4 -right-4 w-full h-full bg-subtle rounded-lg" />
               <Image
                 src={illustration}
-                alt="William Langdown"
+                alt="William Langdown — illustrated portrait"
                 width={500}
                 height={500}
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="relative rounded-lg object-cover w-full h-full"
               />
             </div>

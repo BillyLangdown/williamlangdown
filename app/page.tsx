@@ -6,8 +6,28 @@ import ServicesSection from '@/components/ServicesSection'
 import CTABanner from '@/components/CTABanner'
 import Footer from '@/components/Footer'
 import { getFeaturedCaseStudy } from '@/lib/queries'
+import type { Metadata } from 'next'
 
 export const revalidate = 3600
+
+export const metadata: Metadata = {
+  title: 'William Langdown | Web Designer & Consultant',
+  description: 'I build websites that turn visitors into customers. Fast, clear, and designed to get enquiries for small businesses across the UK.',
+  alternates: { canonical: 'https://williamlangdown.com' },
+  openGraph: {
+    title: 'William Langdown | Web Designer & Consultant',
+    description: 'I build websites that turn visitors into customers. Fast, clear, and designed to get enquiries for small businesses across the UK.',
+    url: 'https://williamlangdown.com',
+    siteName: 'William Langdown',
+    locale: 'en_GB',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'William Langdown | Web Designer & Consultant',
+    description: 'I build websites that turn visitors into customers.',
+  },
+}
 
 const jsonLd = {
   '@context': 'https://schema.org',
