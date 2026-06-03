@@ -172,9 +172,9 @@ export default function ServicesSection() {
 
         {/* Slick Booking */}
         <div className="mt-10 rounded-sm overflow-hidden" style={{ background: '#0F172A' }}>
-          <div className="p-6 flex flex-col md:flex-row md:items-center md:gap-10 gap-5">
-            {/* Logo */}
-            <div className="flex md:justify-start justify-center md:shrink-0">
+          <div className="px-8 py-6 flex flex-col md:flex-row md:items-center md:gap-12 gap-5">
+            {/* Logo — left on desktop, centred on mobile */}
+            <div className="flex justify-center md:justify-start md:shrink-0">
               <Image
                 src="/images/slick-booking.png"
                 alt="Slick Booking"
@@ -183,15 +183,15 @@ export default function ServicesSection() {
                 className="object-contain"
               />
             </div>
-            {/* Info + CTA stacked */}
-            <div className="flex flex-col gap-4">
+            {/* Copy + button stacked, left-aligned */}
+            <div className="flex flex-col gap-3">
               <p className="text-sm text-center md:text-left leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
                 My own booking software. Customers book online, you confirm from your phone.
               </p>
               <div className="flex justify-center md:justify-start">
                 <Link
                   href="/slick-booking"
-                  className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-sm transition-colors border whitespace-nowrap"
+                  className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-sm transition-colors border"
                   style={{ color: 'rgba(255,255,255,0.85)', borderColor: 'rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.06)' }}
                 >
                   Find out more
