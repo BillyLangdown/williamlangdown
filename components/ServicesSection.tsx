@@ -183,15 +183,15 @@ export default function ServicesSection() {
                 className="object-contain"
               />
             </div>
-            {/* Copy + button on same row, vertically centred */}
-            <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 flex-1">
-              <p className="text-sm text-center md:text-left leading-relaxed flex-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
+            {/* Copy + button stacked, button centred */}
+            <div className="flex flex-col gap-3 flex-1">
+              <p className="text-sm text-center md:text-left leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
                 My own booking software. Customers book online, you confirm from your phone.
               </p>
-              <div className="flex justify-center md:justify-start md:shrink-0">
+              <div className="flex justify-center">
                 <Link
                   href="/slick-booking"
-                  className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-sm transition-colors border whitespace-nowrap"
+                  className="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-sm transition-colors border"
                   style={{ color: 'rgba(255,255,255,0.85)', borderColor: 'rgba(255,255,255,0.15)', background: 'rgba(255,255,255,0.06)' }}
                 >
                   Find out more
