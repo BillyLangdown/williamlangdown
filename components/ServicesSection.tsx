@@ -108,7 +108,7 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
             <p className={`text-sm leading-relaxed ${service.featured ? 'text-white/60 lg:text-secondary' : 'text-secondary'}`}>{service.description}</p>
             <Link
               href={service.href}
-              className={`inline-flex items-center gap-1.5 text-sm font-medium transition-colors ${service.featured ? 'text-white/60 hover:text-white lg:text-ink lg:hover:text-accent' : 'text-ink hover:text-accent'}`}
+              className={`inline-flex items-center gap-1.5 text-sm font-medium transition-colors self-end lg:self-start ${service.featured ? 'text-white/60 hover:text-white lg:text-ink lg:hover:text-accent' : 'text-ink hover:text-accent'}`}
             >
               Learn more
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
@@ -186,7 +186,7 @@ export default function ServicesSection() {
             {/* Copy + button stacked, button centred */}
             <div className="flex flex-col gap-3 flex-1">
               <p className="text-sm text-center md:text-left leading-relaxed" style={{ color: 'rgba(255,255,255,0.5)' }}>
-                My own booking software. Customers book online, you confirm from your phone.
+                My own booking software. <br/> Customers book online, you confirm from your phone.
               </p>
               <div className="flex justify-center">
                 <Link

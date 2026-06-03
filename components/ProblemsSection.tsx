@@ -157,7 +157,7 @@ export default function ProblemsSection() {
           ))}
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none">
+        <div className="absolute bottom-16 left-1/2 -translate-x-1/2 pointer-events-none">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
             <path d="M11 4v14M5 13l6 6 6-6" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
