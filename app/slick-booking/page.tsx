@@ -25,7 +25,7 @@ const features = [
   },
   {
     title: 'Confirm from your inbox',
-    body: 'New booking? You get an email. Hit confirm or decline — or switch on auto-confirm and it handles itself.',
+    body: 'New booking? You get an email. Hit confirm or decline. Or switch on auto-confirm and it handles itself.',
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
         <rect x="2.5" y="5" width="15" height="11" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
@@ -110,7 +110,7 @@ export default function SlickBookingPage() {
                 </div>
 
                 <p className="text-base leading-relaxed mb-8 max-w-lg" style={{ color: 'rgba(255,255,255,0.5)' }}>
-                  Booking software built for small businesses. Customers pick a time, you get notified. Confirm from your phone. No app, no contract, no faff.
+                  Booking software for people who run their own business. Customers pick a time, you get notified, confirm from your phone. No app, no contract.
                 </p>
 
                 <Link
@@ -118,7 +118,7 @@ export default function SlickBookingPage() {
                   className="flex lg:inline-flex justify-center items-center gap-2 text-sm px-6 py-3.5 rounded-sm font-medium transition-opacity hover:opacity-90"
                   style={{ background: '#2563EB', color: '#fff' }}
                 >
-                  Get in touch — I&apos;d love to hear from you
+                  Interested? Get in touch
                   <svg width="13" height="13" viewBox="0 0 14 14" fill="none" className="shrink-0">
                     <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -176,7 +176,7 @@ export default function SlickBookingPage() {
           <div className="max-w-6xl mx-auto">
             <ScrollReveal className="pl-4 border-l-4 border-accent mb-12">
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-ink tracking-tight">What it does</h2>
-              <p className="text-sm text-secondary mt-1">Everything you need. Nothing you don&apos;t.</p>
+              <p className="text-sm text-secondary mt-1">Four things it does well.</p>
             </ScrollReveal>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -222,7 +222,7 @@ export default function SlickBookingPage() {
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-tertiary mb-1">On the roadmap</p>
                     <h3 className="text-sm font-semibold text-ink mb-1">WhatsApp confirmations</h3>
                     <p className="text-sm text-secondary leading-relaxed max-w-md">
-                      Confirm and decline bookings directly over WhatsApp — no need to open a laptop or dig through email.
+                      Confirm and decline bookings directly over WhatsApp. No need to open a laptop or dig through email.
                     </p>
                   </div>
                 </div>
