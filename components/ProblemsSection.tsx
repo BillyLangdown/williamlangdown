@@ -61,7 +61,7 @@ export default function ProblemsSection() {
 
       {/* ── MOBILE: horizontal snap cards on dot-grid canvas ── */}
       <div
-        className="md:hidden relative flex flex-col justify-start pt-10 pb-10"
+        className="md:hidden relative flex flex-col justify-center py-10"
         style={{
           minHeight: '88svh',
           backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.1) 1.5px, transparent 1.5px)',
@@ -157,11 +157,6 @@ export default function ProblemsSection() {
           ))}
         </div>
 
-        <div className="absolute bottom-16 left-1/2 -translate-x-1/2 pointer-events-none">
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <path d="M11 4v14M5 13l6 6 6-6" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
       </div>
 
       {/* ── DESKTOP: grid ── */}

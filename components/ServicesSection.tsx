@@ -69,7 +69,7 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
   return (
     <div
       ref={rowRef}
-      className={`border-t border-border-light overflow-hidden lg:border lg:border-border-light lg:rounded-sm${service.featured ? ' relative -mx-6 lg:mx-0 max-lg:bg-[#080e1c] lg:bg-accent/[0.03] lg:border-t-[3px] lg:border-t-accent' : ''}`}
+      className={`border-t border-border-light first:border-t-0 lg:first:border-t overflow-hidden lg:border lg:border-border-light lg:rounded-sm${service.featured ? ' relative -mx-6 lg:mx-0 max-lg:bg-[#080e1c] lg:bg-accent/[0.03] lg:border-t-[3px] lg:border-t-accent' : ''}`}
     >
 
       {/* Gradient blobs — mobile only, hidden on desktop */}

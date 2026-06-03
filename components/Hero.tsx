@@ -102,14 +102,17 @@ export default function Hero() {
             </Link>
           </div>
 
-          {/* About me swipe — inline, sits just below CTAs */}
-          <div className="mt-5 flex items-center justify-end gap-1.5 pointer-events-none">
+          {/* Swipe hint */}
+          <div className="mt-5 flex items-center justify-end gap-2 pointer-events-none">
             <span className="font-sans text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.35)' }}>
               About me
             </span>
-            <svg width="14" height="14" viewBox="0 0 22 22" fill="none">
-              <path d="M4 11h14M13 5l6 6-6 6" stroke="rgba(15,23,42,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <span style={{ display: 'inline-flex', animation: 'nudge-right 1.8s ease-in-out infinite', color: 'rgba(15,23,42,0.35)' }}>
+              <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+                <circle cx="4" cy="8" r="3" stroke="currentColor" strokeWidth="1.4" />
+                <path d="M9 8h10M15 4l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
           </div>
 
           {/* Down arrow — absolute bottom centre */}
@@ -128,13 +131,13 @@ export default function Hero() {
             flexShrink: 0,
             width: '100vw',
             scrollSnapAlign: 'start',
-            paddingTop: '84px',
-            paddingBottom: '80px',
+            paddingTop: '72px',
+            paddingBottom: '64px',
             ...dotGrid,
           }}
         >
           {/* Portrait */}
-          <div className="relative" style={{ maxWidth: '220px', width: '100%' }}>
+          <div className="relative" style={{ maxWidth: '180px', width: '100%' }}>
             <div
               className="relative w-full overflow-hidden rounded-[4px] shadow-lg"
               style={{ aspectRatio: '801 / 1022', borderLeft: '3px solid #2563EB' }}
@@ -156,7 +159,7 @@ export default function Hero() {
           </div>
 
           {/* Friendly intro */}
-          <div className="mt-6 text-center" style={{ maxWidth: '268px' }}>
+          <div className="mt-4 text-center" style={{ maxWidth: '260px' }}>
             <p className="text-sm font-semibold text-ink mb-1.5">Hi, I&apos;m William.</p>
             <p className="text-sm leading-relaxed" style={{ color: '#374151' }}>
               &ldquo;I&apos;m a web designer and UX consultant based in the UK. I work with businesses of all kinds. Just me, no agency, start to finish.&rdquo;
@@ -164,7 +167,7 @@ export default function Hero() {
           </div>
 
           {/* Back swipe — inline, sits just below intro */}
-          <div className="mt-5 self-start flex items-center gap-1.5 pointer-events-none">
+          <div className="mt-4 self-start flex items-center gap-1.5 pointer-events-none">
             <svg width="14" height="14" viewBox="0 0 22 22" fill="none">
               <path d="M18 11H4M9 5l-6 6 6 6" stroke="rgba(15,23,42,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
