@@ -69,7 +69,7 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
   return (
     <div
       ref={rowRef}
-      className={`border-t border-border-light first:border-t-0 lg:first:border-t overflow-hidden lg:border lg:border-border-light lg:rounded-sm${service.featured ? ' relative -mx-6 lg:mx-0 max-lg:bg-[#080e1c] lg:bg-accent/[0.03] lg:border-t-[3px] lg:border-t-accent' : ''}`}
+      className={` first:border-t-0 lg:first:border-t overflow-hidden lg:border lg:border-border-light lg:rounded-sm${service.featured ? ' relative max-lg:bg-[#080e1c] lg:bg-accent/[0.03] lg:border-t-[3px] lg:border-t-accent' : ' max-lg:bg-white'}`}
     >
 
       {/* Gradient blobs — mobile only, hidden on desktop */}
@@ -81,7 +81,7 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
       )}
 
       <div
-        className={`py-10 flex flex-col md:flex-row md:items-start gap-6 md:gap-12 lg:flex-col lg:p-8 lg:h-full relative z-10 ${service.featured ? 'px-6' : 'px-0'}`}
+        className={`py-10 flex flex-col md:flex-row md:items-start gap-6 md:gap-12 lg:flex-col lg:p-8 lg:h-full relative z-10 ${service.featured ? 'px-6' : 'max-lg:px-6'}`}
         style={{
           clipPath: visible ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)',
           transition: 'clip-path 0.85s cubic-bezier(0.16, 1, 0.3, 1)',
@@ -163,7 +163,7 @@ export default function ServicesSection() {
           </p>
         </div>
 
-        <div className="flex flex-col lg:grid lg:grid-cols-3 lg:gap-5">
+        <div className="flex flex-col max-lg:-mx-6 max-lg:rounded-2xl max-lg:overflow-hidden services-panel-shadow lg:grid lg:grid-cols-3 lg:gap-5">
           {services.map((service, i) => (
             <ServiceRow
               key={service.title}

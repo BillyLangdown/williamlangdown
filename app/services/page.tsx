@@ -102,6 +102,39 @@ export default function ServicesPage() {
                 </p>
               </div>
             </ScrollReveal>
+
+            <ScrollReveal delay={120}>
+              <div
+                className="mt-8 flex items-start gap-4 rounded-sm p-5 max-w-xl"
+                style={{ background: 'rgba(37,99,235,0.05)', border: '1px solid rgba(37,99,235,0.14)' }}
+              >
+                <div
+                  className="shrink-0 w-8 h-8 rounded-sm flex items-center justify-center mt-0.5"
+                  style={{ background: 'rgba(37,99,235,0.1)', color: '#2563EB' }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                    <rect x="4" y="4" width="8" height="8" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                    <path d="M6 1v2M10 1v2M6 13v2M10 13v2M1 6h2M1 10h2M13 6h2M13 10h2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+                    <circle cx="8" cy="8" r="1.2" fill="currentColor" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-ink mb-1">IT consulting &amp; AI integration</p>
+                  <p className="text-sm leading-relaxed text-secondary">
+                    <span className="md:hidden">
+                      <Link href="/contact" className="text-accent font-medium underline underline-offset-2 hover:text-accent/80 transition-colors">Free consultation</Link>
+                      {' '}available for IT or AI advice.
+                    </span>
+                    <span className="hidden md:inline">
+                      Need technical advice about your online presence or help integrating AI into your business?{' '}
+                      <Link href="/contact" className="text-accent font-medium underline underline-offset-2 hover:text-accent/80 transition-colors">
+                        Get in touch for a free consultation.
+                      </Link>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 

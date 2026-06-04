@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 
 const problems = [
@@ -174,18 +175,29 @@ export default function ProblemsSection() {
           </div>
         </div>
 
-        {/* Progress dots */}
-        <div className="flex gap-1.5 mt-4 px-6">
-          {problems.map((_, i) => (
-            <div
-              key={i}
-              className="h-1.5 rounded-full transition-all duration-300"
-              style={{
-                width: i === activeIndex ? '24px' : '6px',
-                backgroundColor: i === activeIndex ? '#2563EB' : '#ffffff',
-              }}
-            />
-          ))}
+        {/* Progress dots + CTA */}
+        <div className="flex items-center justify-between mt-4 px-6">
+          <div className="flex gap-1.5">
+            {problems.map((_, i) => (
+              <div
+                key={i}
+                className="h-1.5 rounded-full transition-all duration-300"
+                style={{
+                  width: i === activeIndex ? '24px' : '6px',
+                  backgroundColor: i === activeIndex ? '#2563EB' : '#ffffff',
+                }}
+              />
+            ))}
+          </div>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-ink/50 hover:text-accent transition-colors"
+          >
+            Get in touch
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+              <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
         </div>
 
       </div>
@@ -222,6 +234,19 @@ export default function ProblemsSection() {
               </div>
             ))}
           </div>
+
+          <div className="mt-10 border-t border-border-light pt-8">
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 text-sm font-medium border border-ink/20 text-ink px-5 py-2.5 rounded-sm hover:border-accent hover:text-accent transition-colors"
+            >
+              Get in touch
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+          </div>
+
         </div>
       </div>
 

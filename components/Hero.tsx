@@ -78,6 +78,12 @@ export default function Hero() {
             className="rounded-full transition-all duration-300"
             style={{ height: '6px', width: activePanel === 1 ? '20px' : '6px', backgroundColor: activePanel === 1 ? '#2563EB' : 'rgba(15,23,42,0.2)' }}
           />
+          <span
+            className="text-[10px] font-semibold uppercase tracking-wider transition-colors duration-300"
+            style={{ color: activePanel === 1 ? '#2563EB' : 'rgba(15,23,42,0.35)' }}
+          >
+            About me
+          </span>
         </div>
 
         <div
@@ -105,14 +111,14 @@ export default function Hero() {
           }}
         >
           <div className="mb-5 flex justify-center">
-            <Image src="/images/laptop.png" alt="" width={140} height={140} />
+            <Image src="/images/laptop.png" alt="" width={160} height={160} />
           </div>
 
           <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4 text-center">
             I build websites that turn visitors into customers
           </h1>
-          <p className="text-sm leading-relaxed mb-8 text-center" style={{ color: '#0f172a' }}>
-            Fast, beautiful and effective.<br />If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
+          <p className="text-sm leading-relaxed mb-8 text-center " style={{ color: '#0f172a' }}>
+            Fast, beautiful and effective software solutions.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
           </p>
 
           <div className="flex flex-col gap-3">
@@ -175,9 +181,9 @@ export default function Hero() {
 
           {/* Friendly intro */}
           <div className="mt-6 text-center" style={{ maxWidth: '260px' }}>
-            <p className="text-sm font-semibold text-ink mb-1.5">Hi, I&apos;m William.</p>
-            <p className="text-sm leading-relaxed" style={{ color: '#374151' }}>
-              &ldquo;I&apos;m a web designer and UX consultant based in the UK. I work with businesses of all kinds. Just me, no agency, start to finish.&rdquo;
+            <p className="text-sm text-left font-semibold text-ink mb-1.5">Hi, I&apos;m William.</p>
+            <p className="text-sm text-left leading-relaxed" style={{ color: '#374151' }}>
+            I&apos;m a developer and IT consultant based in the UK, helping businesses improve and build their digital presence. From UX and websites to custom systems and ongoing support. Handled directly by me from start to finish.
             </p>
           </div>
 
@@ -236,7 +242,12 @@ export default function Hero() {
                 My services
               </Link>
             </div>
-            <p className="font-sans text-sm font-medium italic" style={{ color: '#1e3a8a' }}>"Just me, no agency, start to finish."</p>
+            <div
+              className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-wide"
+              style={{ background: 'rgba(37,99,235,0.07)', color: '#2563EB' }}
+            >
+              Solo freelancer · No agency · Start to finish
+            </div>
           </div>
         </div>
       </div>

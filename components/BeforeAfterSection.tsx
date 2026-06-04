@@ -115,13 +115,39 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
 
         {/* Header — scroll-driven, slides in from left and reverses */}
         <div
-          className="mb-12 text-center"
+          className="mb-12 text-center relative"
           style={{
             opacity: headingProgress,
             transform: `translateY(${(1 - headingProgress) * 16}px)`,
           }}
         >
-          <div className="w-10 h-[2px] bg-white/30 mx-auto mb-4" />
+          {/* Graph-grid backdrop concentrated around the title */}
+          <div
+            className="absolute left-0 right-0 -top-8 bottom-0 pointer-events-none"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(37,99,235,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.1) 1px, transparent 1px)',
+              backgroundSize: '28px 28px',
+              maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0.8) 65%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0.8) 65%, transparent 100%)',
+            }}
+          />
+
+          {/* Mini bar chart */}
+          <div className="flex items-end justify-center gap-[3px] mb-4" style={{ height: '22px' }}>
+            {[3,5,4,7,5,8,6,9,7,8,10,8,9].map((h, i) => (
+              <div
+                key={i}
+                style={{
+                  width: '3px',
+                  height: `${h * 2}px`,
+                  background: `rgba(37,99,235,${0.22 + (h / 10) * 0.55})`,
+                  borderRadius: '1px 1px 0 0',
+                }}
+              />
+            ))}
+          </div>
+
           <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-3">
             The Data
           </h2>
