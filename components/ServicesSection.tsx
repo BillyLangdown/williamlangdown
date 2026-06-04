@@ -10,7 +10,7 @@ const services = [
     price: 'From £145',
     color: '#2563EB',
     description:
-      "A proper look at your website: what's putting people off, where the copy falls flat, how it performs on mobile, and how it sits in search. You get a written report and a short video walkthrough so you know what to tackle first.",
+      "A proper look at your website: what's putting people off, where the copy needs improvement, and how it performs on mobile. You get a written report and a short video walkthrough so you know what to tackle first.",
     href: '/services',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
@@ -25,7 +25,7 @@ const services = [
     color: '#2563EB',
     featured: true,
     description:
-      "A website built to get people in touch. Up to five pages, works on every device, includes contact forms, basic SEO, and analytics. Two rounds of changes before it goes live.",
+      "A website built to get people in touch. From five pages, with optional custom extras. No idea too big or small. Works on every device, includes contact forms, basic SEO, and analytics.",
     href: '/services',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>

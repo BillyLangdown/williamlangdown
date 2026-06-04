@@ -42,9 +42,9 @@ const tiers = [
     name: 'Design & Build',
     price: 'From £1,495',
     description:
-      'A complete website designed and built around your customers. Everything included, ready to launch.',
+      'A complete website designed and built around your customers. From 5 pages, with optional custom extras. No idea too big or small.',
     features: [
-      'Up to 5 core pages',
+      'From 5 pages',
       'Fully responsive design',
       'Contact forms',
       'Basic SEO setup',
