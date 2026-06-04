@@ -78,12 +78,7 @@ export default function Hero() {
             className="rounded-full transition-all duration-300"
             style={{ height: '6px', width: activePanel === 1 ? '20px' : '6px', backgroundColor: activePanel === 1 ? '#2563EB' : 'rgba(15,23,42,0.2)' }}
           />
-          <span
-            className="text-[10px] font-semibold uppercase tracking-wider transition-colors duration-300"
-            style={{ color: activePanel === 1 ? '#2563EB' : 'rgba(15,23,42,0.35)' }}
-          >
-            About me
-          </span>
+        
         </div>
 
         <div
@@ -159,9 +154,7 @@ export default function Hero() {
             ...dotGrid,
           }}
         >
-          {/* About me title */}
-          <h2 className="text-2xl font-heading font-bold text-ink mb-5 self-center">About me</h2>
-
+         
           {/* Portrait */}
           <div className="relative" style={{ maxWidth: '220px', width: '100%' }}>
             <div
