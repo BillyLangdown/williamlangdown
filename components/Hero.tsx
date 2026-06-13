@@ -163,7 +163,7 @@ export default function Hero() {
             >
               <Image
                 src="/images/portrait.png"
-                alt="William Langdown — web designer and UX consultant"
+                alt="William Langdown, web designer and UX consultant"
                 fill
                 className="object-cover object-top"
                 priority

@@ -164,7 +164,7 @@ export default function SlickBookingPage() {
                     </button>
                   </div>
                 </div>
-                <p className="mt-3 text-center text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>Confirm or decline — straight from your email</p>
+                <p className="mt-3 text-center text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>Confirm or decline, straight from your email</p>
               </div>
 
             </div>

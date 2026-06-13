@@ -8,6 +8,7 @@ const services = [
   {
     title: 'Website Audit',
     price: 'From £145',
+    priceNote: '',
     color: '#2563EB',
     description:
       "A proper look at your website: what's putting people off, where the copy needs improvement, and how it performs on mobile. You get a written report and a short video walkthrough so you know what to tackle first.",
@@ -22,6 +23,7 @@ const services = [
   {
     title: 'Website Design & Development',
     price: 'From £1,495',
+    priceNote: '',
     color: '#2563EB',
     featured: true,
     description:
@@ -36,7 +38,8 @@ const services = [
   },
   {
     title: 'Website Support & Improvements',
-    price: '£30 / hour',
+    price: 'From £30 / hour',
+    priceNote: 'Returning Design & Build clients: £30/hr · New clients: £50/hr',
     color: '#2563EB',
     description:
       "Help with what you've already got. Copy changes, new pages, design tweaks, or general upkeep. Billed by the hour, no contract.",
@@ -103,6 +106,13 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
                 <div className="max-w-[150px] md:max-w-none">
                   <h3 className={`text-lg font-semibold leading-snug mb-1 ${service.featured ? 'text-white lg:text-ink' : 'text-ink'}`}>{service.title}</h3>
                   <p className="text-sm font-medium" style={{ color: service.color }}>{service.price}</p>
+                  {service.priceNote && (
+                    <div className="mt-1 flex flex-col gap-0.5">
+                      {service.priceNote.split(' · ').map((note, k) => (
+                        <p key={k} className="text-xs text-secondary font-medium leading-snug">{note}</p>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -183,7 +193,7 @@ export default function ServicesSection() {
             <div style={{ position: 'absolute', bottom: '-60px', left: '-40px', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.25) 0%, transparent 68%)' }} />
           </div>
 
-          <div className="relative z-10 px-6 py-8 md:px-10 md:py-9 flex flex-col md:flex-row md:items-center md:gap-10">
+          <div className="relative z-10 px-6 py-8 md:px-10 md:py-9 flex flex-col md:flex-row md:items-center md:justify-center md:gap-10">
 
             {/* Badge + logo */}
             <div className="flex flex-col items-center md:items-start gap-3 md:shrink-0">
@@ -206,9 +216,9 @@ export default function ServicesSection() {
             <div className="hidden md:block w-px self-stretch my-1" style={{ background: 'rgba(255,255,255,0.08)' }} />
 
             {/* Copy + CTA */}
-            <div className="flex flex-col gap-4 flex-1 mt-6 md:mt-0">
+            <div className="flex flex-col gap-4 mt-6 md:mt-0">
               <p className="text-sm leading-relaxed text-center md:text-left" style={{ color: 'rgba(255,255,255,0.55)' }}>
-                Customers book online, you confirm from your phone. No agency, built by me.
+                Customers book online, you confirm from your phone. <br/>  No agency, built by me.
               </p>
               <Link
                 href="/slick-booking"

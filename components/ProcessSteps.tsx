@@ -1,113 +1,72 @@
 'use client'
 
-import { useRef, useState } from 'react'
+type Step = {
+  title: string
+  description: string
+  bullets?: string[]
+}
 
-const steps = [
+const steps: Step[] = [
   {
     title: 'Discuss',
-    description: 'A short call to understand what you need and whether we are a good fit. No commitment required.',
+    description: "A short call to understand your business, goals, and what you need from the site. No commitment required. Just to make sure we're a good fit.",
   },
   {
-    title: 'Design & Build',
-    description: 'I handle everything from page structure and visual design through to development. Two rounds of feedback included throughout.',
+    title: 'Design',
+    description: "I'll send you a questionnaire covering the specifics: who your target audience is, what you sell, the mood and feel you want to get across, and any pages or features you have in mind. We can go into anything the questionnaire doesn't cover too.",
+  },
+  {
+    title: 'Build',
+    description: "I'm a trained software developer writing in JavaScript, with no page-builder limits. I'll use whatever stack fits best:",
+    bullets: [
+      'Custom databases & content management systems',
+      'Booking systems & AI integrations',
+      'E-commerce via Shopify or similar',
+      'Can work with existing third-party sites, though some builders add complexity',
+    ],
   },
   {
     title: 'Launch',
-    description: 'The site goes live. I manage deployment and stay available for the first few days to make sure everything runs smoothly.',
+    description: "Once you're happy, the site goes live. I manage deployment and stay on hand for the first few days.",
   },
 ]
 
-export default function ProcessSteps() {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-
-  const onScroll = () => {
-    const el = scrollRef.current
-    if (!el) return
-    const step = el.offsetWidth - 48
-    setActiveIndex(Math.min(Math.round(el.scrollLeft / step), steps.length - 1))
-  }
-
+function BulletList({ bullets }: { bullets: string[] }) {
   return (
-    <>
-      {/* Mobile: horizontal snap scroll */}
-      <div className="md:hidden">
-        <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-10 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #e8edf3, transparent)' }} />
-          <div className="absolute right-0 top-0 bottom-0 w-10 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #e8edf3, transparent)' }} />
+    <ul className="mt-3 flex flex-col gap-2">
+      {bullets.map((bullet, i) => (
+        <li key={i} className="flex items-start gap-2.5">
           <div
-            ref={scrollRef}
-            onScroll={onScroll}
+            className="w-1.5 h-1.5 rounded-full mt-[7px] shrink-0"
+            style={{ background: '#2563EB', opacity: 0.55 }}
+          />
+          <span className="text-sm text-secondary leading-relaxed">{bullet}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+export default function ProcessSteps() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-x-16 md:gap-y-12">
+      {steps.map((step, i) => (
+        <div key={i}>
+          <div
+            className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold mb-5"
             style={{
-              display: 'flex',
-              overflowX: 'auto',
-              scrollSnapType: 'x mandatory',
-              scrollPaddingLeft: '24px',
-              paddingLeft: '24px',
-              paddingRight: '24px',
-              paddingTop: '4px',
-              paddingBottom: '28px',
-              gap: '16px',
-              scrollbarWidth: 'none',
-              WebkitOverflowScrolling: 'touch',
-            } as React.CSSProperties}
+              background: 'rgba(37,99,235,0.08)',
+              color: '#2563EB',
+              border: '2px solid rgba(37,99,235,0.22)',
+            }}
           >
-            {steps.map((step, i) => (
-              <div
-                key={i}
-                style={{ flexShrink: 0, width: 'calc(100vw - 64px)', scrollSnapAlign: 'start' }}
-              >
-                <div className="bg-white border border-border-light rounded-sm p-6" style={{ minHeight: '160px' }}>
-                  <div
-                    className="w-8 h-8 rounded-sm flex items-center justify-center text-xs font-bold mb-5 shrink-0"
-                    style={{ background: 'rgba(37,99,235,0.1)', color: '#2563EB' }}
-                  >
-                    {i + 1}
-                  </div>
-                  <h3 className="text-base font-semibold text-ink mb-2 leading-snug">{step.title}</h3>
-                  <p className="text-sm text-secondary leading-relaxed">{step.description}</p>
-                </div>
-              </div>
-            ))}
+            {i + 1}
           </div>
+          <h3 className="text-base font-semibold text-ink mb-2 leading-snug">{step.title}</h3>
+          <p className="text-sm text-secondary leading-relaxed">{step.description}</p>
+          {step.bullets && <BulletList bullets={step.bullets} />}
         </div>
-
-        <div className="flex gap-1.5 px-6">
-          {steps.map((_, i) => (
-            <div
-              key={i}
-              className="h-1.5 rounded-full transition-all duration-300"
-              style={{
-                width: i === activeIndex ? '24px' : '6px',
-                backgroundColor: i === activeIndex ? '#2563EB' : 'rgba(15,23,42,0.12)',
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Desktop: 3-col grid with dividers */}
-      <div className="hidden md:grid md:grid-cols-3">
-        {steps.map((step, i) => (
-          <div
-            key={i}
-            className={[
-              'py-10',
-              i < 2 ? 'md:border-r border-border-light md:pr-10' : '',
-              i > 0 ? 'md:pl-10' : '',
-            ].join(' ')}
-          >
-            <div
-              className="w-8 h-8 rounded-sm flex items-center justify-center text-xs font-bold mb-5 shrink-0"
-              style={{ background: 'rgba(37,99,235,0.1)', color: '#2563EB' }}
-            >
-              {i + 1}
-            </div>
-            <h3 className="text-lg font-semibold text-ink mb-2 leading-snug">{step.title}</h3>
-            <p className="text-sm text-secondary leading-relaxed">{step.description}</p>
-          </div>
-        ))}
-      </div>
-    </>
+      ))}
+    </div>
   )
 }

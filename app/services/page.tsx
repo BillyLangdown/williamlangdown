@@ -8,11 +8,11 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Services | William Langdown',
-  description: 'Website audits from £145, design and development from £1,495, and hourly support at £30/hour. Clear pricing, no surprises.',
+  description: 'Website audits from £145, design and development from £1,495, and hourly development from £30/hour. Clear pricing, no surprises.',
   alternates: { canonical: 'https://williamlangdown.com/services' },
   openGraph: {
     title: 'Services | William Langdown',
-    description: 'Website audits from £145, design and development from £1,495, and hourly support at £30/hour. Clear pricing, no surprises.',
+    description: 'Website audits from £145, design and development from £1,495, and hourly development from £30/hour. Clear pricing, no surprises.',
     url: 'https://williamlangdown.com/services',
   },
 }
@@ -22,6 +22,7 @@ const tiers = [
     id: 'audit',
     name: 'Website Audit',
     price: '£145',
+    priceNote: '',
     description:
       'A thorough written review of your site covering UX, messaging, structure, trust signals, responsiveness, performance, and SEO basics.',
     features: [
@@ -41,6 +42,7 @@ const tiers = [
     id: 'build',
     name: 'Design & Build',
     price: 'From £1,495',
+    priceNote: '',
     description:
       'A complete website designed and built around your customers. From 5 pages, with optional custom extras. No idea too big or small.',
     features: [
@@ -59,7 +61,8 @@ const tiers = [
   {
     id: 'development',
     name: 'Development Help',
-    price: '£30 / hour',
+    price: 'From £30 / hour',
+    priceNote: 'Returning Design & Build clients: £30/hr · New clients: £50/hr',
     description:
       'Ongoing help with your existing website. Updates, fixes, new content, and improvements. No retainer, no contract.',
     features: [
@@ -68,6 +71,7 @@ const tiers = [
       'Design tweaks and refreshes',
       'Bug fixes and maintenance',
       'No retainer required',
+      '£30/hr for existing Design & Build clients',
     ],
     cta: 'Get in touch',
     href: '/contact?service=development',
@@ -162,6 +166,13 @@ export default function ServicesPage() {
                       <div>
                         <p className="text-[10px] font-semibold uppercase tracking-widest text-white/35 mb-4">{tier.name}</p>
                         <p className="text-4xl font-heading font-bold tracking-tight text-white mb-4">{tier.price}</p>
+                        {tier.priceNote && (
+                          <div className="-mt-2 mb-3 flex flex-col gap-0.5">
+                            {tier.priceNote.split(' · ').map((note, k) => (
+                              <p key={k} className="text-xs text-white/75 font-medium leading-snug">{note}</p>
+                            ))}
+                          </div>
+                        )}
                         <p className="text-sm leading-relaxed text-white/75">{tier.description}</p>
                       </div>
                       <ul className="flex flex-col gap-3 flex-1">
@@ -195,6 +206,13 @@ export default function ServicesPage() {
                       <div>
                         <p className="text-[10px] font-semibold uppercase tracking-widest text-tertiary mb-4">{tier.name}</p>
                         <p className="text-4xl font-heading font-bold tracking-tight text-ink mb-4">{tier.price}</p>
+                        {tier.priceNote && (
+                          <div className="-mt-2 mb-3 flex flex-col gap-0.5">
+                            {tier.priceNote.split(' · ').map((note, k) => (
+                              <p key={k} className="text-xs text-secondary font-medium leading-snug">{note}</p>
+                            ))}
+                          </div>
+                        )}
                         <p className="text-sm leading-relaxed text-secondary">{tier.description}</p>
                       </div>
                       <ul className="flex flex-col gap-3 flex-1">
@@ -229,7 +247,7 @@ export default function ServicesPage() {
           <div className="max-w-6xl mx-auto">
             <ScrollReveal className="pl-4 border-l-4 border-accent mb-12">
               <h2 className="text-3xl md:text-4xl font-heading font-bold leading-tight tracking-tight text-ink">
-                How a project works
+                How a Design & Build project works
               </h2>
             </ScrollReveal>
 
