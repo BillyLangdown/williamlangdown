@@ -184,7 +184,7 @@ export default function ServicesSection() {
         </div>
    
 
-        {/* Slick Booking */}
+        {/* Orla */}
         <div className="mt-10 rounded-sm overflow-hidden relative" style={{ background: '#080e1c', borderTop: '2px solid #2563EB' }}>
 
           {/* Blobs */}
@@ -204,10 +204,10 @@ export default function ServicesSection() {
                 My own product
               </span>
               <Image
-                src="/images/slick-booking.png"
-                alt="Slick Booking"
-                height={36}
-                width={144}
+                src="/images/orla-logo-light.png"
+                alt="Orla"
+                height={40}
+                width={130}
                 className="object-contain"
               />
             </div>
@@ -218,10 +218,10 @@ export default function ServicesSection() {
             {/* Copy + CTA */}
             <div className="flex flex-col gap-4 mt-6 md:mt-0">
               <p className="text-sm leading-relaxed text-center md:text-left" style={{ color: 'rgba(255,255,255,0.55)' }}>
-                Customers book online, you confirm from your phone. <br/>  No agency, built by me.
+                Booking software with an AI assistant, Google Calendar sync, and Gmail integration. Built by me.
               </p>
               <Link
-                href="/slick-booking"
+                href="/orla"
                 className="w-full md:w-auto md:self-start inline-flex items-center justify-center gap-2 text-sm px-6 py-3 rounded-sm font-medium bg-accent text-white hover:bg-accent/90 transition-colors"
               >
                 Find out more

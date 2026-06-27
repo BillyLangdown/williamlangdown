@@ -9,7 +9,7 @@ const services = [
   { value: 'audit', label: 'Website Audit', desc: 'Find out what\'s holding your site back', price: '£145' },
   { value: 'build', label: 'Design & Build', desc: 'A new website, start to finish', price: 'From £1,495' },
   { value: 'development', label: 'Development Help', desc: 'Updates, fixes, or ongoing support', price: '£30 / hr' },
-  { value: 'slick-booking', label: 'Slick Booking', desc: 'Get early access or ask a question', price: '' },
+  { value: 'orla', label: 'Orla', desc: 'Get early access or ask a question', price: '' },
   { value: 'other', label: 'Something else', desc: 'Not sure yet, happy to talk it through', price: '' },
 ]
 
