@@ -179,6 +179,27 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
 
       <div className="relative z-10 max-w-4xl mx-auto">
 
+        {/* Heading */}
+        <div className="text-center mb-10" style={fadeIn(0)}>
+          <div className="flex items-end justify-center gap-[3px] mb-4" style={{ height: '22px' }}>
+            {[3,5,4,7,5,8,6,9,7,8,10,8,9].map((h, i) => (
+              <div
+                key={i}
+                style={{
+                  width: '3px',
+                  height: `${h * 2}px`,
+                  background: `rgba(37,99,235,${0.22 + (h / 10) * 0.55})`,
+                  borderRadius: '1px 1px 0 0',
+                }}
+              />
+            ))}
+          </div>
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-3">The Data</h2>
+          <p className="text-sm text-white/55 max-w-xl mx-auto leading-relaxed">
+            Whenever possible, I get into the numbers and track what actually changed.
+          </p>
+        </div>
+
         {/* Nav: dots + arrows — fixed above the track */}
         <div className="flex items-center justify-end gap-2 mb-5" style={fadeIn(0)}>
           <button
@@ -227,21 +248,10 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
           >
             {slides.map((s, i) => (
               <div key={i} className="min-w-full">
-                {/* Label */}
-                <div className="mb-5">
-                  <p className="text-[10px] font-semibold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                    Case study
-                  </p>
-                  <p className="text-sm font-semibold text-white">{s.client}</p>
-                  <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{s.subtitle}</p>
-                </div>
-
-                {/* Slider */}
-                {s.slider}
 
                 {/* Stats strip */}
                 <div
-                  className="mt-5 flex divide-x rounded-sm overflow-hidden border"
+                  className="mb-5 flex divide-x rounded-sm overflow-hidden border"
                   style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)' }}
                 >
                   {s.stats.map((stat) => (
@@ -255,11 +265,21 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
                   ))}
                 </div>
 
-                {/* CTA */}
-                <div className="mt-4 flex justify-end">
+                {/* Slider */}
+                {s.slider}
+
+                {/* Label + CTA */}
+                <div className="mt-5 flex items-end justify-between">
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                      Case study
+                    </p>
+                    <p className="text-sm font-semibold text-white">{s.client}</p>
+                    <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{s.subtitle}</p>
+                  </div>
                   <Link
                     href={s.href}
-                    className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors shrink-0"
                   >
                     View case study
                     <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
