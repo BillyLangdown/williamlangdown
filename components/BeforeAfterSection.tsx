@@ -142,8 +142,8 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
         />
       ),
       stats: [
-        { value: `${mobileScore}`, suffix: '/100', label: 'mobile speed (was 56/100)' },
-        { value: `${desktopScore}`, suffix: '/100', label: 'desktop speed (was 69/100)' },
+        { value: `${mobileScore}`, suffix: '/100', label: 'mobile speed (was 56)' },
+        { value: `${desktopScore}`, suffix: '/100', label: 'desktop speed (was 69)' },
       ],
     },
   ]
@@ -255,12 +255,12 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
                   style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)' }}
                 >
                   {s.stats.map((stat) => (
-                    <div key={stat.label} className="flex-1 px-5 py-4" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
-                      <div className="flex items-baseline gap-0.5">
-                        <span className="text-xl font-heading font-bold text-white tabular-nums leading-none">{stat.value}</span>
+                    <div key={stat.label} className="flex-1 px-3 py-3 sm:px-5 sm:py-4 text-center" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+                      <div className="flex items-baseline justify-center gap-0.5">
+                        <span className="text-lg sm:text-xl font-heading font-bold text-white tabular-nums leading-none">{stat.value}</span>
                         {'suffix' in stat && <span className="text-xs font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>{stat.suffix}</span>}
                       </div>
-                      <p className="text-xs mt-1.5 leading-snug" style={{ color: 'rgba(255,255,255,0.4)' }}>{stat.label}</p>
+                      <p className="text-[11px] mt-1.5 leading-snug" style={{ color: 'rgba(255,255,255,0.4)' }}>{stat.label}</p>
                     </div>
                   ))}
                 </div>
@@ -271,9 +271,6 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
                 {/* Label + CTA */}
                 <div className="mt-5 flex items-end justify-between">
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                      Case study
-                    </p>
                     <p className="text-sm font-semibold text-white">{s.client}</p>
                     <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{s.subtitle}</p>
                   </div>
