@@ -185,44 +185,38 @@ export default function ServicesSection() {
    
 
         {/* Orla */}
-        <div className="mt-10 rounded-sm overflow-hidden relative" style={{ background: '#080e1c', borderTop: '2px solid #2563EB' }}>
-
-          {/* Blobs */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div style={{ position: 'absolute', top: '-60px', right: '-40px', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.38) 0%, transparent 68%)' }} />
-            <div style={{ position: 'absolute', bottom: '-60px', left: '-40px', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.25) 0%, transparent 68%)' }} />
-          </div>
-
-          <div className="relative z-10 px-6 py-8 md:px-10 md:py-9 flex flex-col md:flex-row md:items-center md:justify-center md:gap-10">
+        <div className="mt-10 rounded-sm overflow-hidden" style={{ background: '#0f172a', borderTop: '2px solid #2563EB' }}>
+          <div className="px-6 py-7 md:px-10 md:py-8 flex flex-col md:flex-row md:items-center md:gap-10">
 
             {/* Badge + logo */}
-            <div className="flex flex-col items-center md:items-start gap-3 md:shrink-0">
+            <div className="flex flex-col gap-2.5 md:shrink-0">
               <span
-                className="text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full"
-                style={{ background: 'rgba(37,99,235,0.18)', color: '#93c5fd', border: '1px solid rgba(37,99,235,0.35)' }}
+                className="text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full self-start"
+                style={{ background: 'rgba(37,99,235,0.18)', color: '#93c5fd', border: '1px solid rgba(37,99,235,0.3)' }}
               >
                 My own product
               </span>
               <Image
                 src="/images/orla-logo-light.png"
                 alt="Orla"
-                height={40}
-                width={130}
+                height={36}
+                width={120}
                 className="object-contain"
               />
             </div>
 
             {/* Divider */}
-            <div className="hidden md:block w-px self-stretch my-1" style={{ background: 'rgba(255,255,255,0.08)' }} />
+            <div className="hidden md:block w-px self-stretch my-1" style={{ background: 'rgba(255,255,255,0.07)' }} />
 
             {/* Copy + CTA */}
-            <div className="flex flex-col gap-4 mt-6 md:mt-0">
-              <p className="text-sm leading-relaxed text-center md:text-left" style={{ color: 'rgba(255,255,255,0.55)' }}>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between flex-1 gap-5 mt-5 md:mt-0">
+              <p className="text-sm leading-relaxed max-w-md" style={{ color: 'rgba(255,255,255,0.5)' }}>
                 Booking software with an AI assistant, Google Calendar sync, and Gmail integration. Built by me.
               </p>
               <Link
                 href="/orla"
-                className="w-full md:w-auto md:self-start inline-flex items-center justify-center gap-2 text-sm px-6 py-3 rounded-sm font-medium bg-accent text-white hover:bg-accent/90 transition-colors"
+                className="inline-flex items-center justify-center gap-2 text-sm font-medium px-5 py-2.5 rounded-sm shrink-0 transition-colors"
+                style={{ border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.75)' }}
               >
                 Find out more
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none">

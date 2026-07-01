@@ -235,7 +235,7 @@ export default function ProblemsSection() {
             ))}
           </div>
 
-          <div className="mt-10 border-t border-border-light pt-8">
+          <div className="mt-10 border-t border-border-light pt-8 flex justify-end">
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 text-sm font-medium border border-ink/20 text-ink px-5 py-2.5 rounded-sm hover:border-accent hover:text-accent transition-colors"

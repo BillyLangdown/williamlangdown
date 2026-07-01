@@ -1,52 +1,60 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { urlFor } from '@/sanity/client'
 import type { CaseStudy } from '@/lib/types'
 import BeforeAfterSlider from '@/components/BeforeAfterSlider'
 
-function useCountUp(target: number, active: boolean, duration = 1400) {
-  const [val, setVal] = useState(0)
+function useCountUp(from: number, to: number, active: boolean, duration = 1400) {
+  const [val, setVal] = useState(from)
   useEffect(() => {
     if (!active) return
+    const range = to - from
     const start = performance.now()
     let raf: number
     const tick = (now: number) => {
       const p = Math.min((now - start) / duration, 1)
       const eased = 1 - Math.pow(1 - p, 3)
-      setVal(Math.round(target * eased))
+      setVal(Math.round(from + range * eased))
       if (p < 1) raf = requestAnimationFrame(tick)
-      else setVal(target)
+      else setVal(to)
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [active, target, duration])
+  }, [active, from, to, duration])
   return val
 }
 
 interface Props { caseStudy: CaseStudy | null }
 
-export default function BeforeAfterSection({ caseStudy }: Props) {
-  const sectionRef = useRef<HTMLElement>(null)
-  const [visible, setVisible] = useState(false)
-  const [statsActive, setStatsActive] = useState(false)
-  const [headingProgress, setHeadingProgress] = useState(0)
-  const [parallaxY, setParallaxY] = useState(0)
+const SLIDE_COUNT = 2
+const AUTO_INTERVAL = 8000
 
-  const conversionUp = useCountUp(75, statsActive)
-  const bounceDown = useCountUp(21, statsActive, 1600)
+export default function BeforeAfterSection({ caseStudy }: Props) {
+  const sectionRef    = useRef<HTMLElement>(null)
+  const trackWrapRef  = useRef<HTMLDivElement>(null)
+  const timerRef      = useRef<ReturnType<typeof setInterval> | null>(null)
+  const [visible, setVisible]         = useState(false)
+  const [statsActive, setStatsActive] = useState(false)
+  const [parallaxY, setParallaxY]     = useState(0)
+  const [activeSlide, setActiveSlide] = useState(0)
+  const [hovered, setHovered]         = useState(false)
+
+  // Slide 1 stats
+  const conversionUp = useCountUp(0, 75, statsActive)
+  const bounceDown   = useCountUp(0, 21, statsActive, 1600)
+
+  // Slide 2 stats — count up from the original score to the new one
+  const mobileScore  = useCountUp(56, 98,  statsActive, 1600)
+  const desktopScore = useCountUp(69, 100, statsActive, 1900)
 
   useEffect(() => {
     const onScroll = () => {
       if (!sectionRef.current) return
       const rect = sectionRef.current.getBoundingClientRect()
       const wh = window.innerHeight
-      const p = Math.min(1, Math.max(0, (wh - rect.top) / (wh * 0.6)))
-      setHeadingProgress(p)
-      // parallax: blob layer drifts at 28% of scroll relative to section center
-      const distFromCenter = (wh / 2) - (rect.top + rect.height / 2)
-      setParallaxY(distFromCenter * 0.28)
+      setParallaxY(((wh / 2) - (rect.top + rect.height / 2)) * 0.28)
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
@@ -68,6 +76,22 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
     return () => observer.disconnect()
   }, [])
 
+  const goToSlide = useCallback((idx: number) => {
+    setActiveSlide((idx + SLIDE_COUNT) % SLIDE_COUNT)
+  }, [])
+
+  // Auto-advance — pauses on hover
+  useEffect(() => {
+    if (hovered) {
+      if (timerRef.current) clearInterval(timerRef.current)
+      return
+    }
+    timerRef.current = setInterval(() => {
+      goToSlide(activeSlide + 1)
+    }, AUTO_INTERVAL)
+    return () => { if (timerRef.current) clearInterval(timerRef.current) }
+  }, [hovered, activeSlide, goToSlide])
+
   const clientName = caseStudy?.client ?? 'The Garden Tablecloth Co'
   const slug = caseStudy?.slug?.current ?? '#'
   const hasImages = !!(caseStudy?.beforeImage && caseStudy?.afterImage)
@@ -78,180 +102,174 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
     transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`,
   })
 
+  const slides = [
+    {
+      client: clientName,
+      subtitle: 'Two months post-redesign',
+      href: slug === '#' ? '/case-studies' : `/case-studies/${slug}`,
+      slider: hasImages ? (
+        <BeforeAfterSlider
+          beforeSrc={urlFor(caseStudy!.beforeImage!).width(1400).url()}
+          afterSrc={urlFor(caseStudy!.afterImage!).width(1400).url()}
+          beforeAlt={`${clientName} before`}
+          afterAlt={`${clientName} after`}
+        />
+      ) : (
+        <div className="grid grid-cols-2 gap-4">
+          <div className="aspect-[16/9] bg-white/[0.03] border border-white/10 rounded-sm flex items-center justify-center">
+            <span className="text-sm text-white/15">Before</span>
+          </div>
+          <div className="aspect-[16/9] bg-white/[0.06] border border-white/10 rounded-sm flex items-center justify-center">
+            <span className="text-sm text-white/30">After</span>
+          </div>
+        </div>
+      ),
+      stats: [
+        { value: `+${conversionUp}%`, label: 'more visitors got in touch' },
+        { value: `-${bounceDown}%`,   label: 'fewer people left immediately' },
+      ],
+    },
+    {
+      client: 'Building Ventilation Services Ltd',
+      subtitle: 'Google PageSpeed scores after redesign',
+      href: '/case-studies/building-ventilation-services-ltd',
+      slider: (
+        <BeforeAfterSlider
+          beforeSrc="/images/bvs-service-before.png"
+          afterSrc="/images/bvs-service-after-2.png"
+          beforeAlt="BVS website before redesign"
+          afterAlt="BVS website after redesign"
+        />
+      ),
+      stats: [
+        { value: `${mobileScore}`, suffix: '/100', label: 'mobile speed (was 56/100)' },
+        { value: `${desktopScore}`, suffix: '/100', label: 'desktop speed (was 69/100)' },
+      ],
+    },
+  ]
+
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden py-16 md:pt-28 md:pb-16 px-6"
+      className="relative overflow-hidden py-12 md:py-16 px-6"
       style={{ background: '#080e1c', scrollSnapAlign: 'start' }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
 
-      {/* Parallax blob layer — moves at 28% scroll speed, sits behind glass content */}
+      {/* Subtle grid pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(37,99,235,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.1) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+          maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.8) 80%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.8) 80%, transparent 100%)',
+        }}
+      />
+
+      {/* Parallax blob layer */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ transform: `translateY(${parallaxY}px)`, willChange: 'transform' }}
       >
-        {/* Large accent blue blob — top right */}
-        <div style={{
-          position: 'absolute', top: '-120px', right: '-80px',
-          width: '520px', height: '520px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(37,99,235,0.45) 0%, transparent 68%)',
-        }} />
-        {/* Deep indigo blob — bottom left */}
-        <div style={{
-          position: 'absolute', bottom: '-140px', left: '-100px',
-          width: '480px', height: '480px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(79,70,229,0.3) 0%, transparent 68%)',
-        }} />
-        {/* Subtle mid blob — center */}
-        <div style={{
-          position: 'absolute', top: '40%', left: '45%',
-          width: '340px', height: '340px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%)',
-          transform: 'translate(-50%, -50%)',
-        }} />
+        <div style={{ position: 'absolute', top: '-120px', right: '-80px', width: '480px', height: '480px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.3) 0%, transparent 68%)' }} />
+        <div style={{ position: 'absolute', bottom: '-140px', left: '-100px', width: '420px', height: '420px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.18) 0%, transparent 68%)' }} />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-10 max-w-4xl mx-auto">
 
-        {/* Header — scroll-driven, slides in from left and reverses */}
-        <div
-          className="mb-12 text-center relative"
-          style={{
-            opacity: headingProgress,
-            transform: `translateY(${(1 - headingProgress) * 16}px)`,
-          }}
-        >
-          {/* Graph-grid backdrop concentrated around the title */}
+        {/* Nav: dots + arrows — fixed above the track */}
+        <div className="flex items-center justify-end gap-2 mb-5" style={fadeIn(0)}>
+          <button
+            onClick={() => goToSlide(activeSlide - 1)}
+            className="w-7 h-7 rounded-full flex items-center justify-center"
+            style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)' }}
+            aria-label="Previous slide"
+          >
+            <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+              <path d="M9 1L3 7l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goToSlide(i)}
+              className="rounded-full transition-all duration-300"
+              style={{
+                height: '6px',
+                width: i === activeSlide ? '20px' : '6px',
+                background: i === activeSlide ? '#2563EB' : 'rgba(255,255,255,0.2)',
+              }}
+              aria-label={`Slide ${i + 1}`}
+            />
+          ))}
+          <button
+            onClick={() => goToSlide(activeSlide + 1)}
+            className="w-7 h-7 rounded-full flex items-center justify-center"
+            style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)' }}
+            aria-label="Next slide"
+          >
+            <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+              <path d="M5 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Sliding track */}
+        <div ref={trackWrapRef} className="overflow-hidden" style={fadeIn(60)}>
           <div
-            className="absolute left-0 right-0 -top-8 bottom-0 pointer-events-none"
+            className="flex"
             style={{
-              backgroundImage:
-                'linear-gradient(rgba(37,99,235,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.1) 1px, transparent 1px)',
-              backgroundSize: '28px 28px',
-              maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0.8) 65%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0.8) 65%, transparent 100%)',
+              transform: `translateX(-${activeSlide * 100}%)`,
+              transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
-          />
+          >
+            {slides.map((s, i) => (
+              <div key={i} className="min-w-full">
+                {/* Label */}
+                <div className="mb-5">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                    Case study
+                  </p>
+                  <p className="text-sm font-semibold text-white">{s.client}</p>
+                  <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{s.subtitle}</p>
+                </div>
 
-          {/* Mini bar chart */}
-          <div className="flex items-end justify-center gap-[3px] mb-4" style={{ height: '22px' }}>
-            {[3,5,4,7,5,8,6,9,7,8,10,8,9].map((h, i) => (
-              <div
-                key={i}
-                style={{
-                  width: '3px',
-                  height: `${h * 2}px`,
-                  background: `rgba(37,99,235,${0.22 + (h / 10) * 0.55})`,
-                  borderRadius: '1px 1px 0 0',
-                }}
-              />
+                {/* Slider */}
+                {s.slider}
+
+                {/* Stats strip */}
+                <div
+                  className="mt-5 flex divide-x rounded-sm overflow-hidden border"
+                  style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)' }}
+                >
+                  {s.stats.map((stat) => (
+                    <div key={stat.label} className="flex-1 px-5 py-4" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+                      <div className="flex items-baseline gap-0.5">
+                        <span className="text-xl font-heading font-bold text-white tabular-nums leading-none">{stat.value}</span>
+                        {'suffix' in stat && <span className="text-xs font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>{stat.suffix}</span>}
+                      </div>
+                      <p className="text-xs mt-1.5 leading-snug" style={{ color: 'rgba(255,255,255,0.4)' }}>{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA */}
+                <div className="mt-4 flex justify-end">
+                  <Link
+                    href={s.href}
+                    className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors"
+                  >
+                    View case study
+                    <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+                      <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
             ))}
           </div>
-
-          <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-3">
-            The Data
-          </h2>
-          <p className="text-sm text-white/55 max-w-2xl mx-auto leading-relaxed">
-            <span className="md:hidden">Garden Tablecloth Co. Two months post-redesign.</span>
-            <span className="hidden md:inline">Whenever possible, I get into the numbers and track what actually changed. Here is what happened with Garden Tablecloth Co. Two months post-redesign.</span>
-          </p>
-        </div>
-
-        {/* Stat cards */}
-        <div className="grid grid-cols-2 gap-4 md:gap-5 mb-8 md:mb-10" style={fadeIn(80)}>
-
-          {/* Conversion rate */}
-          <div
-            className="border border-white/10 rounded-sm p-5 md:p-5 flex flex-col items-center text-center"
-            style={{ background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
-          >
-            <p className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-white/55 mb-4 truncate">
-              Conversion rate
-            </p>
-            <div className="flex items-end gap-2 mb-3">
-              <span
-                className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl font-heading font-bold leading-none tabular-nums"
-                style={{ color: '#ffffff' }}
-              >
-                +{conversionUp}
-              </span>
-              <span className="text-xl sm:text-2xl md:text-2xl font-bold text-white/40 mb-1 leading-none">%</span>
-            </div>
-            <p className="text-xs text-white/55 mb-1">2.3% → 4.1%</p>
-            <p className="text-xs text-white/50 leading-relaxed hidden sm:block">
-              More visitors completing enquiry forms
-            </p>
-          </div>
-
-          {/* Bounce rate */}
-          <div
-            className="border border-white/10 rounded-sm p-5 md:p-5 flex flex-col items-center text-center"
-            style={{ background: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
-          >
-            <p className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-white/55 mb-4 truncate">
-              Bounce rate
-            </p>
-            <div className="flex items-end gap-2 mb-3">
-              <span
-                className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl font-heading font-bold leading-none tabular-nums"
-                style={{ color: '#ffffff' }}
-              >
-                -{bounceDown}
-              </span>
-              <span className="text-xl sm:text-2xl md:text-2xl font-bold text-white/40 mb-1 leading-none">%</span>
-            </div>
-            <p className="text-xs text-white/55 mb-1">42% → 33%</p>
-            <p className="text-xs text-white/50 leading-relaxed hidden sm:block">
-              Fewer users leaving immediately after landing
-            </p>
-          </div>
-
-        </div>
-
-        {/* Before / After slider */}
-        <div
-          style={{
-            ...fadeIn(160),
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-          }}
-        >
-          {hasImages ? (
-            <BeforeAfterSlider
-              beforeSrc={urlFor(caseStudy!.beforeImage!).width(1400).url()}
-              afterSrc={urlFor(caseStudy!.afterImage!).width(1400).url()}
-              beforeAlt={caseStudy!.beforeImage!.alt ?? `${clientName} before`}
-              afterAlt={caseStudy!.afterImage!.alt ?? `${clientName} after`}
-            />
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-white/25 mb-3">Before</p>
-                <div className="aspect-[16/9] bg-white/[0.03] border border-white/10 flex items-center justify-center rounded-sm">
-                  <span className="text-sm text-white/15">Before image</span>
-                </div>
-              </div>
-              <div>
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-white/25 mb-3">After</p>
-                <div className="aspect-[16/9] bg-white/[0.06] border border-white/10 flex items-center justify-center rounded-sm">
-                  <span className="text-sm text-white/30">After image</span>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-8 text-right" style={fadeIn(200)}>
-          <Link
-            href={slug === '#' ? '/case-studies' : `/case-studies/${slug}`}
-            className="inline-flex items-center gap-2 text-sm text-white/65 hover:text-white underline underline-offset-4 transition-colors"
-          >
-            View the case study
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
         </div>
 
       </div>

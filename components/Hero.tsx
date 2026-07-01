@@ -193,25 +193,16 @@ export default function Hero() {
       </div>
 
       {/* ── DESKTOP HERO ── */}
-      <div className="hidden lg:block pt-8 relative max-w-6xl mx-auto px-6">
+      <div className="hidden lg:flex items-center max-w-6xl mx-auto px-6 pt-8">
         <div
-          className="absolute right-6 top-8"
-          style={{ aspectRatio: '801 / 1022', width: '36%' }}
-        >
-          <div className="relative w-full h-full overflow-hidden">
-            <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
-            <div className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent pointer-events-none" />
-          </div>
-        </div>
-        <div
-          className="relative z-10 py-24"
+          className="relative z-10 py-24 flex-1"
           style={{
             opacity: desktopVisible ? 1 : 0,
             transform: desktopVisible ? 'none' : 'translateY(22px)',
             transition: 'opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s',
           }}
         >
-          <div className="lg:max-w-[55%]">
+          <div className="max-w-[90%]">
             <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-heading font-extrabold leading-[1.06] tracking-tight text-ink mb-5">
               I build websites that turn visitors into customers
             </h1>
@@ -241,6 +232,14 @@ export default function Hero() {
             >
               Solo freelancer · No agency · Start to finish
             </div>
+          </div>
+        </div>
+
+        {/* Portrait — flex sibling, vertically centered by parent items-center */}
+        <div className="shrink-0 w-[36%]" style={{ aspectRatio: '801 / 1022' }}>
+          <div className="relative w-full h-full overflow-hidden">
+            <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
+            <div className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent pointer-events-none" />
           </div>
         </div>
       </div>

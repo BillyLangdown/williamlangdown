@@ -3,6 +3,7 @@ import Hero from '@/components/Hero'
 import BeforeAfterSection from '@/components/BeforeAfterSection'
 import ProblemsSection from '@/components/ProblemsSection'
 import ServicesSection from '@/components/ServicesSection'
+import ReviewSection from '@/components/ReviewSection'
 import CTABanner from '@/components/CTABanner'
 import Footer from '@/components/Footer'
 import { getFeaturedCaseStudy } from '@/lib/queries'
@@ -103,6 +104,7 @@ export default async function HomePage() {
         <BeforeAfterSection caseStudy={featuredCaseStudy} />
         <ProblemsSection />
         <ServicesSection />
+        <ReviewSection />
         <CTABanner />
       </main>
       <Footer />
