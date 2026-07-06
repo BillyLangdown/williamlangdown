@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
@@ -34,8 +35,23 @@ export default function Nav() {
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-base font-heading font-bold tracking-tight shrink-0">
-          William Langdown
+        <Link href="/" className="shrink-0 flex items-center">
+          <Image
+            src="/images/williamlangdown-logo.png"
+            alt="William Langdown"
+            height={36}
+            width={171}
+            className="hidden md:block object-contain"
+            priority
+          />
+          <Image
+            src="/images/williamlangdown-logo.png"
+            alt="William Langdown"
+            height={34}
+            width={161}
+            className="md:hidden object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop nav */}

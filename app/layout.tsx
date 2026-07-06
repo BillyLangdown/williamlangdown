@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   description:
     'I build websites that turn visitors into customers. Fast, clear, and designed to get enquiries for small businesses across the UK.',
   alternates: { canonical: 'https://williamlangdown.com' },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
   openGraph: {
     title: 'William Langdown | Web Designer & Consultant',
     description:
@@ -40,7 +44,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={jakarta.variable} suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
           strategy="afterInteractive"

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>William Langdown — Business Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #DDE1E8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 52px;
+      padding: 80px 40px;
+    }
+
+    .card-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .face-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8a9ab5;
+    }
+
+    .card {
+      width: 680px;
+      height: 440px;
+      border-radius: 7px;
+      overflow: hidden;
+      position: relative;
+      box-shadow:
+        0 1px 2px rgba(0,0,0,0.06),
+        0 6px 20px rgba(0,0,0,0.10),
+        0 20px 56px rgba(0,0,0,0.14);
+    }
+
+    /* ─── FRONT ──────────────────────────────── */
+
+    .front {
+      background: #080e1c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .front::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(37,99,235,0.22) 1px, transparent 1px);
+      background-size: 22px 22px;
+      mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, rgba(0,0,0,0.85) 0%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, rgba(0,0,0,0.85) 0%, transparent 100%);
+    }
+
+    .front::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent 0%, #2563EB 25%, #2563EB 75%, transparent 100%);
+    }
+
+    .front-logo {
+      position: relative;
+      z-index: 1;
+      height: 96px;
+      width: auto;
+      max-width: 540px;
+    }
+
+    /* Brighter URL — contrast up from 0.18 to 0.50 */
+    .front-url {
+      position: absolute;
+      bottom: 22px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 15px;
+      letter-spacing: 0.2em;
+      text-transform: lowercase;
+      color: rgba(255,255,255,0.50);
+      font-weight: 400;
+      z-index: 1;
+    }
+
+    /* ─── BACK ───────────────────────────────── */
+
+    .back {
+      background: #ffffff;
+      display: flex;
+      align-items: stretch;
+      padding: 56px 52px 60px;
+      gap: 44px;
+    }
+
+    .back::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #2563EB;
+    }
+
+    /* Left column — left-aligned */
+    .back-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      min-width: 0;
+    }
+
+    .portrait-img {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 15%;
+      border: 2px solid rgba(8,14,28,0.10);
+      display: block;
+      filter: grayscale(100%);
+      flex-shrink: 0;
+      margin-bottom: 20px;
+    }
+
+    .back-name {
+      font-size: 32px;
+      font-weight: 800;
+      color: #080e1c;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .back-title {
+      margin-top: 7px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #2563EB;
+      white-space: nowrap;
+    }
+
+    .back-rule {
+      width: 28px;
+      height: 2px;
+      background: #94a3b8;
+      margin: 12px 0 10px;
+      flex-shrink: 0;
+    }
+
+    .bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 16.5px;
+    }
+
+    .bullets li {
+      font-size: 19px;
+      color: #334155;
+      font-weight: 400;
+      line-height: 1.3;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
+    .bullets li::before {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #2563EB;
+      flex-shrink: 0;
+    }
+
+    .back-contact {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      align-self: flex-end;
+      gap: 6px;
+      font-size: 17px;
+      font-weight: 400;
+      color: #475569;
+      text-align: right;
+      width: 300px;
+    }
+
+    .back-contact-item {
+      line-height: 1.3;
+    }
+
+    /* Right column */
+    .back-right {
+      flex-shrink: 0;
+      width: 168px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 17px;
+    }
+
+    .back-qr {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .qr-frame {
+      width: 148px;
+      height: 148px;
+      border-radius: 5px;
+      padding: 9px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-frame img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .qr-label {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      align-self: center;
+    }
+
+    /* ─── PAGE NOTE ──────────────────────────── */
+
+    .page-note {
+      font-size: 11px;
+      color: #8a9ab5;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FRONT -->
+  <div class="card-wrap">
+    <span class="face-label">Front</span>
+    <div class="card front">
+      <img
+        class="front-logo"
+        src="/images/Williamlangdown-logo-white.png"
+        alt="William Langdown"
+      >
+      <span class="front-url">www.williamlangdown.com</span>
+    </div>
+  </div>
+
+  <!-- BACK -->
+  <div class="card-wrap">
+    <span class="face-label">Back</span>
+    <div class="card back">
+
+      <!-- Left column -->
+      <div class="back-left">
+        <img
+          class="portrait-img"
+          src="/images/portrait-square.png"
+          alt="William Langdown"
+        >
+        <h1 class="back-name">William Langdown</h1>
+        <p class="back-title">Websites, software &amp; AI automation</p>
+        <div class="back-rule"></div>
+        <ul class="bullets">
+          <li>Website design &amp; development</li>
+          <li>Booking systems &amp; custom software</li>
+          <li>IT consultation, audits &amp; support</li>
+        </ul>
+      </div>
+
+      <!-- Right column: contact top, QR bottom -->
+      <div class="back-right">
+        <div class="back-contact">
+          <span class="back-contact-item">william@williamlangdown.com</span>
+          <span class="back-contact-item">www.williamlangdown.com</span>
+          <span class="back-contact-item">07446 856 927</span>
+        </div>
+        <div class="back-qr">
+          <div class="qr-frame">
+            <img
+              src="/images/wl-qr-code.png"
+              alt="QR code — williamlangdown.com"
+            >
+          </div>
+          <span class="qr-label">Scan to visit</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="page-note">85 x 55 mm &nbsp;&middot;&nbsp; Standard UK business card</p>
+
+</body>
+</html>

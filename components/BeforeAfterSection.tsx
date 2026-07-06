@@ -29,17 +29,14 @@ function useCountUp(from: number, to: number, active: boolean, duration = 1400) 
 interface Props { caseStudy: CaseStudy | null }
 
 const SLIDE_COUNT = 2
-const AUTO_INTERVAL = 8000
 
 export default function BeforeAfterSection({ caseStudy }: Props) {
   const sectionRef    = useRef<HTMLElement>(null)
   const trackWrapRef  = useRef<HTMLDivElement>(null)
-  const timerRef      = useRef<ReturnType<typeof setInterval> | null>(null)
   const [visible, setVisible]         = useState(false)
   const [statsActive, setStatsActive] = useState(false)
   const [parallaxY, setParallaxY]     = useState(0)
   const [activeSlide, setActiveSlide] = useState(0)
-  const [hovered, setHovered]         = useState(false)
 
   // Slide 1 stats
   const conversionUp = useCountUp(0, 75, statsActive)
@@ -79,18 +76,6 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
   const goToSlide = useCallback((idx: number) => {
     setActiveSlide((idx + SLIDE_COUNT) % SLIDE_COUNT)
   }, [])
-
-  // Auto-advance — pauses on hover
-  useEffect(() => {
-    if (hovered) {
-      if (timerRef.current) clearInterval(timerRef.current)
-      return
-    }
-    timerRef.current = setInterval(() => {
-      goToSlide(activeSlide + 1)
-    }, AUTO_INTERVAL)
-    return () => { if (timerRef.current) clearInterval(timerRef.current) }
-  }, [hovered, activeSlide, goToSlide])
 
   const clientName = caseStudy?.client ?? 'The Garden Tablecloth Co'
   const slug = caseStudy?.slug?.current ?? '#'
@@ -153,8 +138,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
       ref={sectionRef}
       className="relative overflow-hidden py-12 md:py-16 px-6"
       style={{ background: '#080e1c', scrollSnapAlign: 'start' }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+
     >
 
       {/* Subtle grid pattern */}
