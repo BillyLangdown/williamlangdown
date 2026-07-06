@@ -37,7 +37,7 @@ export default function Nav() {
         {/* Logo */}
         <Link href="/" className="shrink-0 flex items-center">
           <Image
-            src="/images/williamlangdown-logo.png"
+            src="/images/Williamlangdown-logo-transparent.png"
             alt="William Langdown"
             height={36}
             width={171}
@@ -45,7 +45,7 @@ export default function Nav() {
             priority
           />
           <Image
-            src="/images/williamlangdown-logo.png"
+            src="/images/Williamlangdown-logo-transparent.png"
             alt="William Langdown"
             height={34}
             width={161}
