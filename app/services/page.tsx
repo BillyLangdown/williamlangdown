@@ -242,6 +242,43 @@ export default function ServicesPage() {
           </div>
         </section>
 
+        {/* ── Starter package ── */}
+        <section className="px-6 pb-24">
+          <div className="max-w-6xl mx-auto">
+            <ScrollReveal>
+              <div
+                className="rounded-sm overflow-hidden flex flex-col md:flex-row md:items-center gap-8 md:gap-10 px-8 py-10 md:px-12"
+                style={{ background: '#FFF7ED', border: '1px solid rgba(234,88,12,0.18)' }}
+              >
+                <div className="flex-1">
+                  <p
+                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4"
+                    style={{ background: 'rgba(234,88,12,0.1)', color: '#C2410C' }}
+                  >
+                    Cheap and cheerful
+                  </p>
+                  <h2 className="text-2xl md:text-3xl font-heading font-bold text-ink mb-3">
+                    Just need something simple? £495 starter sites.
+                  </h2>
+                  <p className="text-sm text-secondary leading-relaxed max-w-lg">
+                    Three pages: home, about, contact. Pick one of four ready-made designs, send your content, live in about a week. No forms, no CMS, no design process. Just a simple site online fast.
+                  </p>
+                </div>
+                <Link
+                  href="/starter"
+                  className="inline-flex items-center justify-center gap-2 text-white text-sm px-6 py-3.5 rounded-sm font-medium transition-opacity hover:opacity-90 shrink-0"
+                  style={{ background: '#EA580C' }}
+                >
+                  See the Starter package
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
         {/* ── Process ── */}
         <section className="px-6 py-20 bg-subtle">
           <div className="max-w-6xl mx-auto">

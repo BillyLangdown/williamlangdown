@@ -1,17 +1,56 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { submitContactForm } from '@/app/actions/contact'
 import { gtagEvent } from '@/lib/gtag'
 
 const services = [
-  { value: 'audit', label: 'Website Audit', desc: 'Find out what\'s holding your site back', price: '£145' },
-  { value: 'build', label: 'Design & Build', desc: 'A new website, start to finish', price: 'From £1,495' },
-  { value: 'development', label: 'Development Help', desc: 'Updates, fixes, or ongoing support', price: '£30 / hr' },
-  { value: 'orla', label: 'Orla', desc: 'Get early access or ask a question', price: '' },
-  { value: 'other', label: 'Something else', desc: 'Not sure yet, happy to talk it through', price: '' },
+  {
+    value: 'audit',
+    label: 'Website Audit',
+    desc: 'Find out what\'s holding your site back',
+    price: '£145',
+    placeholder: 'e.g. My site gets traffic but nobody fills in the contact form...',
+  },
+  {
+    value: 'build',
+    label: 'Design & Build',
+    desc: 'A new website, start to finish',
+    price: 'From £1,495',
+    placeholder: 'e.g. My current site feels dated and doesn\'t reflect the business anymore...',
+  },
+  {
+    value: 'starter',
+    label: 'Starter Package (£495)',
+    desc: 'Questions about the £495 site, or adding a form/booking to it',
+    price: '£495',
+    placeholder: 'e.g. I just need a simple 3-page site live quickly, or want to add a working contact form...',
+  },
+  {
+    value: 'development',
+    label: 'Development Help',
+    desc: 'Updates, fixes, or ongoing support',
+    price: '£30 / hr',
+    placeholder: 'e.g. I need a few bug fixes and an extra page added to my existing site...',
+  },
+  {
+    value: 'orla',
+    label: 'Orla',
+    desc: 'Get early access or ask a question',
+    price: '',
+    placeholder: 'e.g. I\'d like to hear more about Orla and how it could work for my business...',
+  },
+  {
+    value: 'other',
+    label: 'Something else',
+    desc: 'Not sure yet, happy to talk it through',
+    price: '',
+    placeholder: 'e.g. Not sure exactly what I need yet, but here\'s what\'s going on...',
+  },
 ]
+
+const DEFAULT_PLACEHOLDER = 'e.g. Tell me a bit about what you\'re trying to do...'
 
 function Form({ defaultService }: { defaultService?: string }) {
   const { executeRecaptcha } = useGoogleReCaptcha()
@@ -25,6 +64,15 @@ function Form({ defaultService }: { defaultService?: string }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [website, setWebsite] = useState('')
+
+  // Arriving with a preselected service jumps straight to step 2 — scroll
+  // the form into view too, since on the /contact page it otherwise starts
+  // below the fold and the visitor has to scroll down manually to see it.
+  useEffect(() => {
+    if (defaultService && services.some(s => s.value === defaultService)) {
+      document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [defaultService])
 
   const selectService = (value: string) => {
     setSelectedService(value)
@@ -159,7 +207,7 @@ function Form({ defaultService }: { defaultService?: string }) {
               onChange={e => setMessage(e.target.value)}
               rows={6}
               autoFocus
-              placeholder="e.g. My site gets traffic but nobody fills in the contact form..."
+              placeholder={services.find(s => s.value === selectedService)?.placeholder ?? DEFAULT_PLACEHOLDER}
               className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-accent transition-colors resize-none bg-white/80"
             />
           </div>

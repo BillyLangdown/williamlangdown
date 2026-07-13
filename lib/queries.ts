@@ -1,5 +1,8 @@
 import { client } from '@/sanity/client'
-import type { CaseStudy, BlogPost } from './types'
+import { portfolioClient } from '@/sanity/portfolioClient'
+import type { CaseStudy, BlogPost, PortfolioGallery } from './types'
+
+const PORTFOLIO_DOC_ID = 'portfolio-demo'
 
 export async function getCaseStudies(): Promise<CaseStudy[]> {
   return client.fetch(
@@ -82,5 +85,23 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       publishedAt
     }`,
     { slug }
+  )
+}
+
+export async function getPortfolioGallery(): Promise<PortfolioGallery | null> {
+  return portfolioClient.fetch(
+    `*[_id == $id][0] {
+      _id,
+      _type,
+      artistName,
+      artworks[] {
+        _key,
+        image,
+        title,
+        medium,
+        year
+      }
+    }`,
+    { id: PORTFOLIO_DOC_ID }
   )
 }

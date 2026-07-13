@@ -182,7 +182,35 @@ export default function ServicesSection() {
             />
           ))}
         </div>
-   
+
+        {/* Starter package */}
+        <div
+          className="mt-6 rounded-sm overflow-hidden flex flex-col md:flex-row md:items-center gap-6 md:gap-10 px-6 py-7 md:px-10 md:py-8"
+          style={{ background: '#FFF7ED', border: '1px solid rgba(234,88,12,0.18)' }}
+        >
+          <div className="flex-1">
+            <p
+              className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3"
+              style={{ background: 'rgba(234,88,12,0.1)', color: '#C2410C' }}
+            >
+              Cheap and cheerful
+            </p>
+            <h3 className="text-lg font-semibold text-ink mb-1.5">Just need something simple? £495 starter sites.</h3>
+            <p className="text-sm text-secondary leading-relaxed max-w-md">
+              Three pages, four ready-made designs to pick from, live in about a week.
+            </p>
+          </div>
+          <Link
+            href="/starter"
+            className="inline-flex items-center justify-center gap-2 text-white text-sm px-5 py-3 rounded-sm font-medium transition-opacity hover:opacity-90 shrink-0"
+            style={{ background: '#EA580C' }}
+          >
+            See the Starter package
+            <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+              <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
+        </div>
 
         {/* Orla */}
         <div className="mt-10 rounded-sm overflow-hidden" style={{ background: '#0f172a', borderTop: '2px solid #2563EB' }}>

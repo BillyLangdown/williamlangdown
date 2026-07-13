@@ -33,3 +33,18 @@ export interface BlogPost {
   tags?: string[]
   publishedAt: string
 }
+
+export interface Artwork {
+  _key: string
+  image: SanityImage
+  title?: string
+  medium?: string
+  year?: string
+}
+
+export interface PortfolioGallery {
+  _id: string
+  _type: 'portfolioGallery'
+  artistName?: string
+  artworks?: Artwork[]
+}
