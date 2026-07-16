@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import ScrollReveal from '@/components/ScrollReveal'
 
 type Variant = {
@@ -11,6 +12,7 @@ type Variant = {
   bg: string
   accent: string
   text: string
+  image: string
   desc: string
 }
 
@@ -34,20 +36,15 @@ export default function DesignPicker({ variants }: { variants: Variant[] }) {
         {variants.map((v, i) => (
           <ScrollReveal key={v.id} delay={i * 100} className="h-full">
             <div className="group h-full flex flex-col rounded-sm overflow-hidden border border-border-light hover:shadow-lg transition-shadow">
-              {/* Mini mockup */}
-              <div style={{ background: v.bg }} className="aspect-[4/3] p-5 flex flex-col justify-between shrink-0">
-                <div className="flex items-center justify-between">
-                  <div style={{ background: v.text, opacity: 0.85 }} className="h-2 w-14 rounded-full" />
-                  <div className="flex gap-1.5">
-                    <div style={{ background: v.text, opacity: 0.35 }} className="h-1.5 w-6 rounded-full" />
-                    <div style={{ background: v.text, opacity: 0.35 }} className="h-1.5 w-6 rounded-full" />
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <div style={{ background: v.text, opacity: 0.9 }} className="h-3 w-3/4 rounded-full" />
-                  <div style={{ background: v.text, opacity: 0.5 }} className="h-2 w-1/2 rounded-full" />
-                  <div style={{ background: v.accent }} className="h-6 w-24 rounded-sm mt-2" />
-                </div>
+              {/* Screenshot */}
+              <div style={{ background: v.bg }} className="relative aspect-[4/3] overflow-hidden shrink-0">
+                <Image
+                  src={v.image}
+                  alt={`${v.name} design preview`}
+                  fill
+                  className="object-cover object-top"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
               </div>
               <div className="p-5 bg-white flex-1 flex flex-col">
                 <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: v.accent }}>{v.style}</p>

@@ -19,6 +19,7 @@ const variants = [
     bg: '#0A0A0A',
     accent: '#FF5A1F',
     text: '#FFFFFF',
+    image: '/images/starter-previews/forge.jpg',
     desc: 'Sharp, high-contrast, big type. Suits fitness, trades, and anything that wants to feel confident.',
   },
   {
@@ -28,6 +29,7 @@ const variants = [
     bg: '#FBF6EF',
     accent: '#C97B5A',
     text: '#3A322A',
+    image: '/images/starter-previews/willow.jpg',
     desc: 'Soft, rounded, photo-led. Suits independent shops, studios, and anything hand-made or personal.',
   },
   {
@@ -37,6 +39,7 @@ const variants = [
     bg: '#FFFFFF',
     accent: '#D9B96C',
     text: '#1C2333',
+    image: '/images/starter-previews/hartley.jpg',
     desc: 'Clean, understated, lots of space. Suits consultants, advisors, and services that sell on trust.',
   },
   {
@@ -46,6 +49,7 @@ const variants = [
     bg: '#FAFAF8',
     accent: '#A8683D',
     text: '#1C1B19',
+    image: '/images/starter-previews/ochre.jpg',
     desc: 'Gallery grid, your work does the talking. Suits artists, photographers, and makers. Includes a simple page for uploading your own images after launch.',
   },
 ]
@@ -141,12 +145,11 @@ export default function StarterPage() {
             <ScrollReveal delay={100}>
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-ink mb-6">Not included</h2>
               <p className="text-sm text-secondary leading-relaxed mb-4">
-                This is deliberately simple. That&apos;s what keeps the price down. If you need any of this,
-                the <Link href="/services" className="text-accent underline underline-offset-2 hover:text-accent/80">Design &amp; Build service</Link> is
-                the better fit. (Ochre is the one exception: it comes with a simple page for uploading your own images after launch, not a full CMS.)
+                This is deliberately simple, that&apos;s what keeps the price down. Need more? Just ask, or see{' '}
+                <Link href="/services" className="text-accent underline underline-offset-2 hover:text-accent/80">Design &amp; Build</Link>.
               </p>
               <ul className="flex flex-col gap-3">
-                {['Contact forms or booking systems (£60 to add)', 'A content management system', 'Custom design beyond the 4 templates', 'Blog, shop, or extra pages'].map(item => (
+                {['Contact forms or booking systems (extra charge)', 'A content management system', 'Custom design beyond the 4 templates', 'Blog, shop, or extra pages'].map(item => (
                   <li key={item} className="flex items-start gap-3">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-0.5 shrink-0 text-tertiary">
                       <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

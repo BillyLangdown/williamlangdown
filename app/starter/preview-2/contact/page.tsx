@@ -6,8 +6,8 @@ export default function Preview2Contact() {
       <div className="max-w-3xl mx-auto text-center">
         <p className="text-sm mb-5" style={{ color: '#C97B5A' }}>Get in touch</p>
         <h1
-          style={{ fontFamily: 'var(--font-fraunces)', color: '#3A322A' }}
-          className="text-4xl md:text-5xl font-medium leading-tight italic"
+          style={{ fontFamily: 'var(--font-fraunces)', color: '#3A322A', fontWeight: 600 }}
+          className="text-4xl md:text-5xl leading-tight tracking-tight"
         >
           We&apos;d love to hear from you
         </h1>

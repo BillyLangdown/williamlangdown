@@ -17,7 +17,7 @@ export default function AskWilliamBanner() {
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-semibold text-ink">Want a working form or booking here?</p>
-        <p className="text-xs text-secondary">Not included at £495. £60 to add.</p>
+        <p className="text-xs text-secondary">Not included at £495, just ask.</p>
       </div>
       <span className="flex items-center gap-1 text-sm font-medium text-accent shrink-0">
         Ask me

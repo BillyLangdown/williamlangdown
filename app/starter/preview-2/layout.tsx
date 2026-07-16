@@ -1,13 +1,13 @@
 import Link from 'next/link'
-import { Lora } from 'next/font/google'
+import { Fraunces } from 'next/font/google'
 import type { Metadata } from 'next'
 import PreviewNav from './PreviewNav'
 
-const lora = Lora({
+const fraunces = Fraunces({
   subsets: ['latin'],
   variable: '--font-fraunces',
   display: 'swap',
-  weight: ['500', '600'],
+  weight: ['400', '500', '600'],
   style: ['italic', 'normal'],
 })
 
@@ -16,9 +16,18 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
+// Fine grain texture so the cream sections don't read as flat solid color.
+const grain = {
+  backgroundImage:
+    "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E\")",
+}
+
 export default function Preview2Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`${lora.variable} min-h-dvh flex flex-col`} style={{ background: '#FBF6EF', color: '#3A322A' }}>
+    <div
+      className={`${fraunces.variable} min-h-dvh flex flex-col`}
+      style={{ background: '#FBF6EF', color: '#3A322A', ...grain }}
+    >
       <PreviewBanner />
 
       <PreviewNav />

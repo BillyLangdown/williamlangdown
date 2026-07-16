@@ -4,8 +4,8 @@ export default function Preview2About() {
       <div className="max-w-3xl mx-auto text-center">
         <p className="text-sm mb-5" style={{ color: '#C97B5A' }}>Our story</p>
         <h1
-          style={{ fontFamily: 'var(--font-fraunces)', color: '#3A322A' }}
-          className="text-4xl md:text-5xl font-medium leading-tight italic"
+          style={{ fontFamily: 'var(--font-fraunces)', color: '#3A322A', fontWeight: 600 }}
+          className="text-4xl md:text-5xl leading-tight tracking-tight"
         >
           Started on a kitchen table
         </h1>
