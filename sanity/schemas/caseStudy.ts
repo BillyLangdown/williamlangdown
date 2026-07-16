@@ -41,6 +41,7 @@ export default defineType({
           { title: 'Audit', value: 'Audit' },
           { title: 'Design', value: 'Design' },
           { title: 'Build', value: 'Build' },
+          { title: 'Concept', value: 'Concept' },
         ],
       },
     }),

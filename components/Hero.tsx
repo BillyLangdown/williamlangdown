@@ -4,8 +4,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-interface Ripple { id: number; x: number; y: number }
-
 const dotGrid = {
   backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
   backgroundSize: '22px 22px',
@@ -16,10 +14,8 @@ export default function Hero() {
   const [desktopVisible, setDesktopVisible] = useState(false)
   const [activePanel, setActivePanel] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
+  const portraitRef = useRef<HTMLDivElement>(null)
   const heroScrollRef = useRef<HTMLDivElement>(null)
-  const [ripples, setRipples] = useState<Ripple[]>([])
-  const rippleId = useRef(0)
-  const lastRipple = useRef(0)
 
   const onHeroScroll = useCallback(() => {
     const el = heroScrollRef.current
@@ -32,16 +28,23 @@ export default function Hero() {
     return () => cancelAnimationFrame(raf)
   }, [])
 
-  const spawnRipple = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const now = Date.now()
-    if (now - lastRipple.current < 80) return
-    lastRipple.current = now
+  const onHeroMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const el = sectionRef.current
     if (!el) return
     const rect = el.getBoundingClientRect()
-    const id = ++rippleId.current
-    setRipples(prev => [...prev.slice(-12), { id, x: e.clientX - rect.left, y: e.clientY - rect.top }])
-    setTimeout(() => setRipples(prev => prev.filter(r => r.id !== id)), 1600)
+
+    // Cheap spotlight-on-the-dot-grid effect: just moves a CSS custom
+    // property, no JS animation loop or blend-mode compositing involved.
+    el.style.setProperty('--mx', `${e.clientX - rect.left}px`)
+    el.style.setProperty('--my', `${e.clientY - rect.top}px`)
+
+    // Very subtle tilt on the portrait toward the cursor.
+    if (portraitRef.current) {
+      const prect = portraitRef.current.getBoundingClientRect()
+      const px = (e.clientX - prect.left - prect.width / 2) / prect.width
+      const py = (e.clientY - prect.top - prect.height / 2) / prect.height
+      portraitRef.current.style.transform = `perspective(1400px) rotateY(${px * 2}deg) rotateX(${py * -2}deg)`
+    }
   }, [])
 
   return (
@@ -49,15 +52,19 @@ export default function Hero() {
       ref={sectionRef}
       className="relative lg:overflow-hidden"
       style={{ scrollSnapAlign: 'start', ...dotGrid }}
-      onMouseMove={spawnRipple}
+      onMouseMove={onHeroMouseMove}
     >
-      {ripples.map(r => (
-        <span
-          key={r.id}
-          className="pointer-events-none absolute rounded-full border border-accent/20"
-          style={{ left: r.x, top: r.y, animation: 'ripple-expand 1.6s cubic-bezier(0.2,0.8,0.4,1) forwards' }}
-        />
-      ))}
+      {/* Cursor spotlight over the dot grid, desktop only */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[1] hidden lg:block"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(37,99,235,0.9) 1.5px, transparent 1.5px)',
+          backgroundSize: '22px 22px',
+          WebkitMaskImage: 'radial-gradient(circle 200px at var(--mx, -999px) var(--my, -999px), black, transparent 70%)',
+          maskImage: 'radial-gradient(circle 200px at var(--mx, -999px) var(--my, -999px), black, transparent 70%)',
+        }}
+      />
 
       {/* ── MOBILE HERO ── */}
       <div className="relative flex lg:hidden flex-col" style={{ height: '100svh' }}>
@@ -78,7 +85,7 @@ export default function Hero() {
             className="rounded-full transition-all duration-300"
             style={{ height: '6px', width: activePanel === 1 ? '20px' : '6px', backgroundColor: activePanel === 1 ? '#2563EB' : 'rgba(15,23,42,0.2)' }}
           />
-        
+
         </div>
 
         <div
@@ -154,7 +161,7 @@ export default function Hero() {
             ...dotGrid,
           }}
         >
-         
+
           {/* Portrait */}
           <div className="relative" style={{ maxWidth: '220px', width: '100%' }}>
             <div
@@ -194,7 +201,7 @@ export default function Hero() {
 
       {/* ── DESKTOP HERO ── */}
       <div
-        className="hidden lg:flex items-center max-w-6xl mx-auto px-6 pt-8"
+        className="relative z-[2] hidden lg:flex items-center max-w-6xl mx-auto px-6 pt-8"
         style={{ minHeight: 'min(82vh, 820px)' }}
       >
         <div
@@ -237,8 +244,12 @@ export default function Hero() {
         </div>
 
         {/* Portrait: flex sibling, vertically centered by parent items-center */}
-        <div className="shrink-0 w-[36%]" style={{ aspectRatio: '801 / 1022' }}>
-          <div className="relative w-full h-full overflow-hidden rounded-tr-[3.5rem] rounded-br-[3.5rem]">
+        <div className="shrink-0 w-[36%]" style={{ aspectRatio: '801 / 1022', perspective: '800px' }}>
+          <div
+            ref={portraitRef}
+            className="relative w-full h-full overflow-hidden rounded-tr-[3.5rem] rounded-br-[3.5rem]"
+            style={{ transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1)', transformStyle: 'preserve-3d' }}
+          >
             <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
             <div className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent pointer-events-none" />
           </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 const problems = [
   {
@@ -80,11 +80,26 @@ const problems = [
   },
 ]
 
+const DESKTOP_DWELL = 7000
+
+// Shortest signed distance from `active` to `i` around a ring of `total`
+// cards, e.g. for 6 cards, going from index 5 to index 0 is +1 (forward
+// one), not -5. This is what makes the coverflow spin the short way round
+// instead of sweeping backwards through every card.
+function ringOffset(i: number, active: number, total: number) {
+  let diff = i - active
+  if (diff > total / 2) diff -= total
+  if (diff < -total / 2) diff += total
+  return diff
+}
+
 export default function ProblemsSection() {
   const scrollRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
-  const [visible, setVisible] = useState(false)
+  const [inView, setInView] = useState(false)
+  const [displayIndex, setDisplayIndex] = useState(0)
+  const [deskPaused, setDeskPaused] = useState(false)
 
   const onCardScroll = () => {
     const el = scrollRef.current
@@ -93,15 +108,24 @@ export default function ProblemsSection() {
     setActiveIndex(Math.min(Math.round(el.scrollLeft / step), problems.length - 1))
   }
 
+  const goToDesk = useCallback((idx: number) => setDisplayIndex(idx), [])
+  const goNext = useCallback(() => setDisplayIndex((i) => (i + 1) % problems.length), [])
+  const goPrev = useCallback(() => setDisplayIndex((i) => (i - 1 + problems.length) % problems.length), [])
+
+  // Only auto-advance while the section is actually on screen, so the
+  // carousel isn't several cards in by the time someone scrolls to it.
+  useEffect(() => {
+    if (deskPaused || !inView) return
+    const id = setTimeout(() => {
+      setDisplayIndex((i) => (i + 1) % problems.length)
+    }, DESKTOP_DWELL)
+    return () => clearTimeout(id)
+  }, [displayIndex, deskPaused, inView])
+
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.05 }
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.15 }
     )
     if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
@@ -153,7 +177,7 @@ export default function ProblemsSection() {
                 key={problem.title}
                 style={{ flexShrink: 0, width: 'calc(100vw - 64px)', scrollSnapAlign: 'start' }}
               >
-                <div className="bg-white border border-border-light rounded-sm p-6 relative overflow-hidden shadow-sm" style={{ minHeight: '200px' }}>
+                <div className="bg-white border border-border-light rounded-sm p-6 relative overflow-hidden shadow-sm" style={{ height: '234px' }}>
 
                   {/* Top row: icon + counter */}
                   <div className="flex items-center justify-between mb-5">
@@ -194,7 +218,7 @@ export default function ProblemsSection() {
             href="/contact"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-ink/50 hover:text-accent transition-colors"
           >
-            Get in touch
+            Sound familiar? Get in touch
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
               <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -203,37 +227,107 @@ export default function ProblemsSection() {
 
       </div>
 
-      {/* ── DESKTOP: grid ── */}
-      <div className="hidden md:flex md:flex-col md:justify-center py-20 px-6" style={{ minHeight: '100svh' }}>
-        <div className="max-w-6xl mx-auto">
+      {/* ── DESKTOP: 3D coverflow, neighbouring cards peek in from off screen ── */}
+      <div className="hidden md:block py-20 md:py-24 px-6">
+        <div className="max-w-5xl mx-auto w-full">
           <div className="mb-12 pl-4 border-l-4 border-accent">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">Common problems</h2>
             <p className="text-sm text-secondary mt-1">Which of these is you?</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            {problems.map((problem, i) => (
-              <div
-                key={problem.title}
-                className={`border-t border-border-light py-8 ${i % 2 === 0 ? 'md:pr-14' : 'md:pl-14 md:border-l md:border-border-light'}`}
-                style={{
-                  opacity: visible ? 1 : 0,
-                  transform: visible ? 'translateY(0)' : 'translateY(16px)',
-                  transitionProperty: 'opacity, transform',
-                  transitionDuration: '0.5s',
-                  transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-                  transitionDelay: `${i * 50}ms`,
-                }}
-              >
+
+          <div
+            onMouseEnter={() => setDeskPaused(true)}
+            onMouseLeave={() => setDeskPaused(false)}
+            className="relative overflow-hidden"
+            style={{ height: '320px', perspective: '1600px' }}
+          >
+            {problems.map((problem, i) => {
+              const offset = ringOffset(i, displayIndex, problems.length)
+              const abs = Math.abs(offset)
+              if (abs > 1) return null
+              const isActive = offset === 0
+              return (
                 <div
-                  className="w-8 h-8 rounded-sm flex items-center justify-center mb-4"
-                  style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
+                  key={problem.title}
+                  onClick={() => !isActive && goToDesk(i)}
+                  className="absolute left-1/2 top-1/2 w-[440px] rounded-sm border border-border-light bg-white shadow-sm p-9 flex items-start gap-6"
+                  style={{
+                    transform: `translate(-50%, -50%) translateX(${offset * 330}px) translateZ(${-abs * 170}px) rotateY(${-offset * 34}deg) scale(${1 - abs * 0.16})`,
+                    opacity: isActive ? 1 : 0.45,
+                    filter: isActive ? 'none' : 'blur(3px)',
+                    zIndex: isActive ? 10 : 5,
+                    cursor: isActive ? 'default' : 'pointer',
+                    transition: 'transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease, filter 0.6s ease',
+                  }}
                 >
-                  {problem.icon}
+                  <div
+                    className="w-14 h-14 rounded-sm flex items-center justify-center shrink-0"
+                    style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
+                  >
+                    {problem.icon}
+                  </div>
+                  <div className="flex-1">
+                    <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#94a3b8' }}>
+                      {i + 1} / {problems.length}
+                    </span>
+                    <h3 className="text-xl font-heading font-bold text-ink mt-2 mb-3 leading-snug">{problem.title}</h3>
+                    <p className="text-base text-secondary leading-relaxed">{problem.description}</p>
+                  </div>
                 </div>
-                <h3 className="text-base font-semibold text-ink mb-2">{problem.title}</h3>
-                <p className="text-sm text-secondary leading-relaxed">{problem.description}</p>
-              </div>
-            ))}
+              )
+            })}
+          </div>
+
+          {/* Prev/next arrows + progress dots, each dot fills over the dwell period */}
+          <div className="flex items-center justify-center gap-3 mt-6">
+            <button
+              type="button"
+              onClick={goPrev}
+              aria-label="Previous problem"
+              className="w-7 h-7 rounded-full flex items-center justify-center border border-border-light text-tertiary hover:text-accent hover:border-accent/40 transition-colors"
+            >
+              <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+                <path d="M9 1L3 7l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+
+            <div className="flex items-center gap-2">
+              {problems.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goToDesk(i)}
+                  aria-label={`Show problem ${i + 1}`}
+                  className="relative h-1.5 rounded-full overflow-hidden transition-all duration-300"
+                  style={{
+                    width: i === displayIndex ? '40px' : '8px',
+                    backgroundColor: 'rgba(37,99,235,0.15)',
+                  }}
+                >
+                  {i === displayIndex && (
+                    <span
+                      key={displayIndex}
+                      className="absolute inset-y-0 left-0 rounded-full"
+                      style={{
+                        backgroundColor: '#2563EB',
+                        animation: `problemsFill ${DESKTOP_DWELL}ms linear forwards`,
+                        animationPlayState: deskPaused || !inView ? 'paused' : 'running',
+                      }}
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={goNext}
+              aria-label="Next problem"
+              className="w-7 h-7 rounded-full flex items-center justify-center border border-border-light text-tertiary hover:text-accent hover:border-accent/40 transition-colors"
+            >
+              <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+                <path d="M5 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
           </div>
 
           <div className="mt-10 border-t border-border-light pt-8 flex justify-end">
@@ -241,7 +335,7 @@ export default function ProblemsSection() {
               href="/contact"
               className="inline-flex items-center gap-2 text-sm font-medium border border-ink/20 text-ink px-5 py-2.5 rounded-sm hover:border-accent hover:text-accent transition-colors"
             >
-              Get in touch
+              Sound familiar? Get in touch
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                 <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -250,6 +344,13 @@ export default function ProblemsSection() {
 
         </div>
       </div>
+
+      <style jsx global>{`
+        @keyframes problemsFill {
+          from { width: 0%; }
+          to { width: 100%; }
+        }
+      `}</style>
 
     </section>
   )

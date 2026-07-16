@@ -94,7 +94,7 @@ export default function ServicesPage() {
                   Services
                 </h1>
                 <p className="text-base text-secondary mt-3 max-w-xl leading-relaxed">
-                  Three ways to work together. Most clients start with an audit to find out exactly what&apos;s holding their site back.
+                  Three ways to work together, from a quick audit if you want a second opinion first, to a complete design and build.
                 </p>
               </div>
             </ScrollReveal>

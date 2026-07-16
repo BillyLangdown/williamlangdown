@@ -28,13 +28,7 @@ a {
   text-decoration: none;
 }
 
-/* ── Cursor ripple ─────────────────────────────────────────────────────── */
-@keyframes ripple-expand {
-  from { width: 0; height: 0; opacity: 0.45; transform: translate(-50%, -50%); }
-  to   { width: 280px; height: 280px; opacity: 0; transform: translate(-50%, -50%); }
-}
-
-/* ── Mobile hero portrait — subtle zoom while waiting to be pushed ──────── */
+/* ── Mobile hero portrait: subtle zoom while waiting to be pushed ──────── */
 @keyframes portrait-breathe {
   from { transform: scale(1.06); }
   to   { transform: scale(1); }
@@ -63,8 +57,3 @@ a {
   50%       { transform: translateX(5px); }
 }
 
-@media (max-width: 1023px) {
-  .services-panel-shadow {
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.06), 0 4px 8px rgba(0, 0, 0, 0.06);
-  }
-}

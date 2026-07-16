@@ -65,7 +65,6 @@ export default function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt, afte
   }, [updatePosition])
 
   return (
-    <div>
       <div
         ref={containerRef}
         className="relative aspect-[16/9] overflow-hidden select-none cursor-col-resize"
@@ -107,12 +106,5 @@ export default function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt, afte
           </div>
         </div>
       </div>
-
-      {/* Labels below slider */}
-      <div className="flex justify-between mt-2 px-1">
-        <span className="text-[10px] font-semibold uppercase tracking-widest text-white/35">Before</span>
-        <span className="text-[10px] font-semibold uppercase tracking-widest text-white/35">After</span>
-      </div>
-    </div>
   )
 }

@@ -3,7 +3,7 @@ import ScrollReveal from '@/components/ScrollReveal'
 
 export default function CTABanner() {
   return (
-    <section className="relative py-24 px-6 overflow-hidden" style={{ background: '#080e1c', scrollSnapAlign: 'start' }}>
+    <section className="relative py-20 md:py-24 px-6 overflow-hidden" style={{ background: '#080e1c', scrollSnapAlign: 'start' }}>
 
       {/* Blob layer */}
       <div className="absolute inset-0 pointer-events-none">

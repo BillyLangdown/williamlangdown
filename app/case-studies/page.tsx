@@ -13,11 +13,11 @@ export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'Case Studies | William Langdown',
-  description: 'Real projects with real businesses: website audits, redesigns, and builds. See the work and results.',
+  description: 'Real projects with real businesses: website audits, redesigns, and builds, plus the odd self-directed concept piece. See the work and results.',
   alternates: { canonical: 'https://williamlangdown.com/case-studies' },
   openGraph: {
     title: 'Case Studies | William Langdown',
-    description: 'Real projects with real businesses: website audits, redesigns, and builds. See the work and results.',
+    description: 'Real projects with real businesses: website audits, redesigns, and builds, plus the odd self-directed concept piece. See the work and results.',
     url: 'https://williamlangdown.com/case-studies',
   },
 }
@@ -140,7 +140,8 @@ export default async function CaseStudiesPage() {
                   Case Studies
                 </h1>
                 <p className="text-base text-secondary mt-3 max-w-xl leading-relaxed">
-                  Real work with real businesses. Auditing, redesigning, and rebuilding websites to get more visitors in touch.
+                  Real work with real businesses. Auditing, redesigning, and rebuilding websites to get more visitors in touch,
+                  plus the occasional self-directed concept piece to push new techniques before they reach a client project.
                 </p>
               </div>
             </ScrollReveal>

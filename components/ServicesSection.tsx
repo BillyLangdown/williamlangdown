@@ -1,32 +1,18 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
+import ScrollReveal from '@/components/ScrollReveal'
 
-const services = [
-  {
-    title: 'Website Audit',
-    price: 'From £145',
-    priceNote: '',
-    color: '#2563EB',
-    description:
-      "A proper look at your website: what's putting people off, where the copy needs improvement, and how it performs on mobile. You get a written report and a short video walkthrough so you know what to tackle first.",
-    href: '/services',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-        <circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M12.5 12.5l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
+const leadServices = [
   {
     title: 'Website Design & Development',
     price: 'From £1,495',
-    priceNote: '',
     color: '#2563EB',
-    featured: true,
     description:
       "A website built to get people in touch. From five pages, with optional custom extras. No idea too big or small. Works on every device, includes contact forms, basic SEO, and analytics.",
+    cta: 'See Design & Build',
     href: '/services',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
@@ -36,15 +22,45 @@ const services = [
     ),
   },
   {
+    title: 'Starter Sites',
+    price: 'From £495',
+    color: '#EA580C',
+    description:
+      "Three pages, live in about a week. Perfect if you just need something simple to get found and get in touch.",
+    cta: 'See the Starter package',
+    href: '/starter',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden>
+        <path d="M9 1.5L2.5 9h4.5L7 14.5 13.5 7H9V1.5z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+]
+
+const secondaryServices = [
+  {
+    title: 'Website Audit',
+    price: 'From £145',
+    priceNote: '',
+    description:
+      "Not sure where to start? A proper look at what's putting people off, where the copy needs work, and how you perform on mobile. Written report plus a short video walkthrough.",
+    href: '/services',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden>
+        <circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M12.5 12.5l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
     title: 'Website Support & Improvements',
     price: 'From £30 / hour',
     priceNote: 'Returning Design & Build clients: £30/hr · New clients: £60/hr',
-    color: '#2563EB',
     description:
-      "Help with what you've already got. Copy changes, new pages, design tweaks, or general upkeep. Billed by the hour, no contract.",
+      "Already have a site? Copy changes, new pages, design tweaks, or general upkeep. Billed by the hour, no contract.",
     href: '/services',
     icon: (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+      <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden>
         <path d="M3 15l7-7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         <circle cx="12.5" cy="5.5" r="3.5" stroke="currentColor" strokeWidth="1.5" />
         <path d="M12.5 4l1.3.75v1.5l-1.3.75-1.3-.75v-1.5z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" />
@@ -53,85 +69,64 @@ const services = [
   },
 ]
 
-function ServiceRow({ service, index }: { service: typeof services[0]; index: number }) {
-  const [visible, setVisible] = useState(false)
-  const rowRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const el = rowRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect() } },
-      { threshold: 0.15 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
+function FeaturedCard({ service }: { service: typeof leadServices[0] }) {
   return (
-    <div
-      ref={rowRef}
-      className={` first:border-t-0 lg:first:border-t overflow-hidden lg:border lg:border-border-light lg:rounded-sm${service.featured ? ' relative max-lg:bg-[#080e1c] lg:bg-accent/[0.03] lg:border-t-[3px] lg:border-t-accent' : ' max-lg:bg-white'}`}
-    >
-
-      {/* Gradient blobs: mobile only, hidden on desktop */}
-      {service.featured && (
-        <div className="absolute inset-0 pointer-events-none lg:hidden" style={{ zIndex: 0 }}>
-          <div style={{ position: 'absolute', top: '-80px', right: '-40px', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.5) 0%, transparent 68%)' }} />
-          <div style={{ position: 'absolute', bottom: '-80px', left: '-40px', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.35) 0%, transparent 68%)' }} />
-        </div>
-      )}
-
-      <div
-        className={`py-10 flex flex-col md:flex-row md:items-start gap-6 md:gap-12 lg:flex-col lg:p-8 lg:h-full relative z-10 ${service.featured ? 'px-6' : 'max-lg:px-6'}`}
-        style={{
-          clipPath: visible ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)',
-          transition: 'clip-path 0.85s cubic-bezier(0.16, 1, 0.3, 1)',
-          ...(service.featured ? { backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' } : {}),
-        }}
+    <ScrollReveal threshold={0.15}>
+      <Link
+        href={service.href}
+        className="group relative block rounded-sm p-7 sm:p-8 h-full overflow-hidden transition-transform hover:-translate-y-0.5"
+        style={{ background: '#080e1c' }}
       >
-        <div className="flex-1 flex flex-col md:flex-row gap-6 md:gap-12 lg:flex-col lg:flex-1 lg:gap-5">
-          <div className="md:w-[220px] lg:w-auto shrink-0">
-            {/* Icon inline with title on mobile, stacked above on desktop */}
-            <div className="md:hidden h-px mb-4" style={{ backgroundColor: service.featured ? 'rgba(255,255,255,0.12)' : 'rgba(37,99,235,0.18)' }} />
-            <div className="flex justify-start md:justify-start lg:block">
-              <div className="flex items-start gap-3 lg:block">
-                <div
-                  className={`w-8 h-8 rounded-sm flex items-center justify-center shrink-0 lg:mb-3 ${service.featured ? 'bg-white/10 text-white lg:text-accent' : ''}`}
-                  style={!service.featured ? { background: `${service.color}18`, color: service.color } : undefined}
-                >
-                  {service.icon}
-                </div>
-                <div className="max-w-[150px] md:max-w-none">
-                  <h3 className={`text-lg font-semibold leading-snug mb-1 ${service.featured ? 'text-white lg:text-ink' : 'text-ink'}`}>{service.title}</h3>
-                  <p className="text-sm font-medium" style={{ color: service.color }}>{service.price}</p>
-                  {service.priceNote && (
-                    <div className="mt-1 flex flex-col gap-0.5">
-                      {service.priceNote.split(' · ').map((note, k) => (
-                        <p key={k} className="text-xs text-secondary font-medium leading-snug">{note}</p>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div className="md:hidden h-px mt-4" style={{ backgroundColor: service.featured ? 'rgba(255,255,255,0.12)' : 'rgba(37,99,235,0.18)' }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+          <div style={{ position: 'absolute', top: '-70px', right: '-50px', width: '280px', height: '280px', borderRadius: '50%', background: `radial-gradient(circle, ${service.color}55 0%, transparent 68%)` }} />
+        </div>
+        <div className="relative z-10">
+          <div className="w-11 h-11 rounded-sm flex items-center justify-center mb-5" style={{ background: `${service.color}22`, color: service.color }}>
+            {service.icon}
           </div>
-          <div className="flex-1 flex flex-col gap-4">
-            <p className={`text-sm leading-relaxed ${service.featured ? 'text-white/60 lg:text-secondary' : 'text-secondary'}`}>{service.description}</p>
-            <Link
-              href={service.href}
-              className={`inline-flex items-center gap-1.5 text-sm font-medium transition-colors self-end lg:self-start ${service.featured ? 'text-white/60 hover:text-white lg:text-ink lg:hover:text-accent' : 'text-ink hover:text-accent'}`}
-            >
-              Learn more
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
+          <h3 className="text-xl font-semibold text-white mb-1">{service.title}</h3>
+          <p className="text-sm font-medium mb-4" style={{ color: service.color }}>{service.price}</p>
+          <p className="text-sm text-white/55 leading-relaxed mb-6">{service.description}</p>
+          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-white/70 group-hover:text-white transition-colors">
+            {service.cta}
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+              <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+        </div>
+      </Link>
+    </ScrollReveal>
+  )
+}
+
+function SecondaryCard({ service }: { service: typeof secondaryServices[0] }) {
+  return (
+    <ScrollReveal threshold={0.15}>
+      <Link
+        href={service.href}
+        className="group rounded-sm border border-border-light p-6 flex flex-col h-full transition-colors hover:border-ink/20"
+      >
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style={{ background: 'rgba(15,23,42,0.05)', color: '#475569' }}>
+            {service.icon}
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-ink">{service.title}</p>
+            <p className="text-xs font-medium text-secondary">{service.price}</p>
           </div>
         </div>
-      </div>
-    </div>
+        {service.priceNote && (
+          <p className="text-xs text-secondary font-medium leading-snug mb-3">{service.priceNote}</p>
+        )}
+        <p className="text-sm text-secondary leading-relaxed mb-4 flex-1">{service.description}</p>
+        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ink group-hover:text-accent transition-colors">
+          Learn more
+          <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+            <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </Link>
+    </ScrollReveal>
   )
 }
 
@@ -151,7 +146,7 @@ export default function ServicesSection() {
   }, [])
 
   return (
-    <section id="services" className="py-20 px-6 bg-surface border-t border-border-light" style={{ scrollSnapAlign: 'start' }}>
+    <section id="services" className="py-20 md:py-24 px-6 bg-surface border-t border-border-light" style={{ scrollSnapAlign: 'start' }}>
       <div className="max-w-6xl mx-auto">
 
         <div
@@ -172,45 +167,39 @@ export default function ServicesSection() {
           </p>
         </div>
 
-        <div className="flex flex-col max-lg:-mx-6 max-lg:rounded-2xl max-lg:overflow-hidden services-panel-shadow lg:grid lg:grid-cols-3 lg:gap-5">
-          {services.map((service, i) => (
-            <ServiceRow
-              key={service.title}
-              service={service}
-              index={i}
-            />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {leadServices.map((service) => (
+            <FeaturedCard key={service.title} service={service} />
           ))}
         </div>
 
-        <Link
-          href="/starter"
-          className="group mt-6 flex flex-col gap-3 rounded-sm border px-5 py-4 transition-colors sm:flex-row sm:items-center sm:gap-4"
-          style={{ borderColor: 'rgba(234,88,12,0.22)', background: 'rgba(234,88,12,0.04)' }}
-        >
-          <div className="flex items-center gap-4 flex-1 min-w-0">
-            <div
-              className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0"
-              style={{ background: 'rgba(234,88,12,0.12)', color: '#C2410C' }}
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                <path d="M9 1.5L2.5 9h4.5L7 14.5 13.5 7H9V1.5z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
-              </svg>
-            </div>
-            <div className="min-w-0">
-              <p className="text-sm font-semibold text-ink">Just need something simple?</p>
-              <p className="text-xs text-secondary mt-0.5">£495 starter sites, three pages, live in about a week</p>
-            </div>
-          </div>
-          <span
-            className="flex items-center justify-end gap-1.5 text-sm font-medium shrink-0 pl-[52px] transition-transform group-hover:translate-x-0.5 sm:pl-0"
-            style={{ color: '#C2410C' }}
+        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {secondaryServices.map((service) => (
+            <SecondaryCard key={service.title} service={service} />
+          ))}
+        </div>
+
+        <ScrollReveal threshold={0.15} className="mt-5">
+          <Link
+            href="/orla"
+            className="group flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-sm border border-border-light px-6 py-5 transition-colors hover:border-accent/30"
           >
-            See the Starter package
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-              <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
-        </Link>
+            <span
+              className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full shrink-0 self-start sm:self-auto"
+              style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
+            >
+              My own product
+            </span>
+            <Image src="/images/orla-logo.png" alt="Orla" height={18} width={62} className="object-contain shrink-0" />
+            <p className="text-sm text-secondary flex-1">Booking software with an AI assistant, Google Calendar sync, and Gmail integration. Built by me.</p>
+            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ink group-hover:text-accent transition-colors shrink-0">
+              Find out more
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </Link>
+        </ScrollReveal>
 
       </div>
     </section>
