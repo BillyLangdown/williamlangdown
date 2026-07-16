@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers'
+import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import PasscodeForm from './PasscodeForm'
 import ManageDashboard from './ManageDashboard'
@@ -8,7 +9,15 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
+// Turned off while we're not ready for visitors to reach the upload flow.
+// Flip back to true (and remove the notFound() below) to re-enable.
+const MANAGE_ENABLED = false
+
 export default async function ManagePage() {
+  if (!MANAGE_ENABLED) {
+    notFound()
+  }
+
   const store = await cookies()
   const authorized = store.get('portfolio_manage_auth')?.value === 'granted'
 

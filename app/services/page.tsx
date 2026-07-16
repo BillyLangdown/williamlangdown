@@ -27,12 +27,9 @@ const tiers = [
       'A thorough written review of your site covering UX, messaging, structure, trust signals, responsiveness, performance, and SEO basics.',
     features: [
       'UX and conversion review',
-      'Messaging and clarity review',
-      'Trust signals and structure',
-      'Responsiveness and performance',
-      'SEO basics',
-      'Written report with prioritised recommendations',
-      'Short video walkthrough',
+      'Messaging and trust signals',
+      'Performance and SEO basics',
+      'Written report with video walkthrough',
     ],
     cta: 'Get an audit',
     href: '/contact?service=audit',
@@ -44,15 +41,12 @@ const tiers = [
     price: 'From £1,495',
     priceNote: '',
     description:
-      'A complete website designed and built around your customers. From 5 pages, with optional custom extras. No idea too big or small.',
+      "Not a template. A complete website designed and built around how your customers actually find and buy from you. From 5 pages, with optional custom extras. No idea too big or small.",
     features: [
-      'From 5 pages',
-      'Fully responsive design',
-      'Contact forms',
-      'Basic SEO setup',
-      'Analytics integration',
+      'From 5 pages, fully responsive',
+      'Contact forms, SEO and analytics',
       '2 rounds of refinements',
-      'Launch support',
+      'Launch support included',
     ],
     cta: 'Start a project',
     href: '/contact?service=build',
@@ -62,16 +56,14 @@ const tiers = [
     id: 'development',
     name: 'Development Help',
     price: 'From £30 / hour',
-    priceNote: 'Returning Design & Build clients: £30/hr · New clients: £50/hr',
+    priceNote: 'Returning Design & Build clients: £30/hr · New clients: £60/hr',
     description:
       'Ongoing help with your existing website. Updates, fixes, new content, and improvements. No retainer, no contract.',
     features: [
-      'Copy and content changes',
-      'New pages or sections',
+      'Copy, content, and new pages',
       'Design tweaks and refreshes',
       'Bug fixes and maintenance',
-      'No retainer required',
-      '£30/hr for existing Design & Build clients',
+      'No retainer, no contract',
     ],
     cta: 'Get in touch',
     href: '/contact?service=development',
@@ -106,39 +98,6 @@ export default function ServicesPage() {
                 </p>
               </div>
             </ScrollReveal>
-
-            <ScrollReveal delay={120}>
-              <div
-                className="mt-8 flex items-start gap-4 rounded-sm p-5 max-w-xl"
-                style={{ background: 'rgba(37,99,235,0.05)', border: '1px solid rgba(37,99,235,0.14)' }}
-              >
-                <div
-                  className="shrink-0 w-8 h-8 rounded-sm flex items-center justify-center mt-0.5"
-                  style={{ background: 'rgba(37,99,235,0.1)', color: '#2563EB' }}
-                >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                    <rect x="4" y="4" width="8" height="8" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                    <path d="M6 1v2M10 1v2M6 13v2M10 13v2M1 6h2M1 10h2M13 6h2M13 10h2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-                    <circle cx="8" cy="8" r="1.2" fill="currentColor" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-ink mb-1">IT consulting &amp; AI integration</p>
-                  <p className="text-sm leading-relaxed text-secondary">
-                    <span className="md:hidden">
-                      <Link href="/contact" className="text-accent font-medium underline underline-offset-2 hover:text-accent/80 transition-colors">Free consultation</Link>
-                      {' '}available for IT or AI advice.
-                    </span>
-                    <span className="hidden md:inline">
-                      Need technical advice about your online presence or help integrating AI into your business?{' '}
-                      <Link href="/contact" className="text-accent font-medium underline underline-offset-2 hover:text-accent/80 transition-colors">
-                        Get in touch for a free consultation.
-                      </Link>
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
           </div>
         </section>
 
@@ -154,7 +113,7 @@ export default function ServicesPage() {
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-5">
             {tiers.map((tier, i) => (
               tier.featured ? (
-                /* Featured — dark card with blob layer */
+                /* Featured: dark card with blob layer */
                 <ScrollReveal key={tier.id} delay={i * 80}>
                   <div className="relative overflow-hidden rounded-sm flex flex-col h-full" style={{ background: '#080e1c' }}>
                     {/* Blobs */}
@@ -246,34 +205,61 @@ export default function ServicesPage() {
         <section className="px-6 pb-24">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal>
-              <div
-                className="rounded-sm overflow-hidden flex flex-col md:flex-row md:items-center gap-8 md:gap-10 px-8 py-10 md:px-12"
-                style={{ background: '#FFF7ED', border: '1px solid rgba(234,88,12,0.18)' }}
-              >
-                <div className="flex-1">
-                  <p
-                    className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4"
-                    style={{ background: 'rgba(234,88,12,0.1)', color: '#C2410C' }}
-                  >
-                    Cheap and cheerful
-                  </p>
-                  <h2 className="text-2xl md:text-3xl font-heading font-bold text-ink mb-3">
-                    Just need something simple? £495 starter sites.
-                  </h2>
-                  <p className="text-sm text-secondary leading-relaxed max-w-lg">
-                    Three pages: home, about, contact. Pick one of four ready-made designs, send your content, live in about a week. No forms, no CMS, no design process. Just a simple site online fast.
-                  </p>
-                </div>
-                <Link
-                  href="/starter"
-                  className="inline-flex items-center justify-center gap-2 text-white text-sm px-6 py-3.5 rounded-sm font-medium transition-opacity hover:opacity-90 shrink-0"
-                  style={{ background: '#EA580C' }}
+              <div className="rounded-sm overflow-hidden border" style={{ borderColor: 'rgba(234,88,12,0.18)' }}>
+                <div
+                  className="flex flex-col md:flex-row md:items-center gap-8 md:gap-10 px-8 py-10 md:px-12"
+                  style={{ background: '#FFF7ED' }}
                 >
-                  See the Starter package
-                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
+                  <div className="flex-1">
+                    <p
+                      className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4"
+                      style={{ background: 'rgba(234,88,12,0.1)', color: '#C2410C' }}
+                    >
+                      Cheap and cheerful
+                    </p>
+                    <h2 className="text-2xl md:text-3xl font-heading font-bold text-ink mb-3">
+                      Just need something simple? £495 starter sites.
+                    </h2>
+                    <p className="text-sm text-secondary leading-relaxed max-w-lg">
+                      Three pages: home, about, contact. Pick one of four ready-made designs, send your content, live in about a week.
+                    </p>
+                  </div>
+                  <Link
+                    href="/starter"
+                    className="inline-flex items-center justify-center gap-2 text-white text-sm px-6 py-3.5 rounded-sm font-medium transition-opacity hover:opacity-90 shrink-0"
+                    style={{ background: '#EA580C' }}
+                  >
+                    See the Starter package
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                      <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </Link>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 bg-white">
+                  <div className="p-6 pt-7 border-t border-border-light sm:border-r">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-tertiary mb-3">Choose Starter if</p>
+                    <ul className="flex flex-col gap-2.5">
+                      {['You just need something online', "You don't have a website yet", "You don't expect it to change much"].map(item => (
+                        <li key={item} className="flex items-start gap-2.5 text-sm text-secondary leading-relaxed">
+                          <span className="mt-1.5 h-1 w-1 rounded-full shrink-0 bg-tertiary" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="p-6 pt-7 border-t border-border-light" style={{ background: 'rgba(37,99,235,0.03)' }}>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Choose Design &amp; Build if</p>
+                    <ul className="flex flex-col gap-2.5">
+                      {['You want the site to actually bring in business', 'You need room to grow: blog, shop, more pages later', "Your current site is costing you customers"].map(item => (
+                        <li key={item} className="flex items-start gap-2.5 text-sm text-secondary leading-relaxed">
+                          <span className="mt-1.5 h-1 w-1 rounded-full shrink-0 bg-accent" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
             </ScrollReveal>
           </div>

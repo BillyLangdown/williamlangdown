@@ -5,6 +5,7 @@ import ProblemsSection from '@/components/ProblemsSection'
 import ServicesSection from '@/components/ServicesSection'
 import ReviewSection from '@/components/ReviewSection'
 import CTABanner from '@/components/CTABanner'
+import PromoSection from '@/components/PromoSection'
 import Footer from '@/components/Footer'
 import { getFeaturedCaseStudy } from '@/lib/queries'
 import type { Metadata } from 'next'
@@ -101,11 +102,12 @@ export default async function HomePage() {
       <Nav />
       <main>
         <Hero />
-        <BeforeAfterSection caseStudy={featuredCaseStudy} />
         <ProblemsSection />
+        <BeforeAfterSection caseStudy={featuredCaseStudy} />
         <ServicesSection />
         <ReviewSection />
         <CTABanner />
+        <PromoSection />
       </main>
       <Footer />
     </>

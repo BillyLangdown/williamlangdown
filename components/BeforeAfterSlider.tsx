@@ -45,7 +45,7 @@ export default function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt, afte
     return () => container.removeEventListener('touchmove', block)
   }, [dragging])
 
-  // Wiggle hint — fires after 1.5s, then every 5s, stops once user interacts
+  // Wiggle hint: fires after 1.5s, then every 5s, stops once user interacts
   useEffect(() => {
     if (hasInteracted) return
     const wiggle = () => {
@@ -79,7 +79,7 @@ export default function BeforeAfterSlider({ beforeSrc, afterSrc, beforeAlt, afte
           <Image src={beforeSrc} alt={beforeAlt} fill className="object-cover" sizes="100vw" draggable={false} />
         </div>
 
-        {/* After — clipped, smooth transition when not dragging */}
+        {/* After: clipped, smooth transition when not dragging */}
         <div
           className="absolute inset-0"
           style={{

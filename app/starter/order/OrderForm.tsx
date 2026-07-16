@@ -22,6 +22,12 @@ type TextFieldDef = {
   hint?: string
 }
 
+const MAX_PHOTOS = 6
+const MAX_FILE_MB = 5
+const MAX_FILE_BYTES = MAX_FILE_MB * 1024 * 1024
+const MAX_TOTAL_MB = 20
+const MAX_TOTAL_BYTES = MAX_TOTAL_MB * 1024 * 1024
+
 const STEPS = [
   {
     id: 'welcome',
@@ -91,6 +97,7 @@ export default function OrderForm() {
   const [colourNote, setColourNote] = useState('')
   const [logo, setLogo] = useState<File | null>(null)
   const [photos, setPhotos] = useState<File[]>([])
+  const [fileError, setFileError] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
@@ -134,6 +141,13 @@ export default function OrderForm() {
 
   async function handleSubmit() {
     if (!canAdvance()) return
+
+    const totalBytes = (logo?.size ?? 0) + photos.reduce((sum, p) => sum + p.size, 0)
+    if (totalBytes > MAX_TOTAL_BYTES) {
+      setError(`Your logo and photos add up to too much combined. Please remove a few or use smaller files (${MAX_TOTAL_MB}MB total max).`)
+      return
+    }
+
     setSubmitting(true)
     setError('')
 
@@ -272,20 +286,42 @@ export default function OrderForm() {
             {/* Logo & photos */}
             {section.id === 'assets' && (
               <div className="flex flex-col gap-6">
+                {variant === 'preview-4' && (
+                  <div className="flex items-start gap-3 rounded-sm border border-accent/20 bg-accent/5 px-4 py-3">
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" className="mt-0.5 shrink-0 text-accent">
+                      <path d="M2 4h12M2 8h8M2 12h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                    </svg>
+                    <p className="text-xs text-secondary leading-relaxed">
+                      Just send a few photos to get started with Ochre. Once your site&apos;s live, you&apos;ll
+                      get your own page to upload up to 20 images yourself, any time.
+                    </p>
+                  </div>
+                )}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[10px] font-semibold uppercase tracking-wider text-secondary">Logo</label>
+                  <p className="text-[11px] text-tertiary leading-relaxed">Up to {MAX_FILE_MB}MB.</p>
                   <input
                     type="file"
                     accept="image/*"
-                    onChange={e => setLogo(e.target.files?.[0] ?? null)}
+                    onChange={e => {
+                      const file = e.target.files?.[0] ?? null
+                      if (file && file.size > MAX_FILE_BYTES) {
+                        setFileError(`"${file.name}" is too large (max ${MAX_FILE_MB}MB per file).`)
+                        e.target.value = ''
+                        return
+                      }
+                      setFileError('')
+                      setLogo(file)
+                    }}
                     className="text-sm text-secondary file:mr-4 file:py-2.5 file:px-4 file:rounded-sm file:border-0 file:text-xs file:font-medium file:bg-accent file:text-white hover:file:bg-accent/90 file:cursor-pointer"
                   />
                   {logo && <p className="text-xs text-secondary">{logo.name}</p>}
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] font-semibold uppercase tracking-wider text-secondary">Photos (up to 6)</label>
+                  <label className="text-[10px] font-semibold uppercase tracking-wider text-secondary">Photos (up to {MAX_PHOTOS})</label>
                   <p className="text-[11px] text-tertiary leading-relaxed">
-                    Select several at once (hold Cmd or Shift in the file picker), or add them one at a time. Each new selection adds to the list below.
+                    Select several at once (hold Cmd or Shift in the file picker), or add them one at a time.
+                    Each new selection adds to the list below. Up to {MAX_FILE_MB}MB per photo.
                   </p>
                   <input
                     type="file"
@@ -293,17 +329,27 @@ export default function OrderForm() {
                     multiple
                     onChange={e => {
                       const newFiles = Array.from(e.target.files ?? [])
+                      const oversized = newFiles.filter(f => f.size > MAX_FILE_BYTES)
+                      const validFiles = newFiles.filter(f => f.size <= MAX_FILE_BYTES)
+
+                      setFileError(
+                        oversized.length > 0
+                          ? `${oversized.map(f => `"${f.name}"`).join(', ')} ${oversized.length === 1 ? 'is' : 'are'} too large (max ${MAX_FILE_MB}MB per file) and ${oversized.length === 1 ? "wasn't" : "weren't"} added.`
+                          : ''
+                      )
+
                       setPhotos(prev => {
-                        const combined = [...prev, ...newFiles]
+                        const combined = [...prev, ...validFiles]
                         const deduped = combined.filter((f, i) =>
                           combined.findIndex(g => g.name === f.name && g.size === f.size) === i
                         )
-                        return deduped.slice(0, 6)
+                        return deduped.slice(0, MAX_PHOTOS)
                       })
                       e.target.value = ''
                     }}
                     className="text-sm text-secondary file:mr-4 file:py-2.5 file:px-4 file:rounded-sm file:border-0 file:text-xs file:font-medium file:bg-accent file:text-white hover:file:bg-accent/90 file:cursor-pointer"
                   />
+                  {fileError && <p className="text-xs text-red-500">{fileError}</p>}
                   {photos.length > 0 && (
                     <ul className="flex flex-col gap-1.5 mt-1">
                       {photos.map((p, i) => (

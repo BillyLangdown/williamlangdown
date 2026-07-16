@@ -46,7 +46,7 @@ export default async function Preview4Home() {
                   {(art.title || art.medium) && (
                     <figcaption className="mt-2.5 text-sm" style={{ color: '#6B6560' }}>
                       {art.title}
-                      {art.title && art.medium ? ' — ' : ''}
+                      {art.title && art.medium ? ', ' : ''}
                       {art.medium}
                       {art.year ? `, ${art.year}` : ''}
                     </figcaption>

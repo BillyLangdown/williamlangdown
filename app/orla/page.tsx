@@ -128,7 +128,7 @@ export default function OrlaPage() {
                 </Link>
               </div>
 
-              {/* Right — booking card mockup */}
+              {/* Right: booking card mockup */}
               <div className="hidden lg:flex flex-col shrink-0 w-[340px]">
                 <div
                   className="rounded-sm p-6 flex flex-col gap-5"

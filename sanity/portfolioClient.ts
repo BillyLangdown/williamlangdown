@@ -6,7 +6,7 @@ const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? 'placeholder'
 const dataset = 'starter-demo'
 const apiVersion = '2024-01-01'
 
-// Public dataset — no token needed for reads, matches the `production` client's setup.
+// Public dataset: no token needed for reads, matches the `production` client's setup.
 export const portfolioClient = createClient({
   projectId,
   dataset,

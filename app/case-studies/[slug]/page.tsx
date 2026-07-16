@@ -168,7 +168,7 @@ export default async function CaseStudyPage({ params }: Props) {
           </div>
         </section>
 
-        {/* Cover image — or audit-only branded hero if no image */}
+        {/* Cover image, or audit-only branded hero if no image */}
         {study.coverImage ? (
           <section className="px-6 mb-16">
             <div className="max-w-6xl mx-auto">

@@ -25,14 +25,9 @@ export default function Preview4Layout({ children }: { children: React.ReactNode
       <main className="flex-1">{children}</main>
 
       <footer className="px-6 py-10 mt-10 border-t" style={{ borderColor: '#E5E2DC' }}>
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-3 text-center sm:text-left">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-sm" style={{ color: '#6B6560' }}>Maren Voss · Painter, Bristol</p>
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-            <Link href="/starter/preview-4/manage" className="text-xs hover:underline" style={{ color: '#A39C93' }}>
-              Manage artwork
-            </Link>
-            <p className="text-xs" style={{ color: '#A39C93' }}>Example content for preview purposes only</p>
-          </div>
+          <p className="text-xs" style={{ color: '#A39C93' }}>Example content for preview purposes only</p>
         </div>
       </footer>
     </div>

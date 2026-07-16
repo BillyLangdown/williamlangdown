@@ -61,8 +61,8 @@ const included = [
 const steps = [
   ['01', 'Pick a design', 'Browse the four live previews below and choose the one closest to your style.'],
   ['02', 'Fill in the order form', 'Your content, photos, logo, and a colour choice, all in one form, ten minutes.'],
-  ['03', 'It gets built', 'I build your site using the layout you picked, with your content in place.'],
-  ['04', "It's live", "Live in about a week. If it needs a small tweak, just ask."],
+  ['03', 'Review it, live', 'I build your site and put it on a temporary web address so you can see the real thing before paying anything.'],
+  ['04', 'Pay, then go live', "Happy with it? Pay the £495 and I'll move it onto your own domain within a day."],
 ]
 
 export default function StarterPage() {
@@ -143,10 +143,10 @@ export default function StarterPage() {
               <p className="text-sm text-secondary leading-relaxed mb-4">
                 This is deliberately simple. That&apos;s what keeps the price down. If you need any of this,
                 the <Link href="/services" className="text-accent underline underline-offset-2 hover:text-accent/80">Design &amp; Build service</Link> is
-                the better fit. (Ochre is the one exception — it comes with a simple page for uploading your own images after launch, not a full CMS.)
+                the better fit. (Ochre is the one exception: it comes with a simple page for uploading your own images after launch, not a full CMS.)
               </p>
               <ul className="flex flex-col gap-3">
-                {['Contact forms or booking systems', 'A content management system', 'Custom design beyond the 4 templates', 'Blog, shop, or extra pages'].map(item => (
+                {['Contact forms or booking systems (£60 to add)', 'A content management system', 'Custom design beyond the 4 templates', 'Blog, shop, or extra pages'].map(item => (
                   <li key={item} className="flex items-start gap-3">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-0.5 shrink-0 text-tertiary">
                       <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -174,6 +174,33 @@ export default function StarterPage() {
                 </ScrollReveal>
               ))}
             </div>
+
+            <ScrollReveal delay={320} className="mt-14">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-5 rounded-sm border border-border-light bg-white/80 px-6 py-5 sm:px-8 sm:py-6">
+                <div className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0 bg-accent/10 text-accent">
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                    <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
+                    <path d="M2.5 10h15M10 2.5c2 2.2 3 5 3 7.5s-1 5.3-3 7.5c-2-2.2-3-5-3-7.5s1-5.3 3-7.5z" stroke="currentColor" strokeWidth="1.5" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-ink">You&apos;ll need your own domain</p>
+                  <p className="text-sm text-secondary leading-relaxed mt-0.5">
+                    Your own web address (like yourbusiness.com), bought from any registrar, usually
+                    £10–£15 a year. Don&apos;t have one yet? Here&apos;s a simple, no-jargon guide.
+                  </p>
+                </div>
+                <Link
+                  href="/domain-setup"
+                  className="inline-flex items-center justify-center gap-2 text-sm font-medium text-ink border border-border-light rounded-sm px-5 py-2.5 shrink-0 transition-colors hover:border-accent/50 hover:text-accent"
+                >
+                  Domain guide
+                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 

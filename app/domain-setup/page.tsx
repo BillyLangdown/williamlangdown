@@ -43,7 +43,7 @@ export default function DomainSetupPage() {
           <div className="max-w-2xl mx-auto rounded-sm p-6 md:p-8" style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(15,23,42,0.08)' }}>
             <h2 className="text-lg font-heading font-bold text-ink mb-2">What&apos;s a domain, exactly?</h2>
             <p className="text-sm text-secondary leading-relaxed">
-              A domain is your website&apos;s address — the bit people type in, like{' '}
+              A domain is your website&apos;s address: the bit people type in, like{' '}
               <span className="text-ink font-medium">yourbusiness.com</span>. You buy it (a small
               yearly fee, usually £10–£15) from a company called a &ldquo;registrar,&rdquo; then
               tell it where your new website lives. That second part is what this guide walks
@@ -85,7 +85,7 @@ export default function DomainSetupPage() {
                     <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full text-white" style={{ background: '#2563EB' }}>Recommended</span>
                   </div>
                   <p className="text-sm text-secondary mt-0.5">
-                    The easiest for beginners — simple checkout, no confusing add-ons or upsells.
+                    The easiest for beginners: simple checkout, no confusing add-ons or upsells.
                   </p>
                 </div>
                 <svg className="text-tertiary group-hover:text-accent transition-colors shrink-0" width="16" height="16" viewBox="0 0 14 14" fill="none">
@@ -111,7 +111,7 @@ export default function DomainSetupPage() {
                 <div className="flex-1 min-w-0">
                   <p className="text-base font-semibold text-ink">GoDaddy</p>
                   <p className="text-sm text-secondary mt-0.5">
-                    A well-known alternative — just watch out for extra add-ons at checkout, you
+                    A well-known alternative. Just watch out for extra add-ons at checkout, you
                     only need the domain itself.
                   </p>
                 </div>
@@ -120,7 +120,7 @@ export default function DomainSetupPage() {
                 </svg>
               </a>
               <p className="text-xs text-tertiary mt-4">
-                Already have a preferred registrar? Any of them will work fine — the steps below
+                Already have a preferred registrar? Any of them will work fine: the steps below
                 apply everywhere, the menu names just vary slightly.
               </p>
             </div>
@@ -137,7 +137,7 @@ export default function DomainSetupPage() {
 
             <p className="text-sm text-secondary leading-relaxed mb-6 pl-11 max-w-xl">
               This is a one-time, five-minute task. You&apos;re changing two settings called{' '}
-              <span className="text-ink font-medium">nameservers</span> — think of them as a
+              <span className="text-ink font-medium">nameservers</span>: think of them as a
               forwarding address that tells the internet where your site actually lives.
             </p>
 
@@ -185,7 +185,7 @@ export default function DomainSetupPage() {
 
             <p className="ml-11 text-xs text-tertiary max-w-xl leading-relaxed">
               After saving, it can take anywhere from a few minutes up to 24–48 hours for your
-              domain to fully switch over. That&apos;s completely normal — you don&apos;t need to
+              domain to fully switch over. That&apos;s completely normal, and you don&apos;t need to
               do anything else while you wait.
             </p>
           </div>
@@ -196,7 +196,7 @@ export default function DomainSetupPage() {
           <div className="max-w-2xl mx-auto text-center rounded-sm p-8 md:p-10" style={{ background: 'rgba(255,255,255,0.72)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', border: '1px solid rgba(15,23,42,0.08)' }}>
             <h2 className="text-xl font-heading font-bold text-ink mb-2">Not sure, or would rather I just did it?</h2>
             <p className="text-sm text-secondary leading-relaxed mb-6 max-w-md mx-auto">
-              That&apos;s completely fine — send me your domain and login for the site you bought
+              That&apos;s completely fine. Send me your domain and login for the site you bought
               it from, and I&apos;ll take care of the whole thing.
             </p>
             <Link

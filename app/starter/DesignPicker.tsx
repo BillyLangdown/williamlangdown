@@ -30,12 +30,12 @@ export default function DesignPicker({ variants }: { variants: Variant[] }) {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 auto-rows-fr gap-6">
         {variants.map((v, i) => (
-          <ScrollReveal key={v.id} delay={i * 100}>
-            <div className="group rounded-sm overflow-hidden border border-border-light hover:shadow-lg transition-shadow">
+          <ScrollReveal key={v.id} delay={i * 100} className="h-full">
+            <div className="group h-full flex flex-col rounded-sm overflow-hidden border border-border-light hover:shadow-lg transition-shadow">
               {/* Mini mockup */}
-              <div style={{ background: v.bg }} className="aspect-[4/3] p-5 flex flex-col justify-between">
+              <div style={{ background: v.bg }} className="aspect-[4/3] p-5 flex flex-col justify-between shrink-0">
                 <div className="flex items-center justify-between">
                   <div style={{ background: v.text, opacity: 0.85 }} className="h-2 w-14 rounded-full" />
                   <div className="flex gap-1.5">
@@ -49,11 +49,11 @@ export default function DesignPicker({ variants }: { variants: Variant[] }) {
                   <div style={{ background: v.accent }} className="h-6 w-24 rounded-sm mt-2" />
                 </div>
               </div>
-              <div className="p-5 bg-white">
+              <div className="p-5 bg-white flex-1 flex flex-col">
                 <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: v.accent }}>{v.style}</p>
                 <h3 className="text-lg font-semibold text-ink mb-2">{v.name}</h3>
                 <p className="text-sm text-secondary leading-relaxed">{v.desc}</p>
-                {/* On mobile this just navigates to the real page — there's no
+                {/* On mobile this just navigates to the real page: there's no
                     value in simulating "mobile" inside a shrunk iframe when
                     you're already on a phone. On larger screens it opens the
                     comparison modal instead, where switching device sizes is
@@ -66,7 +66,7 @@ export default function DesignPicker({ variants }: { variants: Variant[] }) {
                     setPreviewing(v)
                     setDevice(window.innerWidth < 1024 ? 'tablet' : 'desktop')
                   }}
-                  className="inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-ink group-hover:text-accent transition-colors"
+                  className="inline-flex items-center gap-1.5 mt-auto pt-4 text-sm font-medium text-ink group-hover:text-accent transition-colors"
                 >
                   Preview
                   <svg width="12" height="12" viewBox="0 0 14 14" fill="none">

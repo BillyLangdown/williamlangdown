@@ -32,7 +32,7 @@ export default function ScrollReveal({
     return () => observer.disconnect()
   }, [threshold])
 
-  // Scoped to opacity + transform only — does not interfere with
+  // Scoped to opacity + transform only: does not interfere with
   // hover transitions (bg-color, color, etc.) on inner elements.
   const style: CSSProperties = {
     opacity: visible ? 1 : 0,

@@ -5,6 +5,18 @@ import { useEffect, useRef, useState } from 'react'
 
 const problems = [
   {
+    title: 'The branding doesn’t reflect the real thing',
+    description: "If your site looks cheaper than your actual business, it sets the wrong expectation. People judge quality by design before they ever speak to you.",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+        <path d="M10 2a8 8 0 100 16c1.1 0 2-.9 2-2 0-.45-.18-.86-.47-1.16-.3-.3-.53-.68-.53-1.14 0-.83.67-1.5 1.5-1.5H14a4 4 0 004-4c0-3.31-3.58-6.2-8-6.2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+        <circle cx="6.3" cy="9.2" r="1.1" fill="currentColor" />
+        <circle cx="8.3" cy="5.8" r="1.1" fill="currentColor" />
+        <circle cx="12.2" cy="6.2" r="1.1" fill="currentColor" />
+      </svg>
+    ),
+  },
+  {
     title: 'People visit but never get in touch',
     description: "They find your site, look around, and leave. Something is putting them off. It is usually fixable once you know what it is.",
     icon: (
@@ -22,17 +34,6 @@ const problems = [
     ),
   },
   {
-    title: 'Nothing to make them trust you',
-    description: "No reviews, a thin contact page, no face behind the business. People notice these gaps even when they cannot name them, and they move on.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <path d="M10 2L3 5v6c0 4 3 6 7 7 4-1 7-3 7-7V5l-7-3z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-        <path d="M8 8.5c0-1.1.9-2 2-2s2 .9 2 2c0 1-.7 1.4-1.2 1.7-.3.2-.8.5-.8 1.1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <circle cx="10" cy="14" r="0.8" fill="currentColor" />
-      </svg>
-    ),
-  },
-  {
     title: 'The writing does not explain what you do',
     description: "If someone lands on your site and cannot tell in ten seconds what you offer and who it is for, they will not stick around to find out.",
     icon: (
@@ -40,6 +41,27 @@ const problems = [
         <rect x="3" y="2" width="11" height="15" rx="1" stroke="currentColor" strokeWidth="1.5" />
         <path d="M6 7h6M6 10h4M6 13h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         <path d="M15 5l2-2M17 5l-2-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Not built to be seen on a phone',
+    description: "Over 60% of visits to small business sites now happen on a phone. If yours is slow or breaks on mobile, you lose visitors before they see what you offer.",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+        <rect x="5" y="1" width="10" height="18" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M10.5 6L8 11h4l-2.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Nothing to make them trust you',
+    description: "No reviews, a thin contact page, no face behind the business. People notice these gaps even when they cannot name them, and they move on.",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+        <path d="M10 2L3 5v6c0 4 3 6 7 7 4-1 7-3 7-7V5l-7-3z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+        <path d="M8 8.5c0-1.1.9-2 2-2s2 .9 2 2c0 1-.7 1.4-1.2 1.7-.3.2-.8.5-.8 1.1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        <circle cx="10" cy="14" r="0.8" fill="currentColor" />
       </svg>
     ),
   },
@@ -53,27 +75,6 @@ const problems = [
         <circle cx="5" cy="4" r="1.8" stroke="currentColor" strokeWidth="1.5" />
         <circle cx="15" cy="4" r="1.8" stroke="currentColor" strokeWidth="1.5" />
         <circle cx="10" cy="17.2" r="1.8" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Looks like every other website',
-    description: "If your site could belong to any business in your space, it is harder to stand out. People form an opinion on design before they read anything.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <rect x="1" y="8" width="10" height="8" rx="1" stroke="currentColor" strokeWidth="1.5" />
-        <rect x="4" y="5" width="10" height="8" rx="1" stroke="currentColor" strokeWidth="1.5" />
-        <rect x="7" y="2" width="10" height="8" rx="1" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Slow or broken on mobile',
-    description: "Slow load times, layouts that break on phones, images that do not appear. Most of your visitors are on mobile. These things cost you enquiries.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <rect x="5" y="1" width="10" height="18" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M10.5 6L8 11h4l-2.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },

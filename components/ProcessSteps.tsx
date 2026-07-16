@@ -17,13 +17,7 @@ const steps: Step[] = [
   },
   {
     title: 'Build',
-    description: "I'm a trained software developer writing in JavaScript, with no page-builder limits. I'll use whatever stack fits best:",
-    bullets: [
-      'Custom databases & content management systems',
-      'Booking systems & AI integrations',
-      'E-commerce via Shopify or similar',
-      'Can work with existing third-party sites, though some builders add complexity',
-    ],
+    description: "I'm a trained software developer writing in JavaScript, with no page-builder limits. Custom databases, bookings, e-commerce, AI integrations, whatever the site needs.",
   },
   {
     title: 'Launch',

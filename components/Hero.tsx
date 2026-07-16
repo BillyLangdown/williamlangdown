@@ -62,7 +62,7 @@ export default function Hero() {
       {/* ── MOBILE HERO ── */}
       <div className="relative flex lg:hidden flex-col" style={{ height: '100svh' }}>
 
-        {/* Panel dots + swipe arrow — top centre */}
+        {/* Panel dots + swipe arrow: top centre */}
         <div className="absolute top-20 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 pointer-events-none">
           <div
             className="rounded-full transition-all duration-300"
@@ -93,7 +93,7 @@ export default function Hero() {
           } as React.CSSProperties}
         >
 
-        {/* Panel 1 — text */}
+        {/* Panel 1: text */}
         <div
           className="relative flex flex-col justify-center px-6"
           style={{
@@ -133,7 +133,7 @@ export default function Hero() {
           </div>
 
 
-          {/* Down arrow — absolute bottom centre */}
+          {/* Down arrow: absolute bottom centre */}
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none">
             <span className="font-sans text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.35)' }}>Learn more</span>
             <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
@@ -142,7 +142,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Panel 2 — portrait + intro */}
+        {/* Panel 2: portrait + intro */}
         <div
           className="relative flex flex-col items-center justify-center px-6"
           style={{
@@ -180,7 +180,7 @@ export default function Hero() {
             </p>
           </div>
 
-          {/* Down arrow — absolute bottom centre */}
+          {/* Down arrow: absolute bottom centre */}
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none">
             <span className="font-sans text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.35)' }}>Continue</span>
             <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
@@ -193,7 +193,10 @@ export default function Hero() {
       </div>
 
       {/* ── DESKTOP HERO ── */}
-      <div className="hidden lg:flex items-center max-w-6xl mx-auto px-6 pt-8">
+      <div
+        className="hidden lg:flex items-center max-w-6xl mx-auto px-6 pt-8"
+        style={{ minHeight: 'min(82vh, 820px)' }}
+      >
         <div
           className="relative z-10 py-24 flex-1"
           style={{
@@ -210,14 +213,12 @@ export default function Hero() {
               Fast, beautiful and effective.<br />If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
             </p>
             <div className="flex flex-wrap gap-3 mb-8">
-              <a
-                href="https://calendly.com/billy-langdown01/30min"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/contact"
                 className="inline-flex items-center gap-2 bg-accent text-white text-sm px-6 py-3 rounded-sm font-medium hover:bg-accent/90 transition-colors"
               >
                 Let&apos;s Talk
-              </a>
+              </Link>
               <Link
                 href="/services"
                 className="inline-flex items-center gap-2 text-ink text-sm px-6 py-3 rounded-sm transition-colors"
@@ -235,9 +236,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Portrait — flex sibling, vertically centered by parent items-center */}
+        {/* Portrait: flex sibling, vertically centered by parent items-center */}
         <div className="shrink-0 w-[36%]" style={{ aspectRatio: '801 / 1022' }}>
-          <div className="relative w-full h-full overflow-hidden">
+          <div className="relative w-full h-full overflow-hidden rounded-tr-[3.5rem] rounded-br-[3.5rem]">
             <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
             <div className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent pointer-events-none" />
           </div>

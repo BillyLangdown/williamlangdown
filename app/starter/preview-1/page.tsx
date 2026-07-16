@@ -10,7 +10,7 @@ const classes = [
 export default function Preview1Home() {
   return (
     <>
-      {/* Hero — full-bleed photo background */}
+      {/* Hero: full-bleed photo background */}
       <section className="relative px-6 pt-20 pb-24 md:pt-28 md:pb-32 overflow-hidden">
         <PhotoPlaceholder
           label="Full-bleed hero photo"

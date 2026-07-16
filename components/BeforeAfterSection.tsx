@@ -42,7 +42,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
   const conversionUp = useCountUp(0, 75, statsActive)
   const bounceDown   = useCountUp(0, 21, statsActive, 1600)
 
-  // Slide 2 stats — count up from the original score to the new one
+  // Slide 2 stats: count up from the original score to the new one
   const mobileScore  = useCountUp(56, 98,  statsActive, 1600)
   const desktopScore = useCountUp(69, 100, statsActive, 1900)
 
@@ -184,7 +184,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
           </p>
         </div>
 
-        {/* Nav: dots + arrows — fixed above the track */}
+        {/* Nav: dots + arrows, fixed above the track */}
         <div className="flex items-center justify-end gap-2 mb-5" style={fadeIn(0)}>
           <button
             onClick={() => goToSlide(activeSlide - 1)}

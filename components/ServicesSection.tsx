@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
 const services = [
@@ -39,7 +38,7 @@ const services = [
   {
     title: 'Website Support & Improvements',
     price: 'From £30 / hour',
-    priceNote: 'Returning Design & Build clients: £30/hr · New clients: £50/hr',
+    priceNote: 'Returning Design & Build clients: £30/hr · New clients: £60/hr',
     color: '#2563EB',
     description:
       "Help with what you've already got. Copy changes, new pages, design tweaks, or general upkeep. Billed by the hour, no contract.",
@@ -75,7 +74,7 @@ function ServiceRow({ service, index }: { service: typeof services[0]; index: nu
       className={` first:border-t-0 lg:first:border-t overflow-hidden lg:border lg:border-border-light lg:rounded-sm${service.featured ? ' relative max-lg:bg-[#080e1c] lg:bg-accent/[0.03] lg:border-t-[3px] lg:border-t-accent' : ' max-lg:bg-white'}`}
     >
 
-      {/* Gradient blobs — mobile only, hidden on desktop */}
+      {/* Gradient blobs: mobile only, hidden on desktop */}
       {service.featured && (
         <div className="absolute inset-0 pointer-events-none lg:hidden" style={{ zIndex: 0 }}>
           <div style={{ position: 'absolute', top: '-80px', right: '-40px', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.5) 0%, transparent 68%)' }} />
@@ -183,78 +182,35 @@ export default function ServicesSection() {
           ))}
         </div>
 
-        {/* Starter package */}
-        <div
-          className="mt-6 rounded-sm overflow-hidden flex flex-col md:flex-row md:items-center gap-6 md:gap-10 px-6 py-7 md:px-10 md:py-8"
-          style={{ background: '#FFF7ED', border: '1px solid rgba(234,88,12,0.18)' }}
+        <Link
+          href="/starter"
+          className="group mt-6 flex flex-col gap-3 rounded-sm border px-5 py-4 transition-colors sm:flex-row sm:items-center sm:gap-4"
+          style={{ borderColor: 'rgba(234,88,12,0.22)', background: 'rgba(234,88,12,0.04)' }}
         >
-          <div className="flex-1">
-            <p
-              className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3"
-              style={{ background: 'rgba(234,88,12,0.1)', color: '#C2410C' }}
+          <div className="flex items-center gap-4 flex-1 min-w-0">
+            <div
+              className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0"
+              style={{ background: 'rgba(234,88,12,0.12)', color: '#C2410C' }}
             >
-              Cheap and cheerful
-            </p>
-            <h3 className="text-lg font-semibold text-ink mb-1.5">Just need something simple? £495 starter sites.</h3>
-            <p className="text-sm text-secondary leading-relaxed max-w-md">
-              Three pages, four ready-made designs to pick from, live in about a week.
-            </p>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                <path d="M9 1.5L2.5 9h4.5L7 14.5 13.5 7H9V1.5z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-ink">Just need something simple?</p>
+              <p className="text-xs text-secondary mt-0.5">£495 starter sites, three pages, live in about a week</p>
+            </div>
           </div>
-          <Link
-            href="/starter"
-            className="inline-flex items-center justify-center gap-2 text-white text-sm px-5 py-3 rounded-sm font-medium transition-opacity hover:opacity-90 shrink-0"
-            style={{ background: '#EA580C' }}
+          <span
+            className="flex items-center justify-end gap-1.5 text-sm font-medium shrink-0 pl-[52px] transition-transform group-hover:translate-x-0.5 sm:pl-0"
+            style={{ color: '#C2410C' }}
           >
             See the Starter package
-            <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+            <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
               <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-          </Link>
-        </div>
-
-        {/* Orla */}
-        <div className="mt-10 rounded-sm overflow-hidden" style={{ background: '#0f172a', borderTop: '2px solid #2563EB' }}>
-          <div className="px-6 py-7 md:px-10 md:py-8 flex flex-col md:flex-row md:items-center md:gap-10">
-
-            {/* Badge + logo */}
-            <div className="flex flex-col gap-2.5 md:shrink-0">
-              <span
-                className="text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full self-start"
-                style={{ background: 'rgba(37,99,235,0.18)', color: '#93c5fd', border: '1px solid rgba(37,99,235,0.3)' }}
-              >
-                My own product
-              </span>
-              <Image
-                src="/images/orla-logo-light.png"
-                alt="Orla"
-                height={36}
-                width={120}
-                className="object-contain"
-              />
-            </div>
-
-            {/* Divider */}
-            <div className="hidden md:block w-px self-stretch my-1" style={{ background: 'rgba(255,255,255,0.07)' }} />
-
-            {/* Copy + CTA */}
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between flex-1 gap-5 mt-5 md:mt-0">
-              <p className="text-sm leading-relaxed max-w-md" style={{ color: 'rgba(255,255,255,0.5)' }}>
-                Booking software with an AI assistant, Google Calendar sync, and Gmail integration. Built by me.
-              </p>
-              <Link
-                href="/orla"
-                className="inline-flex items-center justify-center gap-2 text-sm font-medium px-5 py-2.5 rounded-sm shrink-0 transition-colors"
-                style={{ border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.75)' }}
-              >
-                Find out more
-                <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                  <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Link>
-            </div>
-
-          </div>
-        </div>
+          </span>
+        </Link>
 
       </div>
     </section>

@@ -65,7 +65,7 @@ function Form({ defaultService }: { defaultService?: string }) {
   const [email, setEmail] = useState('')
   const [website, setWebsite] = useState('')
 
-  // Arriving with a preselected service jumps straight to step 2 — scroll
+  // Arriving with a preselected service jumps straight to step 2: scroll
   // the form into view too, since on the /contact page it otherwise starts
   // below the fold and the visitor has to scroll down manually to see it.
   useEffect(() => {
@@ -161,7 +161,7 @@ function Form({ defaultService }: { defaultService?: string }) {
         <span className="text-xs text-secondary shrink-0 ml-1 tabular-nums">{step} / 3</span>
       </div>
 
-      {/* Step 1 — service selection */}
+      {/* Step 1: service selection */}
       {step === 1 && (
         <div>
           <p className="text-sm font-semibold text-ink mb-4">What are you interested in?</p>
@@ -191,7 +191,7 @@ function Form({ defaultService }: { defaultService?: string }) {
         </div>
       )}
 
-      {/* Step 2 — message */}
+      {/* Step 2: message */}
       {step === 2 && (
         <div className="flex flex-col gap-5">
           {selectedLabel && (
@@ -230,7 +230,7 @@ function Form({ defaultService }: { defaultService?: string }) {
         </div>
       )}
 
-      {/* Step 3 — details */}
+      {/* Step 3: details */}
       {step === 3 && (
         <div className="flex flex-col gap-5">
           {selectedLabel && (

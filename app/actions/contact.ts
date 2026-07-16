@@ -19,7 +19,7 @@ export interface ContactFormResult {
 }
 
 async function verifyRecaptcha(token: string): Promise<boolean> {
-  // Skip verification in development — the Google endpoint hits SSL issues on localhost
+  // Skip verification in development: the Google endpoint hits SSL issues on localhost
   if (process.env.NODE_ENV !== 'production') {
     console.log('[ContactAction] Skipping reCAPTCHA verification in development')
     return true

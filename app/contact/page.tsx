@@ -5,11 +5,11 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Contact | William Langdown',
-  description: 'Get in touch to discuss your website. Book a free 30-minute call or send a message and I will get back to you within one business day.',
+  description: 'Get in touch to discuss your website. Call, message, or fill in the form and I will get back to you within one business day.',
   alternates: { canonical: 'https://williamlangdown.com/contact' },
   openGraph: {
     title: 'Contact | William Langdown',
-    description: 'Get in touch to discuss your website. Book a free 30-minute call or send a message and I will get back to you within one business day.',
+    description: 'Get in touch to discuss your website. Call, message, or fill in the form and I will get back to you within one business day.',
     url: 'https://williamlangdown.com/contact',
   },
 }
@@ -47,23 +47,37 @@ export default async function ContactPage({ searchParams }: Props) {
               </div>
 
               <div className="flex flex-col gap-3">
-                {/* Book a call */}
+                {/* Form: scrolls to form on mobile */}
                 <a
-                  href="https://calendly.com/billy-langdown01/30min"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#contact-form"
+                  className="flex items-center gap-4 border rounded-sm px-5 py-4 lg:cursor-default"
+                  style={{ borderColor: 'rgba(37,99,235,0.3)', background: 'rgba(37,99,235,0.04)' }}
+                >
+                  <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style={{ background: '#2563EB18', color: '#2563EB' }}>
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                      <path d="M2 4h12M2 8h8M2 12h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-ink">Fill in the form</p>
+                    <p className="text-xs text-secondary">Reply within one business day</p>
+                  </div>
+                </a>
+
+                {/* Call */}
+                <a
+                  href="tel:07446856927"
                   className="group flex items-center gap-4 border border-border-light rounded-sm px-5 py-4 transition-colors hover:border-accent/50"
                   style={{ background: 'rgba(255,255,255,0.65)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
                 >
                   <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style={{ background: '#2563EB18', color: '#2563EB' }}>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                      <rect x="2" y="3" width="12" height="11" rx="1" stroke="currentColor" strokeWidth="1.4" />
-                      <path d="M5 1v4M11 1v4M2 7h12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                      <path d="M2.5 2.5c0-.55.45-1 1-1h1.6c.45 0 .84.3.96.73l.7 2.46c.11.4-.02.83-.33 1.1l-1.05.9a9 9 0 0 0 4.83 4.83l.9-1.05c.27-.31.7-.44 1.1-.33l2.46.7c.43.12.73.51.73.96v1.6c0 .55-.45 1-1 1h-1C6.5 14.4 1.6 9.5 2.5 3.5v-1z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
                     </svg>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-ink">Book a free call</p>
-                    <p className="text-xs text-secondary">30 minutes on Calendly</p>
+                    <p className="text-sm font-semibold text-ink">Give me a call</p>
+                    <p className="text-xs text-secondary">07446 856927</p>
                   </div>
                   <svg className="text-tertiary group-hover:text-accent transition-colors shrink-0" width="13" height="13" viewBox="0 0 14 14" fill="none">
                     <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -90,23 +104,26 @@ export default async function ContactPage({ searchParams }: Props) {
                     <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </a>
+              </div>
 
-                {/* Form — scrolls to form on mobile */}
-                <a
-                  href="#contact-form"
-                  className="flex items-center gap-4 border rounded-sm px-5 py-4 lg:cursor-default"
-                  style={{ borderColor: 'rgba(37,99,235,0.3)', background: 'rgba(37,99,235,0.04)' }}
+              <div
+                className="mt-6 flex items-start gap-3 rounded-sm p-4"
+                style={{ background: 'rgba(37,99,235,0.05)', border: '1px solid rgba(37,99,235,0.14)' }}
+              >
+                <div
+                  className="shrink-0 w-7 h-7 rounded-sm flex items-center justify-center mt-0.5"
+                  style={{ background: 'rgba(37,99,235,0.1)', color: '#2563EB' }}
                 >
-                  <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style={{ background: '#2563EB18', color: '#2563EB' }}>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                      <path d="M2 4h12M2 8h8M2 12h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-ink">Fill in the form</p>
-                    <p className="text-xs text-secondary">Reply within one business day</p>
-                  </div>
-                </a>
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
+                    <rect x="4" y="4" width="8" height="8" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                    <path d="M6 1v2M10 1v2M6 13v2M10 13v2M1 6h2M1 10h2M13 6h2M13 10h2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+                    <circle cx="8" cy="8" r="1.2" fill="currentColor" />
+                  </svg>
+                </div>
+                <p className="text-xs leading-relaxed text-secondary">
+                  <span className="font-semibold text-ink">IT consulting &amp; AI integration.</span>{' '}
+                  Free consultation available if you need technical advice or help integrating AI into your business.
+                </p>
               </div>
             </div>
 

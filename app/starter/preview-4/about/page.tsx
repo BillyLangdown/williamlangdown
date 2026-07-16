@@ -19,7 +19,7 @@ export default function Preview4About() {
             </p>
             <p>
               Trained at Falmouth, exhibited across the South West since 2015. Commissions and
-              originals available — enquire for current availability and pricing.
+              originals available. Enquire for current availability and pricing.
             </p>
           </div>
         </div>

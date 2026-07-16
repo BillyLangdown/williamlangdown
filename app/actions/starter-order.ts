@@ -11,6 +11,13 @@ const VARIANT_NAMES: Record<string, string> = {
   'preview-4': 'Ochre (Image-led & gallery-style)',
 }
 
+const MAX_PHOTOS = 6
+const MAX_FILE_BYTES = 5 * 1024 * 1024
+// Resend's hard cap is 40MB per email *after* base64 encoding (~1.37x raw
+// size). Keeping the raw total well under that budget leaves headroom for
+// encoding overhead and avoids the request stalling on a large upload.
+const MAX_TOTAL_BYTES = 20 * 1024 * 1024
+
 function esc(v: string) {
   return v.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
@@ -45,7 +52,20 @@ export async function submitStarterOrder(formData: FormData): Promise<{ success:
   }
 
   const logo  = formData.get('logo') as File | null
-  const photos = formData.getAll('photos') as File[]
+  const photos = (formData.getAll('photos') as File[]).filter(p => p && p.size > 0)
+
+  if (photos.length > MAX_PHOTOS) {
+    return { success: false, error: `Please attach at most ${MAX_PHOTOS} photos.` }
+  }
+  const allFiles = [...(logo && logo.size > 0 ? [logo] : []), ...photos]
+  const oversized = allFiles.find(f => f.size > MAX_FILE_BYTES)
+  if (oversized) {
+    return { success: false, error: `"${oversized.name}" is too large. Please keep files under 5MB each.` }
+  }
+  const totalBytes = allFiles.reduce((sum, f) => sum + f.size, 0)
+  if (totalBytes > MAX_TOTAL_BYTES) {
+    return { success: false, error: 'Your logo and photos add up to too much combined. Please remove a few or use smaller files (20MB total max).' }
+  }
 
   const attachments: { filename: string; content: Buffer }[] = []
 
@@ -53,9 +73,7 @@ export async function submitStarterOrder(formData: FormData): Promise<{ success:
     attachments.push({ filename: `logo-${logo.name}`, content: Buffer.from(await logo.arrayBuffer()) })
   }
   for (const photo of photos) {
-    if (photo && photo.size > 0) {
-      attachments.push({ filename: `photo-${photo.name}`, content: Buffer.from(await photo.arrayBuffer()) })
-    }
+    attachments.push({ filename: `photo-${photo.name}`, content: Buffer.from(await photo.arrayBuffer()) })
   }
 
   const html = `

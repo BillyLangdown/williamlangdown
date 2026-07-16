@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 // Deliberately styled with William's own site tokens (bg-accent, text-ink,
 // border-border-light, etc.) rather than the surrounding template's brand
-// colors — this is an upsell from William, not part of what the £495
+// colors. This is an upsell from William, not part of what the £495
 // package includes, so it should read as visibly separate from the demo.
 export default function AskWilliamBanner() {
   return (
@@ -17,7 +17,7 @@ export default function AskWilliamBanner() {
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-sm font-semibold text-ink">Want a working form or booking here?</p>
-        <p className="text-xs text-secondary">Not included at £495, but easy to add</p>
+        <p className="text-xs text-secondary">Not included at £495. £60 to add.</p>
       </div>
       <span className="flex items-center gap-1 text-sm font-medium text-accent shrink-0">
         Ask me
