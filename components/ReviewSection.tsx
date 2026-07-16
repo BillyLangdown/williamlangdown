@@ -32,7 +32,14 @@ function Stars() {
 
 export default function ReviewSection() {
   return (
-    <section className="py-20 md:py-24 px-6 bg-white border-t border-border-light" style={{ scrollSnapAlign: 'start' }}>
+    <section
+      className="py-20 md:py-24 px-6 bg-white border-t border-border-light"
+      style={{
+        scrollSnapAlign: 'start',
+        backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.06) 1.5px, transparent 1.5px)',
+        backgroundSize: '22px 22px',
+      }}
+    >
       <div className="max-w-6xl mx-auto">
 
         <ScrollReveal threshold={0.15}>
