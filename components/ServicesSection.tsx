@@ -83,14 +83,16 @@ function FeaturedCard({ service }: { service: typeof leadServices[0] }) {
           <div style={{ position: 'absolute', top: '-70px', right: '-50px', width: '280px', height: '280px', borderRadius: '50%', background: `radial-gradient(circle, ${service.color}55 0%, transparent 68%)` }} />
         </div>
         <div className="relative z-10">
-          <span
-            className="inline-flex items-center text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full mb-4"
-            style={{ background: `${service.color}22`, color: service.color }}
-          >
-            {service.tag}
-          </span>
-          <div className="w-11 h-11 rounded-sm flex items-center justify-center mb-5" style={{ background: `${service.color}22`, color: service.color }}>
-            {service.icon}
+          <div className="flex items-center justify-between mb-5">
+            <div className="w-11 h-11 rounded-sm flex items-center justify-center" style={{ background: `${service.color}22`, color: service.color }}>
+              {service.icon}
+            </div>
+            <span
+              className="inline-flex items-center text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full"
+              style={{ background: `${service.color}22`, color: service.color }}
+            >
+              {service.tag}
+            </span>
           </div>
           <h3 className="text-xl font-semibold text-white mb-1">{service.title}</h3>
           <p className="text-sm font-medium mb-4" style={{ color: service.color }}>{service.price}</p>
