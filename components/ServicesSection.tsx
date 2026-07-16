@@ -8,10 +8,11 @@ import ScrollReveal from '@/components/ScrollReveal'
 const leadServices = [
   {
     title: 'Website Design & Development',
+    tag: 'Fully custom',
     price: 'From £1,495',
     color: '#2563EB',
     description:
-      "A website built to get people in touch. From five pages, with optional custom extras. No idea too big or small. Works on every device, includes contact forms, basic SEO, and analytics.",
+      "Not a template. Designed and built from scratch around your brand, your customers, and how they actually buy. Your style, your colours, your voice, done properly.",
     cta: 'See Design & Build',
     href: '/services',
     icon: (
@@ -23,10 +24,11 @@ const leadServices = [
   },
   {
     title: 'Starter Sites',
+    tag: 'Fast & affordable',
     price: 'From £495',
     color: '#EA580C',
     description:
-      "Three pages, live in about a week. Perfect if you just need something simple to get found and get in touch.",
+      "Pick one of four polished designs, add your content and colours, live in about a week. The easy way to get online and get found.",
     cta: 'See the Starter package',
     href: '/starter',
     icon: (
@@ -81,6 +83,12 @@ function FeaturedCard({ service }: { service: typeof leadServices[0] }) {
           <div style={{ position: 'absolute', top: '-70px', right: '-50px', width: '280px', height: '280px', borderRadius: '50%', background: `radial-gradient(circle, ${service.color}55 0%, transparent 68%)` }} />
         </div>
         <div className="relative z-10">
+          <span
+            className="inline-flex items-center text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full mb-4"
+            style={{ background: `${service.color}22`, color: service.color }}
+          >
+            {service.tag}
+          </span>
           <div className="w-11 h-11 rounded-sm flex items-center justify-center mb-5" style={{ background: `${service.color}22`, color: service.color }}>
             {service.icon}
           </div>
