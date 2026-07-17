@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { upload } from '@vercel/blob/client'
 import { submitStarterOrder } from '@/app/actions/starter-order'
 
 /* ── Data ────────────────────────────────────────────────────────────── */
@@ -23,10 +24,8 @@ type TextFieldDef = {
 }
 
 const MAX_PHOTOS = 6
-const MAX_FILE_MB = 5
+const MAX_FILE_MB = 15
 const MAX_FILE_BYTES = MAX_FILE_MB * 1024 * 1024
-const MAX_TOTAL_MB = 20
-const MAX_TOTAL_BYTES = MAX_TOTAL_MB * 1024 * 1024
 
 const STEPS = [
   {
@@ -61,7 +60,7 @@ const STEPS = [
   {
     id: 'assets',
     heading: 'Logo & photos',
-    subheading: 'One logo file, and 3-6 photos if you have them. Both optional, I can work without them, just slower to get started.',
+    subheading: 'One logo file, and 3-6 photos if you have them. Both optional, I can work without them, just slower to get started. Filling this in on your phone? Straight from your camera roll works fine.',
     fields: [] as TextFieldDef[],
   },
 ]
@@ -99,6 +98,7 @@ export default function OrderForm() {
   const [photos, setPhotos] = useState<File[]>([])
   const [fileError, setFileError] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  const [submitStage, setSubmitStage] = useState<'idle' | 'uploading' | 'sending'>('idle')
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
   const topRef = useRef<HTMLDivElement>(null)
@@ -142,29 +142,50 @@ export default function OrderForm() {
   async function handleSubmit() {
     if (!canAdvance()) return
 
-    const totalBytes = (logo?.size ?? 0) + photos.reduce((sum, p) => sum + p.size, 0)
-    if (totalBytes > MAX_TOTAL_BYTES) {
-      setError(`Your logo and photos add up to too much combined. Please remove a few or use smaller files (${MAX_TOTAL_MB}MB total max).`)
-      return
-    }
-
     setSubmitting(true)
     setError('')
 
-    const fd = new FormData()
-    Object.entries(answers).forEach(([k, v]) => fd.set(k, v))
-    fd.set('variant', variant)
-    fd.set('colourNote', colourNote)
-    if (logo) fd.set('logo', logo)
-    photos.forEach(p => fd.append('photos', p))
+    try {
+      setSubmitStage('uploading')
 
-    const result = await submitStarterOrder(fd)
-    setSubmitting(false)
-    if (result.success) {
-      setSubmitted(true)
-      scrollTop()
-    } else {
-      setError(result.error ?? 'Something went wrong.')
+      const [logoUrl, photoUrls] = await Promise.all([
+        logo
+          ? upload(`starter-orders/logo-${Date.now()}-${logo.name}`, logo, {
+              access: 'public',
+              handleUploadUrl: '/api/starter-upload',
+            }).then(blob => blob.url)
+          : Promise.resolve(null),
+        Promise.all(
+          photos.map((p, i) =>
+            upload(`starter-orders/photo-${Date.now()}-${i}-${p.name}`, p, {
+              access: 'public',
+              handleUploadUrl: '/api/starter-upload',
+            }).then(blob => blob.url)
+          )
+        ),
+      ])
+
+      setSubmitStage('sending')
+
+      const result = await submitStarterOrder({
+        ...answers,
+        variant,
+        colourNote,
+        logoUrl,
+        photoUrls,
+      })
+
+      if (result.success) {
+        setSubmitted(true)
+        scrollTop()
+      } else {
+        setError(result.error ?? 'Something went wrong.')
+      }
+    } catch {
+      setError('Could not upload your photos. Check your connection and try again.')
+    } finally {
+      setSubmitting(false)
+      setSubmitStage('idle')
     }
   }
 
@@ -292,14 +313,14 @@ export default function OrderForm() {
                       <path d="M2 4h12M2 8h8M2 12h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
                     </svg>
                     <p className="text-xs text-secondary leading-relaxed">
-                      Just send a few photos to get started with Ochre. Once your site&apos;s live, you&apos;ll
-                      get your own page to upload up to 20 images yourself, any time.
+                      These are just to help get started, not your gallery images. Once your site&apos;s live,
+                      you&apos;ll get your own page to upload up to 20 gallery images yourself, any time.
                     </p>
                   </div>
                 )}
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[10px] font-semibold uppercase tracking-wider text-secondary">Logo</label>
-                  <p className="text-[11px] text-tertiary leading-relaxed">Up to {MAX_FILE_MB}MB.</p>
+                  <p className="text-[11px] text-tertiary leading-relaxed">Up to {MAX_FILE_MB}MB. On your phone, this opens your photo library or files.</p>
                   <input
                     type="file"
                     accept="image/*"
@@ -320,8 +341,8 @@ export default function OrderForm() {
                 <div className="flex flex-col gap-1.5">
                   <label className="text-[10px] font-semibold uppercase tracking-wider text-secondary">Photos (up to {MAX_PHOTOS})</label>
                   <p className="text-[11px] text-tertiary leading-relaxed">
-                    Select several at once (hold Cmd or Shift in the file picker), or add them one at a time.
-                    Each new selection adds to the list below. Up to {MAX_FILE_MB}MB per photo.
+                    Select several at once, or add them one at a time. Each new selection adds to the list below.
+                    Straight from your phone&apos;s camera roll works fine, up to {MAX_FILE_MB}MB per photo.
                   </p>
                   <input
                     type="file"
@@ -384,7 +405,7 @@ export default function OrderForm() {
                   {submitting ? (
                     <>
                       <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                      Sending
+                      {submitStage === 'uploading' ? 'Uploading photos' : 'Sending'}
                     </>
                   ) : (
                     <>

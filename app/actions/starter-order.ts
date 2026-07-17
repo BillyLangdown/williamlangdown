@@ -12,11 +12,6 @@ const VARIANT_NAMES: Record<string, string> = {
 }
 
 const MAX_PHOTOS = 6
-const MAX_FILE_BYTES = 5 * 1024 * 1024
-// Resend's hard cap is 40MB per email *after* base64 encoding (~1.37x raw
-// size). Keeping the raw total well under that budget leaves headroom for
-// encoding overhead and avoids the request stalling on a large upload.
-const MAX_TOTAL_BYTES = 20 * 1024 * 1024
 
 function esc(v: string) {
   return v.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -31,18 +26,36 @@ function row(label: string, value: string) {
     </tr>`
 }
 
-export async function submitStarterOrder(formData: FormData): Promise<{ success: boolean; error?: string }> {
-  const clientName    = String(formData.get('clientName') ?? '')
-  const clientEmail   = String(formData.get('clientEmail') ?? '')
-  const businessName  = String(formData.get('businessName') ?? '')
-  const variant        = String(formData.get('variant') ?? '')
-  const colourNote     = String(formData.get('colourNote') ?? '')
-  const homeHeadline   = String(formData.get('homeHeadline') ?? '')
-  const homeIntro      = String(formData.get('homeIntro') ?? '')
-  const aboutText      = String(formData.get('aboutText') ?? '')
-  const address        = String(formData.get('address') ?? '')
-  const phone          = String(formData.get('phone') ?? '')
-  const contactEmail   = String(formData.get('contactEmail') ?? '')
+type StarterOrderInput = {
+  clientName?: string
+  clientEmail?: string
+  businessName?: string
+  variant?: string
+  colourNote?: string
+  homeHeadline?: string
+  homeIntro?: string
+  aboutText?: string
+  address?: string
+  phone?: string
+  contactEmail?: string
+  logoUrl?: string | null
+  photoUrls?: string[]
+}
+
+export async function submitStarterOrder(input: StarterOrderInput): Promise<{ success: boolean; error?: string }> {
+  const clientName    = input.clientName ?? ''
+  const clientEmail   = input.clientEmail ?? ''
+  const businessName  = input.businessName ?? ''
+  const variant        = input.variant ?? ''
+  const colourNote     = input.colourNote ?? ''
+  const homeHeadline   = input.homeHeadline ?? ''
+  const homeIntro      = input.homeIntro ?? ''
+  const aboutText      = input.aboutText ?? ''
+  const address        = input.address ?? ''
+  const phone          = input.phone ?? ''
+  const contactEmail   = input.contactEmail ?? ''
+  const logoUrl        = input.logoUrl ?? null
+  const photoUrls      = (input.photoUrls ?? []).filter(Boolean)
 
   if (!clientName.trim() || !clientEmail.trim()) {
     return { success: false, error: 'Name and email are required.' }
@@ -50,31 +63,29 @@ export async function submitStarterOrder(formData: FormData): Promise<{ success:
   if (!variant) {
     return { success: false, error: 'Please pick a design.' }
   }
-
-  const logo  = formData.get('logo') as File | null
-  const photos = (formData.getAll('photos') as File[]).filter(p => p && p.size > 0)
-
-  if (photos.length > MAX_PHOTOS) {
+  if (photoUrls.length > MAX_PHOTOS) {
     return { success: false, error: `Please attach at most ${MAX_PHOTOS} photos.` }
   }
-  const allFiles = [...(logo && logo.size > 0 ? [logo] : []), ...photos]
-  const oversized = allFiles.find(f => f.size > MAX_FILE_BYTES)
-  if (oversized) {
-    return { success: false, error: `"${oversized.name}" is too large. Please keep files under 5MB each.` }
-  }
-  const totalBytes = allFiles.reduce((sum, f) => sum + f.size, 0)
-  if (totalBytes > MAX_TOTAL_BYTES) {
-    return { success: false, error: 'Your logo and photos add up to too much combined. Please remove a few or use smaller files (20MB total max).' }
-  }
 
-  const attachments: { filename: string; content: Buffer }[] = []
+  const assetLinks = [
+    ...(logoUrl ? [{ label: 'Logo', url: logoUrl }] : []),
+    ...photoUrls.map((url, i) => ({ label: `Photo ${i + 1}`, url })),
+  ]
 
-  if (logo && logo.size > 0) {
-    attachments.push({ filename: `logo-${logo.name}`, content: Buffer.from(await logo.arrayBuffer()) })
-  }
-  for (const photo of photos) {
-    attachments.push({ filename: `photo-${photo.name}`, content: Buffer.from(await photo.arrayBuffer()) })
-  }
+  const assetsHtml = assetLinks.length > 0
+    ? `
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          ${assetLinks.map(a => `
+            <td style="padding: 6px; vertical-align: top;">
+              <a href="${esc(a.url)}" style="display: block; text-decoration: none;">
+                <img src="${esc(a.url)}" alt="${esc(a.label)}" width="120" style="display: block; width: 120px; height: 120px; object-fit: cover; border: 1px solid #E2DDD7; border-radius: 4px;" />
+                <span style="display: block; margin-top: 4px; font-size: 11px; color: #888; text-align: center;">${esc(a.label)}</span>
+              </a>
+            </td>`).join('')}
+        </tr>
+      </table>`
+    : `<p style="font-size: 12px; color: #888;">No logo or photos provided.</p>`
 
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 640px; margin: 0 auto; color: #1A1A1A;">
@@ -98,9 +109,8 @@ export async function submitStarterOrder(formData: FormData): Promise<{ success:
         ${row('Contact email', contactEmail)}
       </table>
 
-      <p style="font-size: 12px; color: #888;">
-        Attachments: ${attachments.length > 0 ? `${attachments.length} file(s), logo${logo && logo.size > 0 ? ' included' : ' not provided'}, ${photos.filter(p => p.size > 0).length} photo(s)` : 'None provided'}
-      </p>
+      <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">Logo &amp; photos</p>
+      ${assetsHtml}
 
       <p style="font-size: 11px; color: #bbb; margin-top: 24px; padding-top: 16px; border-top: 1px solid #E2DDD7;">
         Submitted via williamlangdown.com/starter/order
@@ -115,7 +125,6 @@ export async function submitStarterOrder(formData: FormData): Promise<{ success:
       replyTo: clientEmail,
       subject: `New Starter order: ${businessName || clientName}`,
       html,
-      attachments: attachments.length > 0 ? attachments : undefined,
     })
 
     if (error) {
