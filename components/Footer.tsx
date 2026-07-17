@@ -20,10 +20,16 @@ export default function Footer() {
               William Langdown
             </Link>
             <a
-              href="mailto:hello@williamlangdown.co"
+              href="mailto:hello@williamlangdown.com"
               className="text-sm text-tertiary hover:text-ink transition-colors"
             >
               hello@williamlangdown.com
+            </a>
+            <a
+              href="tel:07446856927"
+              className="text-sm text-tertiary hover:text-ink transition-colors"
+            >
+              07446 856927
             </a>
           </div>
 
