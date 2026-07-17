@@ -16,6 +16,10 @@ export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const portraitRef = useRef<HTMLDivElement>(null)
   const heroScrollRef = useRef<HTMLDivElement>(null)
+  const sectionRectRef = useRef<DOMRect | null>(null)
+  const portraitRectRef = useRef<DOMRect | null>(null)
+  const tiltTargetRef = useRef({ px: 0, py: 0 })
+  const tiltCurrentRef = useRef({ px: 0, py: 0 })
 
   const onHeroScroll = useCallback(() => {
     const el = heroScrollRef.current
@@ -28,22 +32,56 @@ export default function Hero() {
     return () => cancelAnimationFrame(raf)
   }, [])
 
+  // Rects are read once (on mount/resize) instead of on every mousemove,
+  // since getBoundingClientRect() forces a synchronous layout.
+  useEffect(() => {
+    const measure = () => {
+      sectionRectRef.current = sectionRef.current?.getBoundingClientRect() ?? null
+      portraitRectRef.current = portraitRef.current?.getBoundingClientRect() ?? null
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [])
+
+  // The tilt lerps toward its target every animation frame instead of
+  // snapping straight to the mousemove position with a CSS transition —
+  // a transition that keeps getting retargeted mid-flight on a fast-firing
+  // event is what made the old version feel glitchy and laggy.
+  useEffect(() => {
+    let raf: number
+    const TILT_EASE = 0.12
+    const tick = () => {
+      const target = tiltTargetRef.current
+      const current = tiltCurrentRef.current
+      current.px += (target.px - current.px) * TILT_EASE
+      current.py += (target.py - current.py) * TILT_EASE
+      if (portraitRef.current) {
+        portraitRef.current.style.transform =
+          `perspective(1400px) rotateY(${current.px * 2}deg) rotateX(${current.py * -2}deg)`
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [])
+
   const onHeroMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const el = sectionRef.current
-    if (!el) return
-    const rect = el.getBoundingClientRect()
+    const rect = sectionRectRef.current
+    if (!el || !rect) return
 
     // Cheap spotlight-on-the-dot-grid effect: just moves a CSS custom
     // property, no JS animation loop or blend-mode compositing involved.
     el.style.setProperty('--mx', `${e.clientX - rect.left}px`)
     el.style.setProperty('--my', `${e.clientY - rect.top}px`)
 
-    // Very subtle tilt on the portrait toward the cursor.
-    if (portraitRef.current) {
-      const prect = portraitRef.current.getBoundingClientRect()
-      const px = (e.clientX - prect.left - prect.width / 2) / prect.width
-      const py = (e.clientY - prect.top - prect.height / 2) / prect.height
-      portraitRef.current.style.transform = `perspective(1400px) rotateY(${px * 2}deg) rotateX(${py * -2}deg)`
+    // Very subtle tilt on the portrait toward the cursor. Only the target
+    // is updated here; the rAF loop above does the actual smoothing.
+    const prect = portraitRectRef.current
+    if (prect) {
+      tiltTargetRef.current.px = (e.clientX - prect.left - prect.width / 2) / prect.width
+      tiltTargetRef.current.py = (e.clientY - prect.top - prect.height / 2) / prect.height
     }
   }, [])
 
@@ -248,7 +286,7 @@ export default function Hero() {
           <div
             ref={portraitRef}
             className="relative w-full h-full overflow-hidden rounded-tr-[3.5rem] rounded-br-[3.5rem]"
-            style={{ transition: 'transform 0.3s cubic-bezier(0.16,1,0.3,1)', transformStyle: 'preserve-3d' }}
+            style={{ transformStyle: 'preserve-3d' }}
           >
             <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
             <div className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent pointer-events-none" />

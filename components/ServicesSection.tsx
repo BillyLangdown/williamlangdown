@@ -10,7 +10,6 @@ const leadServices = [
     title: 'Website Design & Development',
     tag: 'Fully custom',
     price: 'From £1,495',
-    color: '#2563EB',
     description:
       "Not a template. Designed and built from scratch around your brand, your customers, and how they actually buy. Your style, your colours, your voice, done properly.",
     cta: 'See Design & Build',
@@ -26,7 +25,6 @@ const leadServices = [
     title: 'Starter Sites',
     tag: 'Fast & affordable',
     price: 'From £495',
-    color: '#EA580C',
     description:
       "Pick one of four polished designs, add your content and colours, live in about a week. The easy way to get online and get found.",
     cta: 'See the Starter package',
@@ -79,25 +77,19 @@ function FeaturedCard({ service }: { service: typeof leadServices[0] }) {
         className="group relative block rounded-sm p-7 sm:p-8 h-full overflow-hidden transition-transform hover:-translate-y-0.5"
         style={{ background: '#080e1c' }}
       >
-        <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-          <div style={{ position: 'absolute', top: '-70px', right: '-50px', width: '280px', height: '280px', borderRadius: '50%', background: `radial-gradient(circle, ${service.color}55 0%, transparent 68%)` }} />
-        </div>
         <div className="relative z-10">
           <div className="flex items-center justify-between mb-5">
-            <div className="w-11 h-11 rounded-sm flex items-center justify-center" style={{ background: `${service.color}22`, color: service.color }}>
+            <div className="w-11 h-11 rounded-sm flex items-center justify-center bg-white/10 text-white">
               {service.icon}
             </div>
-            <span
-              className="inline-flex items-center text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full"
-              style={{ background: `${service.color}22`, color: service.color }}
-            >
+            <span className="inline-flex items-center text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full bg-white/10 text-white">
               {service.tag}
             </span>
           </div>
           <h3 className="text-xl font-semibold text-white mb-1">{service.title}</h3>
-          <p className="text-sm font-medium mb-4" style={{ color: service.color }}>{service.price}</p>
-          <p className="text-sm text-white/55 leading-relaxed mb-6">{service.description}</p>
-          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-white/70 group-hover:text-white transition-colors">
+          <p className="text-sm font-medium mb-4 text-white/80">{service.price}</p>
+          <p className="text-sm text-white/60 leading-relaxed mb-6">{service.description}</p>
+          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent group-hover:text-white transition-colors">
             {service.cta}
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
               <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -191,7 +183,9 @@ export default function ServicesSection() {
           ))}
         </div>
 
-        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <p className="mt-9 mb-3 text-[11px] font-semibold uppercase tracking-widest text-tertiary">Also available</p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {secondaryServices.map((service) => (
             <SecondaryCard key={service.title} service={service} />
           ))}

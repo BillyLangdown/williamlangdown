@@ -116,12 +116,11 @@ export default function ServicesPage() {
                 /* Featured: dark card with blob layer */
                 <ScrollReveal key={tier.id} delay={i * 80}>
                   <div className="relative overflow-hidden rounded-sm flex flex-col h-full" style={{ background: '#080e1c' }}>
-                    {/* Blobs */}
+                    {/* Blob: accent blue only, no off-brand indigo */}
                     <div className="absolute inset-0 pointer-events-none">
-                      <div style={{ position: 'absolute', top: '-80px', right: '-60px', width: '340px', height: '340px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.45) 0%, transparent 68%)' }} />
-                      <div style={{ position: 'absolute', bottom: '-80px', left: '-60px', width: '300px', height: '300px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.3) 0%, transparent 68%)' }} />
+                      <div style={{ position: 'absolute', top: '-80px', right: '-60px', width: '340px', height: '340px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.35) 0%, transparent 68%)' }} />
                     </div>
-                    <div className="relative z-10 p-8 flex flex-col gap-7 h-full" style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}>
+                    <div className="relative z-10 p-8 flex flex-col gap-7 h-full">
                       <div>
                         <p className="text-[10px] font-semibold uppercase tracking-widest text-white/35 mb-4">{tier.name}</p>
                         <p className="text-4xl font-heading font-bold tracking-tight text-white mb-4">{tier.price}</p>
@@ -205,29 +204,26 @@ export default function ServicesPage() {
         <section className="px-6 pb-24">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal>
-              <div className="rounded-sm overflow-hidden border" style={{ borderColor: 'rgba(234,88,12,0.18)' }}>
+              <div className="rounded-sm overflow-hidden">
                 <div
                   className="flex flex-col md:flex-row md:items-center gap-8 md:gap-10 px-8 py-10 md:px-12"
-                  style={{ background: '#FFF7ED' }}
+                  style={{ background: '#080e1c' }}
                 >
                   <div className="flex-1">
-                    <p
-                      className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4"
-                      style={{ background: 'rgba(234,88,12,0.1)', color: '#C2410C' }}
-                    >
+                    <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4 bg-white/10 text-white">
                       Cheap and cheerful
                     </p>
-                    <h2 className="text-2xl md:text-3xl font-heading font-bold text-ink mb-3">
+                    <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-3">
                       Just need something simple? £495 starter sites.
                     </h2>
-                    <p className="text-sm text-secondary leading-relaxed max-w-lg">
+                    <p className="text-sm text-white/60 leading-relaxed max-w-lg">
                       Three pages: home, about, contact. Pick one of four ready-made designs, send your content, live in about a week.
                     </p>
                   </div>
                   <Link
                     href="/starter"
                     className="inline-flex items-center justify-center gap-2 text-white text-sm px-6 py-3.5 rounded-sm font-medium transition-opacity hover:opacity-90 shrink-0"
-                    style={{ background: '#EA580C' }}
+                    style={{ background: '#2563EB' }}
                   >
                     See the Starter package
                     <svg width="13" height="13" viewBox="0 0 14 14" fill="none">

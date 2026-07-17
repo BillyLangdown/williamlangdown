@@ -35,7 +35,6 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
   const trackWrapRef  = useRef<HTMLDivElement>(null)
   const [visible, setVisible]         = useState(false)
   const [statsActive, setStatsActive] = useState(false)
-  const [parallaxY, setParallaxY]     = useState(0)
   const [activeSlide, setActiveSlide] = useState(0)
 
   // Slide 1 stats
@@ -45,18 +44,6 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
   // Slide 2 stats: count up from the original score to the new one
   const mobileScore  = useCountUp(56, 98,  statsActive, 1600)
   const desktopScore = useCountUp(69, 100, statsActive, 1900)
-
-  useEffect(() => {
-    const onScroll = () => {
-      if (!sectionRef.current) return
-      const rect = sectionRef.current.getBoundingClientRect()
-      const wh = window.innerHeight
-      setParallaxY(((wh / 2) - (rect.top + rect.height / 2)) * 0.28)
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -101,11 +88,11 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
         />
       ) : (
         <div className="grid grid-cols-2 gap-4">
-          <div className="aspect-[16/9] bg-white/[0.03] border border-white/10 rounded-sm flex items-center justify-center">
-            <span className="text-sm text-white/15">Before</span>
+          <div className="aspect-[16/9] bg-subtle border border-border-light rounded-sm flex items-center justify-center">
+            <span className="text-sm text-tertiary">Before</span>
           </div>
-          <div className="aspect-[16/9] bg-white/[0.06] border border-white/10 rounded-sm flex items-center justify-center">
-            <span className="text-sm text-white/30">After</span>
+          <div className="aspect-[16/9] bg-subtle border border-border-light rounded-sm flex items-center justify-center">
+            <span className="text-sm text-tertiary">After</span>
           </div>
         </div>
       ),
@@ -137,29 +124,13 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
     <section
       ref={sectionRef}
       className="relative overflow-hidden py-20 md:py-24 px-6"
-      style={{ background: '#080e1c', scrollSnapAlign: 'start' }}
-
+      style={{
+        backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+        backgroundSize: '22px 22px',
+        backgroundColor: '#F8FAFC',
+        scrollSnapAlign: 'start',
+      }}
     >
-
-      {/* Subtle grid pattern */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(37,99,235,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.1) 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-          maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.8) 80%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.8) 80%, transparent 100%)',
-        }}
-      />
-
-      {/* Parallax blob layer */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ transform: `translateY(${parallaxY}px)`, willChange: 'transform' }}
-      >
-        <div style={{ position: 'absolute', top: '-120px', right: '-80px', width: '480px', height: '480px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.3) 0%, transparent 68%)' }} />
-        <div style={{ position: 'absolute', bottom: '-140px', left: '-100px', width: '420px', height: '420px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.18) 0%, transparent 68%)' }} />
-      </div>
 
       <div className="relative z-10 max-w-4xl mx-auto">
 
@@ -167,8 +138,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
         <div className="flex items-center justify-end gap-2 mb-5" style={fadeIn(0)}>
           <button
             onClick={() => goToSlide(activeSlide - 1)}
-            className="w-7 h-7 rounded-full flex items-center justify-center"
-            style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)' }}
+            className="w-7 h-7 rounded-full flex items-center justify-center border border-border-light text-tertiary hover:text-accent hover:border-accent/40 transition-colors"
             aria-label="Previous slide"
           >
             <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
@@ -183,15 +153,14 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
               style={{
                 height: '6px',
                 width: i === activeSlide ? '20px' : '6px',
-                background: i === activeSlide ? '#2563EB' : 'rgba(255,255,255,0.2)',
+                background: i === activeSlide ? '#2563EB' : 'rgba(15,23,42,0.12)',
               }}
               aria-label={`Slide ${i + 1}`}
             />
           ))}
           <button
             onClick={() => goToSlide(activeSlide + 1)}
-            className="w-7 h-7 rounded-full flex items-center justify-center"
-            style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)' }}
+            className="w-7 h-7 rounded-full flex items-center justify-center border border-border-light text-tertiary hover:text-accent hover:border-accent/40 transition-colors"
             aria-label="Next slide"
           >
             <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
@@ -215,26 +184,24 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
                 {/* Client + timeframe, tight above the stats, with a before/after tag */}
                 <div className="mb-3 flex items-end justify-between gap-4">
                   <div>
-                    <p className="text-base font-heading font-semibold text-white">{s.client}</p>
-                    <p className="text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{s.subtitle}</p>
+                    <p className="text-base font-heading font-semibold text-ink">{s.client}</p>
+                    <p className="text-xs mt-0.5 text-tertiary">{s.subtitle}</p>
                   </div>
-                  <span className="text-[10px] font-semibold uppercase tracking-widest shrink-0" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                  <span className="text-[10px] font-semibold uppercase tracking-widest shrink-0 text-tertiary">
                     Before &rarr; After
                   </span>
                 </div>
 
-                {/* Stats strip */}
-                <div
-                  className="mb-5 flex divide-x rounded-sm overflow-hidden border"
-                  style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)' }}
-                >
+                {/* Stats strip: dark navy (the logo's colour), so the numbers pop
+                    without reaching for the CTA-only accent blue */}
+                <div className="mb-5 flex divide-x divide-white/15 rounded-sm overflow-hidden" style={{ background: '#080e1c' }}>
                   {s.stats.map((stat) => (
-                    <div key={stat.label} className="flex-1 px-3 py-3 sm:px-5 sm:py-4 text-center" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+                    <div key={stat.label} className="flex-1 px-3 py-3 sm:px-5 sm:py-4 text-center">
                       <div className="flex items-baseline justify-center gap-0.5">
                         <span className="text-lg sm:text-xl font-heading font-bold text-white tabular-nums leading-none">{stat.value}</span>
-                        {'suffix' in stat && <span className="text-xs font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>{stat.suffix}</span>}
+                        {'suffix' in stat && <span className="text-xs font-medium text-white/70">{stat.suffix}</span>}
                       </div>
-                      <p className="text-[11px] mt-1.5 leading-snug" style={{ color: 'rgba(255,255,255,0.4)' }}>{stat.label}</p>
+                      <p className="text-[11px] mt-1.5 leading-snug text-white/70">{stat.label}</p>
                     </div>
                   ))}
                 </div>
@@ -246,7 +213,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
                 <div className="mt-4 flex justify-end">
                   <Link
                     href={s.href}
-                    className="inline-flex items-center gap-1.5 text-xs text-white/40 hover:text-white/70 transition-colors shrink-0"
+                    className="inline-flex items-center gap-1.5 text-xs text-tertiary hover:text-accent transition-colors shrink-0"
                   >
                     View case study
                     <svg width="10" height="10" viewBox="0 0 14 14" fill="none">

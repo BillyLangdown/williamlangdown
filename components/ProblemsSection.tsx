@@ -2,81 +2,150 @@
 
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { PhoneOff, MailX, MessageCircle, Star, SignpostBig } from 'lucide-react'
+
+// Illustrates a website's branding not matching the real-world business:
+// a browser mockup (blue, the site) beside a shopfront mockup (grey, the
+// actual brand) with a red "does not match" mark between them.
+function BrandMismatchIllustration() {
+  return (
+    <svg viewBox="0 0 96 72" fill="none" className="w-full h-full" aria-hidden>
+      <path d="M2 46h92" stroke="#CBD5E1" strokeWidth="1.5" strokeLinecap="round" />
+
+      {/* Website mockup */}
+      <rect x="2" y="8" width="40" height="32" rx="3" fill="white" stroke="#2563EB" strokeWidth="1.5" />
+      <path d="M2 15h40" stroke="#2563EB" strokeWidth="1.5" />
+      <circle cx="7" cy="11.5" r="1" fill="#2563EB" />
+      <circle cx="11" cy="11.5" r="1" fill="#2563EB" />
+      <circle cx="15" cy="11.5" r="1" fill="#2563EB" />
+      <path d="M18 26l4-6 4 6-4 4-4-4z" fill="#2563EB" />
+      <rect x="10" y="33" width="24" height="3" rx="1.5" fill="#2563EB" fillOpacity="0.35" />
+
+      {/* Shopfront mockup: peaked roof, window, door, hanging sign */}
+      <path d="M52 20l21-14 21 14z" fill="#94A3B8" fillOpacity="0.25" stroke="#64748B" strokeWidth="1.5" strokeLinejoin="round" />
+      <rect x="54" y="20" width="38" height="26" fill="white" stroke="#64748B" strokeWidth="1.5" />
+      <rect x="58" y="25" width="9" height="9" fill="white" stroke="#64748B" strokeWidth="1.3" />
+      <path d="M58 29.5h9M62.5 25v9" stroke="#64748B" strokeWidth="1" />
+      <rect x="69" y="34" width="9" height="12" fill="#64748B" fillOpacity="0.15" stroke="#64748B" strokeWidth="1.5" />
+      <circle cx="76" cy="40" r="0.8" fill="#64748B" />
+      {/* Hanging sign: a scrawled mark, deliberately unlike the crisp website logo */}
+      <rect x="63" y="12" width="20" height="7" rx="1" fill="white" stroke="#64748B" strokeWidth="1.2" />
+      <path d="M66 15.5c1-1.6 2-1.6 3 0s2 1.6 3 0 2-1.6 3 0 2 1.6 3 0" stroke="#64748B" strokeWidth="1" fill="none" strokeLinecap="round" />
+
+      {/* Mismatch marker */}
+      <circle cx="48" cy="24" r="8" fill="white" stroke="#E11D48" strokeWidth="1.5" />
+      <text x="48" y="27.5" fontSize="10" fontWeight="700" fill="#E11D48" textAnchor="middle">&#8800;</text>
+    </svg>
+  )
+}
+
+// Illustrates a visitor who never calls or emails: Lucide's own
+// phone-off and mail-x icons, side by side.
+function NoCallNoEmailIllustration() {
+  return (
+    <div className="w-full h-full flex items-center justify-center gap-8">
+      <PhoneOff size={64} strokeWidth={1.5} className="text-slate-500" />
+      <MailX size={64} strokeWidth={1.5} className="text-slate-500" />
+    </div>
+  )
+}
+
+// Illustrates unclear copy directly: a plain chat bubble icon with a real
+// text "?" overlaid (Lucide's built-in question-mark glyph rendered
+// wrong at this size, so this uses an actual font character instead).
+function UnclearAnswerIllustration() {
+  return (
+    <div className="w-full h-full flex items-center justify-center relative">
+      <MessageCircle size={110} strokeWidth={1.4} className="text-rose-600" />
+      <span
+        className="absolute font-extrabold text-rose-600"
+        style={{ fontSize: 42, top: '48%', left: '50%', transform: 'translate(-50%, -50%)' }}
+      >
+        ?
+      </span>
+    </div>
+  )
+}
+
+// Illustrates a cramped, disordered phone layout: overlapping content
+// blocks and a spinner standing in for slow load times.
+function SlowCrampedMobileIllustration() {
+  return (
+    <svg viewBox="0 0 96 72" fill="none" className="w-full h-full" aria-hidden>
+      <path d="M2 68h92" stroke="#CBD5E1" strokeWidth="1.5" strokeLinecap="round" />
+
+      {/* Phone outline */}
+      <rect x="26" y="4" width="34" height="60" rx="5" fill="white" stroke="#64748B" strokeWidth="1.5" />
+      <rect x="39" y="7.5" width="8" height="1.6" rx="0.8" fill="#64748B" fillOpacity="0.5" />
+
+      {/* Cramped, overlapping content */}
+      <rect x="30" y="14" width="20" height="9" rx="1" fill="#2563EB" fillOpacity="0.12" stroke="#2563EB" strokeWidth="1.3" transform="rotate(-5 40 18.5)" />
+      <rect x="33" y="19" width="20" height="9" rx="1" fill="#E11D48" fillOpacity="0.1" stroke="#E11D48" strokeWidth="1.3" transform="rotate(4 43 23.5)" />
+      <path d="M29 35h24M29 39h17M29 43h22" stroke="#64748B" strokeWidth="1.3" strokeLinecap="round" strokeOpacity="0.5" />
+      <rect x="30" y="48" width="13" height="6" rx="1" fill="#64748B" fillOpacity="0.1" stroke="#64748B" strokeWidth="1.3" />
+      <rect x="39" y="50" width="14" height="6" rx="1" fill="#64748B" fillOpacity="0.1" stroke="#64748B" strokeWidth="1.3" transform="rotate(-5 46 53)" />
+
+      {/* Slow-loading spinner */}
+      <g transform="translate(76 16)">
+        <circle r="8" fill="white" stroke="#E11D48" strokeOpacity="0.25" strokeWidth="2" />
+        <path d="M0 -8a8 8 0 016 13" stroke="#E11D48" strokeWidth="2" strokeLinecap="round" fill="none" />
+      </g>
+    </svg>
+  )
+}
+
+// Illustrates missing trust signals directly: a literal 1-out-of-5 star
+// rating, nothing else.
+function NoTrustSignalsIllustration() {
+  return (
+    <div className="w-full h-full flex items-center justify-center gap-0.5">
+      <Star size={32} className="text-amber-500 fill-amber-500" />
+      {[0, 1, 2, 3].map(i => (
+        <Star key={i} size={32} className="text-slate-300" />
+      ))}
+    </div>
+  )
+}
+
+// Illustrates a literal signpost: Lucide's bolder signpost-big icon.
+function NoClearNextStepIllustration() {
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      <SignpostBig size={110} strokeWidth={1.4} className="text-slate-500" />
+    </div>
+  )
+}
 
 const problems = [
   {
     title: 'The branding doesn’t reflect the real thing',
     description: "If your site looks cheaper than your actual business, it sets the wrong expectation. People judge quality by design before they ever speak to you.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <path d="M10 2a8 8 0 100 16c1.1 0 2-.9 2-2 0-.45-.18-.86-.47-1.16-.3-.3-.53-.68-.53-1.14 0-.83.67-1.5 1.5-1.5H14a4 4 0 004-4c0-3.31-3.58-6.2-8-6.2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-        <circle cx="6.3" cy="9.2" r="1.1" fill="currentColor" />
-        <circle cx="8.3" cy="5.8" r="1.1" fill="currentColor" />
-        <circle cx="12.2" cy="6.2" r="1.1" fill="currentColor" />
-      </svg>
-    ),
+    visual: <BrandMismatchIllustration />,
   },
   {
     title: 'People visit but never get in touch',
     description: "They find your site, look around, and leave. Something is putting them off. It is usually fixable once you know what it is.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        {/* Door rectangle */}
-        <rect x="2" y="2" width="10" height="14" rx="1" stroke="currentColor" strokeWidth="1.5" />
-        {/* Floor line */}
-        <path d="M1 16h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        {/* Handle */}
-        <circle cx="10" cy="9.5" r="0.9" fill="currentColor" />
-        {/* Arrow exiting right */}
-        <path d="M14 9.5h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M17 7l2 2.5-2 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    visual: <NoCallNoEmailIllustration />,
   },
   {
     title: 'The writing does not explain what you do',
     description: "If someone lands on your site and cannot tell in ten seconds what you offer and who it is for, they will not stick around to find out.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <rect x="3" y="2" width="11" height="15" rx="1" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M6 7h6M6 10h4M6 13h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M15 5l2-2M17 5l-2-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
+    visual: <UnclearAnswerIllustration />,
   },
   {
     title: 'Not built to be seen on a phone',
     description: "Over 60% of visits to small business sites now happen on a phone. If yours is slow or breaks on mobile, you lose visitors before they see what you offer.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <rect x="5" y="1" width="10" height="18" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M10.5 6L8 11h4l-2.5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    visual: <SlowCrampedMobileIllustration />,
   },
   {
     title: 'Nothing to make them trust you',
     description: "No reviews, a thin contact page, no face behind the business. People notice these gaps even when they cannot name them, and they move on.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <path d="M10 2L3 5v6c0 4 3 6 7 7 4-1 7-3 7-7V5l-7-3z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-        <path d="M8 8.5c0-1.1.9-2 2-2s2 .9 2 2c0 1-.7 1.4-1.2 1.7-.3.2-.8.5-.8 1.1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <circle cx="10" cy="14" r="0.8" fill="currentColor" />
-      </svg>
-    ),
+    visual: <NoTrustSignalsIllustration />,
   },
   {
     title: 'Hard to know where to go next',
     description: "If the next step is not obvious, most people will not look for it. They will just leave. The layout should do that work for them.",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
-        <path d="M10 16v-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M10 9C8.5 7.5 6.5 6 5 5M10 9c1.5-1.5 3.5-3 5-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <circle cx="5" cy="4" r="1.8" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="15" cy="4" r="1.8" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="10" cy="17.2" r="1.8" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-    ),
+    visual: <NoClearNextStepIllustration />,
   },
 ]
 
@@ -175,25 +244,20 @@ export default function ProblemsSection() {
             {problems.map((problem, i) => (
               <div
                 key={problem.title}
-                style={{ flexShrink: 0, width: 'calc(100vw - 64px)', scrollSnapAlign: 'start' }}
+                style={{ flexShrink: 0, width: 'calc(100vw - 48px)', scrollSnapAlign: 'start' }}
               >
-                <div className="bg-white border border-border-light rounded-sm p-6 relative overflow-hidden shadow-sm" style={{ height: '234px' }}>
+                <div className="bg-white border border-border-light rounded-sm p-6 relative overflow-hidden shadow-sm" style={{ height: '350px' }}>
 
-                  {/* Top row: icon + counter */}
-                  <div className="flex items-center justify-between mb-5">
-                    <div
-                      className="w-9 h-9 rounded-sm flex items-center justify-center"
-                      style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
-                    >
-                      {problem.icon}
-                    </div>
-                    <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#94a3b8' }}>
-                      {i + 1} / {problems.length}
-                    </span>
+                  <span className="absolute top-5 right-6 text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#94a3b8' }}>
+                    {i + 1} / {problems.length}
+                  </span>
+
+                  <div className="mx-auto mb-4" style={{ width: 180, height: 125 }}>
+                    {problem.visual}
                   </div>
 
-                  <h3 className="text-base font-bold text-ink mb-2 leading-snug">{problem.title}</h3>
-                  <p className="text-sm text-secondary leading-relaxed">{problem.description}</p>
+                  <h3 className="text-base font-bold text-ink mb-2 leading-snug text-center">{problem.title}</h3>
+                  <p className="text-sm text-secondary leading-relaxed text-center">{problem.description}</p>
                 </div>
               </div>
             ))}
@@ -239,7 +303,7 @@ export default function ProblemsSection() {
             onMouseEnter={() => setDeskPaused(true)}
             onMouseLeave={() => setDeskPaused(false)}
             className="relative overflow-hidden"
-            style={{ height: '320px', perspective: '1600px' }}
+            style={{ height: '440px', perspective: '1600px' }}
           >
             {problems.map((problem, i) => {
               const offset = ringOffset(i, displayIndex, problems.length)
@@ -250,9 +314,9 @@ export default function ProblemsSection() {
                 <div
                   key={problem.title}
                   onClick={() => !isActive && goToDesk(i)}
-                  className="absolute left-1/2 top-1/2 w-[440px] rounded-sm border border-border-light bg-white shadow-sm p-9 flex items-start gap-6"
+                  className="absolute left-1/2 top-1/2 w-[560px] rounded-sm border border-border-light bg-white shadow-sm p-9 flex flex-col items-center text-center"
                   style={{
-                    transform: `translate(-50%, -50%) translateX(${offset * 330}px) translateZ(${-abs * 170}px) rotateY(${-offset * 34}deg) scale(${1 - abs * 0.16})`,
+                    transform: `translate(-50%, -50%) translateX(${offset * 390}px) translateZ(${-abs * 190}px) rotateY(${-offset * 34}deg) scale(${1 - abs * 0.16})`,
                     opacity: isActive ? 1 : 0.45,
                     filter: isActive ? 'none' : 'blur(3px)',
                     zIndex: isActive ? 10 : 5,
@@ -260,17 +324,15 @@ export default function ProblemsSection() {
                     transition: 'transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease, filter 0.6s ease',
                   }}
                 >
-                  <div
-                    className="w-14 h-14 rounded-sm flex items-center justify-center shrink-0"
-                    style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
-                  >
-                    {problem.icon}
+                  <span className="absolute top-6 right-7 text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#94a3b8' }}>
+                    {i + 1} / {problems.length}
+                  </span>
+
+                  <div className="mb-4" style={{ width: 250, height: 175 }}>
+                    {problem.visual}
                   </div>
-                  <div className="flex-1">
-                    <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#94a3b8' }}>
-                      {i + 1} / {problems.length}
-                    </span>
-                    <h3 className="text-xl font-heading font-bold text-ink mt-2 mb-3 leading-snug">{problem.title}</h3>
+                  <div>
+                    <h3 className="text-xl font-heading font-bold text-ink mb-3 leading-snug">{problem.title}</h3>
                     <p className="text-base text-secondary leading-relaxed">{problem.description}</p>
                   </div>
                 </div>
