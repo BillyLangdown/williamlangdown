@@ -11,7 +11,7 @@ const leadServices = [
     tag: 'Fully custom',
     price: 'From £1,495',
     description:
-      "Not a template. Designed and built from scratch around your brand, your customers, and how they actually buy. Your style, your colours, your voice, done properly.",
+      "Not a template. Designed and built from scratch around your brand, your customers, and how they actually buy. Your style, your colours and your voice.",
     cta: 'See Design & Build',
     href: '/services',
     icon: (
@@ -42,8 +42,7 @@ const secondaryServices = [
     title: 'Website Audit',
     price: 'From £145',
     priceNote: '',
-    description:
-      "Not sure where to start? A proper look at what's putting people off, where the copy needs work, and how you perform on mobile. Written report plus a short video walkthrough.",
+    description: "A proper look at what's putting visitors off, and how to fix it.",
     href: '/services',
     icon: (
       <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden>
@@ -54,10 +53,9 @@ const secondaryServices = [
   },
   {
     title: 'Website Support & Improvements',
-    price: 'From £30 / hour',
-    priceNote: 'Returning Design & Build clients: £30/hr · New clients: £60/hr',
-    description:
-      "Already have a site? Copy changes, new pages, design tweaks, or general upkeep. Billed by the hour, no contract.",
+    price: '£30–£60 / hour',
+    priceNote: '',
+    description: 'Copy changes, new pages, design tweaks, and general upkeep.',
     href: '/services',
     icon: (
       <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden>
@@ -77,7 +75,7 @@ function FeaturedCard({ service }: { service: typeof leadServices[0] }) {
         className="group relative block rounded-sm p-7 sm:p-8 h-full overflow-hidden transition-transform hover:-translate-y-0.5"
         style={{ background: '#080e1c' }}
       >
-        <div className="relative z-10">
+        <div className="relative z-10 h-full flex flex-col">
           <div className="flex items-center justify-between mb-5">
             <div className="w-11 h-11 rounded-sm flex items-center justify-center bg-white/10 text-white">
               {service.icon}
@@ -89,12 +87,14 @@ function FeaturedCard({ service }: { service: typeof leadServices[0] }) {
           <h3 className="text-xl font-semibold text-white mb-1">{service.title}</h3>
           <p className="text-sm font-medium mb-4 text-white/80">{service.price}</p>
           <p className="text-sm text-white/60 leading-relaxed mb-6">{service.description}</p>
-          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent group-hover:text-white transition-colors">
-            {service.cta}
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-              <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
+          <div className="flex justify-end mt-auto">
+            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent group-hover:text-white transition-colors">
+              {service.cta}
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </div>
         </div>
       </Link>
     </ScrollReveal>
@@ -106,7 +106,8 @@ function SecondaryCard({ service }: { service: typeof secondaryServices[0] }) {
     <ScrollReveal threshold={0.15}>
       <Link
         href={service.href}
-        className="group rounded-sm border border-border-light p-6 flex flex-col h-full transition-colors hover:border-ink/20"
+        className="group rounded-sm border border-border-light p-6 flex flex-col h-full transition-colors hover:border-ink/20 bg-white/80"
+        style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
       >
         <div className="flex items-center gap-3 mb-3">
           <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style={{ background: 'rgba(15,23,42,0.05)', color: '#475569' }}>
@@ -121,8 +122,8 @@ function SecondaryCard({ service }: { service: typeof secondaryServices[0] }) {
           <p className="text-xs text-secondary font-medium leading-snug mb-3">{service.priceNote}</p>
         )}
         <p className="text-sm text-secondary leading-relaxed mb-4 flex-1">{service.description}</p>
-        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ink group-hover:text-accent transition-colors">
-          Learn more
+        <span className="self-end inline-flex items-center gap-1.5 text-sm font-medium text-ink group-hover:text-accent transition-colors">
+          Find out more
           <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
             <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -194,7 +195,8 @@ export default function ServicesSection() {
         <ScrollReveal threshold={0.15} className="mt-5">
           <Link
             href="/orla"
-            className="group flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 rounded-sm border border-border-light px-6 py-5 transition-colors hover:border-accent/30"
+            className="group flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 rounded-sm border border-border-light px-8 py-8 transition-colors hover:border-accent/30 bg-white/80"
+            style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
           >
             <span
               className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full shrink-0 self-start sm:self-auto"
@@ -202,7 +204,7 @@ export default function ServicesSection() {
             >
               My own product
             </span>
-            <Image src="/images/orla-logo.png" alt="Orla" height={18} width={62} className="object-contain shrink-0" />
+            <Image src="/images/orla-logo.png" alt="Orla" height={22} width={76} className="object-contain shrink-0" />
             <p className="text-sm text-secondary flex-1">Booking software with an AI assistant, Google Calendar sync, and Gmail integration. Built by me.</p>
             <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ink group-hover:text-accent transition-colors shrink-0">
               Find out more

@@ -14,12 +14,8 @@ export default function Hero() {
   const [desktopVisible, setDesktopVisible] = useState(false)
   const [activePanel, setActivePanel] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
-  const portraitRef = useRef<HTMLDivElement>(null)
   const heroScrollRef = useRef<HTMLDivElement>(null)
   const sectionRectRef = useRef<DOMRect | null>(null)
-  const portraitRectRef = useRef<DOMRect | null>(null)
-  const tiltTargetRef = useRef({ px: 0, py: 0 })
-  const tiltCurrentRef = useRef({ px: 0, py: 0 })
 
   const onHeroScroll = useCallback(() => {
     const el = heroScrollRef.current
@@ -32,38 +28,15 @@ export default function Hero() {
     return () => cancelAnimationFrame(raf)
   }, [])
 
-  // Rects are read once (on mount/resize) instead of on every mousemove,
+  // Rect is read once (on mount/resize) instead of on every mousemove,
   // since getBoundingClientRect() forces a synchronous layout.
   useEffect(() => {
     const measure = () => {
       sectionRectRef.current = sectionRef.current?.getBoundingClientRect() ?? null
-      portraitRectRef.current = portraitRef.current?.getBoundingClientRect() ?? null
     }
     measure()
     window.addEventListener('resize', measure)
     return () => window.removeEventListener('resize', measure)
-  }, [])
-
-  // The tilt lerps toward its target every animation frame instead of
-  // snapping straight to the mousemove position with a CSS transition —
-  // a transition that keeps getting retargeted mid-flight on a fast-firing
-  // event is what made the old version feel glitchy and laggy.
-  useEffect(() => {
-    let raf: number
-    const TILT_EASE = 0.12
-    const tick = () => {
-      const target = tiltTargetRef.current
-      const current = tiltCurrentRef.current
-      current.px += (target.px - current.px) * TILT_EASE
-      current.py += (target.py - current.py) * TILT_EASE
-      if (portraitRef.current) {
-        portraitRef.current.style.transform =
-          `perspective(1400px) rotateY(${current.px * 2}deg) rotateX(${current.py * -2}deg)`
-      }
-      raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
   }, [])
 
   const onHeroMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
@@ -75,14 +48,6 @@ export default function Hero() {
     // property, no JS animation loop or blend-mode compositing involved.
     el.style.setProperty('--mx', `${e.clientX - rect.left}px`)
     el.style.setProperty('--my', `${e.clientY - rect.top}px`)
-
-    // Very subtle tilt on the portrait toward the cursor. Only the target
-    // is updated here; the rAF loop above does the actual smoothing.
-    const prect = portraitRectRef.current
-    if (prect) {
-      tiltTargetRef.current.px = (e.clientX - prect.left - prect.width / 2) / prect.width
-      tiltTargetRef.current.py = (e.clientY - prect.top - prect.height / 2) / prect.height
-    }
   }, [])
 
   return (
@@ -119,11 +84,16 @@ export default function Hero() {
               : <path d="M13 7H1M7 1L1 7l6 6" stroke="#0f172a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             }
           </svg>
+          <span
+            className="font-sans text-[10px] font-semibold uppercase tracking-wider transition-opacity duration-300"
+            style={{ color: 'rgba(15,23,42,0.35)' }}
+          >
+            {activePanel === 0 ? 'About me' : 'Home'}
+          </span>
           <div
             className="rounded-full transition-all duration-300"
             style={{ height: '6px', width: activePanel === 1 ? '20px' : '6px', backgroundColor: activePanel === 1 ? '#2563EB' : 'rgba(15,23,42,0.2)' }}
           />
-
         </div>
 
         <div
@@ -140,7 +110,7 @@ export default function Hero() {
 
         {/* Panel 1: text */}
         <div
-          className="relative flex flex-col justify-center px-6"
+          className="relative flex flex-col justify-center px-6 overflow-hidden"
           style={{
             flexShrink: 0,
             width: '100vw',
@@ -189,7 +159,7 @@ export default function Hero() {
 
         {/* Panel 2: portrait + intro */}
         <div
-          className="relative flex flex-col items-center justify-center px-6"
+          className="relative flex flex-col items-center justify-center px-6 overflow-hidden"
           style={{
             flexShrink: 0,
             width: '100vw',
@@ -282,12 +252,8 @@ export default function Hero() {
         </div>
 
         {/* Portrait: flex sibling, vertically centered by parent items-center */}
-        <div className="shrink-0 w-[36%]" style={{ aspectRatio: '801 / 1022', perspective: '800px' }}>
-          <div
-            ref={portraitRef}
-            className="relative w-full h-full overflow-hidden rounded-tr-[3.5rem] rounded-br-[3.5rem]"
-            style={{ transformStyle: 'preserve-3d' }}
-          >
+        <div className="shrink-0 w-[36%]" style={{ aspectRatio: '801 / 1022' }}>
+          <div className="relative w-full h-full overflow-hidden rounded-tr-[3.5rem] rounded-br-[3.5rem]">
             <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
             <div className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent pointer-events-none" />
           </div>

@@ -1,4 +1,5 @@
 import Nav from '@/components/Nav'
+import PromoTicker from '@/components/PromoTicker'
 import Hero from '@/components/Hero'
 import BeforeAfterSection from '@/components/BeforeAfterSection'
 import ProblemsSection from '@/components/ProblemsSection'
@@ -101,6 +102,7 @@ export default async function HomePage() {
       <Nav />
       <main>
         <Hero />
+        <PromoTicker />
         <ProblemsSection />
         <BeforeAfterSection caseStudy={featuredCaseStudy} />
         <ServicesSection />

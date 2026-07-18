@@ -134,6 +134,11 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
 
       <div className="relative z-10 max-w-4xl mx-auto">
 
+        <div className="mb-8 pl-4 border-l-4 border-accent">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">Results</h2>
+          <p className="text-sm text-secondary mt-1">What changed after the redesign.</p>
+        </div>
+
         {/* Nav: dots + arrows, fixed above the track */}
         <div className="flex items-center justify-end gap-2 mb-5" style={fadeIn(0)}>
           <button
