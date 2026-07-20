@@ -9,7 +9,7 @@ import { PhoneOff, MailX, MessageCircle, Star, SignpostBig, Palette } from 'luci
 function BrandMismatchIllustration() {
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <Palette size={100} strokeWidth={1.4} className="text-rose-600" />
+      <Palette size={100} strokeWidth={1.4} className="text-white/90" />
     </div>
   )
 }
@@ -19,8 +19,8 @@ function BrandMismatchIllustration() {
 function NoCallNoEmailIllustration() {
   return (
     <div className="w-full h-full flex items-center justify-center gap-8">
-      <PhoneOff size={64} strokeWidth={1.5} className="text-slate-500" />
-      <MailX size={64} strokeWidth={1.5} className="text-slate-500" />
+      <PhoneOff size={64} strokeWidth={1.5} className="text-white/90" />
+      <MailX size={64} strokeWidth={1.5} className="text-white/90" />
     </div>
   )
 }
@@ -31,9 +31,9 @@ function NoCallNoEmailIllustration() {
 function UnclearAnswerIllustration() {
   return (
     <div className="w-full h-full flex items-center justify-center relative">
-      <MessageCircle size={82} strokeWidth={1.4} className="text-rose-600" />
+      <MessageCircle size={82} strokeWidth={1.4} className="text-white/90" />
       <span
-        className="absolute font-extrabold text-rose-600"
+        className="absolute font-extrabold text-white/90"
         style={{ fontSize: 42, top: '48%', left: '50%', transform: 'translate(-50%, -50%)' }}
       >
         ?
@@ -48,28 +48,30 @@ function SlowCrampedMobileIllustration() {
   return (
     <svg viewBox="0 0 96 72" fill="none" className="w-full h-full" aria-hidden>
       {/* Phone outline, centered in the frame (viewBox center is 48,36) */}
-      <rect x="31" y="6" width="34" height="60" rx="5" fill="white" stroke="#64748B" strokeWidth="1.5" />
-      <rect x="44" y="9.5" width="8" height="1.6" rx="0.8" fill="#64748B" fillOpacity="0.5" />
+      <rect x="31" y="6" width="34" height="60" rx="5" fill="none" stroke="rgba(255,255,255,0.9)" strokeWidth="1.5" />
+      <rect x="44" y="9.5" width="8" height="1.6" rx="0.8" fill="rgba(255,255,255,0.5)" />
 
       {/* Cramped, overlapping content, recentered within the phone (was
           off-center relative to the phone itself, not just the frame) */}
-      <rect x="37" y="15" width="20" height="9" rx="1" fill="#2563EB" fillOpacity="0.12" stroke="#2563EB" strokeWidth="1.3" transform="rotate(-5 47 19.5)" />
-      <rect x="40" y="20" width="20" height="9" rx="1" fill="#E11D48" fillOpacity="0.1" stroke="#E11D48" strokeWidth="1.3" transform="rotate(4 50 24.5)" />
-      <path d="M36 36h24M36 40h17M36 44h22" stroke="#64748B" strokeWidth="1.3" strokeLinecap="round" strokeOpacity="0.5" />
-      <rect x="37" y="49" width="13" height="6" rx="1" fill="#64748B" fillOpacity="0.1" stroke="#64748B" strokeWidth="1.3" />
-      <rect x="46" y="51" width="14" height="6" rx="1" fill="#64748B" fillOpacity="0.1" stroke="#64748B" strokeWidth="1.3" transform="rotate(-5 53 54)" />
+      <rect x="37" y="15" width="20" height="9" rx="1" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.6)" strokeWidth="1.3" transform="rotate(-5 47 19.5)" />
+      <rect x="40" y="20" width="20" height="9" rx="1" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.45)" strokeWidth="1.3" transform="rotate(4 50 24.5)" />
+      <path d="M36 36h24M36 40h17M36 44h22" stroke="rgba(255,255,255,0.55)" strokeWidth="1.3" strokeLinecap="round" />
+      <rect x="37" y="49" width="13" height="6" rx="1" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.45)" strokeWidth="1.3" />
+      <rect x="46" y="51" width="14" height="6" rx="1" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.45)" strokeWidth="1.3" transform="rotate(-5 53 54)" />
     </svg>
   )
 }
 
 // Illustrates missing trust signals directly: a literal 1-out-of-5 star
-// rating, nothing else.
+// rating, nothing else. All white (per the "one light colour" rule for
+// this set) — the rating still reads via solid-fill vs. faint-outline,
+// not via a different hue.
 function NoTrustSignalsIllustration() {
   return (
     <div className="w-full h-full flex items-center justify-center gap-0.5">
-      <Star size={32} className="text-amber-500 fill-amber-500" />
+      <Star size={32} className="text-white fill-white" />
       {[0, 1, 2, 3].map(i => (
-        <Star key={i} size={32} className="text-slate-300" />
+        <Star key={i} size={32} className="text-white/30" />
       ))}
     </div>
   )
@@ -79,7 +81,7 @@ function NoTrustSignalsIllustration() {
 function NoClearNextStepIllustration() {
   return (
     <div className="w-full h-full flex items-center justify-center">
-      <SignpostBig size={110} strokeWidth={1.4} className="text-slate-500" />
+      <SignpostBig size={110} strokeWidth={1.4} className="text-white/90" />
     </div>
   )
 }
@@ -214,9 +216,17 @@ export default function ProblemsSection() {
                 key={problem.title}
                 style={{ flexShrink: 0, width: 'calc(100vw - 48px)', scrollSnapAlign: 'start' }}
               >
-                <div className="bg-white border border-border-light rounded-sm p-6 relative overflow-hidden shadow-sm" style={{ height: '350px' }}>
+                <div
+                  className="rounded-sm border border-white/10 p-6 relative overflow-hidden shadow-sm"
+                  style={{
+                    height: '350px',
+                    backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1.5px, transparent 1.5px)',
+                    backgroundSize: '22px 22px',
+                    backgroundColor: '#080e1c',
+                  }}
+                >
 
-                  <span className="absolute top-5 right-6 text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#94a3b8' }}>
+                  <span className="absolute top-5 right-6 text-[10px] font-semibold uppercase tracking-widest text-white/40">
                     {i + 1} / {problems.length}
                   </span>
 
@@ -225,8 +235,8 @@ export default function ProblemsSection() {
                       {problem.visual}
                     </div>
 
-                    <h3 className="text-base font-bold text-ink mb-2 leading-snug text-center">{problem.title}</h3>
-                    <p className="text-sm text-secondary leading-relaxed text-center">{problem.description}</p>
+                    <h3 className="text-base font-bold text-white mb-2 leading-snug text-center">{problem.title}</h3>
+                    <p className="text-sm text-white/60 leading-relaxed text-center">{problem.description}</p>
                   </div>
                 </div>
               </div>
@@ -284,11 +294,11 @@ export default function ProblemsSection() {
                 <div
                   key={problem.title}
                   onClick={() => !isActive && goToDesk(i)}
-                  className="absolute left-1/2 top-1/2 w-[560px] rounded-sm border border-border-light shadow-sm p-9 flex flex-col items-center text-center overflow-hidden"
+                  className="absolute left-1/2 top-1/2 w-[560px] rounded-sm border border-white/10 shadow-sm p-9 flex flex-col items-center text-center overflow-hidden"
                   style={{
-                    backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+                    backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1.5px, transparent 1.5px)',
                     backgroundSize: '22px 22px',
-                    backgroundColor: '#F8FAFC',
+                    backgroundColor: '#080e1c',
                     transform: `translate(-50%, -50%) translateX(${offset * 390}px) translateZ(${-abs * 190}px) rotateY(${-offset * 34}deg) scale(${1 - abs * 0.16})`,
                     opacity: isActive ? 1 : 0.45,
                     filter: isActive ? 'none' : 'blur(3px)',
@@ -297,7 +307,7 @@ export default function ProblemsSection() {
                     transition: 'transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease, filter 0.6s ease',
                   }}
                 >
-                  <span className="absolute top-6 right-7 text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#94a3b8' }}>
+                  <span className="absolute top-6 right-7 text-[10px] font-semibold uppercase tracking-widest text-white/40">
                     {i + 1} / {problems.length}
                   </span>
 
@@ -305,8 +315,8 @@ export default function ProblemsSection() {
                     {problem.visual}
                   </div>
                   <div>
-                    <h3 className="text-xl font-heading font-bold text-ink mb-3 leading-snug">{problem.title}</h3>
-                    <p className="text-base text-secondary leading-relaxed">{problem.description}</p>
+                    <h3 className="text-xl font-heading font-bold text-white mb-3 leading-snug">{problem.title}</h3>
+                    <p className="text-base text-white/60 leading-relaxed">{problem.description}</p>
                   </div>
                 </div>
               )
