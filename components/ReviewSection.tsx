@@ -1,9 +1,13 @@
 'use client'
 
+import { useState } from 'react'
 import ScrollReveal from '@/components/ScrollReveal'
 
-const REVIEW_TEXT =
-  'We cannot recommend William enough. Within a week we had a test site that was ready to preview, and it was absolutely brilliant. William mainly led the way with the design and he hit the brief perfectly. The level of service, detail and care he has provided us has been exceptional during this process. We could not be happier with our new site.'
+const REVIEW_TEXT_SHORT =
+  'We cannot recommend William enough. Within a week we had a test site that was ready to preview, and it was absolutely brilliant.'
+const REVIEW_TEXT_REST =
+  ' William mainly led the way with the design and he hit the brief perfectly. The level of service, detail and care he has provided us has been exceptional during this process. We could not be happier with our new site.'
+const REVIEW_TEXT = REVIEW_TEXT_SHORT + REVIEW_TEXT_REST
 
 function GoogleLogo() {
   return (
@@ -31,6 +35,8 @@ function Stars() {
 }
 
 export default function ReviewSection() {
+  const [expanded, setExpanded] = useState(false)
+
   return (
     <section className="py-20 md:py-24 px-6 bg-white border-t border-border-light" style={{ scrollSnapAlign: 'start' }}>
       <div className="max-w-6xl mx-auto">
@@ -53,7 +59,19 @@ export default function ReviewSection() {
                 <div className="relative z-10">
                   <Stars />
 
-                  <p className="mt-5 text-base md:text-lg leading-relaxed text-ink font-medium max-w-2xl">
+                  <p className="mt-5 text-base md:text-lg leading-relaxed text-ink font-medium max-w-2xl md:hidden">
+                    {REVIEW_TEXT_SHORT}
+                    {expanded && REVIEW_TEXT_REST}
+                    {!expanded && (
+                      <button
+                        onClick={() => setExpanded(true)}
+                        className="ml-1 font-semibold text-accent hover:text-ink transition-colors"
+                      >
+                        Read more...
+                      </button>
+                    )}
+                  </p>
+                  <p className="mt-5 text-base md:text-lg leading-relaxed text-ink font-medium max-w-2xl hidden md:block">
                     {REVIEW_TEXT}
                   </p>
 

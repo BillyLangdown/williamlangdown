@@ -15,8 +15,8 @@ const items = [
     label: 'Starter Sites, from £495',
   },
   {
-    href: '/orla',
-    visual: <Image src="/images/orla-logo.png" alt="Orla" width={48} height={14} className="object-contain" />,
+    href: 'https://orlabooking.com',
+    visual: <Image src="/images/orla-logo-long-accent.png" alt="Orla" width={54} height={14} className="object-contain" />,
     label: 'the AI receptionist for your business',
   },
   {

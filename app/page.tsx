@@ -1,13 +1,12 @@
 import Nav from '@/components/Nav'
 import PromoTicker from '@/components/PromoTicker'
 import Hero from '@/components/Hero'
-import BeforeAfterSection from '@/components/BeforeAfterSection'
+import ProjectShowcase from '@/components/ProjectShowcase'
 import ProblemsSection from '@/components/ProblemsSection'
 import ServicesSection from '@/components/ServicesSection'
 import ReviewSection from '@/components/ReviewSection'
 import CTABanner from '@/components/CTABanner'
 import Footer from '@/components/Footer'
-import { getFeaturedCaseStudy } from '@/lib/queries'
 import type { Metadata } from 'next'
 
 export const revalidate = 3600
@@ -88,14 +87,7 @@ const jsonLd = {
   ],
 }
 
-export default async function HomePage() {
-  let featuredCaseStudy = null
-  try {
-    featuredCaseStudy = await getFeaturedCaseStudy()
-  } catch (err) {
-    console.error('[HomePage] Failed to fetch featured case study:', err)
-  }
-
+export default function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -104,7 +96,7 @@ export default async function HomePage() {
         <Hero />
         <PromoTicker />
         <ProblemsSection />
-        <BeforeAfterSection caseStudy={featuredCaseStudy} />
+        <ProjectShowcase />
         <ServicesSection />
         <ReviewSection />
         <CTABanner />

@@ -164,6 +164,19 @@ export default async function CaseStudyPage({ params }: Props) {
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-tertiary mb-1">Published</p>
                 <p className="text-sm text-ink">{publishedDate}</p>
               </div>
+              {slug === 'building-ventilation-services-ltd' && (
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-tertiary mb-1">Live site</p>
+                  <a
+                    href="https://www.bvs-ltd.co.uk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-accent hover:text-ink transition-colors underline underline-offset-4"
+                  >
+                    bvs-ltd.co.uk
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </section>

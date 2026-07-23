@@ -191,9 +191,6 @@ export default function ProblemsSection() {
 
         {/* Scroll track */}
         <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-10 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #e8edf3, transparent)' }} />
-          <div className="absolute right-0 top-0 bottom-0 w-10 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #e8edf3, transparent)' }} />
-
           <div
             ref={scrollRef}
             onScroll={onCardScroll}

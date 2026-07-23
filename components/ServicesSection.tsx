@@ -151,7 +151,7 @@ export default function ServicesSection() {
   return (
     <section
       id="services"
-      className="py-20 md:py-24 px-6 bg-surface border-t border-border-light"
+      className="py-20 md:py-24 px-6 bg-surface"
       style={{
         scrollSnapAlign: 'start',
         backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
@@ -194,20 +194,16 @@ export default function ServicesSection() {
 
         <ScrollReveal threshold={0.15} className="mt-5">
           <Link
-            href="/orla"
-            className="group flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 rounded-sm border border-border-light px-8 py-8 transition-colors hover:border-accent/30 bg-white/80"
-            style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
+            href="https://orlabooking.com"
+            className="group flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 rounded-sm border border-border-light bg-white px-8 py-8 transition-colors hover:border-ink/20"
           >
-            <span
-              className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full shrink-0 self-start sm:self-auto"
-              style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
-            >
+            <span className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full bg-accent/10 text-accent shrink-0 self-start sm:self-auto">
               My own product
             </span>
-            <Image src="/images/orla-logo.png" alt="Orla" height={22} width={76} className="object-contain shrink-0" />
+            <Image src="/images/orla-logo-long-accent.png" alt="Orla" height={24} width={70} className="object-contain shrink-0" />
             <p className="text-sm text-secondary flex-1">Booking software with an AI assistant, Google Calendar sync, and Gmail integration. Built by me.</p>
             <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ink group-hover:text-accent transition-colors shrink-0">
-              Find out more
+              Visit orlabooking.com
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
                 <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
