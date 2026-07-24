@@ -12,6 +12,7 @@ const VARIANTS = [
   { id: 'preview-2', name: 'Willow', style: 'Warm & personal', bg: '#FBF6EF', accent: '#C97B5A', text: '#3A322A' },
   { id: 'preview-3', name: 'Hartley', style: 'Minimal & professional', bg: '#FFFFFF', accent: '#D9B96C', text: '#1C2333' },
   { id: 'preview-4', name: 'Ochre', style: 'Image-led & gallery-style', bg: '#FAFAF8', accent: '#A8683D', text: '#1C1B19' },
+  { id: 'preview-5', name: 'Axium', style: 'Tech & interactive', bg: '#05060A', accent: '#22D3EE', text: '#FFFFFF' },
 ]
 
 type TextFieldDef = {

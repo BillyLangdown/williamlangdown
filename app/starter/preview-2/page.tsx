@@ -1,5 +1,11 @@
+'use client'
+
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import PhotoPlaceholder from '../PhotoPlaceholder'
+import Reveal, { staggerGrid, gridItem, EASE } from '../_shared/Reveal'
+import StatCounter from '../_shared/StatCounter'
+import FloatingPetals from './FloatingPetals'
 
 const offerings = [
   {
@@ -37,33 +43,51 @@ const offerings = [
   },
 ]
 
+const testimonials = [
+  { name: 'A regular customer', text: 'Every bunch feels like it was picked just for the person receiving it.' },
+  { name: 'A wedding client', text: 'They understood the mood we wanted before we could even explain it properly.' },
+  { name: 'A local shop owner', text: 'Same-day delivery has saved me more than once. Always beautifully arranged.' },
+]
+
+const heroContainer = { hidden: {}, visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } }
+const heroItem = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } } }
+
 export default function Preview2Home() {
   return (
     <>
       {/* Hero */}
-      <section className="px-6 pt-16 pb-24">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-14 md:gap-16 items-center">
-          <div className="flex-1 text-center md:text-left order-2 md:order-1">
-            <p className="text-sm mb-5" style={{ color: '#C97B5A' }}>Bristol&apos;s independent florist</p>
-            <h1
+      <section className="relative px-6 pt-16 pb-24 overflow-hidden">
+        <FloatingPetals />
+        <div className="relative max-w-5xl mx-auto flex flex-col md:flex-row gap-14 md:gap-16 items-center">
+          <motion.div variants={heroContainer} initial="hidden" animate="visible" className="flex-1 text-center md:text-left order-2 md:order-1">
+            <motion.p variants={heroItem} className="text-sm mb-5" style={{ color: '#C97B5A' }}>Bristol&apos;s independent florist</motion.p>
+            <motion.h1
+              variants={heroItem}
               style={{ fontFamily: 'var(--font-fraunces)', color: '#3A322A', fontWeight: 600 }}
               className="text-4xl md:text-5xl leading-[1.1] tracking-tight text-balance"
             >
               Flowers, done gently
-            </h1>
-            <p className="mt-7 text-base max-w-md mx-auto md:mx-0 leading-relaxed" style={{ color: '#8A7A65' }}>
+            </motion.h1>
+            <motion.p variants={heroItem} className="mt-7 text-base max-w-md mx-auto md:mx-0 leading-relaxed" style={{ color: '#8A7A65' }}>
               Seasonal, locally grown where we can, and arranged by hand for every occasion, big or small.
-            </p>
-            <Link
-              href="/starter/preview-2/contact"
-              className="inline-flex items-center gap-2 mt-9 px-7 py-3.5 text-sm font-medium rounded-full transition-opacity hover:opacity-90"
-              style={{ background: '#C97B5A', color: '#FFFFFF' }}
-            >
-              Get in touch
-            </Link>
-          </div>
+            </motion.p>
+            <motion.div variants={heroItem}>
+              <Link
+                href="/starter/preview-2/contact"
+                className="inline-flex items-center gap-2 mt-9 px-7 py-3.5 text-sm font-medium rounded-full transition-all hover:opacity-90 hover:scale-[1.03] active:scale-95"
+                style={{ background: '#C97B5A', color: '#FFFFFF' }}
+              >
+                Get in touch
+              </Link>
+            </motion.div>
+          </motion.div>
 
-          <div className="relative shrink-0 w-full max-w-sm mx-auto md:w-[26rem] md:max-w-none md:mx-0 order-1 md:order-2">
+          <motion.div
+            initial={{ opacity: 0, y: 30, rotate: -2 }}
+            animate={{ opacity: 1, y: 0, rotate: 0 }}
+            transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
+            className="relative shrink-0 w-full max-w-sm mx-auto md:w-[26rem] md:max-w-none md:mx-0 order-1 md:order-2"
+          >
             {/* Organic blob backdrop instead of a flat offset rectangle */}
             <svg
               className="absolute pointer-events-none"
@@ -79,17 +103,21 @@ export default function Preview2Home() {
               />
             </svg>
 
-            <PhotoPlaceholder
-              label="A tall photo of your work, shop, or flowers goes here"
-              src="/images/starter/willow-hero.jpg"
-              className="relative w-full aspect-[4/5] rounded-lg"
-              style={{ zIndex: 1 }}
-              darken={0.15}
-              overlayLabel="Your photo"
-            />
+            <div className="relative w-full aspect-[4/5] rounded-lg overflow-hidden group" style={{ zIndex: 1 }}>
+              <PhotoPlaceholder
+                label="A tall photo of your work, shop, or flowers goes here"
+                src="/images/starter/willow-hero.jpg"
+                className="w-full h-full transition-transform duration-700 group-hover:scale-105"
+                darken={0.15}
+                overlayLabel="Your photo"
+              />
+            </div>
 
             {/* Rotated stamp-style badge for a hand-made, personal touch */}
-            <div
+            <motion.div
+              initial={{ opacity: 0, scale: 0.6, rotate: -30 }}
+              animate={{ opacity: 1, scale: 1, rotate: -9 }}
+              transition={{ duration: 0.6, ease: EASE, delay: 0.7 }}
               className="absolute flex flex-col items-center justify-center text-center rounded-full"
               style={{
                 top: '-14px',
@@ -98,66 +126,101 @@ export default function Preview2Home() {
                 height: '92px',
                 background: '#FBF6EF',
                 border: '1px solid rgba(58,50,42,0.15)',
-                transform: 'rotate(-9deg)',
                 zIndex: 2,
                 boxShadow: '0 6px 16px rgba(58,50,42,0.12)',
               }}
             >
-              <span
-                style={{ fontFamily: 'var(--font-fraunces)', fontWeight: 600, color: '#3A322A' }}
-                className="text-[11px] leading-tight px-2"
-              >
+              <span style={{ fontFamily: 'var(--font-fraunces)', fontWeight: 600, color: '#3A322A' }} className="text-[11px] leading-tight px-2">
                 Bristol&apos;s own
               </span>
               <span className="text-[9px] tracking-widest uppercase mt-0.5" style={{ color: '#C97B5A' }}>
                 Est. 2021
               </span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
+      </section>
+
+      {/* Trust strip */}
+      <section className="px-6 py-4">
+        <motion.div
+          variants={staggerGrid}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.6 }}
+          className="max-w-3xl mx-auto grid grid-cols-3 divide-x"
+          style={{ borderColor: 'rgba(58,50,42,0.1)' }}
+        >
+          {[['3+', 'Years arranging'], ['500+', 'Bouquets a year'], ['40+', 'Weekly deliveries']].map(([num, label]) => (
+            <motion.div key={label} variants={gridItem}>
+              <StatCounter
+                value={num}
+                label={label}
+                numberColor="#C97B5A"
+                labelColor="#8A7A65"
+                numberClassName="text-3xl leading-none"
+                labelClassName="mt-2 text-xs uppercase tracking-widest"
+              />
+            </motion.div>
+          ))}
+        </motion.div>
       </section>
 
       {/* Offerings: deep contrast block so the page has a real beat, not more cream */}
       <section className="px-6 py-20" style={{ background: '#2F3B2C' }}>
-        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <motion.div
+          variants={staggerGrid}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6"
+        >
           {offerings.map(o => (
-            <div
+            <motion.div
               key={o.name}
-              className="flex flex-col items-center text-center px-6 py-8 rounded-lg"
+              variants={gridItem}
+              className="flex flex-col items-center text-center px-6 py-8 rounded-lg transition-colors duration-300 hover:bg-[rgba(251,246,239,0.1)]"
               style={{ background: 'rgba(251,246,239,0.06)', border: '1px solid rgba(251,246,239,0.12)' }}
             >
-              <div
-                className="w-11 h-11 flex items-center justify-center rounded-full mb-4"
-                style={{ background: 'rgba(201,123,90,0.18)', color: '#E3A785' }}
-              >
+              <div className="w-11 h-11 flex items-center justify-center rounded-full mb-4" style={{ background: 'rgba(201,123,90,0.18)', color: '#E3A785' }}>
                 {o.icon}
               </div>
               <h3 style={{ fontFamily: 'var(--font-fraunces)', color: '#FBF6EF', fontWeight: 600 }} className="text-xl mb-2">
                 {o.name}
               </h3>
               <p className="text-sm leading-relaxed" style={{ color: 'rgba(251,246,239,0.6)' }}>{o.desc}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
-      {/* Quote */}
+      {/* Testimonials */}
       <section className="px-6 py-24">
-        <div className="relative max-w-2xl mx-auto text-center pt-14">
-          <span
-            aria-hidden
-            style={{ fontFamily: 'var(--font-fraunces)', color: '#C97B5A', opacity: 0.35 }}
-            className="absolute top-0 left-1/2 -translate-x-1/2 text-[6rem] leading-none select-none"
+        <div className="max-w-5xl mx-auto">
+          <Reveal className="text-center mb-14">
+            <h2 style={{ fontFamily: 'var(--font-fraunces)', color: '#3A322A', fontWeight: 600 }} className="text-2xl md:text-3xl">
+              Kind words
+            </h2>
+          </Reveal>
+          <motion.div
+            variants={staggerGrid}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6"
           >
-            &ldquo;
-          </span>
-          <p
-            style={{ fontFamily: 'var(--font-fraunces)', color: '#3A322A', fontWeight: 600 }}
-            className="relative text-2xl md:text-3xl leading-snug"
-          >
-            Every bunch feels like it was picked just for the person receiving it.
-          </p>
-          <p className="relative mt-5 text-sm" style={{ color: '#8A7A65' }}>A regular customer</p>
+            {testimonials.map(t => (
+              <motion.div key={t.name} variants={gridItem} className="relative p-6 rounded-lg" style={{ background: '#F1E7D8' }}>
+                <span aria-hidden style={{ fontFamily: 'var(--font-fraunces)', color: '#C97B5A', opacity: 0.35 }} className="absolute -top-2 left-4 text-5xl leading-none select-none">
+                  &ldquo;
+                </span>
+                <p style={{ fontFamily: 'var(--font-fraunces)', color: '#3A322A' }} className="relative text-base leading-snug mt-4">
+                  {t.text}
+                </p>
+                <p className="relative mt-4 text-xs uppercase tracking-widest" style={{ color: '#8A7A65' }}>{t.name}</p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
@@ -171,18 +234,18 @@ export default function Preview2Home() {
           objectPosition="50% 30%"
           overlayPosition="corner"
         />
-        <div className="relative max-w-xl mx-auto text-center">
+        <Reveal className="relative max-w-xl mx-auto text-center">
           <h2 style={{ fontFamily: 'var(--font-fraunces)', color: '#FBF6EF', fontWeight: 600 }} className="text-3xl md:text-4xl">
             Order this week&apos;s bouquet
           </h2>
           <Link
             href="/starter/preview-2/contact"
-            className="inline-flex items-center gap-2 mt-8 px-7 py-3.5 text-sm font-medium rounded-full transition-opacity hover:opacity-90"
+            className="inline-flex items-center gap-2 mt-8 px-7 py-3.5 text-sm font-medium rounded-full transition-all hover:opacity-90 hover:scale-[1.03] active:scale-95"
             style={{ background: '#C97B5A', color: '#FFFFFF' }}
           >
             Get in touch
           </Link>
-        </div>
+        </Reveal>
       </section>
     </>
   )

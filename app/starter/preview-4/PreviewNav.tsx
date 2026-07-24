@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const navLinks = [
   { href: '/starter/preview-4', label: 'Work' },
@@ -11,9 +11,20 @@ const navLinks = [
 
 export default function PreviewNav() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="px-6 py-6">
+    <header
+      className="px-6 py-6 transition-shadow duration-300"
+      style={{ background: '#FAFAF8', boxShadow: scrolled ? '0 4px 20px rgba(28,27,25,0.05)' : 'none' }}
+    >
       <div className="max-w-5xl mx-auto flex items-center justify-between">
         <Link
           href="/starter/preview-4"
