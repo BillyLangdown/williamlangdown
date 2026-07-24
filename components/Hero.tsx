@@ -125,7 +125,7 @@ export default function Hero() {
           </div>
 
           <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4 text-center">
-            I build websites that turn visitors into customers
+           I build technology that helps businesses grow.
           </h1>
           <p className="text-sm leading-relaxed mb-8 text-center " style={{ color: '#0f172a' }}>
             Fast, beautiful and effective software solutions.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
