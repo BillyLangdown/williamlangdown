@@ -8,7 +8,7 @@ export default function Preview2About() {
         <Reveal className="order-2 md:order-1">
           <p className="text-sm mb-5" style={{ color: '#C97B5A' }}>Our story</p>
           <h1
-            style={{ fontFamily: 'var(--font-willow-sans)', color: '#3A322A', fontWeight: 600 }}
+            style={{ fontFamily: 'var(--font-willow-display)', color: '#3A322A' }}
             className="text-4xl md:text-5xl leading-tight tracking-tight"
           >
             Started on a kitchen table

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { willowTexture } from './texture'
 
 const navLinks = [
   { href: '/starter/preview-2', label: 'Home' },
@@ -23,12 +24,12 @@ export default function PreviewNav() {
   return (
     <header
       className="px-6 py-6 transition-shadow duration-300"
-      style={{ background: '#FBF6EF', boxShadow: scrolled ? '0 4px 20px rgba(58,50,42,0.06)' : 'none' }}
+      style={{ background: '#FBF6EF', ...willowTexture, boxShadow: scrolled ? '0 4px 20px rgba(58,50,42,0.06)' : 'none' }}
     >
       <div className="max-w-4xl mx-auto flex items-center justify-between">
         <Link
           href="/starter/preview-2"
-          style={{ fontFamily: 'var(--font-willow-sans)', fontWeight: 600 }}
+          style={{ fontFamily: 'var(--font-willow-display)' }}
           className="text-xl sm:text-2xl tracking-tight"
         >
           Willow &amp; Bloom

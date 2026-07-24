@@ -56,9 +56,14 @@ const heroItem = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, t
 export default function Preview2Home() {
   const offeringsRef = useRef<HTMLElement>(null)
   const { scrollYProgress: offeringsProgress } = useScroll({ target: offeringsRef, offset: ['start end', 'end start'] })
-  const blobAY = useTransform(offeringsProgress, [0, 1], ['-12%', '12%'])
-  const blobBY = useTransform(offeringsProgress, [0, 1], ['14%', '-14%'])
-  const blobRotate = useTransform(offeringsProgress, [0, 1], [0, 25])
+  // A slow-moving backdrop layer plus two faster blobs, moving at different
+  // rates as the section scrolls past, is what actually reads as "parallax"
+  // rather than just a floating decoration.
+  const patternY = useTransform(offeringsProgress, [0, 1], ['-8%', '8%'])
+  const blobAY = useTransform(offeringsProgress, [0, 1], ['-45%', '45%'])
+  const blobBY = useTransform(offeringsProgress, [0, 1], ['50%', '-50%'])
+  const blobRotate = useTransform(offeringsProgress, [0, 1], [0, 40])
+  const cardsY = useTransform(offeringsProgress, [0, 1], ['4%', '-4%'])
 
   return (
     <>
@@ -70,7 +75,7 @@ export default function Preview2Home() {
             <motion.p variants={heroItem} className="text-sm mb-5" style={{ color: '#C97B5A' }}>Bristol&apos;s independent florist</motion.p>
             <motion.h1
               variants={heroItem}
-              style={{ fontFamily: 'var(--font-willow-sans)', color: '#3A322A', fontWeight: 600 }}
+              style={{ fontFamily: 'var(--font-willow-display)', color: '#3A322A' }}
               className="text-4xl md:text-5xl leading-[1.1] tracking-tight text-balance"
             >
               Flowers, done gently
@@ -137,7 +142,7 @@ export default function Preview2Home() {
                 boxShadow: '0 6px 16px rgba(58,50,42,0.12)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-willow-sans)', fontWeight: 600, color: '#3A322A' }} className="text-[11px] leading-tight px-2">
+              <span style={{ fontFamily: 'var(--font-willow-display)', color: '#3A322A' }} className="text-[11px] leading-tight px-2">
                 Bristol&apos;s own
               </span>
               <span className="text-[9px] tracking-widest uppercase mt-0.5" style={{ color: '#C97B5A' }}>
@@ -175,8 +180,21 @@ export default function Preview2Home() {
 
       {/* Offerings: deep contrast block so the page has a real beat, not more cream */}
       <section ref={offeringsRef} className="relative px-6 py-20 overflow-hidden" style={{ background: '#2F3B2C' }}>
-        {/* Drifting glow blobs give the glass cards something to blur, and move at
-            different rates on scroll for a subtle parallax feel. */}
+        {/* Three layers moving at different scroll-linked speeds: a faint
+            floral backdrop (slowest), two glow blobs (fastest), and the
+            card grid itself (slight drift) — proper parallax depth rather
+            than one thing floating on top of a flat panel. */}
+        <motion.div
+          aria-hidden
+          className="absolute pointer-events-none"
+          style={{
+            inset: '-10% -10%',
+            backgroundImage: "url('/images/starter/willow-pattern-light.png')",
+            backgroundSize: '900px 900px',
+            backgroundRepeat: 'repeat',
+            y: patternY,
+          }}
+        />
         <motion.div
           aria-hidden
           className="absolute pointer-events-none rounded-full"
@@ -200,6 +218,7 @@ export default function Preview2Home() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
+          style={{ y: cardsY }}
           className="relative max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6"
         >
           {offerings.map(o => (
@@ -216,7 +235,7 @@ export default function Preview2Home() {
               <div className="w-11 h-11 flex items-center justify-center rounded-full mb-4" style={{ background: 'rgba(201,123,90,0.18)', color: '#E3A785' }}>
                 {o.icon}
               </div>
-              <h3 style={{ fontFamily: 'var(--font-willow-sans)', color: '#FBF6EF', fontWeight: 600 }} className="text-xl mb-2">
+              <h3 style={{ fontFamily: 'var(--font-willow-display)', color: '#FBF6EF' }} className="text-xl mb-2">
                 {o.name}
               </h3>
               <p className="text-sm leading-relaxed" style={{ color: 'rgba(251,246,239,0.6)' }}>{o.desc}</p>
@@ -229,7 +248,7 @@ export default function Preview2Home() {
       <section className="px-6 py-24">
         <div className="max-w-5xl mx-auto">
           <Reveal className="text-center mb-14">
-            <h2 style={{ fontFamily: 'var(--font-willow-sans)', color: '#3A322A', fontWeight: 600 }} className="text-2xl md:text-3xl">
+            <h2 style={{ fontFamily: 'var(--font-willow-display)', color: '#3A322A' }} className="text-2xl md:text-3xl">
               Kind words
             </h2>
           </Reveal>
@@ -242,10 +261,10 @@ export default function Preview2Home() {
           >
             {testimonials.map(t => (
               <motion.div key={t.name} variants={gridItem} className="relative p-6 rounded-lg" style={{ background: '#F1E7D8' }}>
-                <span aria-hidden style={{ fontFamily: 'var(--font-willow-sans)', color: '#C97B5A', opacity: 0.35 }} className="absolute -top-2 left-4 text-5xl leading-none select-none">
+                <span aria-hidden style={{ fontFamily: 'var(--font-willow-display)', color: '#C97B5A', opacity: 0.35 }} className="absolute -top-2 left-4 text-5xl leading-none select-none">
                   &ldquo;
                 </span>
-                <p style={{ fontFamily: 'var(--font-willow-sans)', color: '#3A322A' }} className="relative text-base leading-snug mt-4">
+                <p style={{ fontFamily: 'var(--font-willow-display)', color: '#3A322A' }} className="relative text-base leading-snug mt-4">
                   {t.text}
                 </p>
                 <p className="relative mt-4 text-xs uppercase tracking-widest" style={{ color: '#8A7A65' }}>{t.name}</p>
@@ -266,7 +285,7 @@ export default function Preview2Home() {
           overlayPosition="corner"
         />
         <Reveal className="relative max-w-xl mx-auto text-center">
-          <h2 style={{ fontFamily: 'var(--font-willow-sans)', color: '#FBF6EF', fontWeight: 600 }} className="text-3xl md:text-4xl">
+          <h2 style={{ fontFamily: 'var(--font-willow-display)', color: '#FBF6EF' }} className="text-3xl md:text-4xl">
             Order this week&apos;s bouquet
           </h2>
           <Link
