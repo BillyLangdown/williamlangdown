@@ -14,21 +14,21 @@ export default function Preview4Contact() {
             Enquire about a piece
           </h1>
         </Reveal>
-        <Reveal delay={0.1} className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 text-left">
-          <div>
-            <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#A8683D' }}>Studio</p>
+        <Reveal delay={0.1} className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-x-10 gap-y-10 text-left max-w-2xl mx-auto">
+          <div className="pt-6 border-t" style={{ borderColor: '#E5E2DC' }}>
+            <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#A8683D' }}>Studio</p>
             <p style={{ color: '#1C1B19' }}>Unit 4, Paintworks<br />Bristol, BS4 3EH</p>
           </div>
-          <div>
-            <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#A8683D' }}>Email</p>
+          <div className="pt-6 border-t" style={{ borderColor: '#E5E2DC' }}>
+            <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#A8683D' }}>Email</p>
             <p style={{ color: '#1C1B19' }}>hello@marenvoss.example<br />0117 000 0000</p>
           </div>
-          <div>
-            <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#A8683D' }}>Studio visits</p>
+          <div className="pt-6 border-t" style={{ borderColor: '#E5E2DC' }}>
+            <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#A8683D' }}>Studio visits</p>
             <p style={{ color: '#1C1B19' }}>By appointment<br />Bristol &amp; South West</p>
           </div>
         </Reveal>
-        <div className="flex justify-center">
+        <div className="mt-14 flex justify-center">
           <AskWilliamBanner />
         </div>
       </div>

@@ -11,21 +11,23 @@ export default function Preview1Contact() {
             Come train with us
           </h1>
         </Reveal>
-        <Reveal delay={0.1} className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-10 max-w-2xl">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-white/40 mb-2">Address</p>
+        <Reveal delay={0.1} className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-x-10 gap-y-10 max-w-3xl">
+          <div className="pt-6 border-t" style={{ borderColor: 'rgba(255,255,255,0.12)' }}>
+            <p className="text-xs font-bold uppercase tracking-widest text-white/40 mb-3">Address</p>
             <p className="text-white/70 leading-relaxed">Unit 4, Old Market Yard<br />Bristol, BS2 0JA</p>
           </div>
-          <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-white/40 mb-2">Get in touch</p>
+          <div className="pt-6 border-t" style={{ borderColor: 'rgba(255,255,255,0.12)' }}>
+            <p className="text-xs font-bold uppercase tracking-widest text-white/40 mb-3">Get in touch</p>
             <p className="text-white/70 leading-relaxed">hello@forgefitness.example<br />0117 000 0000</p>
           </div>
-          <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-white/40 mb-2">Opening hours</p>
+          <div className="pt-6 border-t" style={{ borderColor: 'rgba(255,255,255,0.12)' }}>
+            <p className="text-xs font-bold uppercase tracking-widest text-white/40 mb-3">Opening hours</p>
             <p className="text-white/70 leading-relaxed">Mon–Fri: 6am – 9pm<br />Weekends: 8am – 2pm</p>
           </div>
         </Reveal>
-        <AskWilliamBanner />
+        <div className="mt-14">
+          <AskWilliamBanner />
+        </div>
       </div>
     </section>
   )

@@ -28,7 +28,7 @@ export default function PreviewNav() {
       <div className="max-w-4xl mx-auto flex items-center justify-between">
         <Link
           href="/starter/preview-2"
-          style={{ fontFamily: 'var(--font-fraunces)', fontWeight: 600 }}
+          style={{ fontFamily: 'var(--font-willow-sans)', fontWeight: 600 }}
           className="text-xl sm:text-2xl tracking-tight"
         >
           Willow &amp; Bloom

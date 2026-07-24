@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import PhotoPlaceholder from '../PhotoPlaceholder'
 import Reveal, { staggerGrid, gridItem, EASE } from '../_shared/Reveal'
 import StatCounter from '../_shared/StatCounter'
@@ -53,6 +54,12 @@ const heroContainer = { hidden: {}, visible: { transition: { staggerChildren: 0.
 const heroItem = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } } }
 
 export default function Preview2Home() {
+  const offeringsRef = useRef<HTMLElement>(null)
+  const { scrollYProgress: offeringsProgress } = useScroll({ target: offeringsRef, offset: ['start end', 'end start'] })
+  const blobAY = useTransform(offeringsProgress, [0, 1], ['-12%', '12%'])
+  const blobBY = useTransform(offeringsProgress, [0, 1], ['14%', '-14%'])
+  const blobRotate = useTransform(offeringsProgress, [0, 1], [0, 25])
+
   return (
     <>
       {/* Hero */}
@@ -63,7 +70,7 @@ export default function Preview2Home() {
             <motion.p variants={heroItem} className="text-sm mb-5" style={{ color: '#C97B5A' }}>Bristol&apos;s independent florist</motion.p>
             <motion.h1
               variants={heroItem}
-              style={{ fontFamily: 'var(--font-fraunces)', color: '#3A322A', fontWeight: 600 }}
+              style={{ fontFamily: 'var(--font-willow-sans)', color: '#3A322A', fontWeight: 600 }}
               className="text-4xl md:text-5xl leading-[1.1] tracking-tight text-balance"
             >
               Flowers, done gently
@@ -130,7 +137,7 @@ export default function Preview2Home() {
                 boxShadow: '0 6px 16px rgba(58,50,42,0.12)',
               }}
             >
-              <span style={{ fontFamily: 'var(--font-fraunces)', fontWeight: 600, color: '#3A322A' }} className="text-[11px] leading-tight px-2">
+              <span style={{ fontFamily: 'var(--font-willow-sans)', fontWeight: 600, color: '#3A322A' }} className="text-[11px] leading-tight px-2">
                 Bristol&apos;s own
               </span>
               <span className="text-[9px] tracking-widest uppercase mt-0.5" style={{ color: '#C97B5A' }}>
@@ -167,25 +174,49 @@ export default function Preview2Home() {
       </section>
 
       {/* Offerings: deep contrast block so the page has a real beat, not more cream */}
-      <section className="px-6 py-20" style={{ background: '#2F3B2C' }}>
+      <section ref={offeringsRef} className="relative px-6 py-20 overflow-hidden" style={{ background: '#2F3B2C' }}>
+        {/* Drifting glow blobs give the glass cards something to blur, and move at
+            different rates on scroll for a subtle parallax feel. */}
+        <motion.div
+          aria-hidden
+          className="absolute pointer-events-none rounded-full"
+          style={{
+            top: '-10%', left: '-8%', width: '380px', height: '380px',
+            background: 'radial-gradient(circle, rgba(201,123,90,0.35), transparent 70%)',
+            filter: 'blur(40px)', y: blobAY, rotate: blobRotate,
+          }}
+        />
+        <motion.div
+          aria-hidden
+          className="absolute pointer-events-none rounded-full"
+          style={{
+            bottom: '-15%', right: '-6%', width: '420px', height: '420px',
+            background: 'radial-gradient(circle, rgba(227,167,133,0.28), transparent 70%)',
+            filter: 'blur(48px)', y: blobBY,
+          }}
+        />
         <motion.div
           variants={staggerGrid}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6"
+          className="relative max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6"
         >
           {offerings.map(o => (
             <motion.div
               key={o.name}
               variants={gridItem}
-              className="flex flex-col items-center text-center px-6 py-8 rounded-lg transition-colors duration-300 hover:bg-[rgba(251,246,239,0.1)]"
-              style={{ background: 'rgba(251,246,239,0.06)', border: '1px solid rgba(251,246,239,0.12)' }}
+              className="flex flex-col items-center text-center px-6 py-8 rounded-lg backdrop-blur-md transition-colors duration-300 hover:bg-[rgba(251,246,239,0.12)]"
+              style={{
+                background: 'rgba(251,246,239,0.08)',
+                border: '1px solid rgba(251,246,239,0.16)',
+                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), 0 12px 30px -12px rgba(0,0,0,0.35)',
+              }}
             >
               <div className="w-11 h-11 flex items-center justify-center rounded-full mb-4" style={{ background: 'rgba(201,123,90,0.18)', color: '#E3A785' }}>
                 {o.icon}
               </div>
-              <h3 style={{ fontFamily: 'var(--font-fraunces)', color: '#FBF6EF', fontWeight: 600 }} className="text-xl mb-2">
+              <h3 style={{ fontFamily: 'var(--font-willow-sans)', color: '#FBF6EF', fontWeight: 600 }} className="text-xl mb-2">
                 {o.name}
               </h3>
               <p className="text-sm leading-relaxed" style={{ color: 'rgba(251,246,239,0.6)' }}>{o.desc}</p>
@@ -198,7 +229,7 @@ export default function Preview2Home() {
       <section className="px-6 py-24">
         <div className="max-w-5xl mx-auto">
           <Reveal className="text-center mb-14">
-            <h2 style={{ fontFamily: 'var(--font-fraunces)', color: '#3A322A', fontWeight: 600 }} className="text-2xl md:text-3xl">
+            <h2 style={{ fontFamily: 'var(--font-willow-sans)', color: '#3A322A', fontWeight: 600 }} className="text-2xl md:text-3xl">
               Kind words
             </h2>
           </Reveal>
@@ -211,10 +242,10 @@ export default function Preview2Home() {
           >
             {testimonials.map(t => (
               <motion.div key={t.name} variants={gridItem} className="relative p-6 rounded-lg" style={{ background: '#F1E7D8' }}>
-                <span aria-hidden style={{ fontFamily: 'var(--font-fraunces)', color: '#C97B5A', opacity: 0.35 }} className="absolute -top-2 left-4 text-5xl leading-none select-none">
+                <span aria-hidden style={{ fontFamily: 'var(--font-willow-sans)', color: '#C97B5A', opacity: 0.35 }} className="absolute -top-2 left-4 text-5xl leading-none select-none">
                   &ldquo;
                 </span>
-                <p style={{ fontFamily: 'var(--font-fraunces)', color: '#3A322A' }} className="relative text-base leading-snug mt-4">
+                <p style={{ fontFamily: 'var(--font-willow-sans)', color: '#3A322A' }} className="relative text-base leading-snug mt-4">
                   {t.text}
                 </p>
                 <p className="relative mt-4 text-xs uppercase tracking-widest" style={{ color: '#8A7A65' }}>{t.name}</p>
@@ -235,7 +266,7 @@ export default function Preview2Home() {
           overlayPosition="corner"
         />
         <Reveal className="relative max-w-xl mx-auto text-center">
-          <h2 style={{ fontFamily: 'var(--font-fraunces)', color: '#FBF6EF', fontWeight: 600 }} className="text-3xl md:text-4xl">
+          <h2 style={{ fontFamily: 'var(--font-willow-sans)', color: '#FBF6EF', fontWeight: 600 }} className="text-3xl md:text-4xl">
             Order this week&apos;s bouquet
           </h2>
           <Link

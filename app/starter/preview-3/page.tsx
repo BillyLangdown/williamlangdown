@@ -68,25 +68,6 @@ export default function Preview3Home() {
         </div>
       </section>
 
-      {/* Services */}
-      <section className="px-6 py-20" style={{ background: '#F7F8FA' }}>
-        <motion.div
-          variants={staggerGrid}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-10"
-        >
-          {services.map(s => (
-            <motion.div key={s.name} variants={gridItem} className="group">
-              <div className="h-px mb-5 w-8 transition-all duration-500 ease-out group-hover:w-14" style={{ background: '#D9B96C' }} />
-              <h3 className="text-base font-semibold mb-2" style={{ color: '#1C2333' }}>{s.name}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: '#5B6478' }}>{s.desc}</p>
-            </motion.div>
-          ))}
-        </motion.div>
-      </section>
-
       {/* Trust strip */}
       <section className="px-6 py-16 border-b" style={{ borderColor: '#E7E9EE' }}>
         <motion.div
@@ -114,6 +95,25 @@ export default function Preview3Home() {
                   labelClassName="mt-1 text-xs uppercase tracking-widest"
                 />
               )}
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* Services */}
+      <section className="px-6 py-20" style={{ background: '#F7F8FA' }}>
+        <motion.div
+          variants={staggerGrid}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-10"
+        >
+          {services.map(s => (
+            <motion.div key={s.name} variants={gridItem} className="group">
+              <div className="h-px mb-5 w-8 transition-all duration-500 ease-out group-hover:w-14" style={{ background: '#D9B96C' }} />
+              <h3 className="text-base font-semibold mb-2" style={{ color: '#1C2333' }}>{s.name}</h3>
+              <p className="text-sm leading-relaxed" style={{ color: '#5B6478' }}>{s.desc}</p>
             </motion.div>
           ))}
         </motion.div>

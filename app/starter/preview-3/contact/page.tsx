@@ -11,21 +11,23 @@ export default function Preview3Contact() {
             Arrange a conversation
           </h1>
         </Reveal>
-        <Reveal delay={0.1} className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-10">
-          <div>
-            <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#D9B96C' }}>Office</p>
+        <Reveal delay={0.1} className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-x-10 gap-y-10">
+          <div className="pt-6 border-t" style={{ borderColor: '#E7E9EE' }}>
+            <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#D9B96C' }}>Office</p>
             <p style={{ color: '#1C2333' }}>32 Queen Square<br />Bristol, BS1 4ND</p>
           </div>
-          <div>
-            <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#D9B96C' }}>Contact</p>
+          <div className="pt-6 border-t" style={{ borderColor: '#E7E9EE' }}>
+            <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#D9B96C' }}>Contact</p>
             <p style={{ color: '#1C2333' }}>enquiries@hartleyco.example<br />0117 000 0000</p>
           </div>
-          <div>
-            <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#D9B96C' }}>Hours</p>
+          <div className="pt-6 border-t" style={{ borderColor: '#E7E9EE' }}>
+            <p className="text-xs uppercase tracking-widest mb-3" style={{ color: '#D9B96C' }}>Hours</p>
             <p style={{ color: '#1C2333' }}>Mon–Fri: 9am – 5:30pm<br />By appointment</p>
           </div>
         </Reveal>
-        <AskWilliamBanner />
+        <div className="mt-14">
+          <AskWilliamBanner />
+        </div>
       </div>
     </section>
   )

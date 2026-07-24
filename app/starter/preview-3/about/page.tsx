@@ -1,28 +1,39 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import PhotoPlaceholder from '../../PhotoPlaceholder'
 import Reveal, { staggerGrid, gridItem } from '../../_shared/Reveal'
 
 export default function Preview3About() {
   return (
     <section className="px-6 py-24">
-      <div className="max-w-3xl mx-auto">
-        <Reveal>
-          <p className="text-xs uppercase tracking-[0.2em] mb-6" style={{ color: '#D9B96C' }}>About</p>
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight leading-tight" style={{ color: '#1C2333' }}>
-            Independent advice, since 2008
-          </h1>
-        </Reveal>
-        <Reveal delay={0.1} className="mt-9 flex flex-col gap-5 leading-relaxed" style={{ color: '#5B6478' }}>
-          <p>
-            Hartley &amp; Co was founded on a simple idea: clients deserve advice that considers their
-            whole situation, not a product someone&apos;s being incentivised to sell.
-          </p>
-          <p>
-            We keep our client list deliberately small so that every recommendation gets the attention it
-            needs. If we don&apos;t think we&apos;re the right fit for you, we&apos;ll say so.
-          </p>
-        </Reveal>
+      <div className="max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <Reveal className="order-2 md:order-1">
+            <p className="text-xs uppercase tracking-[0.2em] mb-6" style={{ color: '#D9B96C' }}>About</p>
+            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight leading-tight" style={{ color: '#1C2333' }}>
+              Independent advice, since 2008
+            </h1>
+            <div className="mt-9 flex flex-col gap-5 leading-relaxed" style={{ color: '#5B6478' }}>
+              <p>
+                Hartley &amp; Co was founded on a simple idea: clients deserve advice that considers their
+                whole situation, not a product someone&apos;s being incentivised to sell.
+              </p>
+              <p>
+                We keep our client list deliberately small so that every recommendation gets the attention it
+                needs. If we don&apos;t think we&apos;re the right fit for you, we&apos;ll say so.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={0.15} className="order-1 md:order-2">
+            <PhotoPlaceholder
+              label="A photo of the office or advisor goes here"
+              className="w-full aspect-[4/5]"
+              style={{ borderColor: '#D8DCE4' }}
+              iconColor="#5B6478"
+            />
+          </Reveal>
+        </div>
 
         <motion.div
           variants={staggerGrid}

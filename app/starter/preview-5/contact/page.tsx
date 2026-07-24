@@ -11,21 +11,23 @@ export default function Preview5Contact() {
             Talk to the team
           </h1>
         </Reveal>
-        <Reveal delay={0.1} className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-10 max-w-2xl">
-          <div>
-            <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-2">Sales</p>
+        <Reveal delay={0.1} className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-x-10 gap-y-10">
+          <div className="pt-6 border-t" style={{ borderColor: 'rgba(148,163,255,0.14)' }}>
+            <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-3">Sales</p>
             <p className="text-slate-300 leading-relaxed">hello@axium.example<br />Mon–Fri, 9am–6pm</p>
           </div>
-          <div>
-            <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-2">Support</p>
+          <div className="pt-6 border-t" style={{ borderColor: 'rgba(148,163,255,0.14)' }}>
+            <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-3">Support</p>
             <p className="text-slate-300 leading-relaxed">support@axium.example<br />24/7, under 15 min response</p>
           </div>
-          <div>
-            <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-2">Status</p>
+          <div className="pt-6 border-t" style={{ borderColor: 'rgba(148,163,255,0.14)' }}>
+            <p className="text-xs font-mono uppercase tracking-widest text-slate-500 mb-3">Status</p>
             <p className="text-slate-300 leading-relaxed">status.axium.example<br />Live incident history</p>
           </div>
         </Reveal>
-        <AskWilliamBanner />
+        <div className="mt-14">
+          <AskWilliamBanner />
+        </div>
       </div>
     </section>
   )
