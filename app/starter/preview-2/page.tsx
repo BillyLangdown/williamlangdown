@@ -6,7 +6,6 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import PhotoPlaceholder from '../PhotoPlaceholder'
 import Reveal, { staggerGrid, gridItem, EASE } from '../_shared/Reveal'
 import StatCounter from '../_shared/StatCounter'
-import FloatingPetals from './FloatingPetals'
 
 const offerings = [
   {
@@ -56,10 +55,6 @@ const heroItem = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, t
 export default function Preview2Home() {
   const offeringsRef = useRef<HTMLElement>(null)
   const { scrollYProgress: offeringsProgress } = useScroll({ target: offeringsRef, offset: ['start end', 'end start'] })
-  // A slow-moving backdrop layer plus two faster blobs, moving at different
-  // rates as the section scrolls past, is what actually reads as "parallax"
-  // rather than just a floating decoration.
-  const patternY = useTransform(offeringsProgress, [0, 1], ['-8%', '8%'])
   const blobAY = useTransform(offeringsProgress, [0, 1], ['-45%', '45%'])
   const blobBY = useTransform(offeringsProgress, [0, 1], ['50%', '-50%'])
   const blobRotate = useTransform(offeringsProgress, [0, 1], [0, 40])
@@ -67,88 +62,70 @@ export default function Preview2Home() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative px-6 pt-16 pb-24 overflow-hidden">
-        <FloatingPetals />
+      {/* Hero — the one place the botanical pattern appears, faded into the
+          cream toward the bottom edge so it reads as a wallpapered nook
+          rather than a wallpapered page. */}
+      <section className="relative px-6 pt-16 pb-24 overflow-hidden" style={{ background: '#FAF7F1' }}>
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "url('/images/starter/willow-hero-pattern.jpg')",
+            backgroundSize: '640px 620px',
+            backgroundRepeat: 'repeat',
+            mixBlendMode: 'multiply',
+            opacity: 0.55,
+            maskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
+          }}
+        />
+
         <div className="relative max-w-5xl mx-auto flex flex-col md:flex-row gap-14 md:gap-16 items-center">
           <motion.div variants={heroContainer} initial="hidden" animate="visible" className="flex-1 text-center md:text-left order-2 md:order-1">
-            <motion.p variants={heroItem} className="text-sm mb-5" style={{ color: '#C97B5A' }}>Bristol&apos;s independent florist</motion.p>
+            <motion.p variants={heroItem} className="text-xs uppercase tracking-[0.25em] mb-6" style={{ color: '#8A7A65' }}>
+              Independent florist · Bristol
+            </motion.p>
             <motion.h1
               variants={heroItem}
-              style={{ fontFamily: 'var(--font-willow-display)', color: '#3A322A' }}
-              className="text-4xl md:text-5xl leading-[1.1] tracking-tight text-balance"
+              style={{ fontFamily: 'var(--font-willow-display)', color: '#263126' }}
+              className="text-5xl md:text-6xl leading-[1.05] tracking-tight text-balance"
             >
-              Flowers, done gently
+              Flowers made
+              <br />
+              for moments
             </motion.h1>
-            <motion.p variants={heroItem} className="mt-7 text-base max-w-md mx-auto md:mx-0 leading-relaxed" style={{ color: '#8A7A65' }}>
-              Seasonal, locally grown where we can, and arranged by hand for every occasion, big or small.
+            <motion.p variants={heroItem} className="mt-7 text-base max-w-md mx-auto md:mx-0 leading-relaxed" style={{ color: '#716858' }}>
+              Seasonal bouquets, wedding flowers and thoughtful gifts, arranged by hand with care.
             </motion.p>
             <motion.div variants={heroItem}>
               <Link
                 href="/starter/preview-2/contact"
-                className="inline-flex items-center gap-2 mt-9 px-7 py-3.5 text-sm font-medium rounded-full transition-all hover:opacity-90 hover:scale-[1.03] active:scale-95"
-                style={{ background: '#C97B5A', color: '#FFFFFF' }}
+                className="inline-flex items-center gap-2 mt-9 px-8 py-4 text-sm font-medium rounded-full transition-all hover:opacity-90 hover:scale-[1.03] active:scale-95"
+                style={{ background: '#536B4F', color: '#FFFFFF' }}
               >
-                Get in touch
+                Explore bouquets
               </Link>
             </motion.div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30, rotate: -2 }}
-            animate={{ opacity: 1, y: 0, rotate: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: EASE, delay: 0.2 }}
-            className="relative shrink-0 w-full max-w-sm mx-auto md:w-[26rem] md:max-w-none md:mx-0 order-1 md:order-2"
+            className="relative shrink-0 w-full max-w-sm mx-auto md:w-[26rem] md:max-w-none order-1 md:order-2"
           >
-            {/* Organic blob backdrop instead of a flat offset rectangle */}
-            <svg
-              className="absolute pointer-events-none"
-              style={{ top: '-8%', left: '-10%', width: '120%', height: '120%', zIndex: 0 }}
-              viewBox="0 0 200 200"
-              preserveAspectRatio="none"
+            <div
+              className="relative w-full aspect-[4/5] rounded-sm overflow-hidden group"
+              style={{ boxShadow: '0 30px 60px -20px rgba(38,49,38,0.25)' }}
             >
-              <path
-                fill="#C97B5A"
-                opacity="0.22"
-                d="M45.8,-58.3C58.7,-49.6,67.9,-34.5,71.4,-18.1C74.9,-1.7,72.7,16,64.5,30.4C56.3,44.8,42.1,55.9,26.2,62.3C10.3,68.7,-7.3,70.4,-23.4,65.7C-39.5,61,-54.1,49.9,-62.6,35.1C-71.1,20.3,-73.5,1.8,-69.6,-14.6C-65.7,-31,-55.5,-45.3,-42.1,-54.1C-28.7,-62.9,-14.3,-66.2,1.6,-68.4C17.6,-70.6,33,-67,45.8,-58.3Z"
-                transform="translate(100 100)"
-              />
-            </svg>
-
-            <div className="relative w-full aspect-[4/5] rounded-lg overflow-hidden group" style={{ zIndex: 1 }}>
               <PhotoPlaceholder
                 label="A tall photo of your work, shop, or flowers goes here"
                 src="/images/starter/willow-hero.jpg"
                 className="w-full h-full transition-transform duration-700 group-hover:scale-105"
-                darken={0.15}
+                darken={0.08}
                 overlayLabel="Your photo"
               />
             </div>
-
-            {/* Rotated stamp-style badge for a hand-made, personal touch */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.6, rotate: -30 }}
-              animate={{ opacity: 1, scale: 1, rotate: -9 }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.7 }}
-              className="absolute flex flex-col items-center justify-center text-center rounded-full"
-              style={{
-                top: '-14px',
-                left: '-18px',
-                width: '92px',
-                height: '92px',
-                background: '#FBF6EF',
-                border: '1px solid rgba(58,50,42,0.15)',
-                zIndex: 2,
-                boxShadow: '0 6px 16px rgba(58,50,42,0.12)',
-              }}
-            >
-              <span style={{ fontFamily: 'var(--font-willow-display)', color: '#3A322A' }} className="text-[11px] leading-tight px-2">
-                Bristol&apos;s own
-              </span>
-              <span className="text-[9px] tracking-widest uppercase mt-0.5" style={{ color: '#C97B5A' }}>
-                Est. 2021
-              </span>
-            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -180,21 +157,6 @@ export default function Preview2Home() {
 
       {/* Offerings: deep contrast block so the page has a real beat, not more cream */}
       <section ref={offeringsRef} className="relative px-6 py-20 overflow-hidden" style={{ background: '#2F3B2C' }}>
-        {/* Three layers moving at different scroll-linked speeds: a faint
-            floral backdrop (slowest), two glow blobs (fastest), and the
-            card grid itself (slight drift) — proper parallax depth rather
-            than one thing floating on top of a flat panel. */}
-        <motion.div
-          aria-hidden
-          className="absolute pointer-events-none"
-          style={{
-            inset: '-10% -10%',
-            backgroundImage: "url('/images/starter/willow-pattern-light.png')",
-            backgroundSize: '900px 900px',
-            backgroundRepeat: 'repeat',
-            y: patternY,
-          }}
-        />
         <motion.div
           aria-hidden
           className="absolute pointer-events-none rounded-full"
@@ -248,7 +210,7 @@ export default function Preview2Home() {
       <section className="px-6 py-24">
         <div className="max-w-5xl mx-auto">
           <Reveal className="text-center mb-14">
-            <h2 style={{ fontFamily: 'var(--font-willow-display)', color: '#3A322A' }} className="text-2xl md:text-3xl">
+            <h2 style={{ fontFamily: 'var(--font-willow-display)', color: '#263126' }} className="text-2xl md:text-3xl">
               Kind words
             </h2>
           </Reveal>
@@ -291,7 +253,7 @@ export default function Preview2Home() {
           <Link
             href="/starter/preview-2/contact"
             className="inline-flex items-center gap-2 mt-8 px-7 py-3.5 text-sm font-medium rounded-full transition-all hover:opacity-90 hover:scale-[1.03] active:scale-95"
-            style={{ background: '#C97B5A', color: '#FFFFFF' }}
+            style={{ background: '#536B4F', color: '#FFFFFF' }}
           >
             Get in touch
           </Link>
