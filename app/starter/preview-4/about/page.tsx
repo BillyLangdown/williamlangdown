@@ -1,10 +1,11 @@
 import PhotoPlaceholder from '../../PhotoPlaceholder'
+import Reveal from '../../_shared/Reveal'
 
 export default function Preview4About() {
   return (
     <section className="px-6 py-20">
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div className="order-2 md:order-1">
+        <Reveal className="order-2 md:order-1">
           <p className="text-xs uppercase tracking-[0.2em] mb-5" style={{ color: '#A8683D' }}>About</p>
           <h1
             style={{ fontFamily: 'var(--font-cormorant)', color: '#1C1B19' }}
@@ -22,15 +23,15 @@ export default function Preview4About() {
               originals available. Enquire for current availability and pricing.
             </p>
           </div>
-        </div>
-        <div className="order-1 md:order-2">
+        </Reveal>
+        <Reveal delay={0.15} className="order-1 md:order-2">
           <PhotoPlaceholder
             label="A photo of the artist or studio goes here"
             className="w-full aspect-[4/5]"
             style={{ borderColor: '#D9D2C7' }}
             iconColor="#A8683D"
           />
-        </div>
+        </Reveal>
       </div>
     </section>
   )

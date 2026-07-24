@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const navLinks = [
   { href: '/starter/preview-2', label: 'Home' },
@@ -11,13 +11,24 @@ const navLinks = [
 
 export default function PreviewNav() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="px-6 py-6">
+    <header
+      className="px-6 py-6 transition-shadow duration-300"
+      style={{ background: '#FBF6EF', boxShadow: scrolled ? '0 4px 20px rgba(58,50,42,0.06)' : 'none' }}
+    >
       <div className="max-w-4xl mx-auto flex items-center justify-between">
         <Link
           href="/starter/preview-2"
-          style={{ fontFamily: 'var(--font-fraunces)', fontWeight: 600 }}
+          style={{ fontFamily: 'var(--font-willow-display)' }}
           className="text-xl sm:text-2xl tracking-tight"
         >
           Willow &amp; Bloom

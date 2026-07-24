@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const navLinks = [
   { href: '/starter/preview-3', label: 'Home' },
@@ -11,10 +11,24 @@ const navLinks = [
 
 export default function PreviewNav() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="border-b" style={{ borderColor: '#E7E9EE' }}>
-      <div className="max-w-4xl mx-auto px-6 h-24 flex items-center justify-between">
+    <header
+      className="border-b bg-white transition-all duration-300"
+      style={{ borderColor: '#E7E9EE', boxShadow: scrolled ? '0 1px 0 rgba(28,35,51,0.04), 0 8px 24px rgba(28,35,51,0.04)' : 'none' }}
+    >
+      <div
+        className="max-w-4xl mx-auto px-6 flex items-center justify-between transition-all duration-300"
+        style={{ height: scrolled ? '68px' : '96px' }}
+      >
         <Link href="/starter/preview-3" className="text-base font-semibold tracking-tight" style={{ color: '#1C2333' }}>
           Hartley &amp; Co
         </Link>
@@ -25,10 +39,14 @@ export default function PreviewNav() {
             <Link
               key={l.href}
               href={l.href}
-              className="text-xs uppercase tracking-[0.15em] hover:opacity-60 transition-opacity"
+              className="group relative text-xs uppercase tracking-[0.15em] transition-colors"
               style={{ color: '#5B6478' }}
             >
               {l.label}
+              <span
+                className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"
+                style={{ background: '#D9B96C' }}
+              />
             </Link>
           ))}
         </nav>
