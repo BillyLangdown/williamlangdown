@@ -97,14 +97,14 @@ export default function StarterPage() {
           <div className="max-w-4xl mx-auto text-center">
             <ScrollReveal>
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6" style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}>
-                Fast & straightforward
+                £495 · Live in about a week
               </p>
-              <h1 className="text-4xl md:text-6xl font-heading font-bold leading-[1.05] tracking-tight text-ink">
-                A great-looking website, live in a week, for £495
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold leading-[1.1] md:leading-[1.05] tracking-tight text-ink text-balance">
+                A great website, live in a week
               </h1>
-              <p className="mt-5 text-base text-secondary max-w-lg mx-auto leading-relaxed">
-                Not every business needs a big custom build. If you just need three clean pages online
-                fast, this is that. Pick a design, send your content, and see it live before you pay a penny.
+              <p className="mt-5 text-base text-secondary max-w-md mx-auto leading-relaxed">
+                Not every business needs a big custom build, just three clean pages, done properly.
+                Pick a design, send your content, and see it live before you pay a penny.
               </p>
               <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
@@ -183,7 +183,7 @@ export default function StarterPage() {
             </ScrollReveal>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {[
-                { name: 'Extra page', price: '+£75', desc: 'A services page, FAQ, or gallery beyond the standard three.' },
+                { name: 'Extra page', price: '+£75 each', desc: 'A services page, FAQ, or gallery beyond the standard three. Up to two extra pages.' },
                 { name: 'Contact form upgrade', price: '+£45', desc: 'A form that emails you directly, instead of a simple mailto link.' },
                 { name: 'Booking system', price: "Let's talk", desc: 'Connect your site to Orla, my own booking software, so customers can book straight from your homepage.' },
               ].map((addon) => (
@@ -196,6 +196,30 @@ export default function StarterPage() {
                 </ScrollReveal>
               ))}
             </div>
+
+            <ScrollReveal delay={160} className="mt-6">
+              <div className="rounded-sm px-6 py-7 sm:px-8 sm:py-8 flex flex-col sm:flex-row sm:items-center gap-6" style={{ background: '#080e1c' }}>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-white mb-2">Need more than that?</p>
+                  <p className="text-sm text-white/60 leading-relaxed">
+                    More pages isn&apos;t the same as a better site. Design &amp; Build gets you a design built
+                    around your business instead of a template, a discovery call before anything&apos;s built,
+                    real code (bookings, e-commerce, logins, no page-builder limits), your own CMS so you can
+                    edit it yourself, and two rounds of refinement before it goes live.
+                  </p>
+                </div>
+                <Link
+                  href="/services"
+                  className="inline-flex items-center justify-center gap-2 text-white text-sm px-6 py-3.5 rounded-sm font-medium transition-opacity hover:opacity-90 shrink-0"
+                  style={{ background: '#2563EB' }}
+                >
+                  See Design &amp; Build
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 
