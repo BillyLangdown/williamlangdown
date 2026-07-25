@@ -183,8 +183,8 @@ export default function StarterPage() {
             </ScrollReveal>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {[
-                { name: 'Extra page', price: '+£75 each', desc: 'A services page, FAQ, or gallery beyond the standard three. Up to two extra pages.' },
-                { name: 'Contact form upgrade', price: '+£45', desc: 'A form that emails you directly, instead of a simple mailto link.' },
+                { name: 'Extra page', price: '+£75 each', desc: "A page in the same layout as your About page: a heading, photos, and text. Up to two. Doesn't include new layouts like pricing tables or galleries, that needs a custom build." },
+                { name: 'Contact form upgrade', price: '+£45', desc: "A form that emails you directly, instead of a simple mailto link. Runs on Resend, you'll need a free account, I'll help you set it up." },
                 { name: 'Booking system', price: "Let's talk", desc: 'Connect your site to Orla, my own booking software, so customers can book straight from your homepage.' },
               ].map((addon) => (
                 <ScrollReveal key={addon.name} delay={80}>
