@@ -97,14 +97,14 @@ export default function StarterPage() {
           <div className="max-w-4xl mx-auto text-center">
             <ScrollReveal>
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6" style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}>
-                Cheap and cheerful
+                Fast & straightforward
               </p>
               <h1 className="text-4xl md:text-6xl font-heading font-bold leading-[1.05] tracking-tight text-ink">
-                A simple website, for £495
+                A great-looking website, live in a week, for £495
               </h1>
               <p className="mt-5 text-base text-secondary max-w-lg mx-auto leading-relaxed">
                 Not every business needs a big custom build. If you just need three clean pages online
-                fast, this is that. Pick a design, send your content, done.
+                fast, this is that. Pick a design, send your content, and see it live before you pay a penny.
               </p>
               <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
@@ -155,11 +155,13 @@ export default function StarterPage() {
             <ScrollReveal delay={100}>
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-ink mb-6">Not included</h2>
               <p className="text-sm text-secondary leading-relaxed mb-4">
-                This is deliberately simple, that&apos;s what keeps the price down. Need more? Just ask, or see{' '}
+                This is deliberately simple, that&apos;s what keeps the price down. A few of these are available as{' '}
+                <a href="#addons" className="text-accent underline underline-offset-2 hover:text-accent/80">add-ons</a>,
+                for anything else see{' '}
                 <Link href="/services" className="text-accent underline underline-offset-2 hover:text-accent/80">Design &amp; Build</Link>.
               </p>
               <ul className="flex flex-col gap-3">
-                {['Contact forms or booking systems (extra charge)', 'A content management system', 'Custom design beyond the 5 templates', 'Blog, shop, or extra pages'].map(item => (
+                {['A content management system', 'Custom design beyond the 5 templates', 'Full online shop or member accounts'].map(item => (
                   <li key={item} className="flex items-start gap-3">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-0.5 shrink-0 text-tertiary">
                       <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -169,6 +171,31 @@ export default function StarterPage() {
                 ))}
               </ul>
             </ScrollReveal>
+          </div>
+        </section>
+
+        {/* Add-ons */}
+        <section id="addons" className="px-6 py-20">
+          <div className="max-w-4xl mx-auto">
+            <ScrollReveal className="mb-10 pl-4 border-l-4 border-accent">
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-ink">Want a bit more?</h2>
+              <p className="text-sm text-secondary mt-1">Add these on top of the £495 base, no need to jump to a full custom build.</p>
+            </ScrollReveal>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              {[
+                { name: 'Extra page', price: '+£75', desc: 'A services page, FAQ, or gallery beyond the standard three.' },
+                { name: 'Contact form upgrade', price: '+£45', desc: 'A form that emails you directly, instead of a simple mailto link.' },
+                { name: 'Booking system', price: "Let's talk", desc: 'Connect your site to Orla, my own booking software, so customers can book straight from your homepage.' },
+              ].map((addon) => (
+                <ScrollReveal key={addon.name} delay={80}>
+                  <div className="h-full rounded-sm border border-border-light p-6 bg-white">
+                    <p className="text-sm font-semibold text-ink mb-1">{addon.name}</p>
+                    <p className="text-sm font-medium text-accent mb-3">{addon.price}</p>
+                    <p className="text-sm text-secondary leading-relaxed">{addon.desc}</p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -227,7 +254,7 @@ export default function StarterPage() {
               <h2 className="text-3xl md:text-5xl font-heading font-bold leading-tight tracking-tight text-white mb-4">
                 Pick a design, send your content, get online
               </h2>
-              <p className="text-white/40 text-sm leading-relaxed mb-8">£495. Live in about a week. No contract.</p>
+              <p className="text-white/40 text-sm leading-relaxed mb-8">£495. Live in about a week. See it live before you pay. No contract, no deposit.</p>
               <Link
                 href="/starter/order"
                 className="inline-flex items-center justify-center gap-2 bg-white text-ink text-sm px-7 py-3.5 rounded-sm hover:bg-white/90 transition-colors font-medium"

@@ -26,7 +26,7 @@ const leadServices = [
     tag: 'Fast & affordable',
     price: 'From £495',
     description:
-      "Pick one of four polished designs, add your content and colours, live in about a week. The easy way to get online and get found.",
+      "Pick one of five polished designs, add your content and colours, live in about a week. See it live before you pay a penny.",
     cta: 'See the Starter package',
     href: '/starter',
     icon: (

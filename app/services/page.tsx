@@ -211,13 +211,13 @@ export default function ServicesPage() {
                 >
                   <div className="flex-1">
                     <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4 bg-white/10 text-white">
-                      Cheap and cheerful
+                      Fast & straightforward
                     </p>
                     <h2 className="text-2xl md:text-3xl font-heading font-bold text-white mb-3">
                       Just need something simple? £495 starter sites.
                     </h2>
                     <p className="text-sm text-white/60 leading-relaxed max-w-lg">
-                      Three pages: home, about, contact. Pick one of four ready-made designs, send your content, live in about a week.
+                      Three pages: home, about, contact. Pick one of five ready-made designs, send your content, and see it live before you pay.
                     </p>
                   </div>
                   <Link
