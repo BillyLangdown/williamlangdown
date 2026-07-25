@@ -102,9 +102,8 @@ export default function StarterPage() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold leading-[1.1] md:leading-[1.05] tracking-tight text-ink text-balance">
                 A great website, live in a week
               </h1>
-              <p className="mt-5 text-base text-secondary max-w-md mx-auto leading-relaxed">
-                Not every business needs a big custom build, just three clean pages, done properly.
-                Pick a design, send your content, and see it live before you pay a penny.
+              <p className="mt-5 text-base text-secondary max-w-md md:max-w-2xl mx-auto leading-relaxed whitespace-normal md:whitespace-nowrap">
+                Pick a design, add your content, and see it live before you pay a penny.
               </p>
               <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
@@ -119,6 +118,53 @@ export default function StarterPage() {
                 <a href="#designs" className="text-sm font-medium text-secondary hover:text-ink transition-colors">
                   See the five designs ↓
                 </a>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="px-6 py-20 bg-subtle">
+          <div className="max-w-5xl mx-auto">
+            <ScrollReveal className="mb-12 pl-4 border-l-4 border-accent">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">How it works</h2>
+            </ScrollReveal>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {steps.map(([num, title, body], i) => (
+                <ScrollReveal key={num} delay={i * 80}>
+                  <p className="text-xs font-semibold text-accent mb-3">{num}</p>
+                  <h3 className="text-base font-semibold text-ink mb-2">{title}</h3>
+                  <p className="text-sm text-secondary leading-relaxed">{body}</p>
+                </ScrollReveal>
+              ))}
+            </div>
+
+            <ScrollReveal delay={320} className="mt-14">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 rounded-sm border border-border-light bg-white/80 px-6 py-5 sm:px-8 sm:py-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0 bg-accent/10 text-accent">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                      <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
+                      <path d="M2.5 10h15M10 2.5c2 2.2 3 5 3 7.5s-1 5.3-3 7.5c-2-2.2-3-5-3-7.5s1-5.3 3-7.5z" stroke="currentColor" strokeWidth="1.5" />
+                    </svg>
+                  </div>
+                  <p className="text-sm font-semibold text-ink sm:hidden">You&apos;ll need your own domain</p>
+                </div>
+                <div className="flex-1">
+                  <p className="hidden sm:block text-sm font-semibold text-ink">You&apos;ll need your own domain</p>
+                  <p className="text-sm text-secondary leading-relaxed sm:mt-0.5">
+                    Your web address, like yourbusiness.com. Don&apos;t have one? Here&apos;s a simple guide.
+                  </p>
+                </div>
+                <Link
+                  href="/domain-setup"
+                  className="self-start sm:self-auto inline-flex items-center justify-center gap-2 text-sm font-medium text-ink border border-border-light rounded-sm px-5 py-2.5 shrink-0 transition-colors hover:border-accent/50 hover:text-accent"
+                >
+                  Domain guide
+                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
               </div>
             </ScrollReveal>
           </div>
@@ -161,7 +207,7 @@ export default function StarterPage() {
                 <Link href="/services" className="text-accent underline underline-offset-2 hover:text-accent/80">Design &amp; Build</Link>.
               </p>
               <ul className="flex flex-col gap-3">
-                {['A content management system', 'Custom design beyond the 5 templates', 'Full online shop or member accounts'].map(item => (
+                {["Editing the site yourself after it's live", 'Custom design beyond the 5 templates', 'Full online shop or member accounts'].map(item => (
                   <li key={item} className="flex items-start gap-3">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-0.5 shrink-0 text-tertiary">
                       <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -177,36 +223,32 @@ export default function StarterPage() {
         {/* Add-ons */}
         <section id="addons" className="px-6 py-20">
           <div className="max-w-4xl mx-auto">
-            <ScrollReveal className="mb-10 pl-4 border-l-4 border-accent">
+            <ScrollReveal className="mb-8 pl-4 border-l-4 border-accent">
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-ink">Want a bit more?</h2>
-              <p className="text-sm text-secondary mt-1">Add these on top of the £495 base, no need to jump to a full custom build.</p>
+              <p className="text-sm text-secondary mt-1">
+                Things like an extra page, a proper contact form, or a booking system can usually be
+                added on. Just mention it when you book and we&apos;ll sort out the details together.
+              </p>
             </ScrollReveal>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-              {[
-                { name: 'Extra page', price: '+£75 each', desc: "A page in the same layout as your About page: a heading, photos, and text. Up to two. Doesn't include new layouts like pricing tables or galleries, that needs a custom build." },
-                { name: 'Contact form upgrade', price: '+£45', desc: "A form that emails you directly, instead of a simple mailto link. Runs on Resend, you'll need a free account, I'll help you set it up." },
-                { name: 'Booking system', price: "Let's talk", desc: 'Connect your site to Orla, my own booking software, so customers can book straight from your homepage.' },
-              ].map((addon) => (
-                <ScrollReveal key={addon.name} delay={80}>
-                  <div className="h-full rounded-sm border border-border-light p-6 bg-white">
-                    <p className="text-sm font-semibold text-ink mb-1">{addon.name}</p>
-                    <p className="text-sm font-medium text-accent mb-3">{addon.price}</p>
-                    <p className="text-sm text-secondary leading-relaxed">{addon.desc}</p>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
 
-            <ScrollReveal delay={160} className="mt-6">
+            <ScrollReveal delay={160}>
               <div className="rounded-sm px-6 py-7 sm:px-8 sm:py-8 flex flex-col sm:flex-row sm:items-center gap-6" style={{ background: '#080e1c' }}>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-white mb-2">Need more than that?</p>
-                  <p className="text-sm text-white/60 leading-relaxed">
-                    More pages isn&apos;t the same as a better site. Design &amp; Build gets you a design built
-                    around your business instead of a template, a discovery call before anything&apos;s built,
-                    real code (bookings, e-commerce, logins, no page-builder limits), your own CMS so you can
-                    edit it yourself, and two rounds of refinement before it goes live.
-                  </p>
+                  <p className="text-sm font-semibold text-white mb-3">Need more than that? Design &amp; Build gets you:</p>
+                  <ul className="flex flex-col gap-2">
+                    {[
+                      'Built around your business and your customers, not a template',
+                      "I research your target audience and design the site specifically for them",
+                      'Real code: bookings, e-commerce, logins, no page-builder limits',
+                      'A way to update the site yourself after launch',
+                      "We work together until you're happy with it",
+                    ].map(item => (
+                      <li key={item} className="flex items-start gap-2.5 text-sm text-white/60 leading-snug">
+                        <span className="mt-1.5 h-1 w-1 rounded-full shrink-0 bg-accent" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
                 <Link
                   href="/services"
@@ -215,51 +257,6 @@ export default function StarterPage() {
                 >
                   See Design &amp; Build
                   <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
-              </div>
-            </ScrollReveal>
-          </div>
-        </section>
-
-        {/* How it works */}
-        <section className="px-6 py-24">
-          <div className="max-w-5xl mx-auto">
-            <ScrollReveal className="mb-14 pl-4 border-l-4 border-accent">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">How it works</h2>
-            </ScrollReveal>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {steps.map(([num, title, body], i) => (
-                <ScrollReveal key={num} delay={i * 80}>
-                  <p className="text-xs font-semibold text-accent mb-3">{num}</p>
-                  <h3 className="text-base font-semibold text-ink mb-2">{title}</h3>
-                  <p className="text-sm text-secondary leading-relaxed">{body}</p>
-                </ScrollReveal>
-              ))}
-            </div>
-
-            <ScrollReveal delay={320} className="mt-14">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-5 rounded-sm border border-border-light bg-white/80 px-6 py-5 sm:px-8 sm:py-6">
-                <div className="w-10 h-10 rounded-sm flex items-center justify-center shrink-0 bg-accent/10 text-accent">
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                    <circle cx="10" cy="10" r="7.5" stroke="currentColor" strokeWidth="1.5" />
-                    <path d="M2.5 10h15M10 2.5c2 2.2 3 5 3 7.5s-1 5.3-3 7.5c-2-2.2-3-5-3-7.5s1-5.3 3-7.5z" stroke="currentColor" strokeWidth="1.5" />
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-semibold text-ink">You&apos;ll need your own domain</p>
-                  <p className="text-sm text-secondary leading-relaxed mt-0.5">
-                    Your own web address (like yourbusiness.com), bought from any registrar, usually
-                    £10–£15 a year. Don&apos;t have one yet? Here&apos;s a simple, no-jargon guide.
-                  </p>
-                </div>
-                <Link
-                  href="/domain-setup"
-                  className="inline-flex items-center justify-center gap-2 text-sm font-medium text-ink border border-border-light rounded-sm px-5 py-2.5 shrink-0 transition-colors hover:border-accent/50 hover:text-accent"
-                >
-                  Domain guide
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                     <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </Link>

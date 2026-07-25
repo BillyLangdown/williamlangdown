@@ -15,6 +15,51 @@ const VARIANTS = [
   { id: 'preview-5', name: 'Axium', style: 'Tech & interactive', bg: '#05060A', accent: '#22D3EE', text: '#FFFFFF' },
 ]
 
+// What each template's home page actually needs, beyond the basics every
+// site has. Drives which optional steps appear, so a client picking Ochre
+// (no stats/services/reviews section) never sees fields for content their
+// site doesn't have anywhere to show.
+type OfferingsSpec = { label: string; itemLabel: string; hint: string }
+type TemplateContent = {
+  offerings: OfferingsSpec | false
+  stats: boolean
+  reviews: 'none' | 'single' | 'multi'
+  values: boolean
+}
+
+const TEMPLATE_CONTENT: Record<string, TemplateContent> = {
+  'preview-1': {
+    offerings: { label: 'Classes or sessions', itemLabel: 'Class', hint: 'What you run and when.' },
+    stats: true,
+    reviews: 'multi',
+    values: false,
+  },
+  'preview-2': {
+    offerings: { label: 'What you offer', itemLabel: 'Offering', hint: 'The main things you sell or do.' },
+    stats: true,
+    reviews: 'multi',
+    values: false,
+  },
+  'preview-3': {
+    offerings: { label: 'Services', itemLabel: 'Service', hint: 'What you help clients with.' },
+    stats: true,
+    reviews: 'single',
+    values: true,
+  },
+  'preview-4': {
+    offerings: false,
+    stats: false,
+    reviews: 'none',
+    values: false,
+  },
+  'preview-5': {
+    offerings: { label: 'Features', itemLabel: 'Feature', hint: 'What your product does.' },
+    stats: true,
+    reviews: 'multi',
+    values: true,
+  },
+}
+
 type TextFieldDef = {
   id: string
   label: string
@@ -24,49 +69,116 @@ type TextFieldDef = {
   hint?: string
 }
 
+type SimpleItem = { a: string; b: string }
+type ReviewItem = { name: string; meta: string; quote: string }
+
 const MAX_PHOTOS = 6
 const MAX_FILE_MB = 15
 const MAX_FILE_BYTES = MAX_FILE_MB * 1024 * 1024
 
-const STEPS = [
-  {
-    id: 'welcome',
-    heading: "Let's get your order started",
-    subheading: 'Just your name and email so I know who this is from.',
-    fields: [
-      { id: 'clientName', label: 'Your name', type: 'text', required: true, placeholder: 'Jane Smith' },
-      { id: 'clientEmail', label: 'Your email', type: 'email', required: true, placeholder: 'your@email.co.uk' },
-      { id: 'businessName', label: 'Business name', type: 'text', required: true, placeholder: 'Your business name' },
-    ] as TextFieldDef[],
-  },
-  {
-    id: 'design',
-    heading: 'Pick your design',
-    subheading: "Haven't browsed them yet? Open each in a new tab from the Starter page first.",
-    fields: [] as TextFieldDef[],
-  },
-  {
-    id: 'content',
-    heading: 'Your content',
-    subheading: 'Keep it short. This is a simple 3-page site, not an essay.',
-    fields: [
-      { id: 'homeHeadline', label: 'Home page headline', type: 'text', required: true, placeholder: 'One short line that sums up what you do' },
-      { id: 'homeIntro', label: 'Home page intro', type: 'textarea', required: true, hint: '2-3 sentences max', placeholder: 'A short intro paragraph for your homepage' },
-      { id: 'aboutText', label: 'About page text', type: 'textarea', required: true, hint: 'One short paragraph', placeholder: 'A short paragraph about your business or story' },
-      { id: 'address', label: 'Business address', type: 'text', placeholder: 'Optional, leave blank if not needed' },
-      { id: 'phone', label: 'Phone number', type: 'text', placeholder: 'Optional' },
-      { id: 'contactEmail', label: 'Contact email to show on site', type: 'email', required: true, placeholder: 'hello@yourbusiness.co.uk' },
-    ] as TextFieldDef[],
-  },
-  {
-    id: 'assets',
-    heading: 'Logo & photos',
-    subheading: 'One logo file, and 3-6 photos if you have them. Both optional, I can work without them, just slower to get started. Filling this in on your phone? Straight from your camera roll works fine.',
-    fields: [] as TextFieldDef[],
-  },
-]
+type StepDef = {
+  id: string
+  heading: string
+  subheading: string
+  fields?: TextFieldDef[]
+}
 
-/* ── Field ───────────────────────────────────────────────────────────── */
+const WELCOME_STEP: StepDef = {
+  id: 'welcome',
+  heading: "Let's get your order started",
+  subheading: 'Just your name and email so I know who this is from.',
+  fields: [
+    { id: 'clientName', label: 'Your name', type: 'text', required: true, placeholder: 'Jane Smith' },
+    { id: 'clientEmail', label: 'Your email', type: 'email', required: true, placeholder: 'your@email.co.uk' },
+    { id: 'businessName', label: 'Business name', type: 'text', required: true, placeholder: 'Your business name' },
+  ],
+}
+
+const DESIGN_STEP: StepDef = {
+  id: 'design',
+  heading: 'Pick your design',
+  subheading: "Haven't browsed them yet? Open each in a new tab from the Starter page first.",
+}
+
+const ABOUT_YOU_STEP: StepDef = {
+  id: 'about-you',
+  heading: 'About your business',
+  subheading: "Just the facts, not finished copy, I'll write the actual page from what you tell me here.",
+  fields: [
+    { id: 'whatYouDo', label: 'What do you do, in one line?', type: 'text', required: true, placeholder: 'e.g. Personal training and small-group fitness classes' },
+    { id: 'whoFor', label: "Who's it for?", type: 'text', placeholder: 'e.g. Busy professionals who want proper coaching' },
+    { id: 'story', label: 'Your story', type: 'textarea', required: true, hint: 'A few sentences: when you started, why, what makes it personal.', placeholder: "Tell me the short version, I'll turn it into your About page" },
+    { id: 'address', label: 'Business address', type: 'text', placeholder: 'Optional, leave blank if not needed' },
+    { id: 'phone', label: 'Phone number', type: 'text', placeholder: 'Optional' },
+    { id: 'hours', label: 'Opening hours or availability', type: 'text', placeholder: 'Optional, e.g. Mon-Fri 9-5, or by appointment' },
+    { id: 'contactEmail', label: 'Contact email to show on site', type: 'email', required: true, placeholder: 'hello@yourbusiness.co.uk' },
+  ],
+}
+
+const SOCIAL_STEP: StepDef = {
+  id: 'social',
+  heading: 'Any social media?',
+  subheading: "So I can pull photos, tone of voice, and any real reviews from what you've already posted. All optional.",
+  fields: [
+    { id: 'instagram', label: 'Instagram', type: 'text', placeholder: '@yourbusiness or a link' },
+    { id: 'facebook', label: 'Facebook', type: 'text', placeholder: 'A link to your page' },
+    { id: 'otherLinks', label: 'Anything else', type: 'textarea', placeholder: 'Google Business Profile, TikTok, LinkedIn, anywhere else' },
+  ],
+}
+
+const ANYTHING_ELSE_STEP: StepDef = {
+  id: 'anything-else',
+  heading: 'Anything else?',
+  subheading: "Want an extra page, a different contact form, a booking system, or anything else? Ask here, it's easier to sort out now than after the site's built.",
+  fields: [
+    { id: 'anythingElse', label: 'Anything you want to ask or add', type: 'textarea', placeholder: 'Optional, leave blank if not' },
+  ],
+}
+
+const ASSETS_STEP: StepDef = {
+  id: 'assets',
+  heading: 'Logo & photos',
+  subheading: 'One logo file, and 3-6 photos if you have them. Both optional, I can work without them, just slower to get started. Filling this in on your phone? Straight from your camera roll works fine.',
+}
+
+function getSteps(variant: string): StepDef[] {
+  const content = TEMPLATE_CONTENT[variant]
+  const steps: StepDef[] = [WELCOME_STEP, DESIGN_STEP, ABOUT_YOU_STEP]
+
+  if (content?.offerings) {
+    steps.push({
+      id: 'offerings',
+      heading: content.offerings.label,
+      subheading: `${content.offerings.hint} Optional, add as many as apply.`,
+    })
+  }
+  if (content?.stats) {
+    steps.push({
+      id: 'stats',
+      heading: 'A few numbers',
+      subheading: "Three quick stats for your homepage. Optional, skip it and I'll suggest something.",
+    })
+  }
+  if (content && content.reviews !== 'none') {
+    steps.push({
+      id: 'reviews',
+      heading: 'Reviews',
+      subheading: "Real reviews only, paste them in if you have them (Google, Facebook, anywhere). Don't have any yet? Skip this.",
+    })
+  }
+  if (content?.values) {
+    steps.push({
+      id: 'values',
+      heading: 'What makes you different',
+      subheading: 'A few short things that set you apart. Optional.',
+    })
+  }
+
+  steps.push(SOCIAL_STEP, ANYTHING_ELSE_STEP, ASSETS_STEP)
+  return steps
+}
+
+/* ── Shared field ────────────────────────────────────────────────────── */
 
 function TextField({ field, value, onChange }: { field: TextFieldDef; value: string; onChange: (v: string) => void }) {
   const base =
@@ -88,6 +200,83 @@ function TextField({ field, value, onChange }: { field: TextFieldDef; value: str
   )
 }
 
+/* ── Repeaters ───────────────────────────────────────────────────────── */
+
+function RemoveButton({ onClick }: { onClick: () => void }) {
+  return (
+    <button type="button" onClick={onClick} aria-label="Remove" className="absolute top-3 right-3 text-tertiary hover:text-rose-500 transition-colors">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    </button>
+  )
+}
+
+function AddButton({ onClick, label }: { onClick: () => void; label: string }) {
+  return (
+    <button type="button" onClick={onClick} className="self-start inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-ink transition-colors">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+        <path d="M7 1v12M1 7h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+      {label}
+    </button>
+  )
+}
+
+function SimpleRepeater({
+  items, onChange, max, labelA, labelB, placeholderA, placeholderB, addLabel,
+}: {
+  items: SimpleItem[]
+  onChange: (items: SimpleItem[]) => void
+  max: number
+  labelA: string
+  labelB: string
+  placeholderA?: string
+  placeholderB?: string
+  addLabel: string
+}) {
+  function update(i: number, key: 'a' | 'b', value: string) {
+    const next = items.slice()
+    next[i] = { ...next[i], [key]: value }
+    onChange(next)
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      {items.map((item, i) => (
+        <div key={i} className="relative flex flex-col gap-4 border border-border-light rounded-sm p-4">
+          <RemoveButton onClick={() => onChange(items.filter((_, idx) => idx !== i))} />
+          <TextField field={{ id: 'a', label: labelA, type: 'text', placeholder: placeholderA }} value={item.a} onChange={v => update(i, 'a', v)} />
+          <TextField field={{ id: 'b', label: labelB, type: 'text', placeholder: placeholderB }} value={item.b} onChange={v => update(i, 'b', v)} />
+        </div>
+      ))}
+      {items.length < max && <AddButton label={addLabel} onClick={() => onChange([...items, { a: '', b: '' }])} />}
+    </div>
+  )
+}
+
+function ReviewRepeater({ items, onChange, max }: { items: ReviewItem[]; onChange: (items: ReviewItem[]) => void; max: number }) {
+  function update(i: number, key: keyof ReviewItem, value: string) {
+    const next = items.slice()
+    next[i] = { ...next[i], [key]: value }
+    onChange(next)
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
+      {items.map((item, i) => (
+        <div key={i} className="relative flex flex-col gap-4 border border-border-light rounded-sm p-4">
+          <RemoveButton onClick={() => onChange(items.filter((_, idx) => idx !== i))} />
+          <TextField field={{ id: 'name', label: 'Their name', type: 'text', placeholder: 'e.g. Sam Ellis' }} value={item.name} onChange={v => update(i, 'name', v)} />
+          <TextField field={{ id: 'meta', label: 'Optional detail', type: 'text', placeholder: 'e.g. Member since 2022' }} value={item.meta} onChange={v => update(i, 'meta', v)} />
+          <TextField field={{ id: 'quote', label: 'What they said', type: 'textarea', placeholder: 'Paste their review here' }} value={item.quote} onChange={v => update(i, 'quote', v)} />
+        </div>
+      ))}
+      {items.length < max && <AddButton label="Add a review" onClick={() => onChange([...items, { name: '', meta: '', quote: '' }])} />}
+    </div>
+  )
+}
+
 /* ── Main ────────────────────────────────────────────────────────────── */
 
 export default function OrderForm() {
@@ -95,6 +284,10 @@ export default function OrderForm() {
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [variant, setVariant] = useState('')
   const [colourNote, setColourNote] = useState('')
+  const [offerings, setOfferings] = useState<SimpleItem[]>([])
+  const [stats, setStats] = useState<SimpleItem[]>([])
+  const [reviews, setReviews] = useState<ReviewItem[]>([])
+  const [values, setValues] = useState<SimpleItem[]>([])
   const [logo, setLogo] = useState<File | null>(null)
   const [photos, setPhotos] = useState<File[]>([])
   const [fileError, setFileError] = useState('')
@@ -104,8 +297,10 @@ export default function OrderForm() {
   const [error, setError] = useState('')
   const topRef = useRef<HTMLDivElement>(null)
 
-  const section = STEPS[step]
+  const STEPS = getSteps(variant)
+  const section = STEPS[step] ?? STEPS[STEPS.length - 1]
   const isLast = step === STEPS.length - 1
+  const content = TEMPLATE_CONTENT[variant]
 
   function scrollTop() {
     topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -122,15 +317,16 @@ export default function OrderForm() {
     if (section.id === 'design') {
       return !!variant
     }
-    if (section.id === 'content') {
-      return !!(answers.homeHeadline?.trim() && answers.homeIntro?.trim() && answers.aboutText?.trim() && answers.contactEmail?.trim())
+    if (section.id === 'about-you') {
+      return !!(answers.whatYouDo?.trim() && answers.story?.trim() && answers.contactEmail?.trim())
     }
+    // Offerings, stats, reviews, values, social, and assets are all optional.
     return true
   }
 
   function goNext() {
     if (!canAdvance()) return
-    setStep(s => s + 1)
+    setStep(s => Math.min(s + 1, STEPS.length - 1))
     scrollTop()
   }
 
@@ -172,6 +368,10 @@ export default function OrderForm() {
         ...answers,
         variant,
         colourNote,
+        offerings: offerings.filter(o => o.a.trim() || o.b.trim()),
+        stats: stats.filter(s => s.a.trim() || s.b.trim()),
+        reviews: reviews.filter(r => r.name.trim() || r.quote.trim()),
+        values: values.filter(v => v.a.trim() || v.b.trim()),
         logoUrl,
         photoUrls,
       })
@@ -203,8 +403,8 @@ export default function OrderForm() {
         <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-accent">Order received</p>
         <h2 className="font-heading text-3xl text-ink mb-4">Thanks{answers.clientName ? `, ${answers.clientName.split(' ')[0]}` : ''}</h2>
         <p className="text-sm text-secondary leading-relaxed mb-10">
-          Your order is in. I&apos;ll get your site built and send you a link to review, usually within about a week.
-          I&apos;ll email you at {answers.clientEmail} if I need anything else.
+          Your order is in. Before I start building, I&apos;ll be in touch at {answers.clientEmail} to confirm
+          everything and ask anything I need to. Then I&apos;ll send you a link to review, usually within about a week.
         </p>
         <p className="text-xs text-tertiary">You can close this window whenever you&apos;re ready.</p>
       </div>
@@ -253,7 +453,7 @@ export default function OrderForm() {
             </div>
 
             {/* Text fields */}
-            {section.fields.length > 0 && (
+            {section.fields && section.fields.length > 0 && (
               <div className="flex flex-col gap-5">
                 {section.fields.map(field => (
                   <TextField key={field.id} field={field} value={answers[field.id] ?? ''} onChange={val => setAnswer(field.id, val)} />
@@ -303,6 +503,53 @@ export default function OrderForm() {
                   />
                 </div>
               </div>
+            )}
+
+            {/* Offerings / services / classes / features */}
+            {section.id === 'offerings' && content?.offerings && (
+              <SimpleRepeater
+                items={offerings}
+                onChange={setOfferings}
+                max={6}
+                labelA="Name"
+                labelB="Short detail"
+                placeholderA={`e.g. ${content.offerings.itemLabel} name`}
+                placeholderB="A short line about it"
+                addLabel={`Add a ${content.offerings.itemLabel.toLowerCase()}`}
+              />
+            )}
+
+            {/* Stats */}
+            {section.id === 'stats' && (
+              <SimpleRepeater
+                items={stats}
+                onChange={setStats}
+                max={3}
+                labelA="Number"
+                labelB="Label"
+                placeholderA="e.g. 5"
+                placeholderB="e.g. Years running"
+                addLabel="Add a stat"
+              />
+            )}
+
+            {/* Reviews */}
+            {section.id === 'reviews' && (
+              <ReviewRepeater items={reviews} onChange={setReviews} max={3} />
+            )}
+
+            {/* Values / what makes you different */}
+            {section.id === 'values' && (
+              <SimpleRepeater
+                items={values}
+                onChange={setValues}
+                max={4}
+                labelA="Title"
+                labelB="One-liner"
+                placeholderA="e.g. Independent"
+                placeholderB="e.g. No ties to any product provider"
+                addLabel="Add one"
+              />
             )}
 
             {/* Logo & photos */}
