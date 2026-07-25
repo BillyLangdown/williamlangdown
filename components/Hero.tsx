@@ -225,7 +225,7 @@ export default function Hero() {
               I build websites that turn visitors into customers
             </h1>
             <p className="text-base text-secondary leading-relaxed mb-8">
-              Fast, beautiful and effective.<br />If yours isn&apos;t getting enquiries, I&apos;ll work out why and fix it.
+              Fast, beautiful and effective.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
             </p>
             <div className="flex flex-wrap gap-3 mb-8">
               <Link

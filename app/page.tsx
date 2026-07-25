@@ -76,6 +76,15 @@ const jsonLd = {
             '@type': 'Offer',
             itemOffered: {
               '@type': 'Service',
+              name: 'Starter Sites',
+              description: 'A simple three-page website, home, about, and contact, built from a ready-made design and live in about a week.',
+            },
+            priceSpecification: { '@type': 'PriceSpecification', price: '495', priceCurrency: 'GBP', minPrice: '495' },
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
               name: 'Website Support & Improvements',
               description: 'Ongoing help with your existing website. Updates, fixes, and improvements on an hourly basis.',
             },

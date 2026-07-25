@@ -27,18 +27,42 @@ function row(label: string, value: string) {
     </tr>`
 }
 
+function listSection(title: string, items: string[]) {
+  if (items.length === 0) return ''
+  return `
+    <p style="margin: 20px 0 8px 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">${esc(title)}</p>
+    <table style="width: 100%; border-collapse: collapse; border: 1px solid #E2DDD7; margin-bottom: 4px;">
+      ${items.map((item, i) => `
+        <tr>
+          <td style="padding: 8px 12px; font-size: 13px; color: #1A1A1A; white-space: pre-wrap; ${i > 0 ? 'border-top: 1px solid #E2DDD7;' : ''}">${item}</td>
+        </tr>`).join('')}
+    </table>`
+}
+
+type SimpleItem = { a: string; b: string }
+type ReviewItem = { name: string; meta: string; quote: string }
+
 type StarterOrderInput = {
   clientName?: string
   clientEmail?: string
   businessName?: string
   variant?: string
   colourNote?: string
-  homeHeadline?: string
-  homeIntro?: string
-  aboutText?: string
+  whatYouDo?: string
+  whoFor?: string
+  story?: string
   address?: string
   phone?: string
+  hours?: string
   contactEmail?: string
+  offerings?: SimpleItem[]
+  stats?: SimpleItem[]
+  reviews?: ReviewItem[]
+  values?: SimpleItem[]
+  instagram?: string
+  facebook?: string
+  otherLinks?: string
+  anythingElse?: string
   logoUrl?: string | null
   photoUrls?: string[]
 }
@@ -49,12 +73,21 @@ export async function submitStarterOrder(input: StarterOrderInput): Promise<{ su
   const businessName  = input.businessName ?? ''
   const variant        = input.variant ?? ''
   const colourNote     = input.colourNote ?? ''
-  const homeHeadline   = input.homeHeadline ?? ''
-  const homeIntro      = input.homeIntro ?? ''
-  const aboutText      = input.aboutText ?? ''
+  const whatYouDo      = input.whatYouDo ?? ''
+  const whoFor         = input.whoFor ?? ''
+  const story          = input.story ?? ''
   const address        = input.address ?? ''
   const phone          = input.phone ?? ''
+  const hours          = input.hours ?? ''
   const contactEmail   = input.contactEmail ?? ''
+  const offerings      = input.offerings ?? []
+  const stats          = input.stats ?? []
+  const reviews        = input.reviews ?? []
+  const values         = input.values ?? []
+  const instagram      = input.instagram ?? ''
+  const facebook       = input.facebook ?? ''
+  const otherLinks     = input.otherLinks ?? ''
+  const anythingElse   = input.anythingElse ?? ''
   const logoUrl        = input.logoUrl ?? null
   const photoUrls      = (input.photoUrls ?? []).filter(Boolean)
 
@@ -88,6 +121,22 @@ export async function submitStarterOrder(input: StarterOrderInput): Promise<{ su
       </table>`
     : `<p style="font-size: 12px; color: #888;">No logo or photos provided.</p>`
 
+  const offeringsItems = offerings
+    .filter(o => o.a.trim() || o.b.trim())
+    .map(o => `<strong>${esc(o.a)}</strong>${o.b.trim() ? ` &mdash; ${esc(o.b)}` : ''}`)
+
+  const statsItems = stats
+    .filter(s => s.a.trim() || s.b.trim())
+    .map(s => `<strong>${esc(s.a)}</strong>${s.b.trim() ? ` &mdash; ${esc(s.b)}` : ''}`)
+
+  const reviewsItems = reviews
+    .filter(r => r.name.trim() || r.quote.trim())
+    .map(r => `<strong>${esc(r.name)}</strong>${r.meta.trim() ? ` (${esc(r.meta)})` : ''}${r.quote.trim() ? `<br/>&ldquo;${esc(r.quote)}&rdquo;` : ''}`)
+
+  const valuesItems = values
+    .filter(v => v.a.trim() || v.b.trim())
+    .map(v => `<strong>${esc(v.a)}</strong>${v.b.trim() ? ` &mdash; ${esc(v.b)}` : ''}`)
+
   const html = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 640px; margin: 0 auto; color: #1A1A1A;">
       <div style="background: #F0EBE3; padding: 24px 28px; margin-bottom: 28px;">
@@ -100,17 +149,27 @@ export async function submitStarterOrder(input: StarterOrderInput): Promise<{ su
         </table>
       </div>
 
-      <table style="width: 100%; border-collapse: collapse; border: 1px solid #E2DDD7; margin-bottom: 20px;">
+      <table style="width: 100%; border-collapse: collapse; border: 1px solid #E2DDD7; margin-bottom: 4px;">
         ${row('Colour note', colourNote)}
-        ${row('Home headline', homeHeadline)}
-        ${row('Home intro', homeIntro)}
-        ${row('About text', aboutText)}
+        ${row('What they do', whatYouDo)}
+        ${row("Who it's for", whoFor)}
+        ${row('Their story', story)}
         ${row('Address', address)}
         ${row('Phone', phone)}
+        ${row('Hours', hours)}
         ${row('Contact email', contactEmail)}
+        ${row('Instagram', instagram)}
+        ${row('Facebook', facebook)}
+        ${row('Other links', otherLinks)}
+        ${row('Anything else', anythingElse)}
       </table>
 
-      <p style="margin: 0 0 8px 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">Logo &amp; photos</p>
+      ${listSection('Offerings / services / classes', offeringsItems)}
+      ${listSection('Stats', statsItems)}
+      ${listSection('Reviews', reviewsItems)}
+      ${listSection('What makes them different', valuesItems)}
+
+      <p style="margin: 20px 0 8px 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #888;">Logo &amp; photos</p>
       ${assetsHtml}
 
       <p style="font-size: 11px; color: #bbb; margin-top: 24px; padding-top: 16px; border-top: 1px solid #E2DDD7;">
