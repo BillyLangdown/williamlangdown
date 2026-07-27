@@ -12,7 +12,6 @@ const dotGrid = {
 
 export default function Hero() {
   const [desktopVisible, setDesktopVisible] = useState(false)
-  const [mobileDevicesVisible, setMobileDevicesVisible] = useState(false)
   const [activePanel, setActivePanel] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
   const heroScrollRef = useRef<HTMLDivElement>(null)
@@ -27,11 +26,6 @@ export default function Hero() {
   useEffect(() => {
     const raf = requestAnimationFrame(() => setDesktopVisible(true))
     return () => cancelAnimationFrame(raf)
-  }, [])
-
-  useEffect(() => {
-    const t = setTimeout(() => setMobileDevicesVisible(true), 100)
-    return () => clearTimeout(t)
   }, [])
 
   // Rect is read once (on mount/resize) instead of on every mousemove,
@@ -127,34 +121,20 @@ export default function Hero() {
           }}
         >
           <div className="mb-5 flex justify-center">
-            <div
-              className="relative"
-              style={{
-                width: '300px',
-                height: '218px',
-                opacity: mobileDevicesVisible ? 1 : 0,
-                transform: mobileDevicesVisible ? 'none' : 'translateY(14px)',
-                transition: 'opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)',
-              }}
-            >
-              <Image
-                src="/images/hero-keystone-mockup.png"
-                alt=""
-                width={2815}
-                height={1975}
-                quality={100}
-                className="animate-device-float-slow absolute left-0 top-2 w-[264px] h-auto"
-                priority
-              />
-              <Image
-                src="/images/hero-orla-mockup.png"
-                alt=""
-                width={900}
-                height={1164}
-                quality={100}
-                className="animate-device-float-fast absolute right-0 bottom-0 w-[98px] h-auto"
-                priority
-              />
+            <div className="relative" style={{ width: '150px' }}>
+              <div
+                className="relative w-full overflow-hidden shadow-lg"
+                style={{ aspectRatio: '801 / 1022', borderRadius: '3px 32px 3px 32px', borderLeft: '3px solid #2563EB' }}
+              >
+                <Image
+                  src="/images/portrait.png"
+                  alt="William Langdown, web designer and UX consultant"
+                  fill
+                  className="object-cover object-top"
+                  priority
+                  sizes="150px"
+                />
+              </div>
             </div>
           </div>
 

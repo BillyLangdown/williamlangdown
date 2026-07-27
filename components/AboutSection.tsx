@@ -1,5 +1,4 @@
-import Image from 'next/image'
-import illustration from '../public/images/illustrated-portrait.jpeg'
+import { Quote } from 'lucide-react'
 import ScrollReveal from '@/components/ScrollReveal'
 import ClipReveal from '@/components/ClipReveal'
 
@@ -16,18 +15,15 @@ export default function AboutSection() {
         </ClipReveal>
 
         <div className="pb-24 flex flex-col md:flex-row gap-12 items-center">
-          {/* Left: Abstract illustration */}
+          {/* Left: Typographic pull quote */}
           <ScrollReveal className="flex-shrink-0 w-full md:w-1/2">
-            <div className="relative">
-              <div className="absolute -bottom-4 -right-4 w-full h-full bg-subtle rounded-lg" />
-              <Image
-                src={illustration}
-                alt="William Langdown, illustrated portrait"
-                width={500}
-                height={500}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="relative rounded-lg object-cover w-full h-full"
-              />
+            <div className="flex flex-col justify-center h-full">
+              <Quote className="w-10 h-10 text-accent/30 mb-5" strokeWidth={1.5} />
+              <p className="font-heading text-3xl md:text-4xl font-bold leading-[1.2] tracking-tight text-ink">
+                Good design isn&apos;t decoration. It&apos;s whether someone trusts you enough to get in touch.
+              </p>
+              <div className="mt-6 h-px w-16 bg-accent/30" />
+              <p className="mt-5 text-sm font-medium text-tertiary">William Langdown</p>
             </div>
           </ScrollReveal>
 
