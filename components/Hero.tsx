@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const dotGrid = {
@@ -14,6 +15,11 @@ export default function Hero() {
   const [desktopVisible, setDesktopVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const sectionRectRef = useRef<DOMRect | null>(null)
+
+  // Portrait drifts within its frame as the Hero scrolls past, classic
+  // parallax: the photo moves slower/differently than the page itself.
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] })
+  const portraitY = useTransform(scrollYProgress, [0, 1], [0, 24])
 
   useEffect(() => {
     const raf = requestAnimationFrame(() => setDesktopVisible(true))
@@ -64,10 +70,10 @@ export default function Hero() {
       {/* ── MOBILE HERO ── */}
       <div
         className="relative flex lg:hidden flex-col justify-center px-6 overflow-hidden"
-        style={{ height: '100svh', paddingTop: '72px', paddingBottom: '72px', ...dotGrid }}
+        style={{ height: '100svh', paddingTop: '110px', paddingBottom: '64px', ...dotGrid }}
       >
-        <div className="mb-5 flex justify-center">
-          <div className="relative" style={{ width: '150px' }}>
+        <div className="mb-9 flex justify-center">
+          <div className="relative" style={{ width: '220px' }}>
             <div
               className="relative w-full overflow-hidden shadow-lg"
               style={{ aspectRatio: '801 / 1022', borderRadius: '3px 32px 3px 32px', borderLeft: '3px solid #2563EB' }}
@@ -78,14 +84,14 @@ export default function Hero() {
                 fill
                 className="object-cover object-top"
                 priority
-                sizes="150px"
+                sizes="220px"
               />
             </div>
           </div>
         </div>
 
         <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4 text-center">
-         I build technology that helps businesses grow.
+         I build websites to help businesses grow.
         </h1>
         <p className="text-sm leading-relaxed mb-8 text-center " style={{ color: '#0f172a' }}>
           Fast, beautiful and effective software solutions.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
@@ -131,10 +137,10 @@ export default function Hero() {
         >
           <div className="max-w-[90%]">
             <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-heading font-extrabold leading-[1.06] tracking-tight text-ink mb-5">
-              I build websites that turn visitors into customers
+              I build websites to help businesses grow.
             </h1>
             <p className="text-base text-secondary leading-relaxed mb-8">
-              Fast, beautiful and effective.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
+              Fast, beautiful and effective software solutions.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
             </p>
             <div className="flex flex-wrap gap-3 mb-8">
               <Link
@@ -155,7 +161,7 @@ export default function Hero() {
               className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-wide"
               style={{ background: 'rgba(37,99,235,0.07)', color: '#2563EB' }}
             >
-              Solo freelancer · No agency · Start to finish
+              Websites · Mobile Apps · AI Automation
             </div>
           </div>
         </div>
@@ -163,7 +169,9 @@ export default function Hero() {
         {/* Portrait: flex sibling, vertically centered by parent items-center */}
         <div className="shrink-0 w-[36%]" style={{ aspectRatio: '801 / 1022' }}>
           <div className="relative w-full h-full overflow-hidden" style={{ borderRadius: '4px 56px 4px 56px' }}>
-            <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
+            <motion.div className="absolute inset-x-0" style={{ top: '-5%', height: '110%', y: portraitY }}>
+              <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
+            </motion.div>
             <div className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent pointer-events-none" />
           </div>
         </div>

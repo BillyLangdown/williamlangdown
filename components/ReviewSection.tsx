@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import ScrollReveal from '@/components/ScrollReveal'
+import { motion } from 'framer-motion'
 
 const REVIEW_TEXT_SHORT =
   'We cannot recommend William enough. Within a week we had a test site that was ready to preview, and it was absolutely brilliant.'
@@ -41,7 +41,12 @@ export default function ReviewSection() {
     <section className="py-20 md:py-24 px-6 bg-white border-t border-border-light" style={{ scrollSnapAlign: 'start' }}>
       <div className="max-w-6xl mx-auto">
 
-        <ScrollReveal threshold={0.15}>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.55, ease: [0.34, 1.56, 0.64, 1] }}
+        >
           <div className="flex flex-col lg:flex-row lg:items-start gap-10 lg:gap-16">
 
             {/* Left: label */}
@@ -91,7 +96,7 @@ export default function ReviewSection() {
             </div>
 
           </div>
-        </ScrollReveal>
+        </motion.div>
 
       </div>
     </section>

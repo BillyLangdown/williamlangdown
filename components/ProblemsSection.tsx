@@ -119,7 +119,8 @@ const problems = [
   },
 ]
 
-const DESKTOP_DWELL = 7000
+const DWELL = 7000
+const SWIPE_THRESHOLD_PX = 40
 
 // Shortest signed distance from `active` to `i` around a ring of `total`
 // cards, e.g. for 6 cards, going from index 5 to index 0 is +1 (forward
@@ -132,34 +133,209 @@ function ringOffset(i: number, active: number, total: number) {
   return diff
 }
 
+type CoverflowSize = {
+  diameter: number
+  offsetStep: number
+  zStep: number
+  containerHeight: number
+  iconBox: { w: number; h: number }
+  badgeTopClass: string
+  titleClass: string
+  descClass: string
+  textMaxWidth: number
+  textPad: string
+}
+
+const MOBILE_SIZE: CoverflowSize = {
+  diameter: 300,
+  offsetStep: 200,
+  zStep: 140,
+  containerHeight: 340,
+  iconBox: { w: 180, h: 125 },
+  badgeTopClass: 'top-9',
+  titleClass: 'text-base font-bold text-white mb-2 leading-snug',
+  descClass: 'text-sm text-white/60 leading-relaxed',
+  textMaxWidth: 220,
+  textPad: 'px-5',
+}
+
+const DESKTOP_SIZE: CoverflowSize = {
+  diameter: 420,
+  offsetStep: 300,
+  zStep: 190,
+  containerHeight: 440,
+  iconBox: { w: 190, h: 133 },
+  badgeTopClass: 'top-11',
+  titleClass: 'text-xl font-heading font-bold text-white mb-3 leading-snug',
+  descClass: 'text-base text-white/60 leading-relaxed',
+  textMaxWidth: 300,
+  textPad: 'px-8',
+}
+
+function Coverflow({
+  size,
+  displayIndex,
+  onSelect,
+  onPointerDown,
+  onPointerUp,
+}: {
+  size: CoverflowSize
+  displayIndex: number
+  onSelect: (i: number) => void
+  onPointerDown: (e: React.PointerEvent) => void
+  onPointerUp: (e: React.PointerEvent) => void
+}) {
+  return (
+    <div
+      className="relative overflow-hidden touch-pan-y"
+      style={{ height: `${size.containerHeight}px`, perspective: '1600px' }}
+      onPointerDown={onPointerDown}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+    >
+      {problems.map((problem, i) => {
+        const offset = ringOffset(i, displayIndex, problems.length)
+        const abs = Math.abs(offset)
+        if (abs > 1) return null
+        const isActive = offset === 0
+        return (
+          <div
+            key={problem.title}
+            onClick={() => !isActive && onSelect(i)}
+            className="absolute left-1/2 top-1/2 rounded-full border border-white/10 shadow-sm flex flex-col items-center justify-center text-center overflow-hidden select-none"
+            style={{
+              width: size.diameter,
+              height: size.diameter,
+              backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1.5px, transparent 1.5px)',
+              backgroundSize: '22px 22px',
+              backgroundColor: '#080e1c',
+              transform: `translate(-50%, -50%) translateX(${offset * size.offsetStep}px) translateZ(${-abs * size.zStep}px) rotateY(${-offset * 34}deg) scale(${1 - abs * 0.16})`,
+              opacity: isActive ? 1 : 0.45,
+              filter: isActive ? 'none' : 'blur(3px)',
+              zIndex: isActive ? 10 : 5,
+              cursor: isActive ? 'default' : 'pointer',
+              transition: 'transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease, filter 0.6s ease',
+            }}
+          >
+            <span className={`absolute ${size.badgeTopClass} left-1/2 -translate-x-1/2 text-[10px] font-semibold uppercase tracking-widest text-white/40`}>
+              {i + 1} / {problems.length}
+            </span>
+
+            <div className="mb-3" style={{ width: size.iconBox.w, height: size.iconBox.h }}>
+              {problem.visual}
+            </div>
+            <div className={size.textPad} style={{ maxWidth: `${size.textMaxWidth}px` }}>
+              <h3 className={size.titleClass}>{problem.title}</h3>
+              <p className={size.descClass}>{problem.description}</p>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+function ProgressControls({
+  displayIndex,
+  onSelect,
+  onPrev,
+  onNext,
+  paused,
+}: {
+  displayIndex: number
+  onSelect: (i: number) => void
+  onPrev: () => void
+  onNext: () => void
+  paused: boolean
+}) {
+  return (
+    <div className="flex items-center justify-center gap-3 mt-6">
+      <button
+        type="button"
+        onClick={onPrev}
+        aria-label="Previous problem"
+        className="w-7 h-7 rounded-full flex items-center justify-center border border-border-light text-tertiary hover:text-accent hover:border-accent/40 transition-colors"
+      >
+        <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+          <path d="M9 1L3 7l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      <div className="flex items-center gap-2">
+        {problems.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => onSelect(i)}
+            aria-label={`Show problem ${i + 1}`}
+            className="relative h-1.5 rounded-full overflow-hidden transition-all duration-300"
+            style={{
+              width: i === displayIndex ? '40px' : '8px',
+              backgroundColor: 'rgba(37,99,235,0.15)',
+            }}
+          >
+            {i === displayIndex && (
+              <span
+                key={displayIndex}
+                className="absolute inset-y-0 left-0 rounded-full"
+                style={{
+                  backgroundColor: '#2563EB',
+                  animation: `problemsFill ${DWELL}ms linear forwards`,
+                  animationPlayState: paused ? 'paused' : 'running',
+                }}
+              />
+            )}
+          </button>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        onClick={onNext}
+        aria-label="Next problem"
+        className="w-7 h-7 rounded-full flex items-center justify-center border border-border-light text-tertiary hover:text-accent hover:border-accent/40 transition-colors"
+      >
+        <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
+          <path d="M5 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+    </div>
+  )
+}
+
 export default function ProblemsSection() {
-  const scrollRef = useRef<HTMLDivElement>(null)
   const sectionRef = useRef<HTMLElement>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
   const [inView, setInView] = useState(false)
   const [displayIndex, setDisplayIndex] = useState(0)
-  const [deskPaused, setDeskPaused] = useState(false)
+  const [paused, setPaused] = useState(false)
+  const dragState = useRef({ startX: 0, dragging: false, pointerId: -1 })
 
-  const onCardScroll = () => {
-    const el = scrollRef.current
-    if (!el) return
-    const step = el.offsetWidth - 48
-    setActiveIndex(Math.min(Math.round(el.scrollLeft / step), problems.length - 1))
-  }
-
-  const goToDesk = useCallback((idx: number) => setDisplayIndex(idx), [])
+  const goTo = useCallback((idx: number) => setDisplayIndex(idx), [])
   const goNext = useCallback(() => setDisplayIndex((i) => (i + 1) % problems.length), [])
   const goPrev = useCallback(() => setDisplayIndex((i) => (i - 1 + problems.length) % problems.length), [])
+
+  const onPointerDown = useCallback((e: React.PointerEvent) => {
+    dragState.current = { startX: e.clientX, dragging: true, pointerId: e.pointerId }
+    setPaused(true)
+  }, [])
+
+  const onPointerUp = useCallback((e: React.PointerEvent) => {
+    if (!dragState.current.dragging || e.pointerId !== dragState.current.pointerId) return
+    const delta = e.clientX - dragState.current.startX
+    dragState.current.dragging = false
+    setPaused(false)
+    if (delta > SWIPE_THRESHOLD_PX) goPrev()
+    else if (delta < -SWIPE_THRESHOLD_PX) goNext()
+  }, [goNext, goPrev])
 
   // Only auto-advance while the section is actually on screen, so the
   // carousel isn't several cards in by the time someone scrolls to it.
   useEffect(() => {
-    if (deskPaused || !inView) return
+    if (paused || !inView) return
     const id = setTimeout(() => {
       setDisplayIndex((i) => (i + 1) % problems.length)
-    }, DESKTOP_DWELL)
+    }, DWELL)
     return () => clearTimeout(id)
-  }, [displayIndex, deskPaused, inView])
+  }, [displayIndex, paused, inView])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -171,219 +347,39 @@ export default function ProblemsSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="bg-subtle" style={{ scrollSnapAlign: 'start' }}>
-
-      {/* ── MOBILE: horizontal snap cards on dot-grid canvas ── */}
-      <div
-        className="md:hidden relative flex flex-col justify-center py-10"
-        style={{
-          minHeight: '88svh',
-          backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.1) 1.5px, transparent 1.5px)',
-          backgroundSize: '22px 22px',
-          backgroundColor: '#e8edf3',
-        }}
-      >
-        <div className="mb-6 px-6 text-center">
-          <div className="w-10 h-[2px] mx-auto mb-4" style={{ backgroundColor: '#2563EB' }} />
-          <h2 className="text-3xl font-heading font-bold text-ink">Common problems</h2>
-          <p className="text-sm text-secondary mt-1">Which of these is you?</p>
+    <section ref={sectionRef} className="bg-subtle py-16 md:py-24 px-6" style={{ scrollSnapAlign: 'start' }}>
+      <div className="max-w-5xl mx-auto w-full">
+        <div className="mb-10 md:mb-12 pl-4 border-l-4 border-accent">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">Common mistakes</h2>
+          <p className="text-sm text-secondary mt-1">Have you made any of these?</p>
         </div>
 
-        {/* Scroll track */}
-        <div className="relative">
-          <div
-            ref={scrollRef}
-            onScroll={onCardScroll}
-            style={{
-              display: 'flex',
-              overflowX: 'auto',
-              scrollSnapType: 'x mandatory',
-              scrollPaddingLeft: '24px',
-              paddingLeft: '24px',
-              paddingRight: '24px',
-              paddingTop: '28px',
-              paddingBottom: '28px',
-              gap: '16px',
-              scrollbarWidth: 'none',
-              WebkitOverflowScrolling: 'touch',
-            } as React.CSSProperties}
-          >
-            {problems.map((problem, i) => (
-              <div
-                key={problem.title}
-                style={{ flexShrink: 0, width: 'calc(100vw - 48px)', scrollSnapAlign: 'start' }}
-              >
-                <div
-                  className="rounded-sm border border-white/10 p-6 relative overflow-hidden shadow-sm"
-                  style={{
-                    height: '350px',
-                    backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1.5px, transparent 1.5px)',
-                    backgroundSize: '22px 22px',
-                    backgroundColor: '#080e1c',
-                  }}
-                >
-
-                  <span className="absolute top-5 right-6 text-[10px] font-semibold uppercase tracking-widest text-white/40">
-                    {i + 1} / {problems.length}
-                  </span>
-
-                  <div className="h-full flex flex-col items-center justify-center">
-                    <div className="mx-auto mb-4" style={{ width: 180, height: 125 }}>
-                      {problem.visual}
-                    </div>
-
-                    <h3 className="text-base font-bold text-white mb-2 leading-snug text-center">{problem.title}</h3>
-                    <p className="text-sm text-white/60 leading-relaxed text-center">{problem.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
+        {/* Mobile coverflow: full-bleed to the actual screen edge, breaking
+            out of the section's own px-6 padding, so the side cards genuinely
+            go off screen instead of clipping at the padded content edge. */}
+        <div className="md:hidden" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+          <div style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)' }}>
+            <Coverflow size={MOBILE_SIZE} displayIndex={displayIndex} onSelect={goTo} onPointerDown={onPointerDown} onPointerUp={onPointerUp} />
           </div>
+          <ProgressControls displayIndex={displayIndex} onSelect={goTo} onPrev={goPrev} onNext={goNext} paused={paused || !inView} />
         </div>
 
-        {/* Progress dots + CTA */}
-        <div className="flex items-center justify-between mt-4 px-6">
-          <div className="flex gap-1.5">
-            {problems.map((_, i) => (
-              <div
-                key={i}
-                className="h-1.5 rounded-full transition-all duration-300"
-                style={{
-                  width: i === activeIndex ? '24px' : '6px',
-                  backgroundColor: i === activeIndex ? '#2563EB' : '#ffffff',
-                }}
-              />
-            ))}
-          </div>
+        {/* Desktop coverflow */}
+        <div className="hidden md:block" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+          <Coverflow size={DESKTOP_SIZE} displayIndex={displayIndex} onSelect={goTo} onPointerDown={onPointerDown} onPointerUp={onPointerUp} />
+          <ProgressControls displayIndex={displayIndex} onSelect={goTo} onPrev={goPrev} onNext={goNext} paused={paused || !inView} />
+        </div>
+
+        <div className="mt-10 border-t border-border-light pt-8 flex justify-center md:justify-end">
           <Link
             href="/contact"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-ink/50 hover:text-accent transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium border border-ink/20 text-ink px-5 py-2.5 rounded-sm hover:border-accent hover:text-accent transition-colors"
           >
             Sound familiar? Get in touch
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
               <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
-        </div>
-
-      </div>
-
-      {/* ── DESKTOP: 3D coverflow, neighbouring cards peek in from off screen ── */}
-      <div className="hidden md:block py-20 md:py-24 px-6">
-        <div className="max-w-5xl mx-auto w-full">
-          <div className="mb-12 pl-4 border-l-4 border-accent">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">Common problems</h2>
-            <p className="text-sm text-secondary mt-1">Which of these is you?</p>
-          </div>
-
-          <div
-            onMouseEnter={() => setDeskPaused(true)}
-            onMouseLeave={() => setDeskPaused(false)}
-            className="relative overflow-hidden"
-            style={{ height: '440px', perspective: '1600px' }}
-          >
-            {problems.map((problem, i) => {
-              const offset = ringOffset(i, displayIndex, problems.length)
-              const abs = Math.abs(offset)
-              if (abs > 1) return null
-              const isActive = offset === 0
-              return (
-                <div
-                  key={problem.title}
-                  onClick={() => !isActive && goToDesk(i)}
-                  className="absolute left-1/2 top-1/2 w-[560px] rounded-sm border border-white/10 shadow-sm p-9 flex flex-col items-center text-center overflow-hidden"
-                  style={{
-                    backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1.5px, transparent 1.5px)',
-                    backgroundSize: '22px 22px',
-                    backgroundColor: '#080e1c',
-                    transform: `translate(-50%, -50%) translateX(${offset * 390}px) translateZ(${-abs * 190}px) rotateY(${-offset * 34}deg) scale(${1 - abs * 0.16})`,
-                    opacity: isActive ? 1 : 0.45,
-                    filter: isActive ? 'none' : 'blur(3px)',
-                    zIndex: isActive ? 10 : 5,
-                    cursor: isActive ? 'default' : 'pointer',
-                    transition: 'transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease, filter 0.6s ease',
-                  }}
-                >
-                  <span className="absolute top-6 right-7 text-[10px] font-semibold uppercase tracking-widest text-white/40">
-                    {i + 1} / {problems.length}
-                  </span>
-
-                  <div className="mb-2" style={{ width: 190, height: 133 }}>
-                    {problem.visual}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-heading font-bold text-white mb-3 leading-snug">{problem.title}</h3>
-                    <p className="text-base text-white/60 leading-relaxed">{problem.description}</p>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-
-          {/* Prev/next arrows + progress dots, each dot fills over the dwell period */}
-          <div className="flex items-center justify-center gap-3 mt-6">
-            <button
-              type="button"
-              onClick={goPrev}
-              aria-label="Previous problem"
-              className="w-7 h-7 rounded-full flex items-center justify-center border border-border-light text-tertiary hover:text-accent hover:border-accent/40 transition-colors"
-            >
-              <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-                <path d="M9 1L3 7l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-
-            <div className="flex items-center gap-2">
-              {problems.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => goToDesk(i)}
-                  aria-label={`Show problem ${i + 1}`}
-                  className="relative h-1.5 rounded-full overflow-hidden transition-all duration-300"
-                  style={{
-                    width: i === displayIndex ? '40px' : '8px',
-                    backgroundColor: 'rgba(37,99,235,0.15)',
-                  }}
-                >
-                  {i === displayIndex && (
-                    <span
-                      key={displayIndex}
-                      className="absolute inset-y-0 left-0 rounded-full"
-                      style={{
-                        backgroundColor: '#2563EB',
-                        animation: `problemsFill ${DESKTOP_DWELL}ms linear forwards`,
-                        animationPlayState: deskPaused || !inView ? 'paused' : 'running',
-                      }}
-                    />
-                  )}
-                </button>
-              ))}
-            </div>
-
-            <button
-              type="button"
-              onClick={goNext}
-              aria-label="Next problem"
-              className="w-7 h-7 rounded-full flex items-center justify-center border border-border-light text-tertiary hover:text-accent hover:border-accent/40 transition-colors"
-            >
-              <svg width="10" height="10" viewBox="0 0 14 14" fill="none">
-                <path d="M5 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          </div>
-
-          <div className="mt-10 border-t border-border-light pt-8 flex justify-end">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 text-sm font-medium border border-ink/20 text-ink px-5 py-2.5 rounded-sm hover:border-accent hover:text-accent transition-colors"
-            >
-              Sound familiar? Get in touch
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
-          </div>
-
         </div>
       </div>
 
@@ -393,7 +389,6 @@ export default function ProblemsSection() {
           to { width: 100%; }
         }
       `}</style>
-
     </section>
   )
 }
