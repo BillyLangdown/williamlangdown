@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import ScrollReveal from '@/components/ScrollReveal'
 
@@ -67,13 +68,19 @@ const secondaryServices = [
   },
 ]
 
-function FeaturedCard({ service }: { service: typeof leadServices[0] }) {
+function FeaturedCard({ service, fromLeft }: { service: typeof leadServices[0]; fromLeft: boolean }) {
   return (
-    <ScrollReveal threshold={0.15}>
+    <motion.div
+      initial={{ opacity: 0, x: fromLeft ? -36 : 36, rotate: fromLeft ? -2.5 : 2.5 }}
+      whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+      className="h-full"
+    >
       <Link
         href={service.href}
-        className="group relative block rounded-sm p-7 sm:p-8 h-full overflow-hidden transition-transform hover:-translate-y-0.5"
-        style={{ background: '#080e1c' }}
+        className="group relative block p-7 sm:p-8 h-full overflow-hidden transition-transform hover:-translate-y-0.5"
+        style={{ background: '#080e1c', borderRadius: '4px 32px 4px 32px' }}
       >
         <div className="relative z-10 h-full flex flex-col">
           <div className="flex items-center justify-between mb-5">
@@ -97,13 +104,19 @@ function FeaturedCard({ service }: { service: typeof leadServices[0] }) {
           </div>
         </div>
       </Link>
-    </ScrollReveal>
+    </motion.div>
   )
 }
 
-function SecondaryCard({ service }: { service: typeof secondaryServices[0] }) {
+function SecondaryCard({ service, index }: { service: typeof secondaryServices[0]; index: number }) {
   return (
-    <ScrollReveal threshold={0.15}>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      className="h-full"
+    >
       <Link
         href={service.href}
         className="group rounded-sm border border-border-light p-6 flex flex-col h-full transition-colors hover:border-ink/20 bg-white/80"
@@ -129,7 +142,7 @@ function SecondaryCard({ service }: { service: typeof secondaryServices[0] }) {
           </svg>
         </span>
       </Link>
-    </ScrollReveal>
+    </motion.div>
   )
 }
 
@@ -154,6 +167,7 @@ export default function ServicesSection() {
       className="py-20 md:py-24 px-6 bg-surface"
       style={{
         scrollSnapAlign: 'start',
+        overflowX: 'hidden',
         backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
         backgroundSize: '22px 22px',
       }}
@@ -179,16 +193,16 @@ export default function ServicesSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {leadServices.map((service) => (
-            <FeaturedCard key={service.title} service={service} />
+          {leadServices.map((service, i) => (
+            <FeaturedCard key={service.title} service={service} fromLeft={i === 0} />
           ))}
         </div>
 
         <p className="mt-9 mb-3 text-[11px] font-semibold uppercase tracking-widest text-tertiary">Also available</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {secondaryServices.map((service) => (
-            <SecondaryCard key={service.title} service={service} />
+          {secondaryServices.map((service, i) => (
+            <SecondaryCard key={service.title} service={service} index={i} />
           ))}
         </div>
 

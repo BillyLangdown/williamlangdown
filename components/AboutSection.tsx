@@ -1,70 +1,73 @@
-import Image from 'next/image'
-import illustration from '../public/images/illustrated-portrait.jpeg'
-import ScrollReveal from '@/components/ScrollReveal'
-import ClipReveal from '@/components/ClipReveal'
+'use client'
+
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+
+const dotGrid = {
+  backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+  backgroundSize: '22px 22px',
+  backgroundColor: '#F8FAFC',
+}
+
+const textReveal = {
+  initial: { opacity: 0, scale: 0.94, y: 18 },
+  whileInView: { opacity: 1, scale: 1, y: 0 },
+  viewport: { once: true, amount: 0.4 },
+  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
+}
 
 export default function AboutSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+
+  // Circle drifts as the section passes through the viewport, tracked over
+  // its full time on screen rather than tied to the page's absolute scroll.
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
+  const circleY = useTransform(scrollYProgress, [0, 1], [-60, 60])
+
   return (
-    <section className="px-6">
+    <section ref={sectionRef} className="relative px-6 overflow-hidden" style={dotGrid}>
       <div className="max-w-6xl mx-auto">
         <div className="border-t border-border-light" />
 
-        <ClipReveal className="pt-16 mb-14">
-          <h2 className="text-7xl md:text-[7rem] font-heading font-bold leading-none tracking-tight text-ink">
-            About <em className="italic text-accent">me.</em>
-          </h2>
-        </ClipReveal>
+        {/* Mobile: circle bleeds off the right edge, large and mostly off screen,
+            sitting behind the text column which stays comfortably narrow so the
+            two never overlap. */}
+        <div className="relative md:hidden">
+          <motion.div
+            className="absolute rounded-full bg-accent pointer-events-none"
+            style={{ width: '260px', height: '260px', right: '-180px', top: '40px', y: circleY }}
+          />
+          <motion.div {...textReveal} className="relative py-14 max-w-[250px]">
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">
+              Who am I?
+            </p>
+            <p className="font-heading text-3xl font-bold tracking-tight text-ink leading-[1.15] mb-4">
+              Hi, I&apos;m William.
+            </p>
+            <p className="text-base text-secondary leading-relaxed">
+           A web designer and software developer based in Taunton, Somerset, building websites, software and automation for businesses across Somerset and the UK.
+            </p>
+          </motion.div>
+        </div>
 
-        <div className="pb-24 flex flex-col md:flex-row gap-12 items-center">
-          {/* Left: Abstract illustration */}
-          <ScrollReveal className="flex-shrink-0 w-full md:w-1/2">
-            <div className="relative">
-              <div className="absolute -bottom-4 -right-4 w-full h-full bg-subtle rounded-lg" />
-              <Image
-                src={illustration}
-                alt="William Langdown, illustrated portrait"
-                width={500}
-                height={500}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="relative rounded-lg object-cover w-full h-full"
-              />
-            </div>
-          </ScrollReveal>
-
-          {/* Right: Text */}
-          <ScrollReveal delay={150} className="flex flex-col gap-8 max-w-xl md:w-1/2">
-            <h3 className="text-4xl md:text-5xl font-heading font-bold leading-tight tracking-tight text-ink">
-              Design, Technology, and Human Behaviour
-            </h3>
-            <div className="flex flex-col gap-5">
-              <p className="text-base text-secondary leading-[1.8]">
-                I&apos;m a web designer and developer based in Taunton, Somerset, working
-                with businesses from Bristol to Exeter. I have a degree in branding and
-                years of front-end development experience, so I can take a project from
-                strategy through to a live, working website.
-              </p>
-              <p className="text-base text-secondary leading-[1.8]">
-                I&apos;ve spent a long time studying how people behave online and what
-                actually makes them trust a business enough to buy from it or get in
-                touch. I put real thought into your target audience before I design
-                anything, so the site fits the people you&apos;re trying to reach.
-              </p>
-              <p className="text-base text-secondary leading-[1.8]">
-                Alongside websites, I build apps and help businesses get started with AI,
-                through consulting and training. I work solo, so you deal with me directly
-                from the first message to the finished site, not an account manager or a
-                rotating team.
-              </p>
-            </div>
-            <a
-              href="https://www.linkedin.com/in/william-l-263072142/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-accent hover:text-accent/80 transition-colors w-fit"
-            >
-              LinkedIn →
-            </a>
-          </ScrollReveal>
+        {/* Desktop: circle is a normal flex item, flush with the same left edge as
+            the rest of the page, followed by the text with a fixed gap. */}
+        <div className="py-24 hidden md:flex items-center gap-10">
+          <motion.div
+            className="rounded-full bg-accent flex-shrink-0"
+            style={{ width: '170px', height: '170px', y: circleY }}
+          />
+          <motion.div {...textReveal} className="max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">
+              Who am I?
+            </p>
+            <p className="font-heading text-5xl font-bold tracking-tight text-ink leading-[1.1] mb-5">
+              Hi, I&apos;m William.
+            </p>
+            <p className="text-lg text-secondary leading-relaxed">
+            Based in Taunton, Somerset, I build websites, software and automation for businesses looking to save time, win more enquiries and improve their digital presence. Tell me about your project and i'll handle the boring stuff.
+            </p>
+          </motion.div>
         </div>
       </div>
     </section>

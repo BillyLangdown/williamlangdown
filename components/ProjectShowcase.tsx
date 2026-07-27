@@ -216,10 +216,12 @@ export default function ProjectShowcase() {
     setDragDeltaPx(0)
   }
 
+  // Scale-in from slightly zoomed, rather than a plain fade-up: gives the
+  // showcase a bit more entrance weight than the smaller nav controls.
   const fadeIn = (delay = 0): React.CSSProperties => ({
     opacity: visible ? 1 : 0,
-    transform: visible ? 'none' : 'translateY(16px)',
-    transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`,
+    transform: visible ? 'scale(1) translateY(0)' : 'scale(0.95) translateY(20px)',
+    transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
   })
 
   const trackWidth = trackRef.current?.offsetWidth || 1

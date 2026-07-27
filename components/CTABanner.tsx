@@ -1,5 +1,7 @@
+'use client'
+
 import Link from 'next/link'
-import ScrollReveal from '@/components/ScrollReveal'
+import { motion } from 'framer-motion'
 
 export default function CTABanner() {
   return (
@@ -13,7 +15,12 @@ export default function CTABanner() {
       }}
     >
       <div className="relative z-10 max-w-6xl mx-auto">
-        <ScrollReveal>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92, y: 24 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="flex flex-col items-center text-center md:flex-row md:items-end md:justify-between md:text-left gap-10 md:gap-20">
 
             <div className="max-w-xl">
@@ -38,7 +45,7 @@ export default function CTABanner() {
             </div>
 
           </div>
-        </ScrollReveal>
+        </motion.div>
       </div>
     </section>
   )
