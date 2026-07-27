@@ -38,21 +38,22 @@ export default function AboutSection() {
             </h3>
             <div className="flex flex-col gap-5">
               <p className="text-base text-secondary leading-[1.8]">
-                I&apos;m a UX designer and web consultant with a background in advertising
-                and front-end development. That combination - creative strategy, customer
-                psychology, and the ability to build - means I can take a problem from
-                insight all the way through to a live website.
+                I&apos;m a web designer and developer based in Taunton, Somerset, working
+                with businesses from Bristol to Exeter. I have a degree in branding and
+                years of front-end development experience, so I can take a project from
+                strategy through to a live, working website.
               </p>
               <p className="text-base text-secondary leading-[1.8]">
-                I&apos;ve spent years studying how people behave online and what makes
-                them trust, or not trust, a brand. I apply that understanding to every
-                project I take on, whether it&apos;s a quick audit or a full redesign and
-                build.
+                I&apos;ve spent a long time studying how people behave online and what
+                actually makes them trust a business enough to buy from it or get in
+                touch. I put real thought into your target audience before I design
+                anything, so the site fits the people you&apos;re trying to reach.
               </p>
               <p className="text-base text-secondary leading-[1.8]">
-                I work with small and medium-sized online businesses who know their
-                product or service is good but feel like their website isn&apos;t doing it
-                justice.
+                Alongside websites, I build apps and help businesses get started with AI,
+                through consulting and training. I work solo, so you deal with me directly
+                from the first message to the finished site, not an account manager or a
+                rotating team.
               </p>
             </div>
             <a

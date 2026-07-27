@@ -4,6 +4,7 @@ import Hero from '@/components/Hero'
 import ProjectShowcase from '@/components/ProjectShowcase'
 import ProblemsSection from '@/components/ProblemsSection'
 import ServicesSection from '@/components/ServicesSection'
+import AboutSection from '@/components/AboutSection'
 import ReviewSection from '@/components/ReviewSection'
 import CTABanner from '@/components/CTABanner'
 import Footer from '@/components/Footer'
@@ -12,12 +13,12 @@ import type { Metadata } from 'next'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'William Langdown | Web Designer & Consultant',
-  description: 'I build websites that turn visitors into customers. Fast, clear, and designed to get enquiries for small businesses across the UK.',
+  title: 'William Langdown | Web Designer in Taunton & Somerset',
+  description: 'Web designer based in Taunton, Somerset, working with businesses from Bristol to Exeter. I build websites that turn visitors into customers, backed by a degree in branding and a real understanding of how people decide to trust a business.',
   alternates: { canonical: 'https://williamlangdown.com' },
   openGraph: {
-    title: 'William Langdown | Web Designer & Consultant',
-    description: 'I build websites that turn visitors into customers. Fast, clear, and designed to get enquiries for small businesses across the UK.',
+    title: 'William Langdown | Web Designer in Taunton & Somerset',
+    description: 'Web designer based in Taunton, Somerset, working with businesses from Bristol to Exeter. I build websites that turn visitors into customers.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
@@ -25,8 +26,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'William Langdown | Web Designer & Consultant',
-    description: 'I build websites that turn visitors into customers.',
+    title: 'William Langdown | Web Designer in Taunton & Somerset',
+    description: 'Web designer based in Taunton, Somerset, working with businesses from Bristol to Exeter.',
   },
 }
 
@@ -39,7 +40,7 @@ const jsonLd = {
       name: 'William Langdown',
       url: 'https://williamlangdown.com',
       jobTitle: 'UX Designer & Web Consultant',
-      description: 'I audit, design, and build websites so visitors instantly understand what you do and trust you enough to buy.',
+      description: 'I audit, design, and build websites so visitors instantly understand what you do and trust you enough to buy. I have a degree in branding and years spent studying how people behave online, and I also build apps and offer AI consulting and training.',
       email: 'hello@williamlangdown.com',
     },
     {
@@ -47,9 +48,9 @@ const jsonLd = {
       '@id': 'https://williamlangdown.com/#service',
       name: 'William Langdown - Web Design & UX Consultancy',
       url: 'https://williamlangdown.com',
-      description: 'Freelance web design, UX audits, and website development for small businesses across the UK.',
+      description: 'Freelance web design, UX audits, and website development based in Taunton, Somerset, serving businesses across the South West and further afield.',
       provider: { '@id': 'https://williamlangdown.com/#person' },
-      areaServed: 'GB',
+      areaServed: ['Taunton', 'Chard', 'Frome', 'Somerset', 'Bristol', 'Exeter', 'GB'],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Web Design Services',
@@ -107,6 +108,7 @@ export default function HomePage() {
         <ProblemsSection />
         <ProjectShowcase />
         <ServicesSection />
+        <AboutSection />
         <ReviewSection />
         <CTABanner />
       </main>
