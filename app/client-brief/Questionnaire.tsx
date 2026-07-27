@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { submitQuestionnaire } from '@/app/actions/questionnaire'
+import { gtagEvent } from '@/lib/gtag'
 
 /* ── Types ───────────────────────────────────────────────────────────── */
 
@@ -333,6 +334,7 @@ export default function Questionnaire() {
     )
     setSubmitting(false)
     if (result.success) {
+      gtagEvent('conversion', { send_to: 'AW-11171125987/98I9CKHLkNccEOO1584p' })
       setSubmitted(true)
       scrollTop()
     } else {
