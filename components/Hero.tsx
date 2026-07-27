@@ -112,14 +112,6 @@ export default function Hero() {
             My services
           </Link>
         </div>
-
-        {/* Down arrow: absolute bottom centre */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none">
-          <span className="font-sans text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.35)' }}>Learn more</span>
-          <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
-            <path d="M11 4v14M5 13l6 6 6-6" stroke="rgba(15,23,42,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
       </div>
 
       {/* ── DESKTOP HERO ── */}
