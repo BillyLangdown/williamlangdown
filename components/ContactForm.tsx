@@ -98,6 +98,7 @@ function Form({ defaultService }: { defaultService?: string }) {
       if (result.success) {
         setStatus('success')
         gtagEvent('generate_lead', { service: selectedService || 'not_specified' })
+        gtagEvent('conversion', { send_to: 'AW-11171125987/ImpVCJzmqdccEOO1584p' })
       } else {
         setStatus('error')
         setErrorMessage(result.error ?? 'Something went wrong.')

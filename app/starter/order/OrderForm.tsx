@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { upload } from '@vercel/blob/client'
 import { submitStarterOrder } from '@/app/actions/starter-order'
+import { gtagEvent } from '@/lib/gtag'
 
 /* ── Data ────────────────────────────────────────────────────────────── */
 
@@ -377,6 +378,7 @@ export default function OrderForm() {
       })
 
       if (result.success) {
+        gtagEvent('conversion', { send_to: 'AW-11171125987/sL9LCJ7LkNccEOO1584p' })
         setSubmitted(true)
         scrollTop()
       } else {
