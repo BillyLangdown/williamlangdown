@@ -105,10 +105,10 @@ export default function HomePage() {
       <main>
         <Hero />
         <PromoTicker />
+        <AboutSection />
         <ProblemsSection />
         <ProjectShowcase />
         <ServicesSection />
-        <AboutSection />
         <ReviewSection />
         <CTABanner />
       </main>

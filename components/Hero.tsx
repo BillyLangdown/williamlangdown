@@ -12,16 +12,8 @@ const dotGrid = {
 
 export default function Hero() {
   const [desktopVisible, setDesktopVisible] = useState(false)
-  const [activePanel, setActivePanel] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
-  const heroScrollRef = useRef<HTMLDivElement>(null)
   const sectionRectRef = useRef<DOMRect | null>(null)
-
-  const onHeroScroll = useCallback(() => {
-    const el = heroScrollRef.current
-    if (!el) return
-    setActivePanel(el.scrollLeft > el.offsetWidth / 2 ? 1 : 0)
-  }, [])
 
   useEffect(() => {
     const raf = requestAnimationFrame(() => setDesktopVisible(true))
@@ -70,122 +62,12 @@ export default function Hero() {
       />
 
       {/* ── MOBILE HERO ── */}
-      <div className="relative flex lg:hidden flex-col" style={{ height: '100svh' }}>
-
-        {/* Panel dots + swipe arrow: top centre */}
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 pointer-events-none">
-          <div
-            className="rounded-full transition-all duration-300"
-            style={{ height: '6px', width: activePanel === 0 ? '20px' : '6px', backgroundColor: activePanel === 0 ? '#2563EB' : 'rgba(15,23,42,0.2)' }}
-          />
-          <svg width="12" height="12" viewBox="0 0 14 14" fill="none" style={{ opacity: 0.3, transition: 'opacity 0.3s' }}>
-            {activePanel === 0
-              ? <path d="M1 7h12M7 1l6 6-6 6" stroke="#0f172a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              : <path d="M13 7H1M7 1L1 7l6 6" stroke="#0f172a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            }
-          </svg>
-          <span
-            className="font-sans text-[10px] font-semibold uppercase tracking-wider transition-opacity duration-300"
-            style={{ color: 'rgba(15,23,42,0.35)' }}
-          >
-            {activePanel === 0 ? 'About me' : 'Home'}
-          </span>
-          <div
-            className="rounded-full transition-all duration-300"
-            style={{ height: '6px', width: activePanel === 1 ? '20px' : '6px', backgroundColor: activePanel === 1 ? '#2563EB' : 'rgba(15,23,42,0.2)' }}
-          />
-        </div>
-
-        <div
-          ref={heroScrollRef}
-          onScroll={onHeroScroll}
-          style={{
-            flex: 1,
-            display: 'flex',
-            overflowX: 'scroll',
-            scrollSnapType: 'x mandatory',
-            scrollbarWidth: 'none',
-          } as React.CSSProperties}
-        >
-
-        {/* Panel 1: text */}
-        <div
-          className="relative flex flex-col justify-center px-6 overflow-hidden"
-          style={{
-            flexShrink: 0,
-            width: '100vw',
-            scrollSnapAlign: 'start',
-            paddingTop: '72px',
-            paddingBottom: '72px',
-            ...dotGrid,
-          }}
-        >
-          <div className="mb-5 flex justify-center">
-            <div className="relative" style={{ width: '150px' }}>
-              <div
-                className="relative w-full overflow-hidden shadow-lg"
-                style={{ aspectRatio: '801 / 1022', borderRadius: '3px 32px 3px 32px', borderLeft: '3px solid #2563EB' }}
-              >
-                <Image
-                  src="/images/portrait.png"
-                  alt="William Langdown, web designer and UX consultant"
-                  fill
-                  className="object-cover object-top"
-                  priority
-                  sizes="150px"
-                />
-              </div>
-            </div>
-          </div>
-
-          <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4 text-center">
-           I build technology that helps businesses grow.
-          </h1>
-          <p className="text-sm leading-relaxed mb-8 text-center " style={{ color: '#0f172a' }}>
-            Fast, beautiful and effective software solutions.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
-          </p>
-
-          <div className="flex flex-col gap-3">
-            <Link
-              href="/contact"
-              className="inline-flex justify-center items-center gap-2 bg-accent text-white text-sm px-6 py-3.5 rounded-sm font-medium"
-            >
-              Let&apos;s talk
-            </Link>
-            <Link
-              href="/services"
-              className="inline-flex justify-center items-center gap-2 text-ink text-sm px-6 py-3.5 rounded-sm"
-              style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(15,23,42,0.1)' }}
-            >
-              My services
-            </Link>
-          </div>
-
-
-          {/* Down arrow: absolute bottom centre */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none">
-            <span className="font-sans text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.35)' }}>Learn more</span>
-            <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
-              <path d="M11 4v14M5 13l6 6 6-6" stroke="rgba(15,23,42,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-        </div>
-
-        {/* Panel 2: portrait + intro */}
-        <div
-          className="relative flex flex-col items-center justify-center px-6 overflow-hidden"
-          style={{
-            flexShrink: 0,
-            width: '100vw',
-            scrollSnapAlign: 'start',
-            paddingTop: '84px',
-            paddingBottom: '80px',
-            ...dotGrid,
-          }}
-        >
-
-          {/* Portrait */}
-          <div className="relative" style={{ maxWidth: '220px', width: '100%' }}>
+      <div
+        className="relative flex lg:hidden flex-col justify-center px-6 overflow-hidden"
+        style={{ height: '100svh', paddingTop: '72px', paddingBottom: '72px', ...dotGrid }}
+      >
+        <div className="mb-5 flex justify-center">
+          <div className="relative" style={{ width: '150px' }}>
             <div
               className="relative w-full overflow-hidden shadow-lg"
               style={{ aspectRatio: '801 / 1022', borderRadius: '3px 32px 3px 32px', borderLeft: '3px solid #2563EB' }}
@@ -196,28 +78,41 @@ export default function Hero() {
                 fill
                 className="object-cover object-top"
                 priority
-                sizes="220px"
+                sizes="150px"
               />
             </div>
           </div>
-
-          {/* Friendly intro */}
-          <div className="mt-6 text-center" style={{ maxWidth: '260px' }}>
-            <p className="text-sm text-left font-semibold text-ink mb-1.5">Hi, I&apos;m William.</p>
-            <p className="text-sm text-left leading-relaxed" style={{ color: '#374151' }}>
-            I&apos;m a developer and IT consultant based in the UK, helping businesses improve and build their digital presence. From UX and websites to custom systems and ongoing support. Handled directly by me from start to finish.
-            </p>
-          </div>
-
-          {/* Down arrow: absolute bottom centre */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none">
-            <span className="font-sans text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.35)' }}>Continue</span>
-            <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
-              <path d="M11 4v14M5 13l6 6 6-6" stroke="rgba(15,23,42,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
         </div>
 
+        <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4 text-center">
+         I build technology that helps businesses grow.
+        </h1>
+        <p className="text-sm leading-relaxed mb-8 text-center " style={{ color: '#0f172a' }}>
+          Fast, beautiful and effective software solutions.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
+        </p>
+
+        <div className="flex flex-col gap-3">
+          <Link
+            href="/contact"
+            className="inline-flex justify-center items-center gap-2 bg-accent text-white text-sm px-6 py-3.5 rounded-sm font-medium"
+          >
+            Let&apos;s talk
+          </Link>
+          <Link
+            href="/services"
+            className="inline-flex justify-center items-center gap-2 text-ink text-sm px-6 py-3.5 rounded-sm"
+            style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(15,23,42,0.1)' }}
+          >
+            My services
+          </Link>
+        </div>
+
+        {/* Down arrow: absolute bottom centre */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 pointer-events-none">
+          <span className="font-sans text-[10px] font-semibold uppercase tracking-wider" style={{ color: 'rgba(15,23,42,0.35)' }}>Learn more</span>
+          <svg width="18" height="18" viewBox="0 0 22 22" fill="none">
+            <path d="M11 4v14M5 13l6 6 6-6" stroke="rgba(15,23,42,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </div>
       </div>
 
