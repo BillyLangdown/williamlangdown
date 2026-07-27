@@ -10,6 +10,7 @@ const VARIANT_NAMES: Record<string, string> = {
   'preview-3': 'Hartley (Minimal & professional)',
   'preview-4': 'Ochre (Image-led & gallery-style)',
   'preview-5': 'Axium (Tech & interactive)',
+  'preview-6': 'Keystone (Trade & dependable)',
 }
 
 const MAX_PHOTOS = 6

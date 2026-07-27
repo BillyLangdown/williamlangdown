@@ -14,6 +14,7 @@ const VARIANTS = [
   { id: 'preview-3', name: 'Hartley', style: 'Minimal & professional', bg: '#FFFFFF', accent: '#D9B96C', text: '#1C2333' },
   { id: 'preview-4', name: 'Ochre', style: 'Image-led & gallery-style', bg: '#FAFAF8', accent: '#A8683D', text: '#1C1B19' },
   { id: 'preview-5', name: 'Axium', style: 'Tech & interactive', bg: '#05060A', accent: '#22D3EE', text: '#FFFFFF' },
+  { id: 'preview-6', name: 'Keystone', style: 'Trade & dependable', bg: '#132A3D', accent: '#F2A93B', text: '#FFFFFF' },
 ]
 
 // What each template's home page actually needs, beyond the basics every
@@ -55,6 +56,12 @@ const TEMPLATE_CONTENT: Record<string, TemplateContent> = {
   },
   'preview-5': {
     offerings: { label: 'Features', itemLabel: 'Feature', hint: 'What your product does.' },
+    stats: true,
+    reviews: 'multi',
+    values: true,
+  },
+  'preview-6': {
+    offerings: { label: 'Services', itemLabel: 'Service', hint: 'What you help customers with.' },
     stats: true,
     reviews: 'multi',
     values: true,
