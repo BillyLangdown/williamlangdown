@@ -62,6 +62,16 @@ const variants = [
     image: '/images/starter-previews/axium.jpg',
     desc: 'Dark, gradient-lit, with a hero you can move the mouse over. Suits SaaS, software, and anything technical that wants to feel modern.',
   },
+  {
+    id: 'preview-6',
+    name: 'Keystone',
+    style: 'Trade & dependable',
+    bg: '#132A3D',
+    accent: '#F2A93B',
+    text: '#FFFFFF',
+    image: '/images/starter-previews/keystone.jpg',
+    desc: 'Clean, trustworthy, built to convert a call. Suits plumbers, electricians, builders, and independent trades.',
+  },
 ]
 
 const included = [
@@ -73,7 +83,7 @@ const included = [
 ]
 
 const steps = [
-  ['01', 'Pick a design', 'Browse the five live previews below and choose the one closest to your style.'],
+  ['01', 'Pick a design', 'Browse the six live previews below and choose the one closest to your style.'],
   ['02', 'Fill in the order form', 'Your content, photos, logo, and a colour choice, all in one form, ten minutes.'],
   ['03', 'Review it, live', 'I build your site and put it on a temporary web address so you can see the real thing before paying anything.'],
   ['04', 'Pay, then go live', "Happy with it? Pay the £495 and I'll move it onto your own domain within a day."],
@@ -116,7 +126,7 @@ export default function StarterPage() {
                   </svg>
                 </Link>
                 <a href="#designs" className="text-sm font-medium text-secondary hover:text-ink transition-colors">
-                  See the five designs ↓
+                  See the six designs ↓
                 </a>
               </div>
             </ScrollReveal>
@@ -175,7 +185,7 @@ export default function StarterPage() {
           <div className="max-w-6xl mx-auto">
             <ScrollReveal className="mb-12 pl-4 border-l-4 border-accent">
               <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">Pick a design</h2>
-              <p className="text-sm text-secondary mt-1">Five real, clickable previews. Browse them properly before choosing.</p>
+              <p className="text-sm text-secondary mt-1">Six real, clickable previews. Browse them properly before choosing.</p>
             </ScrollReveal>
 
             <DesignPicker variants={variants} />
@@ -207,7 +217,7 @@ export default function StarterPage() {
                 <Link href="/services" className="text-accent underline underline-offset-2 hover:text-accent/80">Design &amp; Build</Link>.
               </p>
               <ul className="flex flex-col gap-3">
-                {["Editing the site yourself after it's live", 'Custom design beyond the 5 templates', 'Full online shop or member accounts'].map(item => (
+                {["Editing the site yourself after it's live", 'Custom design beyond the 6 templates', 'Full online shop or member accounts'].map(item => (
                   <li key={item} className="flex items-start gap-3">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-0.5 shrink-0 text-tertiary">
                       <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

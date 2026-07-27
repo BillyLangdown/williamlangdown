@@ -62,24 +62,8 @@ export default function Preview2Home() {
 
   return (
     <>
-      {/* Hero — the one place the botanical pattern appears, faded into the
-          cream toward the bottom edge so it reads as a wallpapered nook
-          rather than a wallpapered page. */}
+      {/* Hero */}
       <section className="relative px-6 pt-16 pb-24 overflow-hidden" style={{ background: '#FAF7F1' }}>
-        <div
-          aria-hidden
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "url('/images/starter/willow-hero-pattern.jpg')",
-            backgroundSize: '640px 620px',
-            backgroundRepeat: 'repeat',
-            mixBlendMode: 'multiply',
-            opacity: 0.55,
-            maskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, black 55%, transparent 100%)',
-          }}
-        />
-
         <div className="relative max-w-5xl mx-auto flex flex-col md:flex-row gap-14 md:gap-16 items-center">
           <motion.div variants={heroContainer} initial="hidden" animate="visible" className="flex-1 text-center md:text-left order-2 md:order-1">
             <motion.p variants={heroItem} className="text-xs uppercase tracking-[0.25em] mb-6" style={{ color: '#8A7A65' }}>
