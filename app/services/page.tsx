@@ -7,12 +7,12 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Services | William Langdown',
-  description: 'Website audits from £145, design and development from £1,495, and hourly development from £30/hour. Clear pricing, no surprises.',
+  title: 'Web Design Services in Taunton & Somerset | William Langdown',
+  description: 'Website audits from £145, design and development from £1,495, and hourly development from £30/hour. Based in Taunton, Somerset, working across the South West. Clear pricing, no surprises.',
   alternates: { canonical: 'https://williamlangdown.com/services' },
   openGraph: {
-    title: 'Services | William Langdown',
-    description: 'Website audits from £145, design and development from £1,495, and hourly development from £30/hour. Clear pricing, no surprises.',
+    title: 'Web Design Services in Taunton & Somerset | William Langdown',
+    description: 'Website audits from £145, design and development from £1,495, and hourly development from £30/hour. Based in Taunton, Somerset, working across the South West.',
     url: 'https://williamlangdown.com/services',
   },
 }

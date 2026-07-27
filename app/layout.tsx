@@ -12,18 +12,18 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'William Langdown | Web Designer & Consultant',
+  title: 'William Langdown | Web Designer in Taunton & Somerset',
   description:
-    'I build websites that turn visitors into customers. Fast, clear, and designed to get enquiries for small businesses across the UK.',
+    'Web designer based in Taunton, Somerset, working with businesses from Bristol to Exeter. I build websites that turn visitors into customers, backed by a degree in branding and a real understanding of how people decide to trust a business.',
   alternates: { canonical: 'https://williamlangdown.com' },
   icons: {
     icon: '/favicon.ico',
     apple: '/favicon.ico',
   },
   openGraph: {
-    title: 'William Langdown | Web Designer & Consultant',
+    title: 'William Langdown | Web Designer in Taunton & Somerset',
     description:
-      'I build websites that turn visitors into customers. Fast, clear, and designed to get enquiries.',
+      'Web designer based in Taunton, Somerset, working with businesses from Bristol to Exeter. I build websites that turn visitors into customers.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'William Langdown | Web Designer & Consultant',
-    description: 'I build websites that turn visitors into customers.',
+    title: 'William Langdown | Web Designer in Taunton & Somerset',
+    description: 'Web designer based in Taunton, Somerset, working with businesses from Bristol to Exeter.',
   },
 }
 

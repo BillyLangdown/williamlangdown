@@ -31,6 +31,9 @@ export default function Footer() {
             >
               07446 856927
             </a>
+            <p className="text-sm text-tertiary">
+              Based in Taunton, Somerset. Working from Bristol to Exeter.
+            </p>
           </div>
 
           {/* Nav links */}
