@@ -12,6 +12,7 @@ const dotGrid = {
 
 export default function Hero() {
   const [desktopVisible, setDesktopVisible] = useState(false)
+  const [mobileDevicesVisible, setMobileDevicesVisible] = useState(false)
   const [activePanel, setActivePanel] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
   const heroScrollRef = useRef<HTMLDivElement>(null)
@@ -26,6 +27,11 @@ export default function Hero() {
   useEffect(() => {
     const raf = requestAnimationFrame(() => setDesktopVisible(true))
     return () => cancelAnimationFrame(raf)
+  }, [])
+
+  useEffect(() => {
+    const t = setTimeout(() => setMobileDevicesVisible(true), 100)
+    return () => clearTimeout(t)
   }, [])
 
   // Rect is read once (on mount/resize) instead of on every mousemove,
@@ -121,7 +127,35 @@ export default function Hero() {
           }}
         >
           <div className="mb-5 flex justify-center">
-            <Image src="/images/laptop.png" alt="" width={160} height={160} />
+            <div
+              className="relative"
+              style={{
+                width: '300px',
+                height: '218px',
+                opacity: mobileDevicesVisible ? 1 : 0,
+                transform: mobileDevicesVisible ? 'none' : 'translateY(14px)',
+                transition: 'opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)',
+              }}
+            >
+              <Image
+                src="/images/hero-keystone-mockup.png"
+                alt=""
+                width={2815}
+                height={1975}
+                quality={100}
+                className="animate-device-float-slow absolute left-0 top-2 w-[264px] h-auto"
+                priority
+              />
+              <Image
+                src="/images/hero-orla-mockup.png"
+                alt=""
+                width={900}
+                height={1164}
+                quality={100}
+                className="animate-device-float-fast absolute right-0 bottom-0 w-[98px] h-auto"
+                priority
+              />
+            </div>
           </div>
 
           <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4 text-center">
@@ -173,8 +207,8 @@ export default function Hero() {
           {/* Portrait */}
           <div className="relative" style={{ maxWidth: '220px', width: '100%' }}>
             <div
-              className="relative w-full overflow-hidden rounded-[4px] shadow-lg"
-              style={{ aspectRatio: '801 / 1022', borderLeft: '3px solid #2563EB' }}
+              className="relative w-full overflow-hidden shadow-lg"
+              style={{ aspectRatio: '801 / 1022', borderRadius: '3px 32px 3px 32px', borderLeft: '3px solid #2563EB' }}
             >
               <Image
                 src="/images/portrait.png"
@@ -253,7 +287,7 @@ export default function Hero() {
 
         {/* Portrait: flex sibling, vertically centered by parent items-center */}
         <div className="shrink-0 w-[36%]" style={{ aspectRatio: '801 / 1022' }}>
-          <div className="relative w-full h-full overflow-hidden rounded-tr-[3.5rem] rounded-br-[3.5rem]">
+          <div className="relative w-full h-full overflow-hidden" style={{ borderRadius: '4px 56px 4px 56px' }}>
             <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
             <div className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent pointer-events-none" />
           </div>

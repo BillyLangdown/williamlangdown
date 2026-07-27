@@ -34,6 +34,22 @@ a {
   to   { transform: scale(1); }
 }
 
+/* ── Mobile hero device mockups: gentle independent float ───────────────── */
+@keyframes device-float-slow {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+@keyframes device-float-fast {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+.animate-device-float-slow { animation: device-float-slow 5.5s ease-in-out infinite; }
+.animate-device-float-fast { animation: device-float-fast 4.2s ease-in-out infinite 0.35s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-device-float-slow, .animate-device-float-fast { animation: none; }
+}
+
 /* ── View transitions ──────────────────────────────────────────────────── */
 ::view-transition-old(root) {
   animation: 120ms ease both fade-out;
