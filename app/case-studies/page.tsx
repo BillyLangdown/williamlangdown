@@ -12,12 +12,12 @@ import type { Metadata } from 'next'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Case Studies | William Langdown',
-  description: 'Real projects with real businesses: website audits, redesigns, and builds, plus the odd self-directed concept piece. See the work and results.',
+  title: 'Web Design Case Studies | William Langdown, Taunton',
+  description: 'Real projects for real businesses: website audits, redesigns, and builds. See the work and results from a web designer based in Taunton, Somerset.',
   alternates: { canonical: 'https://williamlangdown.com/case-studies' },
   openGraph: {
-    title: 'Case Studies | William Langdown',
-    description: 'Real projects with real businesses: website audits, redesigns, and builds, plus the odd self-directed concept piece. See the work and results.',
+    title: 'Web Design Case Studies | William Langdown, Taunton',
+    description: 'Real projects for real businesses: website audits, redesigns, and builds. See the work and results from a web designer based in Taunton, Somerset.',
     url: 'https://williamlangdown.com/case-studies',
   },
 }

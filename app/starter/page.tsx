@@ -6,8 +6,8 @@ import DesignPicker from './DesignPicker'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Starter Package (£495) | William Langdown',
-  description: 'A simple 3-page website (home, about, and contact) for £495. Pick a design, send your content, live in about a week.',
+  title: 'Starter Website Package, £495 | William Langdown, Taunton',
+  description: 'A simple 3-page website for £495: home, about, and contact. Pick a design, send your content, live in about a week. Built by a web designer based in Taunton, Somerset.',
   alternates: { canonical: 'https://williamlangdown.com/starter' },
 }
 
