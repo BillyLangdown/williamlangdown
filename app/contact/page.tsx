@@ -4,12 +4,12 @@ import ContactForm from '@/components/ContactForm'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Contact | William Langdown',
-  description: 'Get in touch to discuss your website. Call, message, or fill in the form and I will get back to you within one business day.',
+  title: 'Contact | Web Designer in Taunton, Somerset | William Langdown',
+  description: 'Get in touch about your website. Based in Taunton, Somerset, working across the South West. Call, message, or fill in the form, I’ll reply within one business day.',
   alternates: { canonical: 'https://williamlangdown.com/contact' },
   openGraph: {
-    title: 'Contact | William Langdown',
-    description: 'Get in touch to discuss your website. Call, message, or fill in the form and I will get back to you within one business day.',
+    title: 'Contact | Web Designer in Taunton, Somerset | William Langdown',
+    description: 'Get in touch about your website. Based in Taunton, Somerset, working across the South West. Call, message, or fill in the form, I’ll reply within one business day.',
     url: 'https://williamlangdown.com/contact',
   },
 }
