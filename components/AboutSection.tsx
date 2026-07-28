@@ -29,25 +29,29 @@ export default function AboutSection() {
       <div className="max-w-6xl mx-auto">
         <div className="border-t border-border-light" />
 
-        {/* Mobile: circle bleeds off the right edge, large and mostly off screen,
-            sitting behind the text column which stays comfortably narrow so the
-            two never overlap. */}
-        <div className="relative md:hidden">
-          <motion.div
-            className="absolute rounded-full bg-accent pointer-events-none"
-            style={{ width: '260px', height: '260px', right: '-180px', top: '40px', y: circleY }}
-          />
-          <motion.div {...textReveal} className="relative py-14 max-w-[250px]">
-            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">
-              Who am I?
-            </p>
-            <p className="font-heading text-3xl font-bold tracking-tight text-ink leading-[1.15] mb-4">
-              Hi, I&apos;m William.
-            </p>
-            <p className="text-base text-secondary leading-relaxed">
-           A web designer and software developer based in Taunton, Somerset, building websites, software and automation for businesses across Somerset and the UK.
-            </p>
-          </motion.div>
+        {/* Mobile: min-height fills most of the viewport so this section (plus
+            the ticker above it) is what's visible on screen, without the next
+            section peeking in. Circle bleeds off the right edge, large and
+            mostly off screen, sitting behind the text column which stays
+            comfortably narrow so the two never overlap. */}
+        <div className="md:hidden flex flex-col justify-start pt-20" style={{ minHeight: '88svh' }}>
+          <div className="relative">
+            <motion.div
+              className="absolute rounded-full bg-accent pointer-events-none"
+              style={{ width: '260px', height: '260px', right: '-180px', top: '40px', y: circleY }}
+            />
+            <motion.div {...textReveal} className="relative py-14 max-w-[250px]">
+              <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">
+                Who am I?
+              </p>
+              <p className="font-heading text-3xl font-bold tracking-tight text-ink leading-[1.15] mb-4">
+                Hi, I&apos;m William.
+              </p>
+              <p className="text-base text-secondary leading-relaxed">
+             A web designer and software developer based in Taunton, Somerset, building websites, software and automation for businesses across Somerset and the UK.
+              </p>
+            </motion.div>
+          </div>
         </div>
 
         {/* Desktop: circle is a normal flex item, flush with the same left edge as
