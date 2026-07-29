@@ -122,7 +122,7 @@ function FeaturedCard({ service, fromLeft }: { service: typeof leadServices[0]; 
           <p className="text-sm font-medium mb-4 text-white/80">{service.price}</p>
           <p className="text-sm text-white/60 leading-relaxed mb-6">{service.description}</p>
           <div className="flex justify-end mt-auto">
-            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent group-hover:text-white transition-colors">
+            <span className="inline-flex items-center gap-1.5 text-sm font-medium text-white group-hover:text-white/80 transition-colors">
               {service.cta}
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
                 <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

@@ -72,15 +72,6 @@ export default function Hero() {
         className="relative flex lg:hidden flex-col justify-center px-6 overflow-hidden"
         style={{ height: '100svh', paddingTop: '110px', paddingBottom: '64px', ...dotGrid }}
       >
-        <div className="mb-4 flex justify-center">
-          <div
-            className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-wide"
-            style={{ background: 'rgba(37,99,235,0.07)', color: '#2563EB' }}
-          >
-            Websites · Custom Software · Automation
-          </div>
-        </div>
-
         <div className="mb-9 flex justify-center">
           <div className="relative" style={{ width: '220px' }}>
             <div
@@ -103,7 +94,7 @@ export default function Hero() {
          I build software to help businesses grow.
         </h1>
         <p className="text-sm leading-relaxed mb-8 text-center " style={{ color: '#0f172a' }}>
-          Websites, tools and automation built for businesses of any size.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
+          Websites, tools and automation for any business.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
         </p>
 
         <div className="flex flex-col gap-3">
@@ -141,7 +132,7 @@ export default function Hero() {
               I build software to help businesses grow.
             </h1>
             <p className="text-base text-secondary leading-relaxed mb-8">
-              Websites, tools and automation built for businesses of any size.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
+              Websites, tools and automation for any business.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
             </p>
             <div className="flex flex-wrap gap-3 mb-8">
               <Link
