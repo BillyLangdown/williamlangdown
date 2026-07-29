@@ -17,7 +17,7 @@ const items = [
   {
     href: 'https://orlabooking.com',
     visual: <Image src="/images/orla-logo-long-accent.png" alt="Orla" width={54} height={14} className="object-contain" />,
-    label: 'the AI receptionist for your business',
+    label: 'an AI booking system for your business',
   },
   {
     href: '/services/website-audits',

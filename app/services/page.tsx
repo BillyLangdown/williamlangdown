@@ -21,7 +21,8 @@ const tiers = [
   {
     id: 'growth',
     name: 'Growth Websites',
-    price: 'Typically £1,500–£4,000',
+    price: '£1,500–£4,000',
+    priceQualifier: 'Typically',
     priceNote: '',
     description:
       'Custom websites designed around your customers’ journey, built to bring in enquiries and support the business as it grows.',
@@ -40,6 +41,7 @@ const tiers = [
     id: 'starter',
     name: 'Starter Websites',
     price: 'From £495',
+    priceQualifier: '',
     priceNote: '',
     description:
       'Get your business online quickly with a professional starter website. Simple, affordable, and live in about a week.',
@@ -58,6 +60,7 @@ const tiers = [
     id: 'software',
     name: 'Custom Software',
     price: 'From £3,000',
+    priceQualifier: '',
     priceNote: '',
     description:
       'Software built around the way your business works, for when a website isn’t enough.',
@@ -76,6 +79,7 @@ const tiers = [
     id: 'automation',
     name: 'Booking Systems & Automation',
     price: 'Priced individually',
+    priceQualifier: '',
     priceNote: '',
     description:
       'Reduce admin and save time with systems designed around your processes.',
@@ -160,7 +164,10 @@ export default function ServicesPage() {
                         <Link href={tier.learnMoreHref} className="inline-block text-[10px] font-semibold uppercase tracking-widest text-white/35 mb-4 hover:text-white/60 transition-colors">
                           {tier.name}
                         </Link>
-                        <p className="text-2xl font-heading font-bold tracking-tight text-white mb-4">{tier.price}</p>
+                        {tier.priceQualifier && (
+                          <p className="text-[11px] font-medium text-white/45 mb-0.5">{tier.priceQualifier}</p>
+                        )}
+                        <p className="text-2xl font-heading font-bold tracking-tight text-white mb-4 whitespace-nowrap">{tier.price}</p>
                         <p className="text-sm leading-relaxed text-white/75">{tier.description}</p>
                       </div>
                       <ul className="flex flex-col gap-3 flex-1">
@@ -195,7 +202,10 @@ export default function ServicesPage() {
                         <Link href={tier.learnMoreHref} className="inline-block text-[10px] font-semibold uppercase tracking-widest text-tertiary mb-4 hover:text-accent transition-colors">
                           {tier.name}
                         </Link>
-                        <p className="text-2xl font-heading font-bold tracking-tight text-ink mb-4">{tier.price}</p>
+                        {tier.priceQualifier && (
+                          <p className="text-[11px] font-medium text-tertiary mb-0.5">{tier.priceQualifier}</p>
+                        )}
+                        <p className="text-2xl font-heading font-bold tracking-tight text-ink mb-4 whitespace-nowrap">{tier.price}</p>
                         <p className="text-sm leading-relaxed text-secondary">{tier.description}</p>
                       </div>
                       <ul className="flex flex-col gap-3 flex-1">

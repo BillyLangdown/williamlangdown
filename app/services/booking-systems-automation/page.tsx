@@ -114,22 +114,23 @@ export default function BookingSystemsAutomationPage() {
         <section className="px-6 py-20" style={dotGrid}>
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
-              <div className="rounded-sm border border-border-light bg-white/80 px-6 py-8 sm:px-8 flex flex-col sm:flex-row sm:items-center gap-6" style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
-                <div className="flex-1">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Built by someone who's built this before</p>
-                  <p className="text-sm text-secondary leading-relaxed mb-3">
-                    Orla is booking software I built myself, with an AI assistant, calendar sync and email
-                    integration. If you want to see what&apos;s possible, it&apos;s live at orlabooking.com.
-                  </p>
-                  <Link href="https://orlabooking.com" className="inline-flex items-center gap-1.5 text-sm font-medium text-ink hover:text-accent transition-colors">
-                    Visit orlabooking.com
-                    <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                      <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </Link>
-                </div>
+              <Link
+                href="https://orlabooking.com"
+                className="group flex items-center gap-5 rounded-sm border border-border-light bg-white/80 px-6 py-6 sm:px-8 transition-colors hover:border-ink/20"
+                style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
+              >
                 <Image src="/images/orla-logo-long-accent.png" alt="Orla" height={28} width={82} className="object-contain shrink-0" />
-              </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-accent mb-1.5">Built by someone who&apos;s built this before</p>
+                  <p className="text-sm text-secondary">An AI booking system, built by me.</p>
+                </div>
+                <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ink group-hover:text-accent transition-colors shrink-0">
+                  <span className="hidden sm:inline">Visit orlabooking.com</span>
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </Link>
             </ScrollReveal>
           </div>
         </section>

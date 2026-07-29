@@ -236,15 +236,17 @@ export default function ServicesSection() {
         <ScrollReveal threshold={0.15} className="mt-5">
           <Link
             href="https://orlabooking.com"
-            className="group flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 rounded-sm border border-border-light bg-white px-8 py-8 transition-colors hover:border-ink/20"
+            className="group flex items-center gap-5 rounded-sm border border-border-light bg-white px-6 py-6 sm:px-8 transition-colors hover:border-ink/20"
           >
-            <span className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full bg-accent/10 text-accent shrink-0 self-start sm:self-auto">
-              My own product
-            </span>
-            <Image src="/images/orla-logo-long-accent.png" alt="Orla" height={24} width={70} className="object-contain shrink-0" />
-            <p className="text-sm text-secondary flex-1">Booking software with an AI assistant, Google Calendar sync, and Gmail integration. Built by me.</p>
+            <Image src="/images/orla-logo-long-accent.png" alt="Orla" height={26} width={76} className="object-contain shrink-0" />
+            <div className="flex-1 min-w-0">
+              <span className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full bg-accent/10 text-accent mb-1.5">
+                My own product
+              </span>
+              <p className="text-sm text-secondary">An AI booking system, built by me.</p>
+            </div>
             <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ink group-hover:text-accent transition-colors shrink-0">
-              Visit orlabooking.com
+              <span className="hidden sm:inline">Visit orlabooking.com</span>
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
                 <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
