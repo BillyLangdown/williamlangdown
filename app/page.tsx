@@ -13,12 +13,12 @@ import type { Metadata } from 'next'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'William Langdown | Web Designer in Taunton & Somerset',
-  description: 'Web designer based in Taunton, Somerset, working with businesses from Bristol to Exeter. I build websites that turn visitors into customers, backed by a degree in branding and a real understanding of how people decide to trust a business.',
+  title: 'William Langdown | Technical Partner for Small Businesses, Taunton & Somerset',
+  description: 'Based in Taunton, Somerset, working with businesses from Bristol to Exeter. I build the websites, software and automation that help small businesses win more customers and save time, personally, with no agency layers.',
   alternates: { canonical: 'https://williamlangdown.com' },
   openGraph: {
-    title: 'William Langdown | Web Designer in Taunton & Somerset',
-    description: 'Web designer based in Taunton, Somerset, working with businesses from Bristol to Exeter. I build websites that turn visitors into customers.',
+    title: 'William Langdown | Technical Partner for Small Businesses, Taunton & Somerset',
+    description: 'Websites, software and automation built to help small businesses win more customers and save time. Based in Taunton, Somerset, working with businesses from Bristol to Exeter.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'William Langdown | Web Designer in Taunton & Somerset',
-    description: 'Web designer based in Taunton, Somerset, working with businesses from Bristol to Exeter.',
+    title: 'William Langdown | Technical Partner for Small Businesses, Taunton & Somerset',
+    description: 'Websites, software and automation built to help small businesses win more customers and save time.',
   },
 }
 
@@ -46,15 +46,50 @@ const jsonLd = {
     {
       '@type': 'ProfessionalService',
       '@id': 'https://williamlangdown.com/#service',
-      name: 'William Langdown - Web Design & UX Consultancy',
+      name: 'William Langdown - Websites, Software & Automation',
       url: 'https://williamlangdown.com',
-      description: 'Freelance web design, UX audits, and website development based in Taunton, Somerset, serving businesses across the South West and further afield.',
+      description: 'Technical partner for small businesses based in Taunton, Somerset, building websites, custom software and automation that help businesses win more customers and save time, serving the South West and further afield.',
       provider: { '@id': 'https://williamlangdown.com/#person' },
       areaServed: ['Taunton', 'Chard', 'Frome', 'Somerset', 'Bristol', 'Exeter', 'GB'],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
-        name: 'Web Design Services',
+        name: 'Services',
         itemListElement: [
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Growth Websites',
+              description: 'Custom websites designed around your customers’ journey, built to bring in enquiries and support business growth.',
+            },
+            priceSpecification: { '@type': 'PriceSpecification', minPrice: '1495', maxPrice: '4000', priceCurrency: 'GBP' },
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Starter Websites',
+              description: 'A simple three-page website, home, about, and contact, built from a ready-made design and live in about a week.',
+            },
+            priceSpecification: { '@type': 'PriceSpecification', price: '495', priceCurrency: 'GBP', minPrice: '495' },
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Custom Software & Digital Systems',
+              description: 'Customer portals, internal tools, dashboards and business systems built around how a business works.',
+            },
+            priceSpecification: { '@type': 'PriceSpecification', price: '3000', priceCurrency: 'GBP', minPrice: '3000' },
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Booking Systems & Automation',
+              description: 'Booking systems, automated reminders, customer management and enquiry workflows that reduce admin.',
+            },
+          },
           {
             '@type': 'Offer',
             itemOffered: {
@@ -68,28 +103,10 @@ const jsonLd = {
             '@type': 'Offer',
             itemOffered: {
               '@type': 'Service',
-              name: 'Website Design & Development',
-              description: 'A complete website designed and built around your customers, ready to launch.',
+              name: 'Website Support',
+              description: 'Ongoing development and consulting for an existing website or system, on an hourly basis.',
             },
-            priceSpecification: { '@type': 'PriceSpecification', price: '1495', priceCurrency: 'GBP', minPrice: '1495' },
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'Starter Sites',
-              description: 'A simple three-page website, home, about, and contact, built from a ready-made design and live in about a week.',
-            },
-            priceSpecification: { '@type': 'PriceSpecification', price: '495', priceCurrency: 'GBP', minPrice: '495' },
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'Website Support & Improvements',
-              description: 'Ongoing help with your existing website. Updates, fixes, and improvements on an hourly basis.',
-            },
-            priceSpecification: { '@type': 'PriceSpecification', minPrice: '30', maxPrice: '60', priceCurrency: 'GBP', unitCode: 'HUR' },
+            priceSpecification: { '@type': 'PriceSpecification', minPrice: '60', maxPrice: '90', priceCurrency: 'GBP', unitCode: 'HUR' },
           },
         ],
       },

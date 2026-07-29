@@ -7,6 +7,34 @@ import { gtagEvent } from '@/lib/gtag'
 
 const services = [
   {
+    value: 'growth',
+    label: 'Growth Websites',
+    desc: 'A custom site built to grow your business',
+    price: 'Typically £1,500–£4,000',
+    placeholder: 'e.g. My current site feels dated and doesn\'t reflect the business anymore...',
+  },
+  {
+    value: 'starter',
+    label: 'Starter Websites',
+    desc: 'Questions about the £495 site, or adding a form/booking to it',
+    price: 'From £495',
+    placeholder: 'e.g. I just need a simple 3-page site live quickly, or want to add a working contact form...',
+  },
+  {
+    value: 'software',
+    label: 'Custom Software',
+    desc: 'Portals, dashboards, or internal tools',
+    price: 'From £3,000',
+    placeholder: 'e.g. We\'re managing bookings, jobs or customers in a spreadsheet and need something better...',
+  },
+  {
+    value: 'automation',
+    label: 'Booking Systems & Automation',
+    desc: 'Booking systems, reminders, or automating admin',
+    price: 'Priced individually',
+    placeholder: 'e.g. We spend hours a week on scheduling and reminders and want to automate it...',
+  },
+  {
     value: 'audit',
     label: 'Website Audit',
     desc: 'Find out what\'s holding your site back',
@@ -14,24 +42,10 @@ const services = [
     placeholder: 'e.g. My site gets traffic but nobody fills in the contact form...',
   },
   {
-    value: 'build',
-    label: 'Design & Build',
-    desc: 'A new website, start to finish',
-    price: 'From £1,495',
-    placeholder: 'e.g. My current site feels dated and doesn\'t reflect the business anymore...',
-  },
-  {
-    value: 'starter',
-    label: 'Starter Package (£495)',
-    desc: 'Questions about the £495 site, or adding a form/booking to it',
-    price: '£495',
-    placeholder: 'e.g. I just need a simple 3-page site live quickly, or want to add a working contact form...',
-  },
-  {
-    value: 'development',
-    label: 'Development Help',
-    desc: 'Updates, fixes, or ongoing support',
-    price: '£30 / hr',
+    value: 'support',
+    label: 'Website Support',
+    desc: 'Updates, fixes, or ongoing development and consulting',
+    price: '£60–£90 / hr',
     placeholder: 'e.g. I need a few bug fixes and an extra page added to my existing site...',
   },
   {

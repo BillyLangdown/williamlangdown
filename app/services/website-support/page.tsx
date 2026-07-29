@@ -6,14 +6,14 @@ import ScrollReveal from '@/components/ScrollReveal'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Website Support & Improvements in Taunton | William Langdown',
+  title: 'Website Support in Taunton | William Langdown',
   description:
-    'Ongoing help with your existing website. Updates, fixes, new content, and improvements, £30 to £60 an hour, with no retainer and no contract.',
+    'Ongoing development and consulting for an existing website or system. Development work from £60/hr, consulting and strategy from £90/hr, with no retainer and no contract.',
   alternates: { canonical: 'https://williamlangdown.com/services/website-support' },
   openGraph: {
-    title: 'Website Support & Improvements in Taunton | William Langdown',
+    title: 'Website Support in Taunton | William Langdown',
     description:
-      'Ongoing help with your existing website. Updates, fixes, new content, and improvements, £30 to £60 an hour, with no retainer and no contract.',
+      'Ongoing development and consulting for an existing website or system. Development from £60/hr, consulting and strategy from £90/hr, with no retainer and no contract.',
     url: 'https://williamlangdown.com/services/website-support',
   },
 }
@@ -37,8 +37,8 @@ const faqs = [
     a: "No. You pay for the hours worked and nothing ongoing, so there's nothing to cancel if you don't need anything for a while.",
   },
   {
-    q: 'What counts as the returning client rate?',
-    a: "If I've previously built your site through Design & Build, you get £30 an hour for any future work. New clients, or anyone I haven't built a full site for, are £60 an hour.",
+    q: "What's the difference between development and consulting?",
+    a: "Development is hands-on work: building, fixing and updating a site or system. Consulting is more about planning and advice, working out the right approach before anything gets built, or giving technical direction on a project I'm not building myself.",
   },
   {
     q: 'How do you estimate how long something will take?',
@@ -64,18 +64,18 @@ export default function WebsiteSupportPage() {
                   className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6"
                   style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
                 >
-                  £30 to £60 / hour
+                  £60 to £90 / hour
                 </p>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.06] tracking-tight text-ink max-w-3xl">
-                  Website support and improvements
+                  Website support
                 </h1>
                 <p className="text-base text-secondary mt-4 max-w-xl leading-relaxed">
-                  Ongoing help with your existing website. Updates, fixes, new content, and
-                  improvements, without signing up to a retainer or a contract.
+                  Ongoing development and consulting for an existing website or system. Updates, fixes,
+                  strategy and improvements, without signing up to a retainer or a contract.
                 </p>
                 <div className="mt-8">
                   <Link
-                    href="/contact?service=development"
+                    href="/contact?service=support"
                     className="inline-flex items-center gap-2 bg-ink text-white text-sm px-7 py-3.5 rounded-sm font-medium hover:bg-ink/85 transition-colors"
                   >
                     Get in touch
@@ -96,17 +96,17 @@ export default function WebsiteSupportPage() {
               <div className="rounded-sm overflow-hidden">
                 <div className="grid grid-cols-1 sm:grid-cols-2 bg-white border border-border-light rounded-sm">
                   <div className="p-6 pt-7 sm:border-r border-border-light">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-2">Returning clients</p>
-                    <p className="text-3xl font-heading font-bold text-ink mb-2">£30 / hour</p>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-2">Development work</p>
+                    <p className="text-3xl font-heading font-bold text-ink mb-2">£60 / hour</p>
                     <p className="text-sm text-secondary leading-relaxed">
-                      For anyone I&apos;ve previously built a site for through Design &amp; Build.
+                      Updates, fixes, new features and general development work on an existing site or system.
                     </p>
                   </div>
                   <div className="p-6 pt-7 border-t sm:border-t-0 border-border-light">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-tertiary mb-2">New clients</p>
-                    <p className="text-3xl font-heading font-bold text-ink mb-2">£60 / hour</p>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-tertiary mb-2">Consulting &amp; strategy</p>
+                    <p className="text-3xl font-heading font-bold text-ink mb-2">£90 / hour</p>
                     <p className="text-sm text-secondary leading-relaxed">
-                      For work on a site I didn&apos;t originally build.
+                      Planning, technical advice and strategy work that needs more than just implementation.
                     </p>
                   </div>
                 </div>
@@ -164,10 +164,10 @@ export default function WebsiteSupportPage() {
                   instead.
                 </p>
                 <Link
-                  href="/services/web-design"
+                  href="/services/growth-websites"
                   className="inline-flex items-center justify-center gap-2 text-sm font-medium text-ink border border-border-light rounded-sm px-5 py-2.5 shrink-0 transition-colors hover:border-accent/50 hover:text-accent"
                 >
-                  See Design &amp; Build
+                  See Growth Websites
                   <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                     <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>

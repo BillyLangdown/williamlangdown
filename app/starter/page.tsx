@@ -214,7 +214,7 @@ export default function StarterPage() {
                 This is deliberately simple, that&apos;s what keeps the price down. A few of these are available as{' '}
                 <a href="#addons" className="text-accent underline underline-offset-2 hover:text-accent/80">add-ons</a>,
                 for anything else see{' '}
-                <Link href="/services" className="text-accent underline underline-offset-2 hover:text-accent/80">Design &amp; Build</Link>.
+                <Link href="/services/growth-websites" className="text-accent underline underline-offset-2 hover:text-accent/80">Growth Websites</Link>.
               </p>
               <ul className="flex flex-col gap-3">
                 {["Editing the site yourself after it's live", 'Custom design beyond the 6 templates', 'Full online shop or member accounts'].map(item => (
@@ -244,7 +244,7 @@ export default function StarterPage() {
             <ScrollReveal delay={160}>
               <div className="rounded-sm px-6 py-7 sm:px-8 sm:py-8 flex flex-col sm:flex-row sm:items-center gap-6" style={{ background: '#080e1c' }}>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-white mb-3">Need more than that? Design &amp; Build gets you:</p>
+                  <p className="text-sm font-semibold text-white mb-3">Need more than that? A Growth Website gets you:</p>
                   <ul className="flex flex-col gap-2">
                     {[
                       'Built around your business and your customers, not a template',
@@ -261,11 +261,11 @@ export default function StarterPage() {
                   </ul>
                 </div>
                 <Link
-                  href="/services"
+                  href="/services/growth-websites"
                   className="inline-flex items-center justify-center gap-2 text-white text-sm px-6 py-3.5 rounded-sm font-medium transition-opacity hover:opacity-90 shrink-0"
                   style={{ background: '#2563EB' }}
                 >
-                  See Design &amp; Build
+                  See Growth Websites
                   <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
                     <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>

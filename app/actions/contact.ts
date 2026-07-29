@@ -41,11 +41,17 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
 }
 
 const serviceLabels: Record<string, string> = {
+  growth: 'Growth Websites (typically £1,500–£4,000)',
+  starter: 'Starter Websites (£495)',
+  software: 'Custom Software (from £3,000)',
+  automation: 'Booking Systems & Automation (priced individually)',
   audit: 'Website Audit (£145)',
-  build: 'Design & Build (from £1,495)',
-  development: 'Development Help (£30 / hr)',
+  support: 'Website Support (£60–£90 / hr)',
+  orla: 'Orla',
   other: 'Something else',
   // legacy
+  build: 'Design & Build (from £1,495)',
+  development: 'Development Help',
   design: 'Design',
   unsure: 'Not sure yet',
 }

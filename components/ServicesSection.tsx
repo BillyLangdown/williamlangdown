@@ -8,13 +8,13 @@ import ScrollReveal from '@/components/ScrollReveal'
 
 const leadServices = [
   {
-    title: 'Website Design & Development',
-    tag: 'Fully custom',
-    price: 'From £1,495',
+    title: 'Growth Websites',
+    tag: 'Built to grow your business',
+    price: 'Typically £1,500–£4,000',
     description:
-      "Not a template. Designed and built from scratch around your brand, your customers, and how they actually buy. Your style, your colours and your voice.",
-    cta: 'See Design & Build',
-    href: '/services/web-design',
+      "Custom websites designed around your customers' journey, built to bring in enquiries and support growth, not just look good. Strategy, conversion and SEO foundations included.",
+    cta: 'See Growth Websites',
+    href: '/services/growth-websites',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
         <path d="M2 14l2-2 8-8 2 2-8 8-2 2H2v-2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
@@ -23,12 +23,12 @@ const leadServices = [
     ),
   },
   {
-    title: 'Starter Sites',
+    title: 'Starter Websites',
     tag: 'Fast & affordable',
     price: 'From £495',
     description:
-      "Pick one of five polished designs, add your content and colours, live in about a week. See it live before you pay a penny.",
-    cta: 'See the Starter package',
+      "Pick one of six polished designs, add your content and colours, live in about a week. See it live before you pay a penny.",
+    cta: 'See Starter Websites',
     href: '/starter',
     icon: (
       <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden>
@@ -39,6 +39,33 @@ const leadServices = [
 ]
 
 const secondaryServices = [
+  {
+    title: 'Custom Software',
+    price: 'From £3,000',
+    priceNote: '',
+    description: 'Portals, dashboards, internal tools and business systems built around how you work.',
+    href: '/services/custom-software',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden>
+        <rect x="2" y="3" width="14" height="10" rx="1" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M6 16h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Booking Systems & Automation',
+    price: 'Priced individually',
+    priceNote: '',
+    description: 'Booking systems, reminders and workflows that cut admin and save time.',
+    href: '/services/booking-systems-automation',
+    icon: (
+      <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden>
+        <rect x="2.5" y="3" width="13" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M2.5 6.5h13" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M6 1.5v3M12 1.5v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    ),
+  },
   {
     title: 'Website Audit',
     price: 'From £145',
@@ -53,10 +80,10 @@ const secondaryServices = [
     ),
   },
   {
-    title: 'Website Support & Improvements',
-    price: '£30–£60 / hour',
+    title: 'Website Support',
+    price: '£60–£90 / hour',
     priceNote: '',
-    description: 'Copy changes, new pages, design tweaks, and general upkeep.',
+    description: 'Development and consulting for ongoing updates, fixes and improvements.',
     href: '/services/website-support',
     icon: (
       <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden>

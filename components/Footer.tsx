@@ -3,7 +3,10 @@ import Link from 'next/link'
 const links = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
-  { href: '/starter', label: 'Starter Sites' },
+  { href: '/services/growth-websites', label: 'Growth Websites' },
+  { href: '/starter', label: 'Starter Websites' },
+  { href: '/services/custom-software', label: 'Custom Software' },
+  { href: '/services/booking-systems-automation', label: 'Booking Systems & Automation' },
   { href: '/case-studies', label: 'Case Studies' },
   { href: '/contact', label: 'Contact' },
 ]

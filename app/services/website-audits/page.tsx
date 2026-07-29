@@ -176,14 +176,14 @@ export default async function WebsiteAuditsPage() {
             <ScrollReveal>
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 rounded-sm border border-border-light bg-white/80 px-6 py-6 sm:px-8" style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
                 <p className="text-sm text-secondary flex-1">
-                  If the audit turns up bigger issues than a few tweaks can fix, Design &amp; Build might
+                  If the audit turns up bigger issues than a few tweaks can fix, a Growth Website might
                   be the better starting point.
                 </p>
                 <Link
-                  href="/services/web-design"
+                  href="/services/growth-websites"
                   className="inline-flex items-center justify-center gap-2 text-sm font-medium text-ink border border-border-light rounded-sm px-5 py-2.5 shrink-0 transition-colors hover:border-accent/50 hover:text-accent"
                 >
-                  See Design &amp; Build
+                  See Growth Websites
                   <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                     <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>

@@ -12,7 +12,7 @@ const items = [
         <path d="M9 1.5L2.5 9h4.5L7 14.5 13.5 7H9V1.5z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
       </svg>
     ),
-    label: 'Starter Sites, from £495',
+    label: 'Starter Websites, from £495',
   },
   {
     href: 'https://orlabooking.com',
@@ -20,7 +20,7 @@ const items = [
     label: 'the AI receptionist for your business',
   },
   {
-    href: '/services',
+    href: '/services/website-audits',
     visual: (
       <svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden>
         <circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.5" />

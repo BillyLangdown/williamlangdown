@@ -9,15 +9,15 @@ import { getCaseStudy } from '@/lib/queries'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Web Design in Taunton & Somerset | William Langdown',
+  title: 'Growth Websites in Taunton & Somerset | William Langdown',
   description:
-    'Custom website design and development for businesses in Taunton and across Somerset. Built from scratch around your brand and your customers, not a template, from £1,495.',
-  alternates: { canonical: 'https://williamlangdown.com/services/web-design' },
+    'Custom websites designed around your customers’ journey, built to bring in enquiries and support business growth. Strategy, conversion optimisation and SEO foundations included, typically £1,500 to £4,000.',
+  alternates: { canonical: 'https://williamlangdown.com/services/growth-websites' },
   openGraph: {
-    title: 'Web Design in Taunton & Somerset | William Langdown',
+    title: 'Growth Websites in Taunton & Somerset | William Langdown',
     description:
-      'Custom website design and development for businesses in Taunton and across Somerset. Built from scratch around your brand and your customers, not a template, from £1,495.',
-    url: 'https://williamlangdown.com/services/web-design',
+      'Custom websites designed around your customers’ journey, built to bring in enquiries and support business growth. Typically £1,500 to £4,000.',
+    url: 'https://williamlangdown.com/services/growth-websites',
   },
 }
 
@@ -35,16 +35,22 @@ const signs = [
 ]
 
 const included = [
-  'From 5 pages, fully responsive on every device',
-  'Contact forms, SEO and analytics set up from day one',
-  'Two rounds of refinements before launch',
-  'Launch support included',
+  'Strategy and UX planning around how your customers actually find and buy from you',
+  'Custom design, from 5 pages, fully responsive on every device',
+  'Conversion-focused structure, contact forms and clear calls to action',
+  'SEO foundations and analytics set up from day one',
+  'Built to scale: room for more pages, features or integrations as you grow',
+  'Two rounds of refinements before launch, with launch support included',
 ]
 
 const faqs = [
   {
+    q: 'Why is there such a range in price?',
+    a: 'Every Growth Website is scoped around what the business actually needs. A five-page site with a contact form costs less than one with bookings, e-commerce or custom integrations built in, so the price reflects the scope rather than a fixed package.',
+  },
+  {
     q: 'How long does a project take?',
-    a: 'Most Design and Build projects take between three and six weeks from our first call to launch, depending on how much content you have ready and how many rounds of feedback we go through.',
+    a: 'Most Growth Website projects take between three and six weeks from our first call to launch, depending on how much content you have ready and how many rounds of feedback we go through.',
   },
   {
     q: "What if I don't know exactly what I want yet?",
@@ -56,15 +62,11 @@ const faqs = [
   },
   {
     q: 'What happens to my site after it launches?',
-    a: 'I stay on hand for the first few days after launch, and after that you can book Website Support and Improvements whenever you need changes, with no retainer or ongoing contract.',
-  },
-  {
-    q: 'Do I need to sort out hosting and my domain myself?',
-    a: "I'll guide you through it if you're not sure, and handle the technical side of getting everything connected and live.",
+    a: 'I stay on hand for the first few days after launch, and after that you can book Website Support whenever you need changes, with no retainer or ongoing contract.',
   },
 ]
 
-export default async function WebDesignPage() {
+export default async function GrowthWebsitesPage() {
   let caseStudy = null
   try {
     caseStudy = await getCaseStudy('the-garden-tablecloth-co')
@@ -83,19 +85,18 @@ export default async function WebDesignPage() {
                   className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6"
                   style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
                 >
-                  From £1,495
+                  Typically £1,500–£4,000
                 </p>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.06] tracking-tight text-ink max-w-3xl">
-                  Web design and development in Taunton and Somerset
+                  Growth websites for businesses in Taunton and Somerset
                 </h1>
                 <p className="text-base text-secondary mt-4 max-w-xl leading-relaxed">
-                  A website designed and built from scratch around your business, not a template with
-                  your logo dropped in. If your current site isn&apos;t bringing in enquiries, this is
-                  how we work out why and put it right.
+                  A website built around your customers&apos; journey, designed to turn visitors into
+                  enquiries and support the business as it grows, not just a brochure with your logo on it.
                 </p>
                 <div className="mt-8">
                   <Link
-                    href="/contact?service=build"
+                    href="/contact?service=growth"
                     className="inline-flex items-center gap-2 bg-ink text-white text-sm px-7 py-3.5 rounded-sm font-medium hover:bg-ink/85 transition-colors"
                   >
                     Start a project
@@ -131,8 +132,45 @@ export default async function WebDesignPage() {
           </div>
         </section>
 
-        {/* What's included */}
+        {/* Starter vs Growth: business outcome, not template vs custom */}
         <section className="px-6 py-20" style={dotGrid}>
+          <div className="max-w-4xl mx-auto">
+            <ScrollReveal className="mb-10 pl-4 border-l-4 border-accent">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">Starter or Growth?</h2>
+              <p className="text-sm text-secondary mt-1 max-w-lg">
+                The difference isn&apos;t template versus custom. It&apos;s what the site is there to do for
+                your business.
+              </p>
+            </ScrollReveal>
+            <div className="grid grid-cols-1 sm:grid-cols-2 bg-white border border-border-light rounded-sm overflow-hidden">
+              <div className="p-6 pt-7 sm:border-r border-border-light">
+                <p className="text-xs font-semibold uppercase tracking-widest text-tertiary mb-3">Starter Websites</p>
+                <ul className="flex flex-col gap-2.5">
+                  {['A professional online presence', 'A simple brochure website', 'Suitable for new or small businesses just getting started'].map(item => (
+                    <li key={item} className="flex items-start gap-2.5 text-sm text-secondary leading-relaxed">
+                      <span className="mt-1.5 h-1 w-1 rounded-full shrink-0 bg-tertiary" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="p-6 pt-7 border-t sm:border-t-0 border-border-light" style={{ background: 'rgba(37,99,235,0.03)' }}>
+                <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Growth Websites</p>
+                <ul className="flex flex-col gap-2.5">
+                  {["Designed around your customers' journey, from first click to enquiry", 'Built with conversion, SEO foundations and analytics from day one', 'Structured to scale as the business grows: more pages, features and traffic'].map(item => (
+                    <li key={item} className="flex items-start gap-2.5 text-sm text-secondary leading-relaxed">
+                      <span className="mt-1.5 h-1 w-1 rounded-full shrink-0 bg-accent" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* What's included */}
+        <section className="px-6 py-20 bg-subtle">
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
             <ScrollReveal>
               <div className="pl-4 border-l-4 border-accent mb-6">
@@ -190,19 +228,35 @@ export default async function WebDesignPage() {
           </div>
         </section>
 
-        {/* Cross-link to Starter Sites */}
+        {/* Cross-links */}
         <section className="px-6 pb-20">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-6xl mx-auto flex flex-col gap-4">
             <ScrollReveal>
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 rounded-sm border border-border-light bg-white/80 px-6 py-6 sm:px-8" style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
                 <p className="text-sm text-secondary flex-1">
-                  Just need something simple and fast? Starter Sites are ready in about a week, from £495.
+                  Just need something simple and fast? Starter Websites are ready in about a week, from £495.
                 </p>
                 <Link
                   href="/starter"
                   className="inline-flex items-center justify-center gap-2 text-sm font-medium text-ink border border-border-light rounded-sm px-5 py-2.5 shrink-0 transition-colors hover:border-accent/50 hover:text-accent"
                 >
-                  See Starter Sites
+                  See Starter Websites
+                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={60}>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 rounded-sm border border-border-light bg-white/80 px-6 py-6 sm:px-8" style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+                <p className="text-sm text-secondary flex-1">
+                  Not sure where to start? A Website Audit gives you an honest second opinion first.
+                </p>
+                <Link
+                  href="/services/website-audits"
+                  className="inline-flex items-center justify-center gap-2 text-sm font-medium text-ink border border-border-light rounded-sm px-5 py-2.5 shrink-0 transition-colors hover:border-accent/50 hover:text-accent"
+                >
+                  See Website Audits
                   <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                     <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>

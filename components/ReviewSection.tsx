@@ -83,7 +83,7 @@ export default function ReviewSection() {
                   <div className="mt-7 pt-6 border-t border-border-light flex items-center justify-between flex-wrap gap-4">
                     <div>
                       <p className="text-sm font-semibold text-ink">Building Ventilation Services Ltd</p>
-                      <p className="text-xs text-secondary mt-0.5">Website Design &amp; Development client</p>
+                      <p className="text-xs text-secondary mt-0.5">Growth Websites client</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <GoogleLogo />
