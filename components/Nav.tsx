@@ -115,7 +115,7 @@ export default function Nav() {
             >
               <div
                 className="rounded-sm border border-border-light overflow-hidden"
-                style={{ background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', boxShadow: '0 12px 32px rgba(15,23,42,0.12)' }}
+                style={{ background: '#FFFFFF', boxShadow: '0 12px 32px rgba(15,23,42,0.16)' }}
               >
                 {serviceLinks.map(({ href, label, desc }) => (
                   <Link
