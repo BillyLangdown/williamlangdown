@@ -80,7 +80,7 @@ export default function BookingSystemsAutomationPage() {
                     href="/contact?service=automation"
                     className="inline-flex items-center gap-2 bg-ink text-white text-sm px-7 py-3.5 rounded-sm font-medium hover:bg-ink/85 transition-colors"
                   >
-                    Talk about your process
+                    Talk about automation
                     <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
                       <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>

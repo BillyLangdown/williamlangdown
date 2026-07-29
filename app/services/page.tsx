@@ -31,8 +31,8 @@ const tiers = [
       'SEO foundations and analytics',
       'Built to scale with the business',
     ],
-    cta: 'Start a project',
-    href: '/contact?service=growth',
+    cta: 'Learn more',
+    href: '/services/growth-websites',
     learnMoreHref: '/services/growth-websites',
     featured: true,
   },
@@ -49,7 +49,7 @@ const tiers = [
       'Live in about a week',
       'See it live before you pay',
     ],
-    cta: 'See Starter Websites',
+    cta: 'Learn more',
     href: '/starter',
     learnMoreHref: '/starter',
     featured: false,
@@ -67,8 +67,8 @@ const tiers = [
       'Custom applications',
       'Business systems',
     ],
-    cta: 'Talk about a project',
-    href: '/contact?service=software',
+    cta: 'Learn more',
+    href: '/services/custom-software',
     learnMoreHref: '/services/custom-software',
     featured: false,
   },
@@ -85,8 +85,8 @@ const tiers = [
       'Enquiry workflows',
       'AI automation',
     ],
-    cta: 'Talk about your process',
-    href: '/contact?service=automation',
+    cta: 'Learn more',
+    href: '/services/booking-systems-automation',
     learnMoreHref: '/services/booking-systems-automation',
     featured: false,
   },
@@ -146,7 +146,7 @@ export default function ServicesPage() {
             backgroundColor: '#F8FAFC',
           }}
         >
-          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-5">
             {tiers.map((tier, i) => (
               tier.featured ? (
                 /* Featured: dark card with blob layer */
