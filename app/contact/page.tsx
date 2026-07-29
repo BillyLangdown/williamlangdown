@@ -105,26 +105,6 @@ export default async function ContactPage({ searchParams }: Props) {
                   </svg>
                 </a>
               </div>
-
-              <div
-                className="mt-6 flex items-start gap-3 rounded-sm p-4"
-                style={{ background: 'rgba(37,99,235,0.05)', border: '1px solid rgba(37,99,235,0.14)' }}
-              >
-                <div
-                  className="shrink-0 w-7 h-7 rounded-sm flex items-center justify-center mt-0.5"
-                  style={{ background: 'rgba(37,99,235,0.1)', color: '#2563EB' }}
-                >
-                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
-                    <rect x="4" y="4" width="8" height="8" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                    <path d="M6 1v2M10 1v2M6 13v2M10 13v2M1 6h2M1 10h2M13 6h2M13 10h2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-                    <circle cx="8" cy="8" r="1.2" fill="currentColor" />
-                  </svg>
-                </div>
-                <p className="text-xs leading-relaxed text-secondary">
-                  <span className="font-semibold text-ink">IT consulting &amp; AI integration.</span>{' '}
-                  Free consultation available if you need technical advice or help integrating AI into your business.
-                </p>
-              </div>
             </div>
 
             {/* Right: Form */}

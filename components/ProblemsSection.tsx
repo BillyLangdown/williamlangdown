@@ -203,12 +203,12 @@ function Coverflow({
       {problems.map((problem, i) => {
         const offset = ringOffset(i, displayIndex, problems.length)
         const abs = Math.abs(offset)
-        if (abs > 1) return null
         const isActive = offset === 0
+        const isNeighbor = abs === 1
         return (
           <div
             key={problem.title}
-            onClick={() => !isActive && onSelect(i)}
+            onClick={() => !isActive && isNeighbor && onSelect(i)}
             className="absolute left-1/2 top-1/2 rounded-full border border-white/10 shadow-sm flex flex-col items-center justify-center text-center overflow-hidden select-none"
             style={{
               width: size.diameter,
@@ -216,14 +216,14 @@ function Coverflow({
               backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1.5px, transparent 1.5px)',
               backgroundSize: '22px 22px',
               backgroundColor: '#080e1c',
-              transform: `translate(-50%, -50%) translateX(${offset * size.offsetStep + dragDeltaPx}px) translateZ(${-abs * size.zStep}px) rotateY(${-offset * 34}deg) scale(${1 - abs * 0.16})`,
-              opacity: isActive ? 1 : 0.45,
-              filter: isActive ? 'none' : 'blur(3px)',
+              transform: `translate(-50%, -50%) translateX(${offset * size.offsetStep + dragDeltaPx}px) translateZ(${-abs * size.zStep}px) rotateY(${-offset * 34}deg) scale(${1 - Math.min(abs, 2) * 0.16})`,
+              opacity: isActive ? 1 : isNeighbor ? 0.45 : 0,
               zIndex: isActive ? 10 : 5,
-              cursor: isActive ? 'default' : 'pointer',
+              cursor: isActive ? 'default' : isNeighbor ? 'pointer' : 'default',
+              pointerEvents: isNeighbor || isActive ? 'auto' : 'none',
               transition: dragging
                 ? 'none'
-                : 'transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease, filter 0.6s ease',
+                : 'transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease',
             }}
           >
             <span className={`absolute ${size.badgeTopClass} left-1/2 -translate-x-1/2 text-[10px] font-semibold uppercase tracking-widest text-white/40`}>
