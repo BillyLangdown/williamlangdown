@@ -91,10 +91,10 @@ export default function Hero() {
         </div>
 
         <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4 text-center">
-         I build websites to help businesses grow.
+         I build software to help businesses grow.
         </h1>
         <p className="text-sm leading-relaxed mb-8 text-center " style={{ color: '#0f172a' }}>
-          Fast, beautiful and effective software solutions.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
+          Websites, tools and automation for any business.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
         </p>
 
         <div className="flex flex-col gap-3">
@@ -129,10 +129,10 @@ export default function Hero() {
         >
           <div className="max-w-[90%]">
             <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-heading font-extrabold leading-[1.06] tracking-tight text-ink mb-5">
-              I build websites to help businesses grow.
+              I build software to help businesses grow.
             </h1>
             <p className="text-base text-secondary leading-relaxed mb-8">
-              Fast, beautiful and effective software solutions.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
+              Websites, tools and automation for any business.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
             </p>
             <div className="flex flex-wrap gap-3 mb-8">
               <Link
@@ -153,7 +153,7 @@ export default function Hero() {
               className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-wide"
               style={{ background: 'rgba(37,99,235,0.07)', color: '#2563EB' }}
             >
-              Websites · Mobile Apps · AI Automation
+              Websites · Custom Software · Automation
             </div>
           </div>
         </div>
