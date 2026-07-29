@@ -217,7 +217,7 @@ function Coverflow({
               backgroundSize: '22px 22px',
               backgroundColor: '#080e1c',
               transform: `translate(-50%, -50%) translateX(${offset * size.offsetStep + dragDeltaPx}px) translateZ(${-abs * size.zStep}px) rotateY(${-offset * 34}deg) scale(${1 - Math.min(abs, 2) * 0.16})`,
-              opacity: isActive ? 1 : isNeighbor ? 0.45 : 0,
+              opacity: isActive || isNeighbor ? 1 : 0,
               zIndex: isActive ? 10 : 5,
               cursor: isActive ? 'default' : isNeighbor ? 'pointer' : 'default',
               pointerEvents: isNeighbor || isActive ? 'auto' : 'none',
