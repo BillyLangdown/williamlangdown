@@ -33,6 +33,7 @@ const tiers = [
     ],
     cta: 'Get an audit',
     href: '/contact?service=audit',
+    learnMoreHref: '/services/website-audits',
     featured: false,
   },
   {
@@ -50,6 +51,7 @@ const tiers = [
     ],
     cta: 'Start a project',
     href: '/contact?service=build',
+    learnMoreHref: '/services/web-design',
     featured: true,
   },
   {
@@ -67,6 +69,7 @@ const tiers = [
     ],
     cta: 'Get in touch',
     href: '/contact?service=development',
+    learnMoreHref: '/services/website-support',
     featured: false,
   },
 ]
@@ -122,7 +125,9 @@ export default function ServicesPage() {
                     </div>
                     <div className="relative z-10 p-8 flex flex-col gap-7 h-full">
                       <div>
-                        <p className="text-[10px] font-semibold uppercase tracking-widest text-white/35 mb-4">{tier.name}</p>
+                        <Link href={tier.learnMoreHref} className="inline-block text-[10px] font-semibold uppercase tracking-widest text-white/35 mb-4 hover:text-white/60 transition-colors">
+                          {tier.name}
+                        </Link>
                         <p className="text-4xl font-heading font-bold tracking-tight text-white mb-4">{tier.price}</p>
                         {tier.priceNote && (
                           <div className="-mt-2 mb-3 flex flex-col gap-0.5">
@@ -162,7 +167,9 @@ export default function ServicesPage() {
                   <div className="rounded-sm flex flex-col h-full" style={{ background: 'rgba(255,255,255,0.8)', border: '1px solid rgba(15,23,42,0.08)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
                     <div className="p-8 flex flex-col gap-7 h-full">
                       <div>
-                        <p className="text-[10px] font-semibold uppercase tracking-widest text-tertiary mb-4">{tier.name}</p>
+                        <Link href={tier.learnMoreHref} className="inline-block text-[10px] font-semibold uppercase tracking-widest text-tertiary mb-4 hover:text-accent transition-colors">
+                          {tier.name}
+                        </Link>
                         <p className="text-4xl font-heading font-bold tracking-tight text-ink mb-4">{tier.price}</p>
                         {tier.priceNote && (
                           <div className="-mt-2 mb-3 flex flex-col gap-0.5">

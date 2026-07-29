@@ -89,7 +89,7 @@ const jsonLd = {
               name: 'Website Support & Improvements',
               description: 'Ongoing help with your existing website. Updates, fixes, and improvements on an hourly basis.',
             },
-            priceSpecification: { '@type': 'PriceSpecification', price: '50', priceCurrency: 'GBP', unitCode: 'HUR' },
+            priceSpecification: { '@type': 'PriceSpecification', minPrice: '30', maxPrice: '60', priceCurrency: 'GBP', unitCode: 'HUR' },
           },
         ],
       },
