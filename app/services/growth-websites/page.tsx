@@ -88,7 +88,7 @@ export default async function GrowthWebsitesPage() {
                   Typically £1,500–£4,000
                 </p>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.06] tracking-tight text-ink max-w-3xl">
-                  Growth websites for businesses in Taunton and Somerset
+                  Growth websites
                 </h1>
                 <p className="text-base text-secondary mt-4 max-w-xl leading-relaxed">
                   A website built around your customers&apos; journey, designed to turn visitors into

@@ -80,7 +80,7 @@ export default async function WebsiteAuditsPage() {
                   From £145
                 </p>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.06] tracking-tight text-ink max-w-3xl">
-                  Website audits in Taunton and Somerset
+                  Website audits
                 </h1>
                 <p className="text-base text-secondary mt-4 max-w-xl leading-relaxed">
                   If you&apos;re not sure why your site isn&apos;t bringing in enquiries, or you just
