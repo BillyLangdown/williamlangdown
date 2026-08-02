@@ -43,15 +43,15 @@ const PROJECTS: Project[] = [
     desktop: { poster: '/images/showcase-gtc-desktop.png' },
   },
   {
-    name: 'The Mill Gym',
+    name: 'Ironclad',
     description:
-      'Started as one of my Starter Sites templates, which this client then extended and customized into a full brand and website built to turn passers-by into walk-ins.',
-    href: 'https://the-mill-gym.vercel.app',
-    external: true,
-    cta: 'Visit site',
-    url: 'the-mill-gym.vercel.app',
-    mobile: { video: '/videos/mill-mobile.mp4', poster: '/images/showcase-mill-mobile.jpg' },
-    desktop: { video: '/videos/mill-desktop.mp4', poster: '/images/showcase-mill-desktop.jpg' },
+      'A concept rebrand of one of my Starter Site templates for a powerlifting gym, built to show what the base design can become with a bolder direction. A proof of concept, not a real client project.',
+    href: '/starter/remix-ironclad',
+    external: false,
+    cta: 'View concept',
+    url: 'williamlangdown.com/starter/remix-ironclad',
+    mobile: { poster: '/images/starter/ironclad-hero.jpg' },
+    desktop: { poster: '/images/starter/ironclad-hero.jpg' },
   },
   {
     name: 'Axiom',
