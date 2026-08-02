@@ -91,10 +91,10 @@ export default function Hero() {
         </div>
 
         <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4 text-center">
-         I build software to help businesses grow.
+         I build websites that help businesses win more work.
         </h1>
         <p className="text-sm leading-relaxed mb-8 text-center " style={{ color: '#0f172a' }}>
-          Websites, tools and automation for any business.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
+          From commercial contractors to independent shops, I build the websites, software and automation that turn visitors into enquiries.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
         </p>
 
         <div className="flex flex-col gap-3">
@@ -129,10 +129,10 @@ export default function Hero() {
         >
           <div className="max-w-[90%]">
             <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-heading font-extrabold leading-[1.06] tracking-tight text-ink mb-5">
-              I build software to help businesses grow.
+              I build websites that help businesses win more work.
             </h1>
             <p className="text-base text-secondary leading-relaxed mb-8">
-              Websites, tools and automation for any business.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
+              From commercial contractors to independent shops, I build the websites, software and automation that turn visitors into enquiries.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
             </p>
             <div className="flex flex-wrap gap-3 mb-8">
               <Link

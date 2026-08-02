@@ -6,19 +6,21 @@ import ProblemsSection from '@/components/ProblemsSection'
 import ServicesSection from '@/components/ServicesSection'
 import AboutSection from '@/components/AboutSection'
 import ReviewSection from '@/components/ReviewSection'
+import BeforeAfterSection from '@/components/BeforeAfterSection'
 import CTABanner from '@/components/CTABanner'
 import Footer from '@/components/Footer'
+import { getFeaturedCaseStudy } from '@/lib/queries'
 import type { Metadata } from 'next'
 
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'William Langdown | Technical Partner for Small Businesses, Taunton & Somerset',
-  description: 'Based in Taunton, Somerset, working with businesses from Bristol to Exeter. I build the websites, software and automation that help small businesses win more customers and save time, personally, with no agency layers.',
+  title: 'Websites for Trade & Contractor Businesses | William Langdown',
+  description: 'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors. Based in Taunton, Somerset, working across the South West and remotely nationwide.',
   alternates: { canonical: 'https://williamlangdown.com' },
   openGraph: {
-    title: 'William Langdown | Technical Partner for Small Businesses, Taunton & Somerset',
-    description: 'Websites, software and automation built to help small businesses win more customers and save time. Based in Taunton, Somerset, working with businesses from Bristol to Exeter.',
+    title: 'Websites for Trade & Contractor Businesses | William Langdown',
+    description: 'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors. Based in Taunton, Somerset, working across the South West and remotely nationwide.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
@@ -26,8 +28,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'William Langdown | Technical Partner for Small Businesses, Taunton & Somerset',
-    description: 'Websites, software and automation built to help small businesses win more customers and save time.',
+    title: 'Websites for Trade & Contractor Businesses | William Langdown',
+    description: 'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors, based in Taunton, Somerset.',
   },
 }
 
@@ -48,9 +50,10 @@ const jsonLd = {
       '@id': 'https://williamlangdown.com/#service',
       name: 'William Langdown - Websites, Software & Automation',
       url: 'https://williamlangdown.com',
-      description: 'Technical partner for small businesses based in Taunton, Somerset, building websites, custom software and automation that help businesses win more customers and save time, serving the South West and further afield.',
+      description: 'Websites, custom software and automation for trade and contracting businesses, HVAC, electrical, mechanical services, facilities maintenance and industrial suppliers, based in Taunton, Somerset, serving the South West and working remotely nationwide.',
       provider: { '@id': 'https://williamlangdown.com/#person' },
       areaServed: ['Taunton', 'Chard', 'Frome', 'Somerset', 'Bristol', 'Exeter', 'GB'],
+      knowsAbout: ['HVAC', 'Electrical Contracting', 'Mechanical Services', 'Facilities Maintenance', 'Industrial Suppliers', 'Web Design', 'Web Development'],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Services',
@@ -114,7 +117,10 @@ const jsonLd = {
   ],
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  let featuredCaseStudy = null
+  try { featuredCaseStudy = await getFeaturedCaseStudy() } catch {}
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -127,6 +133,7 @@ export default function HomePage() {
         <ProjectShowcase />
         <ServicesSection />
         <ReviewSection />
+        <BeforeAfterSection caseStudy={featuredCaseStudy} />
         <CTABanner />
       </main>
       <Footer />
