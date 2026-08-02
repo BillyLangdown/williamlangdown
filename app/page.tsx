@@ -6,10 +6,8 @@ import ProblemsSection from '@/components/ProblemsSection'
 import ServicesSection from '@/components/ServicesSection'
 import AboutSection from '@/components/AboutSection'
 import ReviewSection from '@/components/ReviewSection'
-import BeforeAfterSection from '@/components/BeforeAfterSection'
 import CTABanner from '@/components/CTABanner'
 import Footer from '@/components/Footer'
-import { getFeaturedCaseStudy } from '@/lib/queries'
 import type { Metadata } from 'next'
 
 export const revalidate = 3600
@@ -117,10 +115,7 @@ const jsonLd = {
   ],
 }
 
-export default async function HomePage() {
-  let featuredCaseStudy = null
-  try { featuredCaseStudy = await getFeaturedCaseStudy() } catch {}
-
+export default function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -133,7 +128,6 @@ export default async function HomePage() {
         <ProjectShowcase />
         <ServicesSection />
         <ReviewSection />
-        <BeforeAfterSection caseStudy={featuredCaseStudy} />
         <CTABanner />
       </main>
       <Footer />
