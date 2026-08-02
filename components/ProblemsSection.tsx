@@ -120,7 +120,6 @@ const problems = [
 ]
 
 const DWELL = 7000
-const SWIPE_THRESHOLD_PX = 40
 
 // Shortest signed distance from `active` to `i` around a ring of `total`
 // cards, e.g. for 6 cards, going from index 5 to index 0 is +1 (forward
@@ -176,29 +175,15 @@ function Coverflow({
   size,
   displayIndex,
   onSelect,
-  onPointerDown,
-  onPointerMove,
-  onPointerUp,
-  dragDeltaPx,
-  dragging,
 }: {
   size: CoverflowSize
   displayIndex: number
   onSelect: (i: number) => void
-  onPointerDown: (e: React.PointerEvent) => void
-  onPointerMove: (e: React.PointerEvent) => void
-  onPointerUp: (e: React.PointerEvent) => void
-  dragDeltaPx: number
-  dragging: boolean
 }) {
   return (
     <div
-      className="relative overflow-hidden touch-pan-y"
+      className="relative overflow-hidden"
       style={{ height: `${size.containerHeight}px`, perspective: '1600px' }}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerCancel={onPointerUp}
     >
       {problems.map((problem, i) => {
         const offset = ringOffset(i, displayIndex, problems.length)
@@ -216,14 +201,13 @@ function Coverflow({
               backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1.5px, transparent 1.5px)',
               backgroundSize: '22px 22px',
               backgroundColor: '#080e1c',
-              transform: `translate(-50%, -50%) translateX(${offset * size.offsetStep + dragDeltaPx}px) translateZ(${-abs * size.zStep}px) rotateY(${-offset * 34}deg) scale(${1 - Math.min(abs, 2) * 0.16})`,
-              opacity: isActive || isNeighbor ? 1 : 0,
+              transform: `translate(-50%, -50%) translateX(${offset * size.offsetStep}px) translateZ(${-abs * size.zStep}px) rotateY(${-offset * 34}deg) scale(${1 - Math.min(abs, 2) * 0.16})`,
+              opacity: isActive ? 1 : isNeighbor ? 0.45 : 0,
+              filter: isActive ? 'none' : 'blur(3px)',
               zIndex: isActive ? 10 : 5,
               cursor: isActive ? 'default' : isNeighbor ? 'pointer' : 'default',
               pointerEvents: isNeighbor || isActive ? 'auto' : 'none',
-              transition: dragging
-                ? 'none'
-                : 'transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease',
+              transition: 'transform 0.7s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease, filter 0.6s ease',
             }}
           >
             <span className={`absolute ${size.badgeTopClass} left-1/2 -translate-x-1/2 text-[10px] font-semibold uppercase tracking-widest text-white/40`}>
@@ -316,36 +300,10 @@ export default function ProblemsSection() {
   const [inView, setInView] = useState(false)
   const [displayIndex, setDisplayIndex] = useState(0)
   const [paused, setPaused] = useState(false)
-  const [dragDeltaPx, setDragDeltaPx] = useState(0)
-  const [dragging, setDragging] = useState(false)
-  const dragState = useRef({ startX: 0, dragging: false, pointerId: -1 })
 
   const goTo = useCallback((idx: number) => setDisplayIndex(idx), [])
   const goNext = useCallback(() => setDisplayIndex((i) => (i + 1) % problems.length), [])
   const goPrev = useCallback(() => setDisplayIndex((i) => (i - 1 + problems.length) % problems.length), [])
-
-  const onPointerDown = useCallback((e: React.PointerEvent) => {
-    dragState.current = { startX: e.clientX, dragging: true, pointerId: e.pointerId }
-    setDragging(true)
-    setPaused(true)
-    ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
-  }, [])
-
-  const onPointerMove = useCallback((e: React.PointerEvent) => {
-    if (!dragState.current.dragging || e.pointerId !== dragState.current.pointerId) return
-    setDragDeltaPx(e.clientX - dragState.current.startX)
-  }, [])
-
-  const onPointerUp = useCallback((e: React.PointerEvent) => {
-    if (!dragState.current.dragging || e.pointerId !== dragState.current.pointerId) return
-    const delta = e.clientX - dragState.current.startX
-    dragState.current.dragging = false
-    setDragging(false)
-    setDragDeltaPx(0)
-    setPaused(false)
-    if (delta > SWIPE_THRESHOLD_PX) goPrev()
-    else if (delta < -SWIPE_THRESHOLD_PX) goNext()
-  }, [goNext, goPrev])
 
   // Only auto-advance while the section is actually on screen, so the
   // carousel isn't several cards in by the time someone scrolls to it.
@@ -379,14 +337,14 @@ export default function ProblemsSection() {
             go off screen instead of clipping at the padded content edge. */}
         <div className="md:hidden" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
           <div style={{ width: '100vw', marginLeft: 'calc(50% - 50vw)' }}>
-            <Coverflow size={MOBILE_SIZE} displayIndex={displayIndex} onSelect={goTo} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} dragDeltaPx={dragDeltaPx} dragging={dragging} />
+            <Coverflow size={MOBILE_SIZE} displayIndex={displayIndex} onSelect={goTo} />
           </div>
           <ProgressControls displayIndex={displayIndex} onSelect={goTo} onPrev={goPrev} onNext={goNext} paused={paused || !inView} />
         </div>
 
         {/* Desktop coverflow */}
         <div className="hidden md:block" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
-          <Coverflow size={DESKTOP_SIZE} displayIndex={displayIndex} onSelect={goTo} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} dragDeltaPx={dragDeltaPx} dragging={dragging} />
+          <Coverflow size={DESKTOP_SIZE} displayIndex={displayIndex} onSelect={goTo} />
           <ProgressControls displayIndex={displayIndex} onSelect={goTo} onPrev={goPrev} onNext={goNext} paused={paused || !inView} />
         </div>
 
