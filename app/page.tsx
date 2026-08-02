@@ -109,6 +109,24 @@ const jsonLd = {
             },
             priceSpecification: { '@type': 'PriceSpecification', minPrice: '60', maxPrice: '90', priceCurrency: 'GBP', unitCode: 'HUR' },
           },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Essential Care Plan',
+              description: 'Hosting and SSL for an existing website, billed monthly with no minimum term.',
+            },
+            priceSpecification: { '@type': 'PriceSpecification', price: '19', priceCurrency: 'GBP', unitCode: 'MON' },
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Tech Partner Care Plan',
+              description: 'Hosting, SSL and two hours of development work a month for an existing website, billed monthly with no minimum term.',
+            },
+            priceSpecification: { '@type': 'PriceSpecification', price: '149', priceCurrency: 'GBP', unitCode: 'MON' },
+          },
         ],
       },
     },

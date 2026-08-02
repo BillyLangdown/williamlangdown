@@ -47,7 +47,7 @@ const faqs = [
   },
   {
     q: "Do you maintain the system after it's built?",
-    a: 'Yes, ongoing development and support is available through Website Support, billed hourly with no retainer.',
+    a: 'Yes, through Website Support billed hourly, or an optional Care Plan if you’d rather have hosting and a monthly time allowance included instead. No minimum term either way.',
   },
 ]
 

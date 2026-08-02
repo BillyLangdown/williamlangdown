@@ -62,7 +62,7 @@ const faqs = [
   },
   {
     q: 'What happens to my site after it launches?',
-    a: 'I stay on hand for the first few days after launch, and after that you can book Website Support whenever you need changes, with no retainer or ongoing contract.',
+    a: 'I stay on hand for the first few days after launch. After that, book Website Support whenever you need changes, or choose an optional Care Plan if you’d rather have hosting and a set amount of my time included each month. No minimum term either way.',
   },
 ]
 
