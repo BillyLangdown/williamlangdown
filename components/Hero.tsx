@@ -90,11 +90,14 @@ export default function Hero() {
           </div>
         </div>
 
+        <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3 text-center">
+          Web Design &amp; Website Development &middot; Taunton, Somerset
+        </p>
         <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4 text-center">
          I build software to help businesses grow.
         </h1>
         <p className="text-sm leading-relaxed mb-8 text-center " style={{ color: '#0f172a' }}>
-          Websites, tools and automation for any business.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
+          Websites, booking systems and quoting tools for trades and commercial contractors, and for any growing business.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
         </p>
 
         <div className="flex flex-col gap-3">
@@ -128,11 +131,14 @@ export default function Hero() {
           }}
         >
           <div className="max-w-[90%]">
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">
+              Web Design &amp; Website Development &middot; Taunton, Somerset
+            </p>
             <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-heading font-extrabold leading-[1.06] tracking-tight text-ink mb-5">
               I build software to help businesses grow.
             </h1>
             <p className="text-base text-secondary leading-relaxed mb-8">
-              Websites, tools and automation for any business.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
+              Websites, booking systems and quoting tools for trades and commercial contractors, and for any growing business.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
             </p>
             <div className="flex flex-wrap gap-3 mb-8">
               <Link

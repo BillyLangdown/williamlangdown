@@ -6,19 +6,21 @@ import ProblemsSection from '@/components/ProblemsSection'
 import ServicesSection from '@/components/ServicesSection'
 import AboutSection from '@/components/AboutSection'
 import ReviewSection from '@/components/ReviewSection'
+import BeforeAfterSection from '@/components/BeforeAfterSection'
 import CTABanner from '@/components/CTABanner'
 import Footer from '@/components/Footer'
+import { getCaseStudy } from '@/lib/queries'
 import type { Metadata } from 'next'
 
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'William Langdown | Technical Partner for Small Businesses, Taunton & Somerset',
-  description: 'Based in Taunton, Somerset, working with businesses from Bristol to Exeter. I build the websites, software and automation that help small businesses win more customers and save time, personally, with no agency layers.',
+  title: 'Web Developer & Web Designer in Taunton, Somerset | William Langdown',
+  description: 'Web developer and designer based in Taunton, Somerset. I build websites, booking software and quoting tools for commercial trades and contractors, and for small businesses across the South West, personally, with no agency layers.',
   alternates: { canonical: 'https://williamlangdown.com' },
   openGraph: {
-    title: 'William Langdown | Technical Partner for Small Businesses, Taunton & Somerset',
-    description: 'Websites, software and automation built to help small businesses win more customers and save time. Based in Taunton, Somerset, working with businesses from Bristol to Exeter.',
+    title: 'Web Developer & Web Designer in Taunton, Somerset | William Langdown',
+    description: 'Websites, booking software and quoting tools for commercial trades and contractors, and for any growing business. Based in Taunton, Somerset, working with businesses from Bristol to Exeter.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
@@ -26,8 +28,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'William Langdown | Technical Partner for Small Businesses, Taunton & Somerset',
-    description: 'Websites, software and automation built to help small businesses win more customers and save time.',
+    title: 'Web Developer & Web Designer in Taunton, Somerset | William Langdown',
+    description: 'Websites, booking software and quoting tools for commercial trades and contractors, and for any growing business.',
   },
 }
 
@@ -48,9 +50,32 @@ const jsonLd = {
       '@id': 'https://williamlangdown.com/#service',
       name: 'William Langdown - Websites, Software & Automation',
       url: 'https://williamlangdown.com',
-      description: 'Technical partner for small businesses based in Taunton, Somerset, building websites, custom software and automation that help businesses win more customers and save time, serving the South West and further afield.',
+      description: 'Web developer and designer based in Taunton, Somerset, building websites, booking software and quoting tools for commercial trades and contractors, and custom software and automation for any growing business, serving the South West and further afield.',
       provider: { '@id': 'https://williamlangdown.com/#person' },
       areaServed: ['Taunton', 'Chard', 'Frome', 'Somerset', 'Bristol', 'Exeter', 'GB'],
+      telephone: '+44 7446 856927',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Taunton',
+        addressRegion: 'Somerset',
+        addressCountry: 'GB',
+        // postalCode intentionally omitted: not yet confirmed for public
+        // publication. Add once known.
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 51.0158,
+        longitude: -3.1058,
+      },
+      sameAs: [
+        // TODO: add Google Business Profile URL once claimed/confirmed
+        // TODO: add LinkedIn profile URL
+      ],
+      // aggregateRating intentionally omitted: only one manually-verified
+      // review (BVS, 5.0) currently exists on-site, which isn't real
+      // aggregate data (ratingValue + reviewCount from an actual review
+      // source). Add this once genuine aggregate review data is wired up,
+      // e.g. from Google Business Profile or Sanity.
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Services',
@@ -114,7 +139,18 @@ const jsonLd = {
   ],
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Same case study fetch used on /services/growth-websites and
+  // /services/website-audits, so BeforeAfterSection's second slide (Garden
+  // Tablecloth) has real data here too. BVS, the flagship trades proof
+  // point, is the component's first/default slide.
+  let caseStudy = null
+  try {
+    caseStudy = await getCaseStudy('the-garden-tablecloth-co')
+  } catch {
+    // no-op, component falls back to placeholder content
+  }
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -122,11 +158,15 @@ export default function HomePage() {
       <main>
         <Hero />
         <PromoTicker />
+        {/* Proof up front: the BVS review and PageSpeed results were
+            previously buried near the bottom of the page. Leading with
+            them here surfaces the strongest trades case study early. */}
+        <ReviewSection />
+        <BeforeAfterSection caseStudy={caseStudy} />
         <AboutSection />
         <ProblemsSection />
         <ProjectShowcase />
         <ServicesSection />
-        <ReviewSection />
         <CTABanner />
       </main>
       <Footer />

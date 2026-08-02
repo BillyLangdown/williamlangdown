@@ -12,7 +12,7 @@ const leadServices = [
     tag: 'Built to grow your business',
     price: 'Typically £1,500–£4,000',
     description:
-      "Custom websites designed around your customers' journey, built to bring in enquiries and support growth, not just look good. Strategy, conversion and SEO foundations included.",
+      "Custom websites designed around your customers' journey, built for commercial trades and contractors and any growing business, to bring in enquiries and support growth, not just look good. Strategy, conversion and SEO foundations included.",
     cta: 'See Growth Websites',
     href: '/services/growth-websites',
     icon: (
@@ -56,7 +56,7 @@ const secondaryServices = [
     title: 'Booking Systems & Automation',
     price: 'Priced individually',
     priceNote: '',
-    description: 'Booking systems, reminders and workflows that cut admin and save time.',
+    description: 'Booking, quoting and job-scheduling systems that cut admin and save time, built for trades and service businesses.',
     href: '/services/booking-systems-automation',
     icon: (
       <svg width="16" height="16" viewBox="0 0 18 18" fill="none" aria-hidden>

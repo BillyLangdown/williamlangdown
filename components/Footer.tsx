@@ -3,6 +3,7 @@ import Link from 'next/link'
 const exploreLinks = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
+  { href: '/pricing', label: 'Pricing' },
   { href: '/case-studies', label: 'Case Studies' },
   { href: '/contact', label: 'Contact' },
 ]
@@ -33,10 +34,10 @@ export default function Footer() {
               hello@williamlangdown.com
             </a>
             <a
-              href="tel:07446856927"
+              href="tel:+447446856927"
               className="text-sm text-tertiary hover:text-ink transition-colors"
             >
-              07446 856927
+              +44 7446 856927
             </a>
             <p className="text-sm text-tertiary">
               Based in Taunton, Somerset

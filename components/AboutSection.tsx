@@ -48,7 +48,7 @@ export default function AboutSection() {
                 Hi, I&apos;m William.
               </p>
               <p className="text-base text-secondary leading-relaxed">
-             Based in Taunton, Somerset, I'm a technical partner for businesses: websites, software and automation that win you customers and save you time, with no agency layers in between.
+             I'm a web developer and designer based in Taunton, Somerset, specializing in websites, booking systems and quoting tools for commercial trades and contractors, and building for any growing business, with no agency layers in between.
               </p>
             </motion.div>
           </div>
@@ -69,7 +69,7 @@ export default function AboutSection() {
               Hi, I&apos;m William.
             </p>
             <p className="text-lg text-secondary leading-relaxed">
-            Based in Taunton, Somerset, I work as a technical partner for businesses, building the websites, software and automation that help them win more customers and spend less time on admin, with no agency layers in between. Tell me what's slowing your business down, and I'll work out what to build.
+            I'm a web developer and designer based in Taunton, Somerset, specializing in websites, booking software and quoting tools for commercial trades and industrial contractors, HVAC, electrical, mechanical and facilities firms among them, and building for any growing business that needs to win more customers and spend less time on admin, with no agency layers in between. Tell me what's slowing your business down, and I'll work out what to build.
             </p>
           </motion.div>
         </div>
