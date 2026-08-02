@@ -49,6 +49,13 @@ const services = [
     placeholder: 'e.g. I need a few bug fixes and an extra page added to my existing site...',
   },
   {
+    value: 'care-plans',
+    label: 'Care Plans',
+    desc: 'Essential hosting, or Tech Partner with hours included',
+    price: 'From £19 / month',
+    placeholder: 'e.g. I\'d like to set up a Care Plan for my existing site...',
+  },
+  {
     value: 'orla',
     label: 'Orla',
     desc: 'Get early access or ask a question',
