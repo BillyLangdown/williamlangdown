@@ -12,18 +12,18 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Web Developer & Web Designer in Taunton, Somerset | William Langdown',
+  title: 'William Langdown | Websites for Trade & Contractor Businesses',
   description:
-    'Web developer and designer based in Taunton, Somerset, working with businesses from Bristol to Exeter. I build websites, booking software and quoting tools for commercial trades and contractors, and for any growing business, backed by a degree in branding and a real understanding of how people decide to trust a business.',
+    'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors. Based in Taunton, Somerset, working across the South West and remotely nationwide.',
   alternates: { canonical: 'https://williamlangdown.com' },
   icons: {
     icon: '/favicon.ico',
     apple: '/favicon.ico',
   },
   openGraph: {
-    title: 'Web Developer & Web Designer in Taunton, Somerset | William Langdown',
+    title: 'William Langdown | Websites for Trade & Contractor Businesses',
     description:
-      'Web developer and designer based in Taunton, Somerset, working with businesses from Bristol to Exeter. I build websites that turn visitors into customers.',
+      'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors. Based in Taunton, Somerset, working across the South West and remotely nationwide.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Web Developer & Web Designer in Taunton, Somerset | William Langdown',
-    description: 'Web developer and designer based in Taunton, Somerset, working with businesses from Bristol to Exeter.',
+    title: 'William Langdown | Websites for Trade & Contractor Businesses',
+    description: 'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors, based in Taunton, Somerset.',
   },
 }
 

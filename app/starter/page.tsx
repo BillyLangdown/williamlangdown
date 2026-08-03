@@ -104,30 +104,35 @@ export default function StarterPage() {
             backgroundColor: '#F8FAFC',
           }}
         >
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-6xl mx-auto">
             <ScrollReveal>
-              <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6" style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}>
-                £495 · Live in about a week
-              </p>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold leading-[1.1] md:leading-[1.05] tracking-tight text-ink text-balance">
-                A great website, live in a week
-              </h1>
-              <p className="mt-5 text-base text-secondary max-w-md md:max-w-2xl mx-auto leading-relaxed whitespace-normal md:whitespace-nowrap">
-                Pick a design, add your content, and see it live before you pay a penny.
-              </p>
-              <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link
-                  href="/starter/order"
-                  className="inline-flex items-center gap-2 bg-ink text-white text-sm px-7 py-3.5 rounded-sm font-medium hover:bg-ink/85 transition-colors"
+              <div className="pl-4 border-l-4 border-accent">
+                <p
+                  className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6"
+                  style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
                 >
-                  Order now · £495
-                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
-                <a href="#designs" className="text-sm font-medium text-secondary hover:text-ink transition-colors">
-                  See the six designs ↓
-                </a>
+                  £495 · Live in about a week
+                </p>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.06] tracking-tight text-ink max-w-3xl">
+                  A great website, live in a week
+                </h1>
+                <p className="text-base text-secondary mt-4 max-w-xl leading-relaxed">
+                  Pick a design, add your content, and see it live before you pay a penny.
+                </p>
+                <div className="mt-8 flex flex-wrap items-center gap-5">
+                  <Link
+                    href="/starter/order"
+                    className="inline-flex items-center gap-2 bg-ink text-white text-sm px-7 py-3.5 rounded-sm font-medium hover:bg-ink/85 transition-colors"
+                  >
+                    Order now · £495
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                      <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </Link>
+                  <a href="#designs" className="text-sm font-medium text-secondary hover:text-ink transition-colors">
+                    See the six designs ↓
+                  </a>
+                </div>
               </div>
             </ScrollReveal>
           </div>

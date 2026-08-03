@@ -109,6 +109,18 @@ const secondary = [
     description: 'Ongoing development and consulting for an existing website or system.',
     href: '/services/website-support',
   },
+  {
+    title: 'Essential Care Plan',
+    price: '£19 / month',
+    description: 'Hosting and SSL for an existing website. Nothing else, no changes or support included.',
+    href: '/services/care-plans',
+  },
+  {
+    title: 'Tech Partner Care Plan',
+    price: '£149 / month',
+    description: 'Hosting, SSL and 2 hours of development work a month, no minimum term.',
+    href: '/services/care-plans',
+  },
 ]
 
 export default function ServicesPage() {

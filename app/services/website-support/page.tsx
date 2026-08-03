@@ -177,6 +177,29 @@ export default function WebsiteSupportPage() {
           </div>
         </section>
 
+        {/* Cross-link to Care Plans */}
+        <section className="px-6 pt-6 pb-0 bg-subtle">
+          <div className="max-w-6xl mx-auto">
+            <ScrollReveal>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 rounded-sm border border-border-light bg-white px-6 py-6 sm:px-8">
+                <p className="text-sm text-secondary flex-1">
+                  Would rather a fixed monthly cost than billing as you go? Care Plans cover hosting, or
+                  hosting plus a couple of guaranteed hours a month.
+                </p>
+                <Link
+                  href="/services/care-plans"
+                  className="inline-flex items-center justify-center gap-2 text-sm font-medium text-ink border border-border-light rounded-sm px-5 py-2.5 shrink-0 transition-colors hover:border-accent/50 hover:text-accent"
+                >
+                  See Care Plans
+                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </Link>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
         <CTABanner />
       </main>
       <Footer />

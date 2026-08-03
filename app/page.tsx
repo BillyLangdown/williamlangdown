@@ -13,12 +13,12 @@ import type { Metadata } from 'next'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Web Developer & Web Designer in Taunton, Somerset | William Langdown',
-  description: 'Web developer and designer based in Taunton, Somerset. I build websites, booking software and quoting tools for commercial trades and contractors, and for small businesses across the South West, personally, with no agency layers.',
+  title: 'Websites for Trade & Contractor Businesses | William Langdown',
+  description: 'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors. Based in Taunton, Somerset, working across the South West and remotely nationwide.',
   alternates: { canonical: 'https://williamlangdown.com' },
   openGraph: {
-    title: 'Web Developer & Web Designer in Taunton, Somerset | William Langdown',
-    description: 'Websites, booking software and quoting tools for commercial trades and contractors, and for any growing business. Based in Taunton, Somerset, working with businesses from Bristol to Exeter.',
+    title: 'Websites for Trade & Contractor Businesses | William Langdown',
+    description: 'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors. Based in Taunton, Somerset, working across the South West and remotely nationwide.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Web Developer & Web Designer in Taunton, Somerset | William Langdown',
-    description: 'Websites, booking software and quoting tools for commercial trades and contractors, and for any growing business.',
+    title: 'Websites for Trade & Contractor Businesses | William Langdown',
+    description: 'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors, based in Taunton, Somerset.',
   },
 }
 
@@ -48,9 +48,10 @@ const jsonLd = {
       '@id': 'https://williamlangdown.com/#service',
       name: 'William Langdown - Websites, Software & Automation',
       url: 'https://williamlangdown.com',
-      description: 'Web developer and designer based in Taunton, Somerset, building websites, booking software and quoting tools for commercial trades and contractors, and custom software and automation for any growing business, serving the South West and further afield.',
+      description: 'Websites, custom software and automation for trade and contracting businesses, HVAC, electrical, mechanical services, facilities maintenance and industrial suppliers, based in Taunton, Somerset, serving the South West and working remotely nationwide.',
       provider: { '@id': 'https://williamlangdown.com/#person' },
       areaServed: ['Taunton', 'Chard', 'Frome', 'Somerset', 'Bristol', 'Exeter', 'GB'],
+      knowsAbout: ['HVAC', 'Electrical Contracting', 'Mechanical Services', 'Facilities Maintenance', 'Industrial Suppliers', 'Web Design', 'Web Development'],
       telephone: '+44 7446 856927',
       address: {
         '@type': 'PostalAddress',
@@ -130,6 +131,24 @@ const jsonLd = {
               description: 'Ongoing development and consulting for an existing website or system, on an hourly basis.',
             },
             priceSpecification: { '@type': 'PriceSpecification', minPrice: '60', maxPrice: '90', priceCurrency: 'GBP', unitCode: 'HUR' },
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Essential Care Plan',
+              description: 'Hosting and SSL for an existing website, billed monthly with no minimum term.',
+            },
+            priceSpecification: { '@type': 'PriceSpecification', price: '19', priceCurrency: 'GBP', unitCode: 'MON' },
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Tech Partner Care Plan',
+              description: 'Hosting, SSL and two hours of development work a month for an existing website, billed monthly with no minimum term.',
+            },
+            priceSpecification: { '@type': 'PriceSpecification', price: '149', priceCurrency: 'GBP', unitCode: 'MON' },
           },
         ],
       },
