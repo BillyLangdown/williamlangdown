@@ -6,10 +6,8 @@ import ProblemsSection from '@/components/ProblemsSection'
 import ServicesSection from '@/components/ServicesSection'
 import AboutSection from '@/components/AboutSection'
 import ReviewSection from '@/components/ReviewSection'
-import BeforeAfterSection from '@/components/BeforeAfterSection'
 import CTABanner from '@/components/CTABanner'
 import Footer from '@/components/Footer'
-import { getCaseStudy } from '@/lib/queries'
 import type { Metadata } from 'next'
 
 export const revalidate = 3600
@@ -139,18 +137,7 @@ const jsonLd = {
   ],
 }
 
-export default async function HomePage() {
-  // Same case study fetch used on /services/growth-websites and
-  // /services/website-audits, so BeforeAfterSection's second slide (Garden
-  // Tablecloth) has real data here too. BVS, the flagship trades proof
-  // point, is the component's first/default slide.
-  let caseStudy = null
-  try {
-    caseStudy = await getCaseStudy('the-garden-tablecloth-co')
-  } catch {
-    // no-op, component falls back to placeholder content
-  }
-
+export default function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -158,14 +145,14 @@ export default async function HomePage() {
       <main>
         <Hero />
         <PromoTicker />
-        {/* Proof up front: the BVS review and PageSpeed results were
-            previously buried near the bottom of the page. Leading with
-            them here surfaces the strongest trades case study early. */}
+        {/* Proof up front: ReviewSection + ProjectShowcase cover the BVS
+            review, PageSpeed result and Garden Tablecloth stats, plus the
+            other projects and links to their full case studies, so there's
+            no separate before/after slider duplicating a subset of this. */}
         <ReviewSection />
-        <BeforeAfterSection caseStudy={caseStudy} />
+        <ProjectShowcase />
         <AboutSection />
         <ProblemsSection />
-        <ProjectShowcase />
         <ServicesSection />
         <CTABanner />
       </main>
