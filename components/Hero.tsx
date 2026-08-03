@@ -70,10 +70,10 @@ export default function Hero() {
       {/* ── MOBILE HERO ── */}
       <div
         className="relative flex lg:hidden flex-col justify-center px-6 overflow-hidden"
-        style={{ height: '100svh', paddingTop: '110px', paddingBottom: '64px', ...dotGrid }}
+        style={{ height: '100svh', paddingTop: '80px', paddingBottom: '48px', ...dotGrid }}
       >
-        <div className="mb-9 flex justify-center">
-          <div className="relative" style={{ width: '220px' }}>
+        <div className="mb-5 flex justify-center">
+          <div className="relative" style={{ width: '160px' }}>
             <div
               className="relative w-full overflow-hidden shadow-lg"
               style={{ aspectRatio: '801 / 1022', borderRadius: '3px 32px 3px 32px', borderLeft: '3px solid #2563EB' }}
@@ -84,32 +84,32 @@ export default function Hero() {
                 fill
                 className="object-cover object-top"
                 priority
-                sizes="220px"
+                sizes="160px"
               />
             </div>
           </div>
         </div>
 
-        <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3 text-center">
+        <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-2 text-center">
           Web Design &amp; Website Development &middot; Taunton, Somerset
         </p>
-        <h1 className="text-3xl font-heading font-extrabold leading-[1.08] tracking-tight text-ink mb-4 text-center">
+        <h1 className="text-2xl font-heading font-extrabold leading-[1.1] tracking-tight text-ink mb-3 text-center">
          I build websites that win more work.
         </h1>
-        <p className="text-sm leading-relaxed mb-8 text-center " style={{ color: '#0f172a' }}>
+        <p className="text-sm leading-snug mb-5 text-center " style={{ color: '#0f172a' }}>
           Websites, software and automation for contractors and independent businesses.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
         </p>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2.5">
           <Link
             href="/contact"
-            className="inline-flex justify-center items-center gap-2 bg-accent text-white text-sm px-6 py-3.5 rounded-sm font-medium"
+            className="inline-flex justify-center items-center gap-2 bg-accent text-white text-sm px-6 py-3 rounded-sm font-medium"
           >
             Let&apos;s talk
           </Link>
           <Link
             href="/services"
-            className="inline-flex justify-center items-center gap-2 text-ink text-sm px-6 py-3.5 rounded-sm"
+            className="inline-flex justify-center items-center gap-2 text-ink text-sm px-6 py-3 rounded-sm"
             style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(15,23,42,0.1)' }}
           >
             My services
@@ -154,12 +154,6 @@ export default function Hero() {
               >
                 My services
               </Link>
-            </div>
-            <div
-              className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-wide"
-              style={{ background: 'rgba(37,99,235,0.07)', color: '#2563EB' }}
-            >
-              Websites · Custom Software · Automation
             </div>
           </div>
         </div>
