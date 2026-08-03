@@ -50,8 +50,8 @@ const PROJECTS: Project[] = [
     external: false,
     cta: 'View concept',
     url: 'williamlangdown.com/starter/remix-ironclad',
-    mobile: { poster: '/images/starter/ironclad-hero.jpg' },
-    desktop: { poster: '/images/starter/ironclad-hero.jpg' },
+    mobile: { poster: '/images/showcase-ironclad-mobile.png' },
+    desktop: { poster: '/images/showcase-ironclad-desktop.png' },
   },
   {
     name: 'Axiom',
