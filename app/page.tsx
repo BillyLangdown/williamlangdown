@@ -52,6 +52,29 @@ const jsonLd = {
       provider: { '@id': 'https://williamlangdown.com/#person' },
       areaServed: ['Taunton', 'Chard', 'Frome', 'Somerset', 'Bristol', 'Exeter', 'GB'],
       knowsAbout: ['HVAC', 'Electrical Contracting', 'Mechanical Services', 'Facilities Maintenance', 'Industrial Suppliers', 'Web Design', 'Web Development'],
+      telephone: '+44 7446 856927',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Taunton',
+        addressRegion: 'Somerset',
+        addressCountry: 'GB',
+        // postalCode intentionally omitted: not yet confirmed for public
+        // publication. Add once known.
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 51.0158,
+        longitude: -3.1058,
+      },
+      sameAs: [
+        // TODO: add Google Business Profile URL once claimed/confirmed
+        // TODO: add LinkedIn profile URL
+      ],
+      // aggregateRating intentionally omitted: only one manually-verified
+      // review (BVS, 5.0) currently exists on-site, which isn't real
+      // aggregate data (ratingValue + reviewCount from an actual review
+      // source). Add this once genuine aggregate review data is wired up,
+      // e.g. from Google Business Profile or Sanity.
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Services',
@@ -141,11 +164,15 @@ export default function HomePage() {
       <main>
         <Hero />
         <PromoTicker />
+        {/* Proof up front: ReviewSection + ProjectShowcase cover the BVS
+            review, PageSpeed result and Garden Tablecloth stats, plus the
+            other projects and links to their full case studies, so there's
+            no separate before/after slider duplicating a subset of this. */}
+        <ReviewSection />
+        <ProjectShowcase />
         <AboutSection />
         <ProblemsSection />
-        <ProjectShowcase />
         <ServicesSection />
-        <ReviewSection />
         <CTABanner />
       </main>
       <Footer />

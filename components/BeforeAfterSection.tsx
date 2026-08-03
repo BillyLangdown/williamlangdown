@@ -76,6 +76,23 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
 
   const slides = [
     {
+      client: 'Building Ventilation Services Ltd',
+      subtitle: 'Google PageSpeed scores after redesign',
+      href: '/case-studies/building-ventilation-services-ltd',
+      slider: (
+        <BeforeAfterSlider
+          beforeSrc="/images/bvs-service-before.png"
+          afterSrc="/images/bvs-service-after-2.png"
+          beforeAlt="BVS website before redesign"
+          afterAlt="BVS website after redesign"
+        />
+      ),
+      stats: [
+        { value: `${mobileScore}`, suffix: '/100', label: 'mobile speed (was 56)' },
+        { value: `${desktopScore}`, suffix: '/100', label: 'desktop speed (was 69)' },
+      ],
+    },
+    {
       client: clientName,
       subtitle: 'Two months post-redesign',
       href: slug === '#' ? '/case-studies' : `/case-studies/${slug}`,
@@ -99,23 +116,6 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
       stats: [
         { value: `+${conversionUp}%`, label: 'more visitors got in touch' },
         { value: `-${bounceDown}%`,   label: 'fewer people left immediately' },
-      ],
-    },
-    {
-      client: 'Building Ventilation Services Ltd',
-      subtitle: 'Google PageSpeed scores after redesign',
-      href: '/case-studies/building-ventilation-services-ltd',
-      slider: (
-        <BeforeAfterSlider
-          beforeSrc="/images/bvs-service-before.png"
-          afterSrc="/images/bvs-service-after-2.png"
-          beforeAlt="BVS website before redesign"
-          afterAlt="BVS website after redesign"
-        />
-      ),
-      stats: [
-        { value: `${mobileScore}`, suffix: '/100', label: 'mobile speed (was 56)' },
-        { value: `${desktopScore}`, suffix: '/100', label: 'desktop speed (was 69)' },
       ],
     },
   ]

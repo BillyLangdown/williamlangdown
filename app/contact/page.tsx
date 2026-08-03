@@ -66,7 +66,7 @@ export default async function ContactPage({ searchParams }: Props) {
 
                 {/* Call */}
                 <a
-                  href="tel:07446856927"
+                  href="tel:+447446856927"
                   className="group flex items-center gap-4 border border-border-light rounded-sm px-5 py-4 transition-colors hover:border-accent/50"
                   style={{ background: 'rgba(255,255,255,0.65)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
                 >
@@ -77,7 +77,7 @@ export default async function ContactPage({ searchParams }: Props) {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-ink">Give me a call</p>
-                    <p className="text-xs text-secondary">07446 856927</p>
+                    <p className="text-xs text-secondary">+44 7446 856927</p>
                   </div>
                   <svg className="text-tertiary group-hover:text-accent transition-colors shrink-0" width="13" height="13" viewBox="0 0 14 14" fill="none">
                     <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

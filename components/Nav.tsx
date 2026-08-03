@@ -157,6 +157,15 @@ export default function Nav() {
           ))}
         </nav>
 
+        {/* Phone + location: only shown once there's room alongside the full nav */}
+        <div className="hidden lg:flex items-center gap-2 shrink-0 text-xs text-tertiary mr-6">
+          <span>Taunton, Somerset</span>
+          <span aria-hidden className="text-border-light">|</span>
+          <a href="tel:+447446856927" className="font-medium hover:text-ink transition-colors">
+            +44 7446 856927
+          </a>
+        </div>
+
         {/* CTA */}
         <div className="hidden md:block shrink-0">
           <Link
@@ -269,6 +278,15 @@ export default function Nav() {
                 )}
               </Link>
             ))}
+
+            {/* Phone + location, visible in the mobile menu alongside the CTA */}
+            <div className="pt-4 flex flex-col gap-1">
+              <a href="tel:+447446856927" className="text-sm font-semibold text-ink">
+                +44 7446 856927
+              </a>
+              <p className="text-xs text-tertiary">Taunton, Somerset</p>
+            </div>
+
             <Link
               href="/contact"
               onClick={() => setOpen(false)}
