@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 
 const items = [
   {
@@ -15,9 +14,24 @@ const items = [
     label: 'Starter Websites, from £495',
   },
   {
-    href: 'https://orlabooking.com',
-    visual: <Image src="/images/orla-logo-long-accent.png" alt="Orla" width={54} height={14} className="object-contain" />,
-    label: 'an AI booking system for your business',
+    href: '/case-studies/building-ventilation-services-ltd',
+    visual: (
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
+        <path d="M1.5 13L6 7.5 9 10l5.5-6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M10.5 3.5H14.5V7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+    label: "Made a client's site 75% faster on mobile",
+  },
+  {
+    href: '/services/custom-software',
+    visual: (
+      <svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden>
+        <path d="M9 1.5v2.1M9 14.4v2.1M16.5 9h-2.1M3.6 9H1.5M14.1 3.9l-1.5 1.5M5.4 12.6l-1.5 1.5M14.1 14.1l-1.5-1.5M5.4 5.4L3.9 3.9" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+        <circle cx="9" cy="9" r="3.4" stroke="currentColor" strokeWidth="1.5" />
+      </svg>
+    ),
+    label: 'Custom Software & Booking Systems',
   },
   {
     href: '/services/website-audits',
