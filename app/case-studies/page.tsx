@@ -44,8 +44,8 @@ function CaseStudyCover({ study }: { study: CaseStudy }) {
   }
 
   return (
-    <div className="relative aspect-[16/9] overflow-hidden" style={{ background: '#080e1c' }}>
-      <div className="absolute pointer-events-none" style={{ top: '-60px', right: '-40px', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.45) 0%, transparent 68%)' }} />
+    <div className="relative aspect-[16/9] overflow-hidden" style={{ background: '#10233F' }}>
+      <div className="absolute pointer-events-none" style={{ top: '-60px', right: '-40px', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(193,97,61,0.45) 0%, transparent 68%)' }} />
       <div className="absolute pointer-events-none" style={{ bottom: '-60px', left: '-40px', width: '220px', height: '220px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.3) 0%, transparent 68%)' }} />
       <div className="relative z-10 flex flex-col items-center justify-center h-full p-8 text-center">
         {study.services?.[0] && (
@@ -65,7 +65,7 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
       <Link
         href={`/case-studies/${study.slug.current}`}
         className="group block overflow-hidden rounded-sm transition-all hover:shadow-md"
-        style={{ background: 'rgba(255,255,255,0.8)', border: '1px solid rgba(15,23,42,0.08)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
+        style={{ background: 'rgba(255,255,255,0.8)', border: '1px solid rgba(16,35,63,0.08)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
       >
         <CaseStudyCover study={study} />
 
@@ -76,7 +76,7 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
                 <span
                   key={service}
                   className="text-[10px] font-semibold uppercase tracking-widest px-2 py-1 rounded-sm"
-                  style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
+                  style={{ background: 'rgba(193,97,61,0.08)', color: '#C1613D' }}
                 >
                   {service}
                 </span>
@@ -128,9 +128,9 @@ export default async function CaseStudiesPage() {
         <section
           className="px-6 pt-32 pb-20 md:pt-36 md:pb-24"
           style={{
-            backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+            backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
             backgroundSize: '22px 22px',
-            backgroundColor: '#F8FAFC',
+            backgroundColor: '#F6F3EE',
           }}
         >
           <div className="max-w-6xl mx-auto">
@@ -153,9 +153,9 @@ export default async function CaseStudiesPage() {
         <section
           className="px-6 pb-24"
           style={{
-            backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+            backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
             backgroundSize: '22px 22px',
-            backgroundColor: '#F8FAFC',
+            backgroundColor: '#F6F3EE',
           }}
         >
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">

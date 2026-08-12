@@ -1,133 +1,42 @@
 'use client'
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { useCallback, useEffect, useRef, useState } from 'react'
-
-const dotGrid = {
-  backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
-  backgroundSize: '22px 22px',
-  backgroundColor: '#F8FAFC',
-}
+import HeroMedia from '@/components/HeroMedia'
 
 export default function Hero() {
-  const [visible, setVisible] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
-  const sectionRectRef = useRef<DOMRect | null>(null)
-
-  useEffect(() => {
-    const raf = requestAnimationFrame(() => setVisible(true))
-    return () => cancelAnimationFrame(raf)
-  }, [])
-
-  // Rect is read once (on mount/resize) instead of on every mousemove,
-  // since getBoundingClientRect() forces a synchronous layout.
-  useEffect(() => {
-    const measure = () => {
-      sectionRectRef.current = sectionRef.current?.getBoundingClientRect() ?? null
-    }
-    measure()
-    window.addEventListener('resize', measure)
-    return () => window.removeEventListener('resize', measure)
-  }, [])
-
-  const onHeroMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const el = sectionRef.current
-    const rect = sectionRectRef.current
-    if (!el || !rect) return
-
-    // Cheap spotlight-on-the-dot-grid effect: just moves a CSS custom
-    // property, no JS animation loop or blend-mode compositing involved.
-    el.style.setProperty('--mx', `${e.clientX - rect.left}px`)
-    el.style.setProperty('--my', `${e.clientY - rect.top}px`)
-  }, [])
-
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden"
-      style={dotGrid}
-      onMouseMove={onHeroMouseMove}
-    >
-      {/* Cursor spotlight over the dot grid, desktop only */}
+    <section className="relative w-full overflow-hidden" style={{ height: '100svh' }}>
+      <HeroMedia />
+
+      {/* Scrim: just enough for text contrast, not a heavy overlay */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] hidden lg:block"
-        style={{
-          backgroundImage: 'radial-gradient(circle, rgba(37,99,235,0.9) 1.5px, transparent 1.5px)',
-          backgroundSize: '22px 22px',
-          WebkitMaskImage: 'radial-gradient(circle 200px at var(--mx, -999px) var(--my, -999px), black, transparent 70%)',
-          maskImage: 'radial-gradient(circle 200px at var(--mx, -999px) var(--my, -999px), black, transparent 70%)',
-        }}
+        className="absolute inset-0"
+        style={{ background: 'linear-gradient(180deg, rgba(10,24,48,0.15) 0%, rgba(10,24,48,0.05) 40%, rgba(10,24,48,0.55) 100%)' }}
       />
 
-      <div
-        className="relative z-[2] max-w-6xl mx-auto px-6 pt-32 pb-16 md:pt-40 md:pb-24"
-        style={{
-          opacity: visible ? 1 : 0,
-          transform: visible ? 'none' : 'translateY(18px)',
-          transition: 'opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s',
-        }}
-      >
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-12">
-          <div className="max-w-3xl">
-            <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-widest text-accent mb-6">
-              <span className="inline-block w-6 h-px bg-accent" aria-hidden />
-              Brand, digital &amp; technology practice
-            </p>
+      <div className="relative z-10 h-full flex flex-col justify-end px-6 pb-14 md:px-10 md:pb-16">
+        <p className="text-[11px] md:text-xs font-semibold uppercase tracking-[0.25em] text-bone/70 mb-4 md:mb-6">
+          Independent practice
+        </p>
+        <h1
+          className="font-sans font-extrabold uppercase text-bone leading-[0.92] tracking-tight"
+          style={{ fontSize: 'clamp(2.75rem, 12vw, 9.5rem)' }}
+        >
+          William
+          <br />
+          Langdown
+        </h1>
+        <p className="mt-5 md:mt-7 text-sm md:text-base font-medium tracking-wide text-bone/80">
+          Brand <span className="text-terracotta">/</span> Digital <span className="text-terracotta">/</span> Technology
+        </p>
+      </div>
 
-            <h1 className="font-display text-[2.6rem] leading-[1.05] tracking-tight text-ink sm:text-6xl md:text-7xl mb-7">
-              Built for who you were.
-              <br />
-              <span className="italic text-secondary">Not who you&apos;ve become.</span>
-            </h1>
-
-            <p className="text-base md:text-lg text-secondary leading-relaxed max-w-xl mb-9">
-              Established businesses tend to outgrow their brand, website and internal systems
-              faster than they replace them. I work through the research and strategy first, then
-              build the identity, digital experience or software to carry it.
-            </p>
-
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 bg-accent text-white text-sm px-6 py-3 rounded-sm font-medium hover:bg-accent/90 transition-colors"
-              >
-                Discuss a project
-              </Link>
-              <Link
-                href="/case-studies"
-                className="inline-flex items-center gap-2 text-ink text-sm px-6 py-3 rounded-sm transition-colors"
-                style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(15,23,42,0.1)' }}
-              >
-                View selected work
-              </Link>
-            </div>
-          </div>
-
-          {/* Founder credential + small portrait crop: supporting element,
-              not the visual focal point of the hero */}
-          <div className="flex items-center gap-4 shrink-0">
-            <div
-              className="relative shrink-0 overflow-hidden shadow-lg hidden sm:block"
-              style={{ width: '84px', aspectRatio: '801 / 1022', borderRadius: '3px 20px 3px 20px', borderLeft: '3px solid #2563EB' }}
-            >
-              <Image
-                src="/images/portrait.png"
-                alt="William Langdown"
-                fill
-                className="object-cover object-top"
-                sizes="84px"
-              />
-            </div>
-            <div className="max-w-[220px]">
-              <p className="text-sm font-semibold text-ink leading-snug">William Langdown</p>
-              <p className="text-xs text-tertiary leading-relaxed mt-1">
-                BA (Hons) Advertising &amp; Branding, and a working software developer. Somerset-based, working UK-wide.
-              </p>
-            </div>
-          </div>
-        </div>
+      {/* Quiet scroll cue, not a CTA */}
+      <div className="absolute bottom-6 right-6 md:bottom-8 md:right-10 z-10 hidden sm:flex items-center gap-2 text-bone/50">
+        <span className="text-[10px] uppercase tracking-widest">Scroll</span>
+        <svg width="10" height="10" viewBox="0 0 14 14" fill="none" className="rotate-90">
+          <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       </div>
     </section>
   )

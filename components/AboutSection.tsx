@@ -1,63 +1,45 @@
 'use client'
 
-import { useRef } from 'react'
 import Link from 'next/link'
-import { motion, useScroll, useTransform } from 'framer-motion'
-
-const dotGrid = {
-  backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
-  backgroundSize: '22px 22px',
-  backgroundColor: '#F8FAFC',
-}
-
-const textReveal = {
-  initial: { opacity: 0, scale: 0.94, y: 18 },
-  whileInView: { opacity: 1, scale: 1, y: 0 },
-  viewport: { once: true, amount: 0.4 },
-  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const },
-}
+import Image from 'next/image'
+import ScrollReveal from '@/components/ScrollReveal'
 
 export default function AboutSection() {
-  const sectionRef = useRef<HTMLElement>(null)
-
-  // Circle drifts as the section passes through the viewport, tracked over
-  // its full time on screen rather than tied to the page's absolute scroll.
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
-  const circleY = useTransform(scrollYProgress, [0, 1], [-60, 60])
-
   return (
-    <section ref={sectionRef} className="relative px-6 overflow-hidden" style={dotGrid}>
-      <div className="max-w-6xl mx-auto">
-        <div className="border-t border-border-light" />
-
-        <div className="py-20 md:py-24 flex flex-col md:flex-row items-start md:items-center gap-10 md:gap-16">
-          <motion.div
-            className="rounded-full bg-accent shrink-0"
-            style={{ width: '130px', height: '130px', y: circleY }}
+    <section className="relative overflow-hidden" style={{ background: '#10233F' }}>
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.1fr]">
+        <div className="relative w-full" style={{ aspectRatio: '4 / 5' }}>
+          <Image
+            src="/images/portrait.png"
+            alt="William Langdown"
+            fill
+            className="object-cover object-top"
+            style={{ filter: 'grayscale(1) contrast(1.05) brightness(0.95)' }}
+            sizes="(max-width: 768px) 100vw, 50vw"
           />
-          <motion.div {...textReveal} className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">
-              05 — About
-            </p>
-            <p className="font-display text-3xl md:text-4xl text-ink leading-[1.15] mb-5">
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(16,35,63,0.4) 0%, transparent 35%)' }} />
+          <div className="absolute top-0 left-0 w-[3px] h-full bg-terracotta" />
+        </div>
+
+        <div className="flex items-center px-6 py-14 md:px-14 md:py-0">
+          <ScrollReveal>
+            <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-5">About</p>
+            <p className="font-display text-3xl md:text-4xl lg:text-[2.75rem] text-bone leading-[1.15] mb-6">
               A degree in branding, and a career spent building software.
             </p>
-            <p className="text-base md:text-lg text-secondary leading-relaxed mb-6">
-              I trained in advertising and branding before moving into professional software
-              development. Most people specialise in one side of that or the other. Working across
-              both means the strategic thinking and the implementation stay connected through a
-              project, rather than getting handed off between people who never talk to each other.
+            <p className="text-base leading-relaxed max-w-md mb-6" style={{ color: 'rgba(246,243,238,0.65)' }}>
+              Most people specialise in one or the other. William Langdown is built on both.
             </p>
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-accent transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-medium text-bone hover:text-terracotta transition-colors"
             >
               More about the practice
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                 <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
-          </motion.div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

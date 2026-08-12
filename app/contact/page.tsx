@@ -27,9 +27,9 @@ export default async function ContactPage({ searchParams }: Props) {
       <main
         className="min-h-screen"
         style={{
-          backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+          backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
           backgroundSize: '22px 22px',
-          backgroundColor: '#F8FAFC',
+          backgroundColor: '#F6F3EE',
         }}
       >
         <section className="px-6 pt-32 pb-24 md:pt-36 md:pb-32">
@@ -51,9 +51,9 @@ export default async function ContactPage({ searchParams }: Props) {
                 <a
                   href="#contact-form"
                   className="flex items-center gap-4 border rounded-sm px-5 py-4 lg:cursor-default"
-                  style={{ borderColor: 'rgba(37,99,235,0.3)', background: 'rgba(37,99,235,0.04)' }}
+                  style={{ borderColor: 'rgba(193,97,61,0.3)', background: 'rgba(193,97,61,0.04)' }}
                 >
-                  <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style={{ background: '#2563EB18', color: '#2563EB' }}>
+                  <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style={{ background: '#C1613D18', color: '#C1613D' }}>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                       <path d="M2 4h12M2 8h8M2 12h5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
                     </svg>
@@ -70,7 +70,7 @@ export default async function ContactPage({ searchParams }: Props) {
                   className="group flex items-center gap-4 border border-border-light rounded-sm px-5 py-4 transition-colors hover:border-accent/50"
                   style={{ background: 'rgba(255,255,255,0.65)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
                 >
-                  <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style={{ background: '#2563EB18', color: '#2563EB' }}>
+                  <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style={{ background: '#C1613D18', color: '#C1613D' }}>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                       <path d="M2.5 2.5c0-.55.45-1 1-1h1.6c.45 0 .84.3.96.73l.7 2.46c.11.4-.02.83-.33 1.1l-1.05.9a9 9 0 0 0 4.83 4.83l.9-1.05c.27-.31.7-.44 1.1-.33l2.46.7c.43.12.73.51.73.96v1.6c0 .55-.45 1-1 1h-1C6.5 14.4 1.6 9.5 2.5 3.5v-1z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
                     </svg>
@@ -90,7 +90,7 @@ export default async function ContactPage({ searchParams }: Props) {
                   className="group flex items-center gap-4 border border-border-light rounded-sm px-5 py-4 transition-colors hover:border-accent/50"
                   style={{ background: 'rgba(255,255,255,0.65)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
                 >
-                  <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style={{ background: '#2563EB18', color: '#2563EB' }}>
+                  <div className="w-9 h-9 rounded-sm flex items-center justify-center shrink-0" style={{ background: '#C1613D18', color: '#C1613D' }}>
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                       <rect x="1.5" y="3.5" width="13" height="9" rx="1" stroke="currentColor" strokeWidth="1.4" />
                       <path d="M1.5 4.5l6.5 5 6.5-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -115,7 +115,7 @@ export default async function ContactPage({ searchParams }: Props) {
                 background: 'rgba(255,255,255,0.72)',
                 backdropFilter: 'blur(14px)',
                 WebkitBackdropFilter: 'blur(14px)',
-                border: '1px solid rgba(15,23,42,0.08)',
+                border: '1px solid rgba(16,35,63,0.08)',
               }}
             >
               <ContactForm defaultService={service} />

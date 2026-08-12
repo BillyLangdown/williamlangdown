@@ -53,7 +53,7 @@ async function SelectedWork() {
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   ) : (
-                    <div className="absolute inset-0 flex items-center justify-center p-6 text-center" style={{ background: '#080e1c' }}>
+                    <div className="absolute inset-0 flex items-center justify-center p-6 text-center" style={{ background: '#10233F' }}>
                       <p className="font-display text-lg text-white">{study.client}</p>
                     </div>
                   )}
@@ -87,9 +87,9 @@ export default function ServicesPage() {
         <section
           className="px-6 pt-32 pb-16 md:pt-40 md:pb-20"
           style={{
-            backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+            backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
             backgroundSize: '22px 22px',
-            backgroundColor: '#F8FAFC',
+            backgroundColor: '#F6F3EE',
           }}
         >
           <div className="max-w-4xl mx-auto">
@@ -117,7 +117,7 @@ export default function ServicesPage() {
               <h2 className="font-display text-3xl md:text-4xl text-ink leading-[1.1]">
                 How a project works.
               </h2>
-              <p className="text-sm text-secondary mt-2">Diagnosis before production, on every project regardless of size.</p>
+              <p className="text-sm text-secondary mt-2">Research before design. Design before build.</p>
             </ScrollReveal>
 
             <ProcessSteps />

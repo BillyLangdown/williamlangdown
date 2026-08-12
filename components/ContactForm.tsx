@@ -104,7 +104,7 @@ function Form({ defaultService }: { defaultService?: string }) {
   if (status === 'success') {
     return (
       <div className="flex flex-col items-center gap-5 py-10 text-center">
-        <div className="w-11 h-11 rounded-sm flex items-center justify-center" style={{ background: '#2563EB' }}>
+        <div className="w-11 h-11 rounded-sm flex items-center justify-center" style={{ background: '#C1613D' }}>
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
             <path d="M3.5 9.5l4 4 7-8" stroke="white" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -146,7 +146,7 @@ function Form({ defaultService }: { defaultService?: string }) {
             style={{
               flex: s < step ? 1 : 'none',
               width: s >= step ? (s === step ? '28px' : '8px') : undefined,
-              background: s <= step ? '#2563EB' : 'rgba(15,23,42,0.1)',
+              background: s <= step ? '#C1613D' : 'rgba(16,35,63,0.1)',
             }}
           />
         ))}
@@ -180,7 +180,7 @@ function Form({ defaultService }: { defaultService?: string }) {
       {step === 2 && (
         <div className="flex flex-col gap-5">
           {selectedLabel && (
-            <span className="inline-flex self-start text-xs font-medium px-2.5 py-1 rounded-sm" style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}>
+            <span className="inline-flex self-start text-xs font-medium px-2.5 py-1 rounded-sm" style={{ background: 'rgba(193,97,61,0.08)', color: '#C1613D' }}>
               {selectedLabel}
             </span>
           )}
@@ -224,7 +224,7 @@ function Form({ defaultService }: { defaultService?: string }) {
               onClick={() => setStep(3)}
               disabled={!message.trim()}
               className="flex-1 text-white text-sm py-2.5 rounded-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ background: '#2563EB' }}
+              style={{ background: '#C1613D' }}
             >
               Next
             </button>
@@ -236,7 +236,7 @@ function Form({ defaultService }: { defaultService?: string }) {
       {step === 3 && (
         <div className="flex flex-col gap-5">
           {selectedLabel && (
-            <span className="inline-flex self-start text-xs font-medium px-2.5 py-1 rounded-sm" style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}>
+            <span className="inline-flex self-start text-xs font-medium px-2.5 py-1 rounded-sm" style={{ background: 'rgba(193,97,61,0.08)', color: '#C1613D' }}>
               {selectedLabel}
             </span>
           )}
@@ -283,7 +283,7 @@ function Form({ defaultService }: { defaultService?: string }) {
               onClick={handleSubmit}
               disabled={status === 'submitting' || !name.trim() || !email.trim()}
               className="flex-1 text-white text-sm py-2.5 rounded-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              style={{ background: '#2563EB' }}
+              style={{ background: '#C1613D' }}
             >
               {status === 'submitting' ? (
                 <>

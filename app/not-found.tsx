@@ -9,9 +9,9 @@ export default function NotFound() {
       <main
         className="pt-40 pb-24 px-6 min-h-[70vh]"
         style={{
-          backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+          backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
           backgroundSize: '22px 22px',
-          backgroundColor: '#F8FAFC',
+          backgroundColor: '#F6F3EE',
         }}
       >
         <div className="max-w-3xl mx-auto">
@@ -30,7 +30,7 @@ export default function NotFound() {
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-white text-sm px-7 py-3.5 rounded-sm transition-colors"
-            style={{ background: '#2563EB' }}
+            style={{ background: '#C1613D' }}
           >
             Back to home
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

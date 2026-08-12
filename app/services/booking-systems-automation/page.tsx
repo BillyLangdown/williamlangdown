@@ -19,9 +19,9 @@ export const metadata: Metadata = {
 }
 
 const dotGrid = {
-  backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+  backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
   backgroundSize: '22px 22px',
-  backgroundColor: '#F8FAFC',
+  backgroundColor: '#F6F3EE',
 }
 
 const examples = [
@@ -59,7 +59,7 @@ export default function BookingSystemsAutomationPage() {
               <div className="pl-4 border-l-4 border-accent">
                 <p
                   className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6"
-                  style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
+                  style={{ background: 'rgba(193,97,61,0.08)', color: '#C1613D' }}
                 >
                   Priced individually
                 </p>

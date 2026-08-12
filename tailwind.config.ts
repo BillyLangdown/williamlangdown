@@ -15,13 +15,25 @@ const config: Config = {
         display: ['var(--font-fraunces)', 'Georgia', 'serif'],
       },
       colors: {
-        ink: '#0F172A',
-        secondary: '#64748B',
-        tertiary: '#94A3B8',
-        surface: '#F8FAFC',
-        subtle: '#F1F5F9',
-        'border-light': '#E2E8F0',
-        accent: '#2563EB',
+        // Brand palette: warm bone environment, midnight navy for strong
+        // typography/graphic fields, burnt terracotta as a graphic-design
+        // accent (not a marketing CTA colour), stone as supporting neutral.
+        bone: '#F6F3EE',
+        'bone-deep': '#ECE6D9',
+        navy: '#10233F',
+        'navy-deep': '#0A1830',
+        charcoal: '#2B2B2B',
+        terracotta: '#C1613D',
+        stone: '#A8A8A0',
+
+        // Semantic aliases so existing components re-theme automatically.
+        ink: '#10233F',
+        secondary: '#4A463F',
+        tertiary: '#8C887D',
+        surface: '#F6F3EE',
+        subtle: '#ECE6D9',
+        'border-light': '#DEDACC',
+        accent: '#C1613D',
       },
     },
   },

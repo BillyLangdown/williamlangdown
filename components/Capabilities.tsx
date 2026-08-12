@@ -4,24 +4,9 @@ import Link from 'next/link'
 import ScrollReveal from '@/components/ScrollReveal'
 
 const capabilities = [
-  {
-    index: '01',
-    name: 'Strategy & Brand',
-    description: 'Understanding the business, the market and the audience before anything gets designed. Positioning, messaging and identity that hold up as the business keeps changing.',
-    areas: ['Research', 'Positioning', 'Messaging', 'Identity'],
-  },
-  {
-    index: '02',
-    name: 'Digital',
-    description: 'The website and digital experience that carries the strategy through: structure, UX, content and the technical foundations that make it findable and fast.',
-    areas: ['UX & structure', 'Website design & build', 'Technical SEO', 'Analytics'],
-  },
-  {
-    index: '03',
-    name: 'Technology',
-    description: 'Software built around how the business actually works: internal tools, integrations, and the automation that removes admin rather than adding another system to manage.',
-    areas: ['Bespoke software', 'Integrations', 'Workflow automation', 'Applied AI'],
-  },
+  { word: 'Brand', areas: 'Research / Positioning / Messaging / Identity', align: 'left' as const },
+  { word: 'Digital', areas: 'UX / Website / Technical SEO / Analytics', align: 'right' as const },
+  { word: 'Technology', areas: 'Software / Integrations / Automation / Applied AI', align: 'left' as const },
 ]
 
 export default function Capabilities({
@@ -32,41 +17,25 @@ export default function Capabilities({
   showMoreLink?: boolean
 }) {
   return (
-    <section id="capabilities" className="py-20 md:py-28 px-6 bg-white">
+    <section id="capabilities" className="py-16 md:py-24 px-6 bg-bone">
       <div className="max-w-6xl mx-auto">
         {showIntro && (
-          <ScrollReveal className="mb-14 max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">03 — Capabilities</p>
-            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-ink leading-[1.1] mb-5">
-              Three disciplines. One line of thinking.
-            </h2>
-            <p className="text-base text-secondary leading-relaxed">
-              Not every project needs all three. The starting point is always working out what the
-              business actually needs to change, then bringing in whichever of these apply.
-            </p>
+          <ScrollReveal className="mb-12 md:mb-16">
+            <p className="text-xs font-semibold uppercase tracking-widest text-terracotta">Capabilities</p>
           </ScrollReveal>
         )}
 
         <div className="flex flex-col">
           {capabilities.map((cap) => (
-            <ScrollReveal key={cap.index} threshold={0.15}>
-              <div className="grid grid-cols-1 md:grid-cols-[100px_1fr_1fr] gap-4 md:gap-10 py-10 border-t border-border-light items-start">
-                <span className="font-display text-3xl text-tertiary/60">{cap.index}</span>
-                <h3 className="font-display text-2xl md:text-3xl text-ink leading-tight">{cap.name}</h3>
-                <div>
-                  <p className="text-base text-secondary leading-relaxed mb-4 max-w-md">{cap.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {cap.areas.map((a) => (
-                      <span
-                        key={a}
-                        className="text-[11px] font-medium px-2.5 py-1 rounded-sm text-secondary"
-                        style={{ background: 'rgba(15,23,42,0.04)' }}
-                      >
-                        {a}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+            <ScrollReveal key={cap.word} threshold={0.2} className="border-t border-border-light py-8 md:py-10">
+              <div className={`flex flex-col gap-2 ${cap.align === 'right' ? 'items-start md:items-end md:text-right' : 'items-start'}`}>
+                <h3
+                  className="font-sans font-extrabold uppercase text-ink leading-[0.9] tracking-tight"
+                  style={{ fontSize: 'clamp(2.25rem, 9vw, 6.5rem)' }}
+                >
+                  {cap.word}
+                </h3>
+                <p className="text-xs md:text-sm text-tertiary tracking-wide max-w-md">{cap.areas}</p>
               </div>
             </ScrollReveal>
           ))}
@@ -74,12 +43,12 @@ export default function Capabilities({
         </div>
 
         {showMoreLink && (
-          <ScrollReveal threshold={0.15} className="mt-10 flex justify-end">
+          <ScrollReveal threshold={0.15} className="mt-8 flex justify-end">
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-accent transition-colors"
+              className="inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-terracotta transition-colors"
             >
-              More on how these connect
+              How these connect
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                 <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>

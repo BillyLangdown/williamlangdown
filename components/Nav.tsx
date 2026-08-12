@@ -17,38 +17,38 @@ export default function Nav() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
+  const isHome = pathname === '/'
+  // Only the homepage has a full-bleed dark hero behind the nav, so only
+  // there does the bar start transparent with light text.
+  const transparent = isHome && !scrolled && !open
+
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 12)
+    if (!isHome) return
+    const handleScroll = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [isHome])
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-sm transition-all duration-300 ${
-        scrolled
-          ? 'shadow-[0_1px_24px_rgba(0,0,0,0.07)]'
-          : 'border-b border-transparent'
-      }`}
+      className="fixed top-0 left-0 right-0 z-50 transition-colors duration-300"
+      style={{
+        background: transparent ? 'transparent' : 'rgba(246,243,238,0.95)',
+        backdropFilter: transparent ? 'none' : 'blur(8px)',
+        WebkitBackdropFilter: transparent ? 'none' : 'blur(8px)',
+        boxShadow: transparent ? 'none' : '0 1px 24px rgba(16,35,63,0.07)',
+      }}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="shrink-0 flex items-center">
           <Image
-            src="/images/Williamlangdown-logo-transparent.png"
-            alt="William Langdown"
-            height={36}
-            width={171}
-            className="hidden md:block object-contain"
-            priority
-          />
-          <Image
-            src="/images/Williamlangdown-logo-transparent.png"
+            src={transparent ? '/images/Williamlangdown-logo-white.png' : '/images/Williamlangdown-logo-transparent.png'}
             alt="William Langdown"
             height={34}
             width={161}
-            className="md:hidden object-contain"
+            className="object-contain"
             priority
           />
         </Link>
@@ -61,12 +61,11 @@ export default function Nav() {
               <Link
                 key={href}
                 href={href}
-                className={`text-sm transition-colors relative pb-1 ${
-                  active ? 'text-ink' : 'text-tertiary hover:text-ink'
-                }`}
+                className="text-sm transition-colors relative pb-1"
+                style={{ color: active ? (transparent ? '#F6F3EE' : '#10233F') : (transparent ? 'rgba(246,243,238,0.7)' : '#8C887D') }}
               >
                 {label}
-                {active && <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-accent rounded-full" />}
+                {active && <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-terracotta rounded-full" />}
               </Link>
             )
           })}
@@ -76,7 +75,12 @@ export default function Nav() {
         <div className="hidden md:block shrink-0">
           <Link
             href="/contact"
-            className="inline-block bg-accent text-white text-sm px-5 py-2.5 rounded-sm hover:bg-accent/90 transition-colors"
+            className="inline-block text-sm px-5 py-2.5 rounded-sm transition-colors"
+            style={
+              transparent
+                ? { background: '#F6F3EE', color: '#10233F' }
+                : { background: '#10233F', color: '#F6F3EE' }
+            }
           >
             Get in touch
           </Link>
@@ -88,9 +92,18 @@ export default function Nav() {
           className="md:hidden flex flex-col gap-[5px] p-1"
           aria-label={open ? 'Close menu' : 'Open menu'}
         >
-          <span className={`block w-5 h-px bg-gray-900 transition-all duration-200 origin-center ${open ? 'translate-y-[6px] rotate-45' : ''}`} />
-          <span className={`block w-5 h-px bg-gray-900 transition-all duration-200 ${open ? 'opacity-0' : ''}`} />
-          <span className={`block w-5 h-px bg-gray-900 transition-all duration-200 origin-center ${open ? '-translate-y-[6px] -rotate-45' : ''}`} />
+          <span
+            className="block w-5 h-px transition-all duration-200 origin-center"
+            style={{ background: transparent ? '#F6F3EE' : '#10233F', transform: open ? 'translateY(6px) rotate(45deg)' : 'none' }}
+          />
+          <span
+            className="block w-5 h-px transition-all duration-200"
+            style={{ background: transparent ? '#F6F3EE' : '#10233F', opacity: open ? 0 : 1 }}
+          />
+          <span
+            className="block w-5 h-px transition-all duration-200 origin-center"
+            style={{ background: transparent ? '#F6F3EE' : '#10233F', transform: open ? 'translateY(-6px) rotate(-45deg)' : 'none' }}
+          />
         </button>
       </div>
 
@@ -103,16 +116,7 @@ export default function Nav() {
           transition: 'max-height 0.38s cubic-bezier(0.16,1,0.3,1), opacity 0.22s ease',
         }}
       >
-        <div
-          className="border-t"
-          style={{
-            borderBottom: '2px solid rgba(15,23,42,0.12)',
-            boxShadow: '0 8px 24px rgba(15,23,42,0.08)',
-            backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
-            backgroundSize: '22px 22px',
-            backgroundColor: '#F8FAFC',
-          }}
-        >
+        <div className="border-t border-border-light" style={{ background: '#F6F3EE' }}>
           <nav className="px-6 pt-2 pb-6 flex flex-col">
             {links.map(({ href, label }) => {
               const active = pathname === href || (href !== '/' && pathname.startsWith(href))
@@ -126,7 +130,7 @@ export default function Nav() {
                   }`}
                 >
                   {label}
-                  {active && <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: '#2563EB' }} />}
+                  {active && <span className="w-1.5 h-1.5 rounded-full shrink-0 bg-terracotta" />}
                 </Link>
               )
             })}
@@ -141,8 +145,7 @@ export default function Nav() {
             <Link
               href="/contact"
               onClick={() => setOpen(false)}
-              className="mt-5 inline-flex justify-center items-center gap-2 text-white text-sm px-6 py-3.5 rounded-sm font-medium"
-              style={{ background: '#2563EB' }}
+              className="mt-5 inline-flex justify-center items-center gap-2 text-bone text-sm px-6 py-3.5 rounded-sm font-medium bg-ink"
             >
               Get in touch
               <svg width="13" height="13" viewBox="0 0 14 14" fill="none">

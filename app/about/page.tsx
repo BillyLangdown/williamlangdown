@@ -22,9 +22,9 @@ export default function AboutPage() {
       <Nav />
       <main
         style={{
-          backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+          backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
           backgroundSize: '22px 22px',
-          backgroundColor: '#F8FAFC',
+          backgroundColor: '#F6F3EE',
         }}
       >
         {/* Header */}
@@ -50,7 +50,7 @@ export default function AboutPage() {
             <ScrollReveal>
               <div
                 className="relative w-full overflow-hidden shadow-lg"
-                style={{ aspectRatio: '801 / 1022', borderRadius: '4px 40px 4px 40px', borderLeft: '3px solid #2563EB' }}
+                style={{ aspectRatio: '801 / 1022', borderRadius: '4px 40px 4px 40px', borderLeft: '3px solid #C1613D' }}
               >
                 <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover object-top" sizes="280px" />
               </div>

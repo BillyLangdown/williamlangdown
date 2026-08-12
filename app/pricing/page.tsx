@@ -48,9 +48,9 @@ export default function PricingPage() {
         <section
           className="px-6 pt-32 pb-16 md:pt-40 md:pb-20"
           style={{
-            backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+            backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
             backgroundSize: '22px 22px',
-            backgroundColor: '#F8FAFC',
+            backgroundColor: '#F6F3EE',
           }}
         >
           <div className="max-w-3xl mx-auto">

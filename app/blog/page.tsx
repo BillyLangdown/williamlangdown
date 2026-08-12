@@ -41,7 +41,7 @@ function BlogCover({ post }: { post: BlogPost }) {
     <div
       className="aspect-[16/9] flex items-center justify-center"
       style={{
-        backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.08) 1.5px, transparent 1.5px)',
+        backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.08) 1.5px, transparent 1.5px)',
         backgroundSize: '22px 22px',
         backgroundColor: '#e8edf3',
       }}
@@ -67,7 +67,7 @@ function BlogCard({ post, index }: { post: BlogPost; index: number }) {
       <Link
         href={`/blog/${post.slug.current}`}
         className="group block overflow-hidden rounded-sm transition-all hover:shadow-md"
-        style={{ background: 'rgba(255,255,255,0.8)', border: '1px solid rgba(15,23,42,0.08)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
+        style={{ background: 'rgba(255,255,255,0.8)', border: '1px solid rgba(16,35,63,0.08)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
       >
         <BlogCover post={post} />
 
@@ -78,7 +78,7 @@ function BlogCard({ post, index }: { post: BlogPost; index: number }) {
                 <span
                   key={tag}
                   className="text-[10px] font-semibold uppercase tracking-widest px-2 py-1 rounded-sm"
-                  style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
+                  style={{ background: 'rgba(193,97,61,0.08)', color: '#C1613D' }}
                 >
                   {tag}
                 </span>
@@ -133,9 +133,9 @@ export default async function BlogPage() {
         <section
           className="px-6 pt-32 pb-20 md:pt-36 md:pb-24"
           style={{
-            backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+            backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
             backgroundSize: '22px 22px',
-            backgroundColor: '#F8FAFC',
+            backgroundColor: '#F6F3EE',
           }}
         >
           <div className="max-w-6xl mx-auto">
@@ -155,9 +155,9 @@ export default async function BlogPage() {
         <section
           className="px-6 pb-24"
           style={{
-            backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+            backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
             backgroundSize: '22px 22px',
-            backgroundColor: '#F8FAFC',
+            backgroundColor: '#F6F3EE',
           }}
         >
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">

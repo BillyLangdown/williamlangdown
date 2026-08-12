@@ -125,9 +125,9 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
       ref={sectionRef}
       className="relative overflow-hidden py-20 md:py-24 px-6"
       style={{
-        backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+        backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
         backgroundSize: '22px 22px',
-        backgroundColor: '#F8FAFC',
+        backgroundColor: '#F6F3EE',
         scrollSnapAlign: 'start',
       }}
     >
@@ -158,7 +158,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
               style={{
                 height: '6px',
                 width: i === activeSlide ? '20px' : '6px',
-                background: i === activeSlide ? '#2563EB' : 'rgba(15,23,42,0.12)',
+                background: i === activeSlide ? '#C1613D' : 'rgba(16,35,63,0.12)',
               }}
               aria-label={`Slide ${i + 1}`}
             />
@@ -199,7 +199,7 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
 
                 {/* Stats strip: dark navy (the logo's colour), so the numbers pop
                     without reaching for the CTA-only accent blue */}
-                <div className="mb-5 flex divide-x divide-white/15 rounded-sm overflow-hidden" style={{ background: '#080e1c' }}>
+                <div className="mb-5 flex divide-x divide-white/15 rounded-sm overflow-hidden" style={{ background: '#10233F' }}>
                   {s.stats.map((stat) => (
                     <div key={stat.label} className="flex-1 px-3 py-3 sm:px-5 sm:py-4 text-center">
                       <div className="flex items-baseline justify-center gap-0.5">

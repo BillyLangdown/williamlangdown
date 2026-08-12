@@ -125,9 +125,9 @@ export default async function CaseStudyPage({ params }: Props) {
       <Nav />
       <main
         style={{
-          backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+          backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
           backgroundSize: '22px 22px',
-          backgroundColor: '#F8FAFC',
+          backgroundColor: '#F6F3EE',
         }}
       >
 
@@ -140,7 +140,7 @@ export default async function CaseStudyPage({ params }: Props) {
                   <span
                     key={service}
                     className="text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-sm"
-                    style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
+                    style={{ background: 'rgba(193,97,61,0.08)', color: '#C1613D' }}
                   >
                     {service}
                   </span>
@@ -202,11 +202,11 @@ export default async function CaseStudyPage({ params }: Props) {
             <div className="max-w-6xl mx-auto">
               <div
                 className="relative overflow-hidden rounded-sm"
-                style={{ background: '#080e1c', minHeight: '220px' }}
+                style={{ background: '#10233F', minHeight: '220px' }}
               >
                 {/* Blobs */}
                 <div className="absolute inset-0 pointer-events-none">
-                  <div style={{ position: 'absolute', top: '-80px', right: '-60px', width: '380px', height: '380px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(37,99,235,0.4) 0%, transparent 68%)' }} />
+                  <div style={{ position: 'absolute', top: '-80px', right: '-60px', width: '380px', height: '380px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(193,97,61,0.4) 0%, transparent 68%)' }} />
                   <div style={{ position: 'absolute', bottom: '-80px', left: '-60px', width: '320px', height: '320px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(79,70,229,0.25) 0%, transparent 68%)' }} />
                 </div>
                 <div
@@ -220,7 +220,7 @@ export default async function CaseStudyPage({ params }: Props) {
                           <span
                             key={service}
                             className="text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-sm"
-                            style={{ background: 'rgba(37,99,235,0.25)', color: 'rgba(255,255,255,0.8)' }}
+                            style={{ background: 'rgba(193,97,61,0.25)', color: 'rgba(255,255,255,0.8)' }}
                           >
                             {service}
                           </span>

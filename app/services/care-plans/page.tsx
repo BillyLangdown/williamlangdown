@@ -19,9 +19,9 @@ export const metadata: Metadata = {
 }
 
 const dotGrid = {
-  backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+  backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
   backgroundSize: '22px 22px',
-  backgroundColor: '#F8FAFC',
+  backgroundColor: '#F6F3EE',
 }
 
 const included = {
@@ -74,7 +74,7 @@ export default function CarePlansPage() {
               <div className="pl-4 border-l-4 border-accent">
                 <p
                   className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6"
-                  style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
+                  style={{ background: 'rgba(193,97,61,0.08)', color: '#C1613D' }}
                 >
                   From £19 / month
                 </p>
@@ -160,7 +160,7 @@ export default function CarePlansPage() {
                   <ul className="flex flex-col gap-3">
                     {included.techPartner.map((item) => (
                       <li key={item} className="flex items-start gap-3">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-0.5 shrink-0" style={{ color: 'rgba(37,99,235,0.8)' }}>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="mt-0.5 shrink-0" style={{ color: 'rgba(193,97,61,0.8)' }}>
                           <path d="M3 8l3.5 3.5L13 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                         <span className="text-sm text-secondary leading-relaxed">{item}</span>
