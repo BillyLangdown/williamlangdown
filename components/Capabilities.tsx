@@ -4,9 +4,9 @@ import Link from 'next/link'
 import ScrollReveal from '@/components/ScrollReveal'
 
 const capabilities = [
-  { word: 'Brand', areas: 'Research / Positioning / Messaging / Identity', align: 'left' as const },
-  { word: 'Digital', areas: 'UX / Website / Technical SEO / Analytics', align: 'right' as const },
-  { word: 'Technology', areas: 'Software / Integrations / Automation / Applied AI', align: 'left' as const },
+  { word: 'Brand', areas: 'Research / Positioning / Messaging / Identity / Creative direction', align: 'left' as const },
+  { word: 'Digital', areas: 'UX / Web design / Digital experiences / Technical SEO / Analytics', align: 'right' as const },
+  { word: 'Technology', areas: 'Development / Software / Integrations / Automation / Applied AI', align: 'left' as const },
 ]
 
 export default function Capabilities({

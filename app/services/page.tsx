@@ -117,7 +117,6 @@ export default function ServicesPage() {
               <h2 className="font-display text-3xl md:text-4xl text-ink leading-[1.1]">
                 How a project works.
               </h2>
-              <p className="text-sm text-secondary mt-2">Research before design. Design before build.</p>
             </ScrollReveal>
 
             <ProcessSteps />

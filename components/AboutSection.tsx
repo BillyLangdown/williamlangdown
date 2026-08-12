@@ -27,9 +27,6 @@ export default function AboutSection() {
             <p className="font-display text-3xl md:text-4xl lg:text-[2.75rem] text-bone leading-[1.15] mb-6">
               A degree in branding, and a career spent building software.
             </p>
-            <p className="text-base leading-relaxed max-w-md mb-6" style={{ color: 'rgba(246,243,238,0.65)' }}>
-              Most people specialise in one or the other. William Langdown is built on both.
-            </p>
             <Link
               href="/about"
               className="inline-flex items-center gap-2 text-sm font-medium text-bone hover:text-terracotta transition-colors"

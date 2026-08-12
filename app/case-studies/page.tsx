@@ -22,11 +22,62 @@ export const metadata: Metadata = {
   },
 }
 
+// The strongest current commercial example. Swap this to the APE slug once
+// that project is ready, and it becomes 01 / Featured without touching
+// anything else on this page.
+const FEATURED_SLUG = 'building-ventilation-services-ltd'
+
 const isAuditOnly = (study: CaseStudy) =>
   !study.beforeImage &&
   !study.afterImage &&
   !!study.services?.length &&
   study.services.every((s) => s.toLowerCase().includes('audit'))
+
+function FeaturedCard({ study }: { study: CaseStudy }) {
+  return (
+    <ScrollReveal>
+      <Link href={`/case-studies/${study.slug.current}`} className="group block">
+        <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-5">01 / Featured</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div>
+            <p className="font-display text-4xl md:text-5xl text-ink leading-tight">{study.client}</p>
+            {study.services && study.services.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-4 mb-4">
+                {study.services.map((service) => (
+                  <span
+                    key={service}
+                    className="text-[10px] font-semibold uppercase tracking-widest px-2 py-1 rounded-sm text-secondary"
+                    style={{ background: 'rgba(16,35,63,0.05)' }}
+                  >
+                    {service}
+                  </span>
+                ))}
+              </div>
+            )}
+            <p className="text-base text-secondary leading-relaxed max-w-md">{study.description}</p>
+            <span className="inline-flex items-center gap-2 mt-5 text-sm font-medium text-ink group-hover:text-terracotta transition-colors">
+              View case study
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </div>
+          {study.coverImage && (
+            <div className="relative overflow-hidden" style={{ aspectRatio: '4 / 3', border: '1px solid rgba(16,35,63,0.14)' }}>
+              <Image
+                src={urlFor(study.coverImage).width(900).height(675).url()}
+                alt={study.coverImage.alt ?? study.title}
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+          )}
+        </div>
+      </Link>
+    </ScrollReveal>
+  )
+}
 
 function CaseStudyCover({ study }: { study: CaseStudy }) {
   if (study.coverImage && !isAuditOnly(study)) {
@@ -64,8 +115,8 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
     <ScrollReveal delay={index * 80}>
       <Link
         href={`/case-studies/${study.slug.current}`}
-        className="group block overflow-hidden rounded-sm transition-all hover:shadow-md"
-        style={{ background: 'rgba(255,255,255,0.8)', border: '1px solid rgba(16,35,63,0.08)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
+        className="group block overflow-hidden"
+        style={{ border: '1px solid rgba(16,35,63,0.1)' }}
       >
         <CaseStudyCover study={study} />
 
@@ -89,7 +140,7 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
           <p className="text-sm text-secondary leading-relaxed mb-5 line-clamp-2">
             {study.description}
           </p>
-          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ink group-hover:text-accent transition-colors">
+          <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ink group-hover:text-terracotta transition-colors">
             View case study
             <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
               <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -120,52 +171,46 @@ export default async function CaseStudiesPage() {
     console.error('[CaseStudiesPage] Failed to fetch case studies:', err)
   }
 
+  const featured = studies.find((s) => s.slug.current === FEATURED_SLUG) ?? studies[0]
+  const rest = studies.filter((s) => s._id !== featured?._id)
+
   return (
     <>
       <Nav />
-      <main>
+      <main className="bg-bone">
 
-        <section
-          className="px-6 pt-32 pb-20 md:pt-36 md:pb-24"
-          style={{
-            backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
-            backgroundSize: '22px 22px',
-            backgroundColor: '#F6F3EE',
-          }}
-        >
-          <div className="max-w-6xl mx-auto">
+        <section className="px-6 pt-32 pb-16 md:pt-36 md:pb-20">
+          <div className="max-w-5xl mx-auto">
             <ScrollReveal>
-              <div className="pl-4 border-l-4 border-accent">
-                <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">Work</p>
-                <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.06] text-ink">
-                  Real businesses, real problems.
-                </h1>
-                <p className="text-base text-secondary mt-3 max-w-xl leading-relaxed">
-                  Research, strategy, design and development, for businesses that needed one of
-                  those things or all of them, plus the occasional self-directed concept piece to
-                  push new techniques before they reach a client project.
-                </p>
-              </div>
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.06] text-ink">
+                Work
+              </h1>
             </ScrollReveal>
           </div>
         </section>
 
-        <section
-          className="px-6 pb-24"
-          style={{
-            backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
-            backgroundSize: '22px 22px',
-            backgroundColor: '#F6F3EE',
-          }}
-        >
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">
-            {studies.length > 0 ? (
-              studies.map((study, i) => (
-                <CaseStudyCard key={study._id} study={study} index={i} />
-              ))
-            ) : (
-              <EmptyState />
+        {featured && (
+          <section className="px-6 pb-16 md:pb-24">
+            <div className="max-w-5xl mx-auto">
+              <FeaturedCard study={featured} />
+            </div>
+          </section>
+        )}
+
+        <section className="px-6 pb-24">
+          <div className="max-w-5xl mx-auto">
+            {rest.length > 0 && (
+              <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-8">Other work</p>
             )}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {rest.length > 0 ? (
+                rest.map((study, i) => (
+                  <CaseStudyCard key={study._id} study={study} index={i} />
+                ))
+              ) : studies.length === 0 ? (
+                <EmptyState />
+              ) : null}
+            </div>
           </div>
         </section>
 

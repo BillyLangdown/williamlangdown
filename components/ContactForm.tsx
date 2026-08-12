@@ -9,25 +9,21 @@ const areas = [
   {
     value: 'strategy',
     label: 'Strategy & Brand',
-    desc: 'Positioning, messaging, identity',
     placeholder: 'e.g. Our brand and messaging haven\'t kept up with what the business has become...',
   },
   {
     value: 'digital',
     label: 'Digital',
-    desc: 'Website, UX, technical SEO',
     placeholder: 'e.g. Our website doesn\'t reflect the quality of the work we actually do...',
   },
   {
     value: 'technology',
     label: 'Technology',
-    desc: 'Software, integrations, automation',
     placeholder: 'e.g. We\'re running the business through spreadsheets and it needs something better...',
   },
   {
     value: 'not-sure',
     label: 'Not sure yet',
-    desc: 'Happy to talk it through',
     placeholder: 'e.g. Something isn\'t working, but I\'m not sure exactly what needs to change...',
   },
 ]
@@ -55,9 +51,6 @@ function Form({ defaultService }: { defaultService?: string }) {
   const [email, setEmail] = useState('')
   const [company, setCompany] = useState('')
 
-  // Arriving with a preselected area jumps straight to step 2: scroll
-  // the form into view too, since on the /contact page it otherwise starts
-  // below the fold and the visitor has to scroll down manually to see it.
   useEffect(() => {
     if (defaultService && areas.some(s => s.value === defaultService)) {
       document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -104,9 +97,9 @@ function Form({ defaultService }: { defaultService?: string }) {
   if (status === 'success') {
     return (
       <div className="flex flex-col items-center gap-5 py-10 text-center">
-        <div className="w-11 h-11 rounded-sm flex items-center justify-center" style={{ background: '#C1613D' }}>
+        <div className="w-11 h-11 rounded-sm flex items-center justify-center bg-navy">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M3.5 9.5l4 4 7-8" stroke="white" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M3.5 9.5l4 4 7-8" stroke="#F6F3EE" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
         <div>
@@ -135,7 +128,7 @@ function Form({ defaultService }: { defaultService?: string }) {
   }
 
   return (
-    <div className="flex flex-col gap-7">
+    <div className="flex flex-col gap-8">
 
       {/* Progress bar */}
       <div className="flex items-center gap-1.5">
@@ -153,23 +146,23 @@ function Form({ defaultService }: { defaultService?: string }) {
         <span className="text-xs text-secondary shrink-0 ml-1 tabular-nums">{step} / 3</span>
       </div>
 
-      {/* Step 1: area selection */}
+      {/* Step 1: area selection — large typographic choices, not cards */}
       {step === 1 && (
         <div>
-          <p className="text-sm font-semibold text-ink mb-4">What&apos;s this mostly about?</p>
-          <div className="flex flex-col gap-2">
+          <p className="text-sm font-semibold text-ink mb-5">What&apos;s this mostly about?</p>
+          <div className="flex flex-col">
             {areas.map(s => (
               <button
                 key={s.value}
                 onClick={() => selectArea(s.value)}
-                className={`group text-left px-4 py-3.5 border rounded-sm transition-all ${
-                  selectedArea === s.value
-                    ? 'border-accent bg-accent/5'
-                    : 'border-border-light bg-white/80 hover:border-accent/40'
-                }`}
+                className="group text-left py-4 border-t border-border-light last:border-b transition-colors"
               >
-                <span className="text-sm font-medium text-ink">{s.label}</span>
-                <span className="text-xs text-secondary block mt-0.5">{s.desc}</span>
+                <span
+                  className="font-display text-2xl md:text-3xl transition-colors"
+                  style={{ color: selectedArea === s.value ? '#C1613D' : '#10233F' }}
+                >
+                  {s.label}
+                </span>
               </button>
             ))}
           </div>
@@ -193,7 +186,7 @@ function Form({ defaultService }: { defaultService?: string }) {
               rows={5}
               autoFocus
               placeholder={areas.find(s => s.value === selectedArea)?.placeholder ?? DEFAULT_PLACEHOLDER}
-              className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-accent transition-colors resize-none bg-white/80"
+              className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-terracotta transition-colors resize-none bg-white/80"
             />
           </div>
           <div>
@@ -205,7 +198,7 @@ function Form({ defaultService }: { defaultService?: string }) {
                   type="button"
                   onClick={() => setTiming(timing === t.value ? '' : t.value)}
                   className={`text-xs font-medium px-3 py-2 rounded-sm border transition-colors ${
-                    timing === t.value ? 'border-accent bg-accent/5 text-ink' : 'border-border-light text-secondary hover:border-accent/40'
+                    timing === t.value ? 'border-terracotta bg-terracotta/5 text-ink' : 'border-border-light text-secondary hover:border-terracotta/40'
                   }`}
                 >
                   {t.label}
@@ -223,8 +216,7 @@ function Form({ defaultService }: { defaultService?: string }) {
             <button
               onClick={() => setStep(3)}
               disabled={!message.trim()}
-              className="flex-1 text-white text-sm py-2.5 rounded-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{ background: '#C1613D' }}
+              className="flex-1 text-white text-sm py-2.5 rounded-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed bg-navy"
             >
               Next
             </button>
@@ -249,21 +241,21 @@ function Form({ defaultService }: { defaultService?: string }) {
                 type="text"
                 placeholder="Your name *"
                 autoFocus
-                className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-accent transition-colors bg-white/80"
+                className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-terracotta transition-colors bg-white/80"
               />
               <input
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 type="email"
                 placeholder="Your email *"
-                className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-accent transition-colors bg-white/80"
+                className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-terracotta transition-colors bg-white/80"
               />
               <input
                 value={company}
                 onChange={e => setCompany(e.target.value)}
                 type="text"
                 placeholder="Business name or website (optional)"
-                className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-accent transition-colors bg-white/80"
+                className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-terracotta transition-colors bg-white/80"
               />
             </div>
           </div>
@@ -282,8 +274,7 @@ function Form({ defaultService }: { defaultService?: string }) {
             <button
               onClick={handleSubmit}
               disabled={status === 'submitting' || !name.trim() || !email.trim()}
-              className="flex-1 text-white text-sm py-2.5 rounded-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              style={{ background: '#C1613D' }}
+              className="flex-1 text-white text-sm py-2.5 rounded-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 bg-navy"
             >
               {status === 'submitting' ? (
                 <>

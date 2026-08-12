@@ -17,9 +17,6 @@ export default function ProcessStrip() {
               </span>
             ))}
           </div>
-          <p className="mt-6 text-sm md:text-base max-w-lg mx-auto" style={{ color: 'rgba(246,243,238,0.55)' }}>
-            Research before design. Design before build.
-          </p>
         </ScrollReveal>
       </div>
     </section>

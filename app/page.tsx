@@ -1,8 +1,9 @@
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
-import ProjectFeature from '@/components/ProjectFeature'
+import FeaturedProject from '@/components/FeaturedProject'
 import Capabilities from '@/components/Capabilities'
 import ProcessStrip from '@/components/ProcessStrip'
+import SecondaryWork from '@/components/SecondaryWork'
 import ReviewSection from '@/components/ReviewSection'
 import AboutSection from '@/components/AboutSection'
 import CTABanner from '@/components/CTABanner'
@@ -116,49 +117,26 @@ export default function HomePage() {
       <main>
         <Hero />
 
-        <ProjectFeature
-          index="01 / BVS"
-          name="Building Ventilation Services"
+        <FeaturedProject
+          index="01 / Selected work"
+          name="BVS"
+          client="Building Ventilation Services"
           tags={['Digital', 'Development', 'Technical SEO']}
-          description="A 40-year-old ventilation contractor. Mobile PageSpeed went from 56 to 98, desktop from 69 to 100."
+          context="An established ventilation contractor with a dated, slow WordPress site. Rebuilt as a fast headless site the team can manage themselves."
+          media={{ src: '/images/bvs-service-after.png', caption: 'bvs-ltd.co.uk' }}
+          secondaryMedia={{ src: '/images/showcase-bvs-mobile.jpg', caption: 'Mobile' }}
+          results={[
+            { value: '56 → 98', label: 'Mobile PageSpeed' },
+            { value: '69 → 100', label: 'Desktop PageSpeed' },
+          ]}
           href="/case-studies/building-ventilation-services-ltd"
-          cta="View case study"
-          media={{ video: '/videos/bvs-desktop.mp4', poster: '/images/showcase-bvs-desktop.jpg' }}
-          variant="bleed"
         />
 
         <Capabilities />
 
-        <ProjectFeature
-          index="02 / Garden Tablecloth Co."
-          name="The Garden Tablecloth Co."
-          tags={['Strategy', 'Digital', 'Development']}
-          description="An Etsy seller moving to their own store. Enquiries up 75%, bounce rate down 21%."
-          href="/case-studies/the-garden-tablecloth-co"
-          cta="View case study"
-          media={{ poster: '/images/showcase-gtc-desktop.png' }}
-          variant="stacked"
-        />
-
-        <div className="py-14 md:py-20 px-6 bg-bone">
-          <p className="font-display italic text-xl md:text-2xl text-ink text-center max-w-2xl mx-auto leading-relaxed">
-            Most businesses outgrow their brand and digital presence long before they replace them.
-          </p>
-        </div>
-
         <ProcessStrip />
 
-        <ProjectFeature
-          index="03 / Axiom"
-          name="Axiom"
-          tags={['Concept', 'Development']}
-          description="A self-directed concept in interface motion, and when not to use it."
-          href="https://axiom-showcase.vercel.app"
-          external
-          cta="View concept"
-          media={{ video: '/videos/axiom-desktop.mp4', poster: '/images/showcase-axiom-desktop.jpg' }}
-          variant="bleed"
-        />
+        <SecondaryWork />
 
         <ReviewSection />
         <AboutSection />
