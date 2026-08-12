@@ -6,55 +6,36 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Pricing | Web Design & Development, Taunton, Somerset | William Langdown',
-  description: 'Clear, upfront pricing for websites, booking software and quoting tools. Starter Websites from £495, Growth Websites £1,500 to £4,000, Custom Software from £3,000. Based in Taunton, Somerset.',
+  title: 'Working Together | William Langdown',
+  description: 'How projects are scoped and priced. Bespoke, engagement-based work for established UK businesses, typically starting from around £5,000. Somerset-based, working nationwide.',
   alternates: { canonical: 'https://williamlangdown.com/pricing' },
   openGraph: {
-    title: 'Pricing | Web Design & Development, Taunton, Somerset | William Langdown',
-    description: 'Clear, upfront pricing for websites, booking software and quoting tools for commercial trades, contractors and small businesses. Based in Taunton, Somerset.',
+    title: 'Working Together | William Langdown',
+    description: 'How projects are scoped and priced. Bespoke, engagement-based work for established UK businesses.',
     url: 'https://williamlangdown.com/pricing',
   },
 }
 
-const priceList = [
+const engagementTypes = [
   {
-    name: 'Starter Websites',
-    price: 'From £495',
-    description: 'A simple three-page site, live in about a week. Good for getting a new or small business online quickly.',
-    href: '/starter',
+    name: 'A focused project',
+    description: 'One clear problem: a website, a piece of software, a rebrand. Scoped, delivered, and handed over.',
   },
   {
-    name: 'Growth Websites',
-    price: '£1,500 – £4,000',
-    priceQualifier: 'Typically',
-    description: 'Custom websites built around your customers’ journey, with strategy, conversion and SEO foundations included. The starting point for most trades and contractor projects.',
-    href: '/services/growth-websites',
-    featured: true,
+    name: 'A combined engagement',
+    description: 'Strategy, design and build considered together, where the brand, the digital experience and the underlying system all need to move at once.',
   },
   {
-    name: 'Custom Software',
-    price: 'From £3,000',
-    description: 'Customer portals, quoting tools, job-sheet systems, dashboards and internal tools built around how your business works.',
-    href: '/services/custom-software',
+    name: 'An ongoing relationship',
+    description: 'Ongoing development, refinement and support once the initial work is live, for clients who want the thinking to continue past launch.',
   },
-  {
-    name: 'Booking Systems & Automation',
-    price: 'Priced individually',
-    description: 'Booking, quoting and job-scheduling systems, automated reminders and enquiry workflows that cut admin.',
-    href: '/services/booking-systems-automation',
-  },
-  {
-    name: 'Website Audit',
-    price: 'From £145',
-    description: 'A written review of what’s putting visitors off your current site, and how to fix it.',
-    href: '/services/website-audits',
-  },
-  {
-    name: 'Website Support',
-    price: '£60 – £90 / hour',
-    description: 'Ongoing development and consulting for an existing website or system.',
-    href: '/services/website-support',
-  },
+]
+
+const scopeFactors = [
+  'How many of the three capabilities the project actually needs',
+  'The size and complexity of what\'s being built',
+  'How much existing material there is to work from, versus starting from research',
+  'Timeline',
 ]
 
 export default function PricingPage() {
@@ -65,84 +46,99 @@ export default function PricingPage() {
 
         {/* Header */}
         <section
-          className="px-6 pt-32 pb-16 md:pt-36 md:pb-20"
+          className="px-6 pt-32 pb-16 md:pt-40 md:pb-20"
           style={{
             backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
             backgroundSize: '22px 22px',
             backgroundColor: '#F8FAFC',
           }}
         >
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-3xl mx-auto">
             <ScrollReveal>
-              <div className="pl-4 border-l-4 border-accent">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.06] tracking-tight text-ink">
-                  Pricing
-                </h1>
-                <p className="text-base text-secondary mt-3 max-w-xl leading-relaxed">
-                  Clear, upfront pricing for web design and website development in Taunton, Somerset.
-                  Built for commercial trades and contractors, and for any small business that needs a
-                  site, booking system or quoting tool that actually works.
-                </p>
-              </div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">Working together</p>
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.06] text-ink mb-6">
+                Scoped around the problem, not a price list.
+              </h1>
+              <p className="text-base md:text-lg text-secondary leading-relaxed max-w-2xl">
+                Every project is different, so pricing works project by project rather than off a
+                fixed menu. As a general guide, bespoke projects typically start from around £5,000,
+                depending on scope.
+              </p>
             </ScrollReveal>
           </div>
         </section>
 
-        {/* Price list */}
-        <section
-          className="px-6 pb-20"
-          style={{
-            backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
-            backgroundSize: '22px 22px',
-            backgroundColor: '#F8FAFC',
-          }}
-        >
-          <div className="max-w-4xl mx-auto flex flex-col rounded-sm border border-border-light overflow-hidden bg-white">
-            {priceList.map((item, i) => (
-              <ScrollReveal key={item.name} delay={i * 60}>
-                <Link
-                  href={item.href}
-                  className={`group flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 px-6 py-6 transition-colors hover:bg-accent/5 ${
-                    i !== 0 ? 'border-t border-border-light' : ''
-                  }`}
-                  style={item.featured ? { background: 'rgba(37,99,235,0.03)' } : undefined}
-                >
-                  <div className="flex-1 min-w-0">
-                    <p className="text-base font-heading font-semibold text-ink">{item.name}</p>
-                    <p className="text-sm text-secondary leading-relaxed mt-1 max-w-xl">{item.description}</p>
+        {/* Engagement types */}
+        <section className="px-6 pb-20 md:pb-24">
+          <div className="max-w-5xl mx-auto">
+            <ScrollReveal className="mb-10 max-w-xl">
+              <h2 className="font-display text-2xl md:text-3xl text-ink leading-[1.15]">Typically, this looks like one of three things.</h2>
+            </ScrollReveal>
+            <div className="flex flex-col">
+              {engagementTypes.map((type, i) => (
+                <ScrollReveal key={type.name} delay={i * 80}>
+                  <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-3 md:gap-10 py-8 border-t border-border-light items-start">
+                    <h3 className="text-lg font-heading font-semibold text-ink">{type.name}</h3>
+                    <p className="text-base text-secondary leading-relaxed max-w-xl">{type.description}</p>
                   </div>
-                  <div className="shrink-0 flex items-center gap-4">
-                    <div className="text-left sm:text-right">
-                      {item.priceQualifier && (
-                        <p className="text-[11px] font-medium text-tertiary">{item.priceQualifier}</p>
-                      )}
-                      <p className="text-lg font-heading font-bold text-ink whitespace-nowrap">{item.price}</p>
-                    </div>
-                    <svg
-                      className="text-tertiary group-hover:text-accent transition-colors shrink-0"
-                      width="14" height="14" viewBox="0 0 14 14" fill="none"
-                    >
-                      <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </div>
-                </Link>
-              </ScrollReveal>
-            ))}
+                </ScrollReveal>
+              ))}
+              <div className="border-t border-border-light" />
+            </div>
           </div>
+        </section>
 
-          <ScrollReveal delay={priceList.length * 60} className="max-w-4xl mx-auto mt-6">
-            <p className="text-sm text-secondary">
-              Not sure which fits? See the full breakdown on the{' '}
-              <Link href="/services" className="underline underline-offset-4 hover:text-ink transition-colors">
-                Services page
-              </Link>
-              , or{' '}
-              <Link href="/contact" className="underline underline-offset-4 hover:text-ink transition-colors">
-                get in touch
-              </Link>{' '}
-              and tell me what you need.
-            </p>
-          </ScrollReveal>
+        {/* What affects scope */}
+        <section className="px-6 pb-20 md:pb-24 bg-white border-t border-border-light">
+          <div className="max-w-5xl mx-auto pt-16 md:pt-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <ScrollReveal>
+                <h2 className="font-display text-2xl md:text-3xl text-ink leading-[1.15] mb-4">What affects the number.</h2>
+                <p className="text-base text-secondary leading-relaxed">
+                  A first call is enough to give a realistic range. A proper proposal follows once
+                  there&apos;s a clear enough picture of what the project actually involves.
+                </p>
+              </ScrollReveal>
+              <ScrollReveal delay={100}>
+                <ul className="flex flex-col gap-3">
+                  {scopeFactors.map((factor) => (
+                    <li key={factor} className="flex items-start gap-3 text-sm text-secondary leading-relaxed">
+                      <span className="mt-1.5 h-1 w-1 rounded-full shrink-0 bg-accent" />
+                      {factor}
+                    </li>
+                  ))}
+                </ul>
+              </ScrollReveal>
+            </div>
+          </div>
+        </section>
+
+        {/* How it starts */}
+        <section className="px-6 py-20 md:py-24 bg-subtle">
+          <div className="max-w-3xl mx-auto">
+            <ScrollReveal>
+              <h2 className="font-display text-2xl md:text-3xl text-ink leading-[1.15] mb-5">How it starts.</h2>
+              <p className="text-base text-secondary leading-relaxed mb-4">
+                A short call first, to understand the business and what&apos;s prompting the enquiry.
+                No obligation, and no proposal until there&apos;s enough to scope properly.
+              </p>
+              <p className="text-base text-secondary leading-relaxed">
+                From there, if it&apos;s a fit, the next step is usually a short discovery phase
+                before any design or build work begins, so the proposal is based on the real problem
+                rather than a guess at one.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={80} className="mt-8">
+              <p className="text-sm text-secondary">
+                Existing clients needing ongoing support or a smaller piece of work: just get in touch
+                and we&apos;ll work out what makes sense.{' '}
+                <Link href="/contact" className="underline underline-offset-4 hover:text-ink transition-colors">
+                  Contact
+                </Link>
+                .
+              </p>
+            </ScrollReveal>
+          </div>
         </section>
 
         <CTABanner />

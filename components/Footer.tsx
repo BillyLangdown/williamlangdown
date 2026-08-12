@@ -2,17 +2,18 @@ import Link from 'next/link'
 
 const exploreLinks = [
   { href: '/', label: 'Home' },
-  { href: '/services', label: 'Services' },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/case-studies', label: 'Case Studies' },
+  { href: '/case-studies', label: 'Work' },
+  { href: '/services', label: 'Capabilities' },
+  { href: '/about', label: 'About' },
+  { href: '/pricing', label: 'Working Together' },
   { href: '/contact', label: 'Contact' },
 ]
 
-const serviceLinks = [
-  { href: '/services/growth-websites', label: 'Growth Websites' },
-  { href: '/starter', label: 'Starter Websites' },
+const specialismLinks = [
+  { href: '/services/growth-websites', label: 'Websites, Somerset & South West' },
   { href: '/services/custom-software', label: 'Custom Software' },
   { href: '/services/booking-systems-automation', label: 'Booking & Automation' },
+  { href: '/blog', label: 'Writing' },
 ]
 
 export default function Footer() {
@@ -40,7 +41,7 @@ export default function Footer() {
               +44 7446 856927
             </a>
             <p className="text-sm text-tertiary">
-              Based in Taunton, Somerset
+              Somerset-based, working with UK businesses nationwide
             </p>
           </div>
 
@@ -59,8 +60,8 @@ export default function Footer() {
               ))}
             </nav>
             <nav className="flex flex-col gap-3">
-              <p className="text-xs font-semibold uppercase tracking-widest text-tertiary/70 mb-1">Services</p>
-              {serviceLinks.map(({ href, label }) => (
+              <p className="text-xs font-semibold uppercase tracking-widest text-tertiary/70 mb-1">More</p>
+              {specialismLinks.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}

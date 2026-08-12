@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CTABanner from '@/components/CTABanner'
@@ -34,10 +33,6 @@ const examples = [
 ]
 
 const faqs = [
-  {
-    q: 'Is this the same as Orla?',
-    a: "Orla is my own ready-made booking product, and it might already do what you need. This service is for something more specific to your business, built around your exact process rather than a general product.",
-  },
   {
     q: 'What does a typical project look like?',
     a: "It starts with mapping out how enquiries or bookings currently move through your business, then automating the repetitive parts, whether that's a booking calendar, reminder emails, or sorting enquiries automatically.",
@@ -77,7 +72,7 @@ export default function BookingSystemsAutomationPage() {
                 </p>
                 <div className="mt-8">
                   <Link
-                    href="/contact?service=automation"
+                    href="/contact?service=technology"
                     className="inline-flex items-center gap-2 bg-ink text-white text-sm px-7 py-3.5 rounded-sm font-medium hover:bg-ink/85 transition-colors"
                   >
                     Talk about automation
@@ -107,31 +102,6 @@ export default function BookingSystemsAutomationPage() {
                 </ScrollReveal>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Proof: Orla */}
-        <section className="px-6 py-20" style={dotGrid}>
-          <div className="max-w-4xl mx-auto">
-            <ScrollReveal>
-              <Link
-                href="https://orlabooking.com"
-                className="group flex items-center gap-5 rounded-sm border border-border-light bg-white/80 px-6 py-6 sm:px-8 transition-colors hover:border-ink/20"
-                style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}
-              >
-                <Image src="/images/orla-logo-long-accent.png" alt="Orla" height={28} width={82} className="object-contain shrink-0" />
-                <div className="flex-1 min-w-0">
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-accent mb-1.5">Built by someone who&apos;s built this before</p>
-                  <p className="text-sm text-secondary">An AI booking system, built by me.</p>
-                </div>
-                <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ink group-hover:text-accent transition-colors shrink-0">
-                  <span className="hidden sm:inline">Visit orlabooking.com</span>
-                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </Link>
-            </ScrollReveal>
           </div>
         </section>
 

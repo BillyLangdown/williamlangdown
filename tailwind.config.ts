@@ -12,6 +12,7 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
         heading: ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-fraunces)', 'Georgia', 'serif'],
       },
       colors: {
         ink: '#0F172A',

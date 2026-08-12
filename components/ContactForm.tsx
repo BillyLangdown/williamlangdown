@@ -5,98 +5,67 @@ import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recapt
 import { submitContactForm } from '@/app/actions/contact'
 import { gtagEvent } from '@/lib/gtag'
 
-const services = [
+const areas = [
   {
-    value: 'growth',
-    label: 'Growth Websites',
-    desc: 'A custom site built to grow your business',
-    price: 'Typically £1,500–£4,000',
-    placeholder: 'e.g. My current site feels dated and doesn\'t reflect the business anymore...',
+    value: 'strategy',
+    label: 'Strategy & Brand',
+    desc: 'Positioning, messaging, identity',
+    placeholder: 'e.g. Our brand and messaging haven\'t kept up with what the business has become...',
   },
   {
-    value: 'starter',
-    label: 'Starter Websites',
-    desc: 'Questions about the £495 site, or adding a form/booking to it',
-    price: 'From £495',
-    placeholder: 'e.g. I just need a simple 3-page site live quickly, or want to add a working contact form...',
+    value: 'digital',
+    label: 'Digital',
+    desc: 'Website, UX, technical SEO',
+    placeholder: 'e.g. Our website doesn\'t reflect the quality of the work we actually do...',
   },
   {
-    value: 'software',
-    label: 'Custom Software',
-    desc: 'Portals, dashboards, or internal tools',
-    price: 'From £3,000',
-    placeholder: 'e.g. We\'re managing bookings, jobs or customers in a spreadsheet and need something better...',
+    value: 'technology',
+    label: 'Technology',
+    desc: 'Software, integrations, automation',
+    placeholder: 'e.g. We\'re running the business through spreadsheets and it needs something better...',
   },
   {
-    value: 'automation',
-    label: 'Booking Systems & Automation',
-    desc: 'Booking systems, reminders, or automating admin',
-    price: 'Priced individually',
-    placeholder: 'e.g. We spend hours a week on scheduling and reminders and want to automate it...',
-  },
-  {
-    value: 'audit',
-    label: 'Website Audit',
-    desc: 'Find out what\'s holding your site back',
-    price: '£145',
-    placeholder: 'e.g. My site gets traffic but nobody fills in the contact form...',
-  },
-  {
-    value: 'support',
-    label: 'Website Support',
-    desc: 'Updates, fixes, or ongoing development and consulting',
-    price: '£60–£90 / hr',
-    placeholder: 'e.g. I need a few bug fixes and an extra page added to my existing site...',
-  },
-  {
-    value: 'care-plans',
-    label: 'Care Plans',
-    desc: 'Essential hosting, or Tech Partner with hours included',
-    price: 'From £19 / month',
-    placeholder: 'e.g. I\'d like to set up a Care Plan for my existing site...',
-  },
-  {
-    value: 'orla',
-    label: 'Orla',
-    desc: 'Get early access or ask a question',
-    price: '',
-    placeholder: 'e.g. I\'d like to hear more about Orla and how it could work for my business...',
-  },
-  {
-    value: 'other',
-    label: 'Something else',
-    desc: 'Not sure yet, happy to talk it through',
-    price: '',
-    placeholder: 'e.g. Not sure exactly what I need yet, but here\'s what\'s going on...',
+    value: 'not-sure',
+    label: 'Not sure yet',
+    desc: 'Happy to talk it through',
+    placeholder: 'e.g. Something isn\'t working, but I\'m not sure exactly what needs to change...',
   },
 ]
 
-const DEFAULT_PLACEHOLDER = 'e.g. Tell me a bit about what you\'re trying to do...'
+const timingOptions = [
+  { value: 'now', label: 'Ready to start now' },
+  { value: 'soon', label: 'In the next 1–3 months' },
+  { value: 'later', label: 'Further out, still planning' },
+  { value: 'exploring', label: 'Just exploring for now' },
+]
+
+const DEFAULT_PLACEHOLDER = 'e.g. Tell me a bit about the business and what you\'re trying to change...'
 
 function Form({ defaultService }: { defaultService?: string }) {
   const { executeRecaptcha } = useGoogleReCaptcha()
   const [step, setStep] = useState(() =>
-    defaultService && services.some(s => s.value === defaultService) ? 2 : 1
+    defaultService && areas.some(s => s.value === defaultService) ? 2 : 1
   )
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
-  const [selectedService, setSelectedService] = useState(defaultService ?? '')
+  const [selectedArea, setSelectedArea] = useState(defaultService ?? '')
+  const [timing, setTiming] = useState('')
   const [message, setMessage] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [website, setWebsite] = useState('')
+  const [company, setCompany] = useState('')
 
-  // Arriving with a preselected service jumps straight to step 2: scroll
+  // Arriving with a preselected area jumps straight to step 2: scroll
   // the form into view too, since on the /contact page it otherwise starts
   // below the fold and the visitor has to scroll down manually to see it.
   useEffect(() => {
-    if (defaultService && services.some(s => s.value === defaultService)) {
+    if (defaultService && areas.some(s => s.value === defaultService)) {
       document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }, [defaultService])
 
-  const selectService = (value: string) => {
-    setSelectedService(value)
+  const selectArea = (value: string) => {
+    setSelectedArea(value)
     setTimeout(() => setStep(2), 150)
   }
 
@@ -110,15 +79,15 @@ function Form({ defaultService }: { defaultService?: string }) {
       const result = await submitContactForm({
         name,
         email,
-        website,
-        service: selectedService,
-        message,
+        website: company,
+        service: selectedArea,
+        message: timing ? `${message}\n\nTiming: ${timingOptions.find(t => t.value === timing)?.label ?? timing}` : message,
         recaptchaToken: token,
       })
 
       if (result.success) {
         setStatus('success')
-        gtagEvent('generate_lead', { service: selectedService || 'not_specified' })
+        gtagEvent('generate_lead', { service: selectedArea || 'not_specified' })
         gtagEvent('conversion', { send_to: 'AW-11171125987/ImpVCJzmqdccEOO1584p' })
       } else {
         setStatus('error')
@@ -128,9 +97,9 @@ function Form({ defaultService }: { defaultService?: string }) {
       setStatus('error')
       setErrorMessage('Something went wrong. Please try again.')
     }
-  }, [executeRecaptcha, name, email, website, selectedService, message])
+  }, [executeRecaptcha, name, email, company, selectedArea, message, timing])
 
-  const selectedLabel = services.find(s => s.value === selectedService)?.label
+  const selectedLabel = areas.find(s => s.value === selectedArea)?.label
 
   if (status === 'success') {
     return (
@@ -150,11 +119,12 @@ function Form({ defaultService }: { defaultService?: string }) {
           onClick={() => {
             setStatus('idle')
             setStep(1)
-            setSelectedService('')
+            setSelectedArea('')
+            setTiming('')
             setMessage('')
             setName('')
             setEmail('')
-            setWebsite('')
+            setCompany('')
           }}
           className="text-sm text-secondary underline underline-offset-4 hover:text-ink transition-colors"
         >
@@ -183,37 +153,30 @@ function Form({ defaultService }: { defaultService?: string }) {
         <span className="text-xs text-secondary shrink-0 ml-1 tabular-nums">{step} / 3</span>
       </div>
 
-      {/* Step 1: service selection */}
+      {/* Step 1: area selection */}
       {step === 1 && (
         <div>
-          <p className="text-sm font-semibold text-ink mb-4">What are you interested in?</p>
+          <p className="text-sm font-semibold text-ink mb-4">What&apos;s this mostly about?</p>
           <div className="flex flex-col gap-2">
-            {services.map(s => (
+            {areas.map(s => (
               <button
                 key={s.value}
-                onClick={() => selectService(s.value)}
+                onClick={() => selectArea(s.value)}
                 className={`group text-left px-4 py-3.5 border rounded-sm transition-all ${
-                  selectedService === s.value
+                  selectedArea === s.value
                     ? 'border-accent bg-accent/5'
                     : 'border-border-light bg-white/80 hover:border-accent/40'
                 }`}
               >
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <span className="text-sm font-medium text-ink">{s.label}</span>
-                    <span className="text-xs text-secondary block mt-0.5">{s.desc}</span>
-                  </div>
-                  {s.price && (
-                    <span className="text-xs font-medium shrink-0" style={{ color: '#2563EB' }}>{s.price}</span>
-                  )}
-                </div>
+                <span className="text-sm font-medium text-ink">{s.label}</span>
+                <span className="text-xs text-secondary block mt-0.5">{s.desc}</span>
               </button>
             ))}
           </div>
         </div>
       )}
 
-      {/* Step 2: message */}
+      {/* Step 2: what's changing */}
       {step === 2 && (
         <div className="flex flex-col gap-5">
           {selectedLabel && (
@@ -222,16 +185,33 @@ function Form({ defaultService }: { defaultService?: string }) {
             </span>
           )}
           <div>
-            <p className="text-sm font-semibold text-ink mb-1">What&apos;s the situation?</p>
-            <p className="text-xs text-secondary mb-3">Tell me what you&apos;re trying to improve or fix.</p>
+            <p className="text-sm font-semibold text-ink mb-1">What are you trying to change, and what&apos;s in the way?</p>
+            <p className="text-xs text-secondary mb-3">A few lines is plenty. We&apos;ll go into detail on a call.</p>
             <textarea
               value={message}
               onChange={e => setMessage(e.target.value)}
-              rows={6}
+              rows={5}
               autoFocus
-              placeholder={services.find(s => s.value === selectedService)?.placeholder ?? DEFAULT_PLACEHOLDER}
+              placeholder={areas.find(s => s.value === selectedArea)?.placeholder ?? DEFAULT_PLACEHOLDER}
               className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-accent transition-colors resize-none bg-white/80"
             />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-ink mb-3">Timing</p>
+            <div className="flex flex-wrap gap-2">
+              {timingOptions.map(t => (
+                <button
+                  key={t.value}
+                  type="button"
+                  onClick={() => setTiming(timing === t.value ? '' : t.value)}
+                  className={`text-xs font-medium px-3 py-2 rounded-sm border transition-colors ${
+                    timing === t.value ? 'border-accent bg-accent/5 text-ink' : 'border-border-light text-secondary hover:border-accent/40'
+                  }`}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
           </div>
           <div className="flex gap-3">
             <button
@@ -279,10 +259,10 @@ function Form({ defaultService }: { defaultService?: string }) {
                 className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-accent transition-colors bg-white/80"
               />
               <input
-                value={website}
-                onChange={e => setWebsite(e.target.value)}
+                value={company}
+                onChange={e => setCompany(e.target.value)}
                 type="text"
-                placeholder="Your website (optional)"
+                placeholder="Business name or website (optional)"
                 className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-accent transition-colors bg-white/80"
               />
             </div>

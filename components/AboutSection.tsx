@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
 
 const dotGrid = {
@@ -29,48 +30,33 @@ export default function AboutSection() {
       <div className="max-w-6xl mx-auto">
         <div className="border-t border-border-light" />
 
-        {/* Mobile: min-height fills most of the viewport so this section (plus
-            the ticker above it) is what's visible on screen, without the next
-            section peeking in. Circle bleeds off the right edge, large and
-            mostly off screen, sitting behind the text column which stays
-            comfortably narrow so the two never overlap. */}
-        <div className="md:hidden flex flex-col justify-start pt-20" style={{ minHeight: '88svh' }}>
-          <div className="relative">
-            <motion.div
-              className="absolute rounded-full bg-accent pointer-events-none"
-              style={{ width: '260px', height: '260px', right: '-180px', top: '40px', y: circleY }}
-            />
-            <motion.div {...textReveal} className="relative py-14 max-w-[250px]">
-              <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">
-                Who am I?
-              </p>
-              <p className="font-heading text-3xl font-bold tracking-tight text-ink leading-[1.15] mb-4">
-                Hi, I&apos;m William.
-              </p>
-              <p className="text-base text-secondary leading-relaxed">
-             Based in Taunton, Somerset, I build websites, software and automation for businesses that need to be found, trusted and hired, from commercial contractors like Building Ventilation Services to independent shops and service businesses.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Desktop: circle is a normal flex item, flush with the same left edge as
-            the rest of the page, followed by the text with a fixed gap. */}
-        <div className="py-24 hidden md:flex items-center gap-10">
+        <div className="py-20 md:py-24 flex flex-col md:flex-row items-start md:items-center gap-10 md:gap-16">
           <motion.div
-            className="rounded-full bg-accent flex-shrink-0"
-            style={{ width: '170px', height: '170px', y: circleY }}
+            className="rounded-full bg-accent shrink-0"
+            style={{ width: '130px', height: '130px', y: circleY }}
           />
           <motion.div {...textReveal} className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">
-              Who am I?
+              05 — About
             </p>
-            <p className="font-heading text-5xl font-bold tracking-tight text-ink leading-[1.1] mb-5">
-              Hi, I&apos;m William.
+            <p className="font-display text-3xl md:text-4xl text-ink leading-[1.15] mb-5">
+              A degree in branding, and a career spent building software.
             </p>
-            <p className="text-lg text-secondary leading-relaxed">
-            Based in Taunton, Somerset, I build websites, software and automation for businesses that need to be found, trusted and hired, from commercial contractors like Building Ventilation Services to independent shops and service businesses. I recently took BVS's mobile PageSpeed score from 56 to 98. Tell me what's slowing your business down, and I'll work out what to build.
+            <p className="text-base md:text-lg text-secondary leading-relaxed mb-6">
+              I trained in advertising and branding before moving into professional software
+              development. Most people specialise in one side of that or the other. Working across
+              both means the strategic thinking and the implementation stay connected through a
+              project, rather than getting handed off between people who never talk to each other.
             </p>
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-accent transition-colors"
+            >
+              More about the practice
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
           </motion.div>
         </div>
       </div>

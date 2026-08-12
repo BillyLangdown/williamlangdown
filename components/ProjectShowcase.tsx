@@ -10,6 +10,7 @@ interface Media {
 
 interface Project {
   name: string
+  tags: string[]
   description: string
   href: string
   external: boolean
@@ -21,9 +22,10 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
-    name: 'BVS',
+    name: 'Building Ventilation Services',
+    tags: ['Digital', 'Development', 'Technical SEO'],
     description:
-      'Full redesign for a 40-year-old commercial ventilation contractor. New site, brand touch-ups, and mobile PageSpeed jumping from 56 to 98.',
+      'A 40-year-old commercial ventilation contractor whose site no longer matched the scale of the work it was winning. Rebuilt as a fast, headless site the team can manage themselves, restructured around how customers actually search: mobile PageSpeed went from 56 to 98, desktop from 69 to 100.',
     href: '/case-studies/building-ventilation-services-ltd',
     external: false,
     cta: 'View case study',
@@ -33,8 +35,9 @@ const PROJECTS: Project[] = [
   },
   {
     name: 'The Garden Tablecloth Co.',
+    tags: ['Strategy', 'Digital', 'Development'],
     description:
-      'Audit and redesign of an existing Wix store for an independent tableware brand, adding trust signals and a clearer path to purchase. Enquiries rose 75%, bounce down 21%.',
+      'An independent tableware brand with a proven track record on Etsy, but a store of its own that undersold it. Redesigned around the trust signals and buying journey its reputation had already earned: enquiries up 75%, bounce rate down 21%.',
     href: '/case-studies/the-garden-tablecloth-co',
     external: false,
     cta: 'View case study',
@@ -43,20 +46,10 @@ const PROJECTS: Project[] = [
     desktop: { poster: '/images/showcase-gtc-desktop.png' },
   },
   {
-    name: 'Ironclad',
-    description:
-      'A concept rebrand of one of my Starter Site templates for a powerlifting gym, built to show what the base design can become with a bolder direction. A proof of concept, not a real client project.',
-    href: '/starter/remix-ironclad',
-    external: false,
-    cta: 'View concept',
-    url: 'williamlangdown.com/starter/remix-ironclad',
-    mobile: { poster: '/images/showcase-ironclad-mobile.png' },
-    desktop: { poster: '/images/showcase-ironclad-desktop.png' },
-  },
-  {
     name: 'Axiom',
+    tags: ['Concept', 'Development'],
     description:
-      'A concept case study exploring product design and copy for an AI ops platform.',
+      'A self-directed concept exploring how far interface motion and interaction can go, built to demonstrate the technique, and just as much the judgement of when not to use it.',
     href: 'https://axiom-showcase.vercel.app',
     external: true,
     cta: 'View concept',
@@ -240,8 +233,9 @@ export default function ProjectShowcase() {
     >
       <div className="relative z-10 max-w-4xl mx-auto">
         <div className="mb-12 pl-4 border-l-4 border-accent">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">Recent work</h2>
-          <p className="text-sm text-secondary mt-1">A few things I&apos;ve designed and built recently. Swipe through.</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-2">01 — Selected work</p>
+          <h2 className="font-display text-3xl md:text-4xl text-ink">Real projects, real problems.</h2>
+          <p className="text-sm text-secondary mt-2">Swipe through, or see the full breakdown in each case study.</p>
         </div>
 
         {/* Nav: view toggle, dots, arrows */}
@@ -322,7 +316,18 @@ export default function ProjectShowcase() {
 
                 <div className="w-full max-w-3xl lg:max-w-4xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6 text-left">
                   <div>
-                    <p className="text-2xl lg:text-3xl font-heading font-bold text-ink">{project.name}</p>
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-[10px] font-semibold uppercase tracking-widest px-2 py-1 rounded-sm"
+                          style={{ background: 'rgba(37,99,235,0.08)', color: '#2563EB' }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="font-display text-2xl lg:text-3xl text-ink">{project.name}</p>
                     <p className="text-base text-secondary mt-3 leading-relaxed max-w-xl">{project.description}</p>
                   </div>
                   <CTALink

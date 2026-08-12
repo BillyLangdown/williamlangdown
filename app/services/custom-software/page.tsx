@@ -47,7 +47,7 @@ const faqs = [
   },
   {
     q: "Do you maintain the system after it's built?",
-    a: 'Yes, through Website Support billed hourly, or an optional Care Plan if you’d rather have hosting and a monthly time allowance included instead. No minimum term either way.',
+    a: 'Yes, ongoing support and further development are available by arrangement, see the Working Together page for how that typically works.',
   },
 ]
 
@@ -76,7 +76,7 @@ export default function CustomSoftwarePage() {
                 </p>
                 <div className="mt-8">
                   <Link
-                    href="/contact?service=software"
+                    href="/contact?service=technology"
                     className="inline-flex items-center gap-2 bg-ink text-white text-sm px-7 py-3.5 rounded-sm font-medium hover:bg-ink/85 transition-colors"
                   >
                     Talk about a project

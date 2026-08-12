@@ -1,11 +1,12 @@
 import Nav from '@/components/Nav'
-import PromoTicker from '@/components/PromoTicker'
 import Hero from '@/components/Hero'
 import ProjectShowcase from '@/components/ProjectShowcase'
-import ProblemsSection from '@/components/ProblemsSection'
-import ServicesSection from '@/components/ServicesSection'
-import AboutSection from '@/components/AboutSection'
+import PointOfView from '@/components/PointOfView'
+import Capabilities from '@/components/Capabilities'
+import ProcessSteps from '@/components/ProcessSteps'
+import ScrollReveal from '@/components/ScrollReveal'
 import ReviewSection from '@/components/ReviewSection'
+import AboutSection from '@/components/AboutSection'
 import CTABanner from '@/components/CTABanner'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
@@ -13,12 +14,12 @@ import type { Metadata } from 'next'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Websites for Trade & Contractor Businesses | William Langdown',
-  description: 'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors. Based in Taunton, Somerset, working across the South West and remotely nationwide.',
+  title: 'William Langdown | Brand, Digital & Technology Practice',
+  description: 'An independent practice combining brand strategy, digital design and software development for established UK businesses. Somerset-based, working nationwide.',
   alternates: { canonical: 'https://williamlangdown.com' },
   openGraph: {
-    title: 'Websites for Trade & Contractor Businesses | William Langdown',
-    description: 'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors. Based in Taunton, Somerset, working across the South West and remotely nationwide.',
+    title: 'William Langdown | Brand, Digital & Technology Practice',
+    description: 'An independent practice combining brand strategy, digital design and software development for established UK businesses. Somerset-based, working nationwide.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
@@ -26,8 +27,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Websites for Trade & Contractor Businesses | William Langdown',
-    description: 'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors, based in Taunton, Somerset.',
+    title: 'William Langdown | Brand, Digital & Technology Practice',
+    description: 'An independent practice combining brand strategy, digital design and software development for established UK businesses.',
   },
 }
 
@@ -39,19 +40,19 @@ const jsonLd = {
       '@id': 'https://williamlangdown.com/#person',
       name: 'William Langdown',
       url: 'https://williamlangdown.com',
-      jobTitle: 'UX Designer & Web Consultant',
-      description: 'I audit, design, and build websites so visitors instantly understand what you do and trust you enough to buy. I have a degree in branding and years spent studying how people behave online, and I also build apps and offer AI consulting and training.',
+      jobTitle: 'Founder, Brand, Digital & Technology Practice',
+      description: 'Independent practitioner combining a background in advertising and branding with professional software development, working across strategy, design and implementation for established UK businesses.',
       email: 'hello@williamlangdown.com',
     },
     {
       '@type': 'ProfessionalService',
       '@id': 'https://williamlangdown.com/#service',
-      name: 'William Langdown - Websites, Software & Automation',
+      name: 'William Langdown - Brand, Digital & Technology Practice',
       url: 'https://williamlangdown.com',
-      description: 'Websites, custom software and automation for trade and contracting businesses, HVAC, electrical, mechanical services, facilities maintenance and industrial suppliers, based in Taunton, Somerset, serving the South West and working remotely nationwide.',
+      description: 'Brand strategy, digital design and software development for established UK businesses whose identity, digital presence or internal systems have not kept pace with the business itself. Somerset-based, working with clients across the UK, remotely.',
       provider: { '@id': 'https://williamlangdown.com/#person' },
       areaServed: ['Taunton', 'Chard', 'Frome', 'Somerset', 'Bristol', 'Exeter', 'GB'],
-      knowsAbout: ['HVAC', 'Electrical Contracting', 'Mechanical Services', 'Facilities Maintenance', 'Industrial Suppliers', 'Web Design', 'Web Development'],
+      knowsAbout: ['Brand Strategy', 'Positioning', 'Digital Design', 'Web Development', 'Software Development', 'Workflow Automation', 'Technical SEO'],
       telephone: '+44 7446 856927',
       address: {
         '@type': 'PostalAddress',
@@ -77,78 +78,31 @@ const jsonLd = {
       // e.g. from Google Business Profile or Sanity.
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
-        name: 'Services',
+        name: 'Capabilities',
         itemListElement: [
           {
             '@type': 'Offer',
             itemOffered: {
               '@type': 'Service',
-              name: 'Growth Websites',
-              description: 'Custom websites designed around your customers’ journey, built to bring in enquiries and support business growth.',
-            },
-            priceSpecification: { '@type': 'PriceSpecification', minPrice: '1495', maxPrice: '4000', priceCurrency: 'GBP' },
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'Starter Websites',
-              description: 'A simple three-page website, home, about, and contact, built from a ready-made design and live in about a week.',
-            },
-            priceSpecification: { '@type': 'PriceSpecification', price: '495', priceCurrency: 'GBP', minPrice: '495' },
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'Custom Software & Digital Systems',
-              description: 'Customer portals, internal tools, dashboards and business systems built around how a business works.',
-            },
-            priceSpecification: { '@type': 'PriceSpecification', price: '3000', priceCurrency: 'GBP', minPrice: '3000' },
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'Booking Systems & Automation',
-              description: 'Booking systems, automated reminders, customer management and enquiry workflows that reduce admin.',
+              name: 'Strategy & Brand',
+              description: 'Research, positioning, messaging and identity for businesses whose brand has not kept pace with what they have become.',
             },
           },
           {
             '@type': 'Offer',
             itemOffered: {
               '@type': 'Service',
-              name: 'Website Audit',
-              description: 'A thorough written review covering UX, messaging, trust signals, performance, and SEO basics.',
+              name: 'Digital',
+              description: 'Website design, development, UX, technical SEO and analytics built around the customer journey.',
             },
-            priceSpecification: { '@type': 'PriceSpecification', price: '145', priceCurrency: 'GBP', minPrice: '145' },
           },
           {
             '@type': 'Offer',
             itemOffered: {
               '@type': 'Service',
-              name: 'Website Support',
-              description: 'Ongoing development and consulting for an existing website or system, on an hourly basis.',
+              name: 'Technology',
+              description: 'Bespoke software, internal tools, integrations and workflow automation built around how the business works.',
             },
-            priceSpecification: { '@type': 'PriceSpecification', minPrice: '60', maxPrice: '90', priceCurrency: 'GBP', unitCode: 'HUR' },
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'Essential Care Plan',
-              description: 'Hosting and SSL for an existing website, billed monthly with no minimum term.',
-            },
-            priceSpecification: { '@type': 'PriceSpecification', price: '19', priceCurrency: 'GBP', unitCode: 'MON' },
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'Tech Partner Care Plan',
-              description: 'Hosting, SSL and two hours of development work a month for an existing website, billed monthly with no minimum term.',
-            },
-            priceSpecification: { '@type': 'PriceSpecification', price: '149', priceCurrency: 'GBP', unitCode: 'MON' },
           },
         ],
       },
@@ -163,16 +117,31 @@ export default function HomePage() {
       <Nav />
       <main>
         <Hero />
-        <PromoTicker />
-        {/* Proof up front: ReviewSection + ProjectShowcase cover the BVS
-            review, PageSpeed result and Garden Tablecloth stats, plus the
-            other projects and links to their full case studies, so there's
-            no separate before/after slider duplicating a subset of this. */}
-        <ReviewSection />
         <ProjectShowcase />
+        <PointOfView />
+        <Capabilities />
+
+        <section
+          className="py-20 md:py-24 px-6"
+          style={{
+            backgroundImage: 'radial-gradient(circle, rgba(15,23,42,0.07) 1.5px, transparent 1.5px)',
+            backgroundSize: '22px 22px',
+            backgroundColor: '#F8FAFC',
+          }}
+        >
+          <div className="max-w-6xl mx-auto">
+            <ScrollReveal className="mb-14 max-w-xl">
+              <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">04 — Process</p>
+              <h2 className="font-display text-3xl md:text-4xl text-ink leading-[1.1]">
+                Diagnosis before production.
+              </h2>
+            </ScrollReveal>
+            <ProcessSteps />
+          </div>
+        </section>
+
+        <ReviewSection />
         <AboutSection />
-        <ProblemsSection />
-        <ServicesSection />
         <CTABanner />
       </main>
       <Footer />

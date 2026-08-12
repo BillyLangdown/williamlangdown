@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useScroll, useTransform } from 'framer-motion'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 const dotGrid = {
@@ -12,17 +11,12 @@ const dotGrid = {
 }
 
 export default function Hero() {
-  const [desktopVisible, setDesktopVisible] = useState(false)
+  const [visible, setVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const sectionRectRef = useRef<DOMRect | null>(null)
 
-  // Portrait drifts within its frame as the Hero scrolls past, classic
-  // parallax: the photo moves slower/differently than the page itself.
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] })
-  const portraitY = useTransform(scrollYProgress, [0, 1], [0, 24])
-
   useEffect(() => {
-    const raf = requestAnimationFrame(() => setDesktopVisible(true))
+    const raf = requestAnimationFrame(() => setVisible(true))
     return () => cancelAnimationFrame(raf)
   }, [])
 
@@ -51,8 +45,8 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative lg:overflow-hidden"
-      style={{ scrollSnapAlign: 'start', ...dotGrid }}
+      className="relative overflow-hidden"
+      style={dotGrid}
       onMouseMove={onHeroMouseMove}
     >
       {/* Cursor spotlight over the dot grid, desktop only */}
@@ -67,108 +61,74 @@ export default function Hero() {
         }}
       />
 
-      {/* ── MOBILE HERO ── */}
       <div
-        className="relative flex lg:hidden flex-col justify-center px-6 overflow-hidden"
-        style={{ height: '100svh', paddingTop: '80px', paddingBottom: '48px', ...dotGrid }}
+        className="relative z-[2] max-w-6xl mx-auto px-6 pt-32 pb-16 md:pt-40 md:pb-24"
+        style={{
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'none' : 'translateY(18px)',
+          transition: 'opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s',
+        }}
       >
-        <div className="mb-5 flex justify-center">
-          <div className="relative" style={{ width: '160px' }}>
-            <div
-              className="relative w-full overflow-hidden shadow-lg"
-              style={{ aspectRatio: '801 / 1022', borderRadius: '3px 32px 3px 32px', borderLeft: '3px solid #2563EB' }}
-            >
-              <Image
-                src="/images/portrait.png"
-                alt="William Langdown, web designer and UX consultant"
-                fill
-                className="object-cover object-top"
-                priority
-                sizes="160px"
-              />
-            </div>
-          </div>
-        </div>
-
-        <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-2 text-center">
-          Web Design &amp; Website Development &middot; Taunton, Somerset
-        </p>
-        <h1 className="text-2xl font-heading font-extrabold leading-[1.1] tracking-tight text-ink mb-3 text-center">
-         I build websites that win more work.
-        </h1>
-        <p className="text-sm leading-snug mb-5 text-center " style={{ color: '#0f172a' }}>
-          Websites, software and automation for contractors and independent businesses.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
-        </p>
-
-        <div className="flex flex-col gap-2.5">
-          <Link
-            href="/contact"
-            className="inline-flex justify-center items-center gap-2 bg-accent text-white text-sm px-6 py-3 rounded-sm font-medium"
-          >
-            Let&apos;s talk
-          </Link>
-          <Link
-            href="/services"
-            className="inline-flex justify-center items-center gap-2 text-ink text-sm px-6 py-3 rounded-sm"
-            style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(15,23,42,0.1)' }}
-          >
-            My services
-          </Link>
-        </div>
-      </div>
-
-      {/* ── DESKTOP HERO ── */}
-      <div
-        className="relative z-[2] hidden lg:flex items-center max-w-6xl mx-auto px-6 pt-8"
-        style={{ minHeight: 'min(82vh, 820px)' }}
-      >
-        <div
-          className="relative z-10 py-24 flex-1"
-          style={{
-            opacity: desktopVisible ? 1 : 0,
-            transform: desktopVisible ? 'none' : 'translateY(22px)',
-            transition: 'opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s',
-          }}
-        >
-          <div className="max-w-[90%]">
-            <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">
-              Web Design &amp; Website Development &middot; Taunton, Somerset
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-12">
+          <div className="max-w-3xl">
+            <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-widest text-accent mb-6">
+              <span className="inline-block w-6 h-px bg-accent" aria-hidden />
+              Brand, digital &amp; technology practice
             </p>
-            <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-heading font-extrabold leading-[1.06] tracking-tight text-ink mb-5">
-              I build websites that win more work.
+
+            <h1 className="font-display text-[2.6rem] leading-[1.05] tracking-tight text-ink sm:text-6xl md:text-7xl mb-7">
+              Built for who you were.
+              <br />
+              <span className="italic text-secondary">Not who you&apos;ve become.</span>
             </h1>
-            <p className="text-base text-secondary leading-relaxed mb-8">
-              Websites, software and automation for contractors and independent businesses.<br />If yours isn&apos;t performing, I&apos;ll work out why and fix it.
+
+            <p className="text-base md:text-lg text-secondary leading-relaxed max-w-xl mb-9">
+              Established businesses tend to outgrow their brand, website and internal systems
+              faster than they replace them. I work through the research and strategy first, then
+              build the identity, digital experience or software to carry it.
             </p>
-            <div className="flex flex-wrap gap-3 mb-8">
+
+            <div className="flex flex-wrap gap-3">
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 bg-accent text-white text-sm px-6 py-3 rounded-sm font-medium hover:bg-accent/90 transition-colors"
               >
-                Let&apos;s Talk
+                Discuss a project
               </Link>
               <Link
-                href="/services"
+                href="/case-studies"
                 className="inline-flex items-center gap-2 text-ink text-sm px-6 py-3 rounded-sm transition-colors"
                 style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(15,23,42,0.1)' }}
               >
-                My services
+                View selected work
               </Link>
             </div>
           </div>
-        </div>
 
-        {/* Portrait: flex sibling, vertically centered by parent items-center */}
-        <div className="shrink-0 w-[36%]" style={{ aspectRatio: '801 / 1022' }}>
-          <div className="relative w-full h-full overflow-hidden" style={{ borderRadius: '4px 56px 4px 56px' }}>
-            <motion.div className="absolute inset-x-0" style={{ top: '-5%', height: '110%', y: portraitY }}>
-              <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover" priority sizes="35vw" />
-            </motion.div>
-            <div className="absolute inset-y-0 left-0 w-[3px] z-20 bg-accent pointer-events-none" />
+          {/* Founder credential + small portrait crop: supporting element,
+              not the visual focal point of the hero */}
+          <div className="flex items-center gap-4 shrink-0">
+            <div
+              className="relative shrink-0 overflow-hidden shadow-lg hidden sm:block"
+              style={{ width: '84px', aspectRatio: '801 / 1022', borderRadius: '3px 20px 3px 20px', borderLeft: '3px solid #2563EB' }}
+            >
+              <Image
+                src="/images/portrait.png"
+                alt="William Langdown"
+                fill
+                className="object-cover object-top"
+                sizes="84px"
+              />
+            </div>
+            <div className="max-w-[220px]">
+              <p className="text-sm font-semibold text-ink leading-snug">William Langdown</p>
+              <p className="text-xs text-tertiary leading-relaxed mt-1">
+                BA (Hons) Advertising &amp; Branding, and a working software developer. Somerset-based, working UK-wide.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-
     </section>
   )
 }

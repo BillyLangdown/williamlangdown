@@ -41,18 +41,22 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
 }
 
 const serviceLabels: Record<string, string> = {
-  growth: 'Growth Websites (typically £1,500–£4,000)',
-  starter: 'Starter Websites (£495)',
-  software: 'Custom Software (from £3,000)',
-  automation: 'Booking Systems & Automation (priced individually)',
-  audit: 'Website Audit (£145)',
-  support: 'Website Support (£60–£90 / hr)',
-  orla: 'Orla',
+  strategy: 'Strategy & Brand',
+  digital: 'Digital',
+  technology: 'Technology',
+  'not-sure': 'Not sure yet',
+  // legacy values, kept so older bookmarked/cached links still label sensibly
+  growth: 'Digital (legacy: Growth Websites)',
+  starter: 'Digital (legacy: Starter Websites)',
+  software: 'Technology (legacy: Custom Software)',
+  automation: 'Technology (legacy: Booking Systems & Automation)',
+  audit: 'Digital (legacy: Website Audit)',
+  support: 'Technology (legacy: Website Support)',
+  orla: 'Technology (legacy: Orla)',
   other: 'Something else',
-  // legacy
-  build: 'Design & Build (from £1,495)',
-  development: 'Development Help',
-  design: 'Design',
+  build: 'Digital (legacy: Design & Build)',
+  development: 'Technology (legacy: Development Help)',
+  design: 'Strategy & Brand (legacy: Design)',
   unsure: 'Not sure yet',
 }
 

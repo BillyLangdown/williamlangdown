@@ -4,12 +4,12 @@ import ContactForm from '@/components/ContactForm'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Contact | Web Designer in Taunton, Somerset | William Langdown',
-  description: 'Get in touch about your website. Based in Taunton, Somerset, working across the South West. Call, message, or fill in the form, I’ll reply within one business day.',
+  title: 'Contact | William Langdown',
+  description: 'Get in touch about a brand, digital or technology project. Somerset-based, working with UK businesses nationwide. I’ll reply within one business day.',
   alternates: { canonical: 'https://williamlangdown.com/contact' },
   openGraph: {
-    title: 'Contact | Web Designer in Taunton, Somerset | William Langdown',
-    description: 'Get in touch about your website. Based in Taunton, Somerset, working across the South West. Call, message, or fill in the form, I’ll reply within one business day.',
+    title: 'Contact | William Langdown',
+    description: 'Get in touch about a brand, digital or technology project. Somerset-based, working with UK businesses nationwide.',
     url: 'https://williamlangdown.com/contact',
   },
 }
@@ -38,8 +38,8 @@ export default async function ContactPage({ searchParams }: Props) {
             {/* Left */}
             <div className="lg:sticky lg:top-32">
               <div className="pl-4 border-l-4 border-accent mb-10">
-                <h1 className="text-4xl md:text-5xl font-heading font-bold leading-[1.06] tracking-tight text-ink">
-                  Let&apos;s talk about your website
+                <h1 className="font-display text-4xl md:text-5xl leading-[1.06] text-ink">
+                  Let&apos;s talk about the project
                 </h1>
                 <p className="text-sm text-secondary mt-2">
                   Pick whichever works best for you.

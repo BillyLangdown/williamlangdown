@@ -24,11 +24,11 @@ export default function CTABanner() {
           <div className="flex flex-col items-center text-center md:flex-row md:items-end md:justify-between md:text-left gap-10 md:gap-20">
 
             <div className="max-w-xl">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.05] tracking-tight text-ink mb-4">
-                Get in touch
+              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.05] text-ink mb-4">
+                Planning the next stage of the business?
               </h2>
               <p className="text-secondary text-sm leading-relaxed">
-                No commitment needed. Message if you have any questions.
+                Tell me what&apos;s changed, and what your brand or digital presence hasn&apos;t caught up with yet.
               </p>
             </div>
 
@@ -37,7 +37,7 @@ export default function CTABanner() {
                 href="/contact"
                 className="flex md:inline-flex items-center justify-center gap-2 bg-accent text-white text-sm px-7 py-3.5 rounded-sm hover:bg-accent/90 transition-colors font-medium"
               >
-                Let&apos;s talk
+                Start a conversation
                 <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
                   <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

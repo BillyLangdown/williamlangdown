@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Plus_Jakarta_Sans } from 'next/font/google'
+import { Plus_Jakarta_Sans, Fraunces } from 'next/font/google'
 import Script from 'next/script'
 import GaPageTracker from '@/components/GaPageTracker'
 import './globals.css'
@@ -11,19 +11,31 @@ const jakarta = Plus_Jakarta_Sans({
   weight: ['400', '500', '600', '700', '800'],
 })
 
+// Editorial display serif for headlines, section numerals and pull quotes,
+// paired with Jakarta for UI and body copy. Variable font (weight + optical
+// size axes), open-source via Google Fonts, no separate licence required.
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  display: 'swap',
+  weight: 'variable',
+  axes: ['opsz', 'SOFT', 'WONK'],
+  style: ['normal', 'italic'],
+})
+
 export const metadata: Metadata = {
-  title: 'William Langdown | Websites for Trade & Contractor Businesses',
+  title: 'William Langdown | Brand, Digital & Technology Practice',
   description:
-    'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors. Based in Taunton, Somerset, working across the South West and remotely nationwide.',
+    'An independent practice combining brand strategy, digital design and software development for established UK businesses. Somerset-based, working nationwide.',
   alternates: { canonical: 'https://williamlangdown.com' },
   icons: {
     icon: '/favicon.ico',
     apple: '/favicon.ico',
   },
   openGraph: {
-    title: 'William Langdown | Websites for Trade & Contractor Businesses',
+    title: 'William Langdown | Brand, Digital & Technology Practice',
     description:
-      'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors. Based in Taunton, Somerset, working across the South West and remotely nationwide.',
+      'An independent practice combining brand strategy, digital design and software development for established UK businesses. Somerset-based, working nationwide.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
@@ -31,8 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'William Langdown | Websites for Trade & Contractor Businesses',
-    description: 'I build websites, software and automation for HVAC, electrical, mechanical and facilities contractors, based in Taunton, Somerset.',
+    title: 'William Langdown | Brand, Digital & Technology Practice',
+    description: 'An independent practice combining brand strategy, digital design and software development for established UK businesses.',
   },
 }
 
@@ -42,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={jakarta.variable} suppressHydrationWarning>
+    <html lang="en" className={`${jakarta.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <head>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}

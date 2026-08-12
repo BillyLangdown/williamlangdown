@@ -12,12 +12,12 @@ import type { Metadata } from 'next'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Web Design Case Studies | William Langdown, Taunton',
-  description: 'Real projects for real businesses: website audits, redesigns, and builds. See the work and results from a web designer based in Taunton, Somerset.',
+  title: 'Work | William Langdown',
+  description: 'Selected work: real businesses, real problems, and what changed. Strategy, brand, digital and technology projects for established UK businesses.',
   alternates: { canonical: 'https://williamlangdown.com/case-studies' },
   openGraph: {
-    title: 'Web Design Case Studies | William Langdown, Taunton',
-    description: 'Real projects for real businesses: website audits, redesigns, and builds. See the work and results from a web designer based in Taunton, Somerset.',
+    title: 'Work | William Langdown',
+    description: 'Selected work: real businesses, real problems, and what changed.',
     url: 'https://williamlangdown.com/case-studies',
   },
 }
@@ -136,12 +136,14 @@ export default async function CaseStudiesPage() {
           <div className="max-w-6xl mx-auto">
             <ScrollReveal>
               <div className="pl-4 border-l-4 border-accent">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.06] tracking-tight text-ink">
-                  Case Studies
+                <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">Work</p>
+                <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.06] text-ink">
+                  Real businesses, real problems.
                 </h1>
                 <p className="text-base text-secondary mt-3 max-w-xl leading-relaxed">
-                  Real work with real businesses. Auditing, redesigning, and rebuilding websites to get more visitors in touch,
-                  plus the occasional self-directed concept piece to push new techniques before they reach a client project.
+                  Research, strategy, design and development, for businesses that needed one of
+                  those things or all of them, plus the occasional self-directed concept piece to
+                  push new techniques before they reach a client project.
                 </p>
               </div>
             </ScrollReveal>

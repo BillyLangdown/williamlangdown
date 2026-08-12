@@ -38,10 +38,20 @@ export default defineType({
       of: [{ type: 'string' }],
       options: {
         list: [
+          // Original tags, kept for existing case studies
           { title: 'Audit', value: 'Audit' },
           { title: 'Design', value: 'Design' },
           { title: 'Build', value: 'Build' },
           { title: 'Concept', value: 'Concept' },
+          // Discipline tags for the brand/digital/technology positioning
+          { title: 'Strategy', value: 'Strategy' },
+          { title: 'Identity', value: 'Identity' },
+          { title: 'Digital', value: 'Digital' },
+          { title: 'Development', value: 'Development' },
+          { title: 'UX', value: 'UX' },
+          { title: 'Software', value: 'Software' },
+          { title: 'Automation', value: 'Automation' },
+          { title: 'Technical SEO', value: 'Technical SEO' },
         ],
       },
     }),

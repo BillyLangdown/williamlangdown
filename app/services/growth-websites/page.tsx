@@ -62,7 +62,7 @@ const faqs = [
   },
   {
     q: 'What happens to my site after it launches?',
-    a: 'I stay on hand for the first few days after launch. After that, book Website Support whenever you need changes, or choose an optional Care Plan if you’d rather have hosting and a set amount of my time included each month. No minimum term either way.',
+    a: 'I stay on hand for the first few days after launch. After that, ongoing support and further development are available by arrangement, see the Working Together page for how that typically works.',
   },
 ]
 
@@ -96,7 +96,7 @@ export default async function GrowthWebsitesPage() {
                 </p>
                 <div className="mt-8">
                   <Link
-                    href="/contact?service=growth"
+                    href="/contact?service=digital"
                     className="inline-flex items-center gap-2 bg-ink text-white text-sm px-7 py-3.5 rounded-sm font-medium hover:bg-ink/85 transition-colors"
                   >
                     Start a project
@@ -128,43 +128,6 @@ export default async function GrowthWebsitesPage() {
                   </div>
                 </ScrollReveal>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Starter vs Growth: business outcome, not template vs custom */}
-        <section className="px-6 py-20" style={dotGrid}>
-          <div className="max-w-4xl mx-auto">
-            <ScrollReveal className="mb-10 pl-4 border-l-4 border-accent">
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-ink">Starter or Growth?</h2>
-              <p className="text-sm text-secondary mt-1 max-w-lg">
-                The difference isn&apos;t template versus custom. It&apos;s what the site is there to do for
-                your business.
-              </p>
-            </ScrollReveal>
-            <div className="grid grid-cols-1 sm:grid-cols-2 bg-white border border-border-light rounded-sm overflow-hidden">
-              <div className="p-6 pt-7 sm:border-r border-border-light">
-                <p className="text-xs font-semibold uppercase tracking-widest text-tertiary mb-3">Starter Websites</p>
-                <ul className="flex flex-col gap-2.5">
-                  {['A professional online presence', 'A simple brochure website', 'Suitable for new or small businesses just getting started'].map(item => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-secondary leading-relaxed">
-                      <span className="mt-1.5 h-1 w-1 rounded-full shrink-0 bg-tertiary" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="p-6 pt-7 border-t sm:border-t-0 border-border-light" style={{ background: 'rgba(37,99,235,0.03)' }}>
-                <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">Growth Websites</p>
-                <ul className="flex flex-col gap-2.5">
-                  {["Designed around your customers' journey, from first click to enquiry", 'Built with conversion, SEO foundations and analytics from day one', 'Structured to scale as the business grows: more pages, features and traffic'].map(item => (
-                    <li key={item} className="flex items-start gap-2.5 text-sm text-secondary leading-relaxed">
-                      <span className="mt-1.5 h-1 w-1 rounded-full shrink-0 bg-accent" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
           </div>
         </section>
@@ -230,33 +193,17 @@ export default async function GrowthWebsitesPage() {
 
         {/* Cross-links */}
         <section className="px-6 pb-20">
-          <div className="max-w-6xl mx-auto flex flex-col gap-4">
+          <div className="max-w-6xl mx-auto">
             <ScrollReveal>
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 rounded-sm border border-border-light bg-white/80 px-6 py-6 sm:px-8" style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
                 <p className="text-sm text-secondary flex-1">
-                  Just need something simple and fast? Starter Websites are ready in about a week, from £495.
+                  Not sure this is the right starting point? See how projects are scoped and typically priced.
                 </p>
                 <Link
-                  href="/starter"
+                  href="/pricing"
                   className="inline-flex items-center justify-center gap-2 text-sm font-medium text-ink border border-border-light rounded-sm px-5 py-2.5 shrink-0 transition-colors hover:border-accent/50 hover:text-accent"
                 >
-                  See Starter Websites
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal delay={60}>
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 rounded-sm border border-border-light bg-white/80 px-6 py-6 sm:px-8" style={{ backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
-                <p className="text-sm text-secondary flex-1">
-                  Not sure where to start? A Website Audit gives you an honest second opinion first.
-                </p>
-                <Link
-                  href="/services/website-audits"
-                  className="inline-flex items-center justify-center gap-2 text-sm font-medium text-ink border border-border-light rounded-sm px-5 py-2.5 shrink-0 transition-colors hover:border-accent/50 hover:text-accent"
-                >
-                  See Website Audits
+                  Working Together
                   <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                     <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
