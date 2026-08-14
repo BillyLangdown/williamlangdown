@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const links = [
+  { href: '/', label: 'Home' },
   { href: '/case-studies', label: 'Work' },
   { href: '/services', label: 'Capabilities' },
   { href: '/about', label: 'About' },
@@ -63,27 +64,32 @@ export default function Nav() {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 ${isHome ? 'md:hidden' : ''}`}>
-      <div className="relative z-[70] max-w-6xl mx-auto px-6 h-16 flex items-center justify-end">
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-9 mr-9">
-          {links.map(({ href, label }) => {
+      <div className="relative z-[70] max-w-6xl mx-auto px-6 h-16 flex items-center justify-end md:grid md:grid-cols-[1fr_auto_1fr] md:items-center">
+        {/* Spacer, balances the CTA column so the nav below sits centred */}
+        <div className="hidden md:block" aria-hidden />
+
+        {/* Desktop nav: centred, spread, same bold/indexed treatment as the mobile takeover */}
+        <nav className="hidden md:flex items-center justify-self-center gap-11">
+          {links.map(({ href, label }, i) => {
             const active = pathname === href || (href !== '/' && pathname.startsWith(href))
             return (
               <Link
                 key={href}
                 href={href}
-                className="text-sm transition-colors relative pb-1"
-                style={{ color: active ? fg : fgDim }}
+                className="inline-flex items-baseline gap-1.5 text-xs font-extrabold uppercase tracking-wide transition-colors"
+                style={{ color: active ? '#C1613D' : fgDim }}
               >
+                <span className="text-[9px] font-semibold tabular-nums" style={{ color: '#C1613D' }}>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
                 {label}
-                {active && <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-terracotta rounded-full" />}
               </Link>
             )
           })}
         </nav>
 
         {/* CTA */}
-        <div className="hidden md:block shrink-0">
+        <div className="hidden md:flex justify-self-end shrink-0">
           <Link
             href="/contact"
             className="inline-block text-sm px-5 py-2.5 rounded-sm transition-colors"
