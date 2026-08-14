@@ -56,7 +56,7 @@ export default function FeaturedProject({
 
         <ScrollReveal delay={80} className="mt-10 md:mt-12">
           <div
-            className="grid grid-cols-[42%_1fr] md:grid-cols-[1fr_140px] items-end md:items-start gap-4 md:gap-x-4 md:gap-y-8 [grid-template-areas:'main_main'_'mockup_info'] md:[grid-template-areas:'main_mockup'_'info_info']"
+            className="grid grid-cols-[1fr_128px_160px_1fr] md:grid-cols-[1fr_140px] items-end md:items-start gap-4 md:gap-x-4 md:gap-y-8 [grid-template-areas:'main_main_main_main'_'._mockup_info_.'] md:[grid-template-areas:'main_mockup'_'info_info']"
           >
             <div className="[grid-area:main]">
               <ClientWork media={media} alt={`${client} interface`} caption={media.caption} aspect="2 / 1" />
