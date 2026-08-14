@@ -17,11 +17,11 @@ export default function Capabilities({
   showMoreLink?: boolean
 }) {
   return (
-    <section id="capabilities" className="py-16 md:py-24 px-6 bg-bone">
+    <section id="capabilities" data-nav-theme="light" className="py-16 md:py-24 px-6 bg-bone">
       <div className="max-w-6xl mx-auto">
         {showIntro && (
           <ScrollReveal className="mb-12 md:mb-16">
-            <p className="text-xs font-semibold uppercase tracking-widest text-terracotta">Capabilities</p>
+            <p className="text-sm font-semibold text-secondary">Capabilities</p>
           </ScrollReveal>
         )}
 

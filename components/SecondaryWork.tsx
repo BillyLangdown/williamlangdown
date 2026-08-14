@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { ClientWork } from '@/components/ClientWork'
 import ScrollReveal from '@/components/ScrollReveal'
+import BackgroundWord from '@/components/BackgroundWord'
 
 interface Item {
-  index: string
   name: string
   tag: string
   note: string
@@ -14,7 +14,6 @@ interface Item {
 
 const items: Item[] = [
   {
-    index: '02',
     name: 'The Garden Tablecloth Co.',
     tag: 'Audit / Digital',
     note: 'Enquiries up 75%, bounce rate down 21%.',
@@ -22,7 +21,6 @@ const items: Item[] = [
     href: '/case-studies/the-garden-tablecloth-co',
   },
   {
-    index: '03',
     name: 'Axiom',
     tag: 'Self-directed / Motion',
     note: 'A concept exploring interface motion, not a client project.',
@@ -34,15 +32,16 @@ const items: Item[] = [
 
 export default function SecondaryWork() {
   return (
-    <section className="py-16 md:py-20 px-6 bg-bone border-t border-border-light">
-      <div className="max-w-5xl mx-auto">
-        <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-8">Also</p>
+    <section data-nav-theme="light" className="relative overflow-hidden bg-bone border-t border-border-light">
+      <BackgroundWord word="More" color="#10233F" opacity={0.045} className="top-10 -left-1 md:top-12" />
+      <div className="relative z-10 max-w-5xl mx-auto px-6 py-16 md:py-20">
+        <p className="text-sm font-semibold text-secondary mb-8">More work</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 md:gap-12">
           {items.map((item) => {
             const inner = (
               <>
                 <ClientWork media={{ src: item.media.src }} alt={item.name} caption={item.media.caption} aspect="4 / 3" />
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-tertiary mt-4">{item.index} / {item.tag}</p>
+                <p className="text-xs text-tertiary mt-4">{item.tag}</p>
                 <p className="text-base font-semibold text-ink mt-1 group-hover:text-terracotta transition-colors">{item.name}</p>
                 <p className="text-sm text-secondary mt-1">{item.note}</p>
               </>

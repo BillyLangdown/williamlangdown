@@ -12,7 +12,7 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="py-14 px-6" style={{ background: '#10233F' }}>
+    <footer data-nav-theme="dark" className="py-14 px-6" style={{ background: '#10233F' }}>
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-10 mb-14">
           <div className="flex flex-col gap-3">

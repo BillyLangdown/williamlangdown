@@ -3,11 +3,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import ScrollReveal from '@/components/ScrollReveal'
+import BackgroundWord from '@/components/BackgroundWord'
 
 export default function AboutSection() {
   return (
-    <section className="relative overflow-hidden" style={{ background: '#10233F' }}>
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.1fr]">
+    <section data-nav-theme="dark" className="relative overflow-hidden" style={{ background: '#10233F' }}>
+      <BackgroundWord word="About" color="#F6F3EE" opacity={0.045} className="top-8 right-0 md:top-10" />
+      <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.1fr]">
         <div className="relative w-full" style={{ aspectRatio: '4 / 5' }}>
           <Image
             src="/images/portrait.png"
@@ -23,7 +25,7 @@ export default function AboutSection() {
 
         <div className="flex items-center px-6 py-14 md:px-14 md:py-0">
           <ScrollReveal>
-            <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-5">About</p>
+            <p className="text-sm font-semibold text-bone/70 mb-5">About</p>
             <p className="font-display text-3xl md:text-4xl lg:text-[2.75rem] text-bone leading-[1.15] mb-6">
               A degree in branding, and a career spent building software.
             </p>

@@ -2,11 +2,13 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import BackgroundWord from '@/components/BackgroundWord'
 
 export default function CTABanner() {
   return (
-    <section className="py-20 md:py-28 px-6 bg-bone">
-      <div className="max-w-6xl mx-auto">
+    <section data-nav-theme="light" className="relative overflow-hidden py-20 md:py-28 px-6 bg-bone">
+      <BackgroundWord word="Contact" color="#10233F" opacity={0.045} className="bottom-4 -left-1 md:bottom-6" />
+      <div className="relative z-10 max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -15,7 +17,6 @@ export default function CTABanner() {
           className="flex flex-col items-start md:flex-row md:items-end md:justify-between gap-8"
         >
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-4">Get in touch</p>
             <h2 className="font-display text-4xl md:text-5xl text-ink leading-[1.05]">
               Available for new projects.
             </h2>

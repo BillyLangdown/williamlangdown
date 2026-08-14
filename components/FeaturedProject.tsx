@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { ClientWork } from '@/components/ClientWork'
 import ScrollReveal from '@/components/ScrollReveal'
+import SectionNav from '@/components/SectionNav'
+import BackgroundWord from '@/components/BackgroundWord'
 
 interface ResultStat {
   value: string
@@ -8,7 +10,6 @@ interface ResultStat {
 }
 
 export default function FeaturedProject({
-  index,
   name,
   client,
   tags,
@@ -18,7 +19,6 @@ export default function FeaturedProject({
   results,
   href,
 }: {
-  index: string
   name: string
   client: string
   tags: string[]
@@ -29,10 +29,12 @@ export default function FeaturedProject({
   href: string
 }) {
   return (
-    <section className="py-16 md:py-24 px-6 bg-bone">
-      <div className="max-w-5xl mx-auto">
+    <section data-nav-theme="light" className="relative overflow-hidden bg-bone">
+      <SectionNav />
+      <BackgroundWord word="Work" color="#10233F" opacity={0.045} className="top-20 -left-1 md:top-24" />
+      <div className="relative z-10 max-w-5xl mx-auto px-6 py-16 md:py-24">
         <ScrollReveal>
-          <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-5">{index}</p>
+          <p className="text-sm font-semibold text-secondary mb-5">Selected work</p>
           <p className="font-display text-3xl md:text-4xl text-ink leading-tight">{name}</p>
           <p className="text-sm text-tertiary mt-1">{client}</p>
           <div className="flex flex-wrap gap-2 mt-4 mb-6">

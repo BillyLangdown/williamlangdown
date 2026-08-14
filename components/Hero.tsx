@@ -4,7 +4,7 @@ import HeroMedia from '@/components/HeroMedia'
 
 export default function Hero() {
   return (
-    <section className="relative w-full overflow-hidden" style={{ height: '100svh' }}>
+    <section data-nav-theme="dark" className="relative w-full overflow-hidden" style={{ height: '100svh' }}>
       <HeroMedia
         imageSrc="/images/hero-brand-texture-navy-terracotta.jpg"
         imageAlt="Navy and terracotta brand texture, William Langdown"
@@ -18,9 +18,6 @@ export default function Hero() {
       />
 
       <div className="relative z-10 h-full flex flex-col justify-end px-6 pb-14 md:px-10 md:pb-16">
-        <p className="text-[11px] md:text-xs font-semibold uppercase tracking-[0.25em] text-bone/70 mb-4 md:mb-6">
-          Independent practice
-        </p>
         <h1
           className="font-sans font-extrabold uppercase text-bone leading-[0.92] tracking-tight"
           style={{ fontSize: 'clamp(2.75rem, 12vw, 9.5rem)' }}

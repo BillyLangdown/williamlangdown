@@ -118,7 +118,6 @@ export default function HomePage() {
         <Hero />
 
         <FeaturedProject
-          index="01 / Selected work"
           name="BVS"
           client="Building Ventilation Services"
           tags={['Digital', 'Development', 'Technical SEO']}

@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
@@ -12,49 +11,52 @@ const links = [
   { href: '/contact', label: 'Contact' },
 ]
 
+const HEADER_HEIGHT = 64
+
 export default function Nav() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-
   const isHome = pathname === '/'
-  // Only the homepage has a full-bleed dark hero behind the nav, so only
-  // there does the bar start transparent with light text.
-  const transparent = isHome && !scrolled && !open
+  // Bar is always transparent; only the text/icon colour adapts to
+  // whatever section is currently sitting behind it.
+  const [overDark, setOverDark] = useState(isHome)
 
   useEffect(() => {
-    if (!isHome) return
-    const handleScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [isHome])
+    setOpen(false)
+  }, [pathname])
+
+  // Watches every section tagged data-nav-theme and flips overDark to
+  // match whichever one currently sits behind the fixed bar, so nav text
+  // stays readable over both dark and light sections without a background.
+  useEffect(() => {
+    const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-nav-theme]'))
+    if (sections.length === 0) return
+
+    const active = new Set<HTMLElement>()
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target as HTMLElement
+          if (entry.isIntersecting) active.add(el)
+          else active.delete(el)
+        })
+        const current = [...sections].reverse().find((el) => active.has(el))
+        if (current) setOverDark(current.dataset.navTheme === 'dark')
+      },
+      { rootMargin: `-${HEADER_HEIGHT}px 0px -${Math.max(window.innerHeight - HEADER_HEIGHT - 1, 0)}px 0px`, threshold: 0 }
+    )
+    sections.forEach((s) => observer.observe(s))
+    return () => observer.disconnect()
+  }, [pathname])
+
+  const fg = overDark ? '#F6F3EE' : '#10233F'
+  const fgDim = overDark ? 'rgba(246,243,238,0.7)' : '#8C887D'
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 transition-colors duration-300"
-      style={{
-        background: transparent ? 'transparent' : 'rgba(246,243,238,0.95)',
-        backdropFilter: transparent ? 'none' : 'blur(8px)',
-        WebkitBackdropFilter: transparent ? 'none' : 'blur(8px)',
-        boxShadow: transparent ? 'none' : '0 1px 24px rgba(16,35,63,0.07)',
-      }}
-    >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="shrink-0 flex items-center">
-          <Image
-            src={transparent ? '/images/Williamlangdown-logo-white.png' : '/images/Williamlangdown-logo-transparent.png'}
-            alt="William Langdown"
-            height={34}
-            width={161}
-            className="object-contain"
-            priority
-          />
-        </Link>
-
+    <header className={`fixed top-0 left-0 right-0 z-50 ${isHome ? 'md:hidden' : ''}`}>
+      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-end">
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-9">
+        <nav className="hidden md:flex items-center gap-9 mr-9">
           {links.map(({ href, label }) => {
             const active = pathname === href || (href !== '/' && pathname.startsWith(href))
             return (
@@ -62,7 +64,7 @@ export default function Nav() {
                 key={href}
                 href={href}
                 className="text-sm transition-colors relative pb-1"
-                style={{ color: active ? (transparent ? '#F6F3EE' : '#10233F') : (transparent ? 'rgba(246,243,238,0.7)' : '#8C887D') }}
+                style={{ color: active ? fg : fgDim }}
               >
                 {label}
                 {active && <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-terracotta rounded-full" />}
@@ -76,11 +78,7 @@ export default function Nav() {
           <Link
             href="/contact"
             className="inline-block text-sm px-5 py-2.5 rounded-sm transition-colors"
-            style={
-              transparent
-                ? { background: '#F6F3EE', color: '#10233F' }
-                : { background: '#10233F', color: '#F6F3EE' }
-            }
+            style={overDark ? { background: '#F6F3EE', color: '#10233F' } : { background: '#10233F', color: '#F6F3EE' }}
           >
             Get in touch
           </Link>
@@ -94,15 +92,15 @@ export default function Nav() {
         >
           <span
             className="block w-5 h-px transition-all duration-200 origin-center"
-            style={{ background: transparent ? '#F6F3EE' : '#10233F', transform: open ? 'translateY(6px) rotate(45deg)' : 'none' }}
+            style={{ background: open ? '#10233F' : fg, transform: open ? 'translateY(6px) rotate(45deg)' : 'none' }}
           />
           <span
             className="block w-5 h-px transition-all duration-200"
-            style={{ background: transparent ? '#F6F3EE' : '#10233F', opacity: open ? 0 : 1 }}
+            style={{ background: open ? '#10233F' : fg, opacity: open ? 0 : 1 }}
           />
           <span
             className="block w-5 h-px transition-all duration-200 origin-center"
-            style={{ background: transparent ? '#F6F3EE' : '#10233F', transform: open ? 'translateY(-6px) rotate(-45deg)' : 'none' }}
+            style={{ background: open ? '#10233F' : fg, transform: open ? 'translateY(-6px) rotate(-45deg)' : 'none' }}
           />
         </button>
       </div>

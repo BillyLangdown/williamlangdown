@@ -6,7 +6,7 @@ const steps = ['Understand', 'Define', 'Create', 'Build', 'Evolve']
 
 export default function ProcessStrip() {
   return (
-    <section className="py-20 md:py-28 px-6" style={{ background: '#10233F' }}>
+    <section data-nav-theme="dark" className="py-20 md:py-28 px-6" style={{ background: '#10233F' }}>
       <div className="max-w-4xl mx-auto text-center">
         <ScrollReveal>
           <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-3 md:gap-x-5">
