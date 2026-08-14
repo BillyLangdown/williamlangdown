@@ -9,17 +9,26 @@ const areas = [
   {
     value: 'strategy',
     label: 'Strategy & Brand',
+    included: 'Research / Positioning / Messaging / Identity / Creative direction',
     placeholder: 'e.g. Our brand and messaging haven\'t kept up with what the business has become...',
   },
   {
     value: 'digital',
     label: 'Digital',
+    included: 'UX / Web design / Digital experiences / Technical SEO / Analytics',
     placeholder: 'e.g. Our website doesn\'t reflect the quality of the work we actually do...',
   },
   {
     value: 'technology',
     label: 'Technology',
+    included: 'Development / Software / Integrations / Automation / Applied AI',
     placeholder: 'e.g. We\'re running the business through spreadsheets and it needs something better...',
+  },
+  {
+    value: 'everything',
+    label: 'All of it',
+    included: 'Strategy & Brand / Digital / Technology',
+    placeholder: 'e.g. We need a proper rebrand, a new website, and better systems behind the scenes...',
   },
   {
     value: 'not-sure',
@@ -158,11 +167,21 @@ function Form({ defaultService }: { defaultService?: string }) {
                 className="group text-left py-4 border-t border-border-light last:border-b transition-colors"
               >
                 <span
-                  className="font-display text-2xl md:text-3xl transition-colors"
+                  className="block font-display text-2xl md:text-3xl transition-colors"
                   style={{ color: selectedArea === s.value ? '#C1613D' : '#10233F' }}
                 >
                   {s.label}
                 </span>
+                {s.included && (
+                  <span className="block text-xs text-tertiary mt-1 tracking-wide">
+                    {s.included.split(' / ').map((part, i, arr) => (
+                      <span key={part}>
+                        {part}
+                        {i < arr.length - 1 && <span className="text-terracotta"> / </span>}
+                      </span>
+                    ))}
+                  </span>
+                )}
               </button>
             ))}
           </div>
