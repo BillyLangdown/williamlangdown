@@ -83,7 +83,8 @@ export default function FeaturedProject({
               </div>
               <Link
                 href={href}
-                className="inline-flex items-center gap-2 self-start text-xs font-semibold uppercase tracking-wide text-ink border border-border-light rounded-full px-4 py-2 md:self-auto md:border-0 md:rounded-none md:px-0 md:py-0 md:normal-case md:tracking-normal md:text-sm md:font-medium hover:text-terracotta hover:border-terracotta/40 transition-colors"
+                className="inline-flex items-center gap-2 self-start md:self-auto text-sm font-medium text-ink underline decoration-2 underline-offset-4 hover:text-terracotta transition-colors"
+                style={{ textDecorationColor: '#C1613D' }}
               >
                 View project
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
