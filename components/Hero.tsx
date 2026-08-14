@@ -4,11 +4,13 @@ import HeroMedia from '@/components/HeroMedia'
 
 export default function Hero() {
   return (
-    <section data-nav-theme="dark" className="relative w-full overflow-hidden" style={{ height: '100svh' }}>
-      <HeroMedia
-        imageSrc="/images/hero-brand-texture-navy-terracotta.jpg"
-        imageAlt="Navy and terracotta brand texture, William Langdown"
-      />
+    <section data-nav-theme="dark" className="sticky top-0 z-0 w-full overflow-hidden" style={{ height: '100svh' }}>
+      <div className="absolute inset-0">
+        <HeroMedia
+          imageSrc="/images/hero-brand-texture-navy-terracotta.jpg"
+          imageAlt="Navy and terracotta brand texture, William Langdown"
+        />
+      </div>
 
       {/* Scrim: just enough for text contrast, not a heavy overlay */}
       <div

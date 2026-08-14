@@ -32,38 +32,40 @@ export default async function ContactPage({ searchParams }: Props) {
               Start a project.
             </h1>
 
-            <p className="text-base text-secondary leading-relaxed max-w-xl mb-6">
+            <p className="text-base text-secondary leading-relaxed max-w-xl mb-14">
               Most projects start with a short call to talk through what&apos;s going on and see whether it&apos;s something I can help with, before anything gets written down formally.
-            </p>
-
-            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-2 mb-6 text-base">
-              <a
-                href="tel:+447446856927"
-                className="font-medium text-ink underline decoration-2 underline-offset-4"
-                style={{ textDecorationColor: '#C1613D' }}
-              >
-                +44 7446 856927
-              </a>
-              <span className="text-secondary">or</span>
-              <a
-                href="mailto:hello@williamlangdown.com"
-                className="font-medium text-ink underline decoration-2 underline-offset-4"
-                style={{ textDecorationColor: '#C1613D' }}
-              >
-                hello@williamlangdown.com
-              </a>
-            </div>
-
-            <p className="text-sm text-secondary max-w-xl mb-14">
-              If cost is on your mind before you get into detail, the{' '}
-              <Link href="/pricing" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">
-                pricing page
-              </Link>{' '}
-              gives a general sense of what projects usually run to.
             </p>
 
             <div id="contact-form">
               <ContactForm defaultService={service} />
+            </div>
+
+            <div className="mt-14 pt-8 border-t border-border-light">
+              <div className="flex flex-wrap items-baseline gap-x-2 gap-y-2 mb-4 text-base">
+                <a
+                  href="tel:+447446856927"
+                  className="font-medium text-ink underline decoration-2 underline-offset-4"
+                  style={{ textDecorationColor: '#C1613D' }}
+                >
+                  +44 7446 856927
+                </a>
+                <span className="text-secondary">or</span>
+                <a
+                  href="mailto:hello@williamlangdown.com"
+                  className="font-medium text-ink underline decoration-2 underline-offset-4"
+                  style={{ textDecorationColor: '#C1613D' }}
+                >
+                  hello@williamlangdown.com
+                </a>
+              </div>
+
+              <p className="text-sm text-secondary max-w-xl">
+                If cost is on your mind before you get into detail, the{' '}
+                <Link href="/pricing" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">
+                  pricing page
+                </Link>{' '}
+                gives a general sense of what projects usually run to.
+              </p>
             </div>
           </div>
         </section>
