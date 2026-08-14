@@ -57,13 +57,15 @@ export default function FeaturedProject({
           <div className="grid grid-cols-1 md:grid-cols-[1fr_140px] gap-4 items-end">
             <ClientWork media={media} alt={`${client} interface`} caption={media.caption} aspect="2 / 1" />
             {secondaryMedia && (
-              <ClientWork
-                media={{ src: secondaryMedia.src }}
-                alt={`${client} mobile interface`}
-                caption={secondaryMedia.caption}
-                aspect="9 / 16"
-                objectPosition="top"
-              />
+              <div className="w-full max-w-[160px] mx-auto md:max-w-none md:mx-0">
+                <ClientWork
+                  media={{ src: secondaryMedia.src }}
+                  alt={`${client} mobile interface`}
+                  caption={secondaryMedia.caption}
+                  aspect="9 / 16"
+                  objectPosition="top"
+                />
+              </div>
             )}
           </div>
         </ScrollReveal>
