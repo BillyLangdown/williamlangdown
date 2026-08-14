@@ -40,7 +40,7 @@ export default function SecondaryWork() {
           {items.map((item) => {
             const inner = (
               <>
-                <ClientWork media={{ src: item.media.src }} alt={item.name} caption={item.media.caption} aspect="4 / 3" />
+                <ClientWork media={{ src: item.media.src }} alt={item.name} caption={item.media.caption} aspect="8 / 5" />
                 <p className="text-xs text-tertiary mt-4">{item.tag}</p>
                 <p className="text-base font-semibold text-ink mt-1 group-hover:text-terracotta transition-colors">{item.name}</p>
                 <p className="text-sm text-secondary mt-1">{item.note}</p>

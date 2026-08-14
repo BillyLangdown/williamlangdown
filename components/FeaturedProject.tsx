@@ -54,7 +54,7 @@ export default function FeaturedProject({
         </ScrollReveal>
 
         <ScrollReveal delay={80} className="mt-10 md:mt-12">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_180px] gap-4 items-end">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_140px] gap-4 items-end">
             <ClientWork media={media} alt={`${client} interface`} caption={media.caption} aspect="2 / 1" />
             {secondaryMedia && (
               <ClientWork
