@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const links = [
   { href: '/case-studies', label: 'Work' },
@@ -24,6 +25,14 @@ export default function Nav() {
   useEffect(() => {
     setOpen(false)
   }, [pathname])
+
+  // Full-screen takeover shouldn't let the page scroll behind it.
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [open])
 
   // Watches every section tagged data-nav-theme and flips overDark to
   // match whichever one currently sits behind the fixed bar, so nav text
@@ -54,7 +63,7 @@ export default function Nav() {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 ${isHome ? 'md:hidden' : ''}`}>
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-end">
+      <div className="relative z-[70] max-w-6xl mx-auto px-6 h-16 flex items-center justify-end">
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-9 mr-9">
           {links.map(({ href, label }) => {
@@ -84,75 +93,102 @@ export default function Nav() {
           </Link>
         </div>
 
-        {/* Mobile burger */}
+        {/* Mobile burger / close */}
         <button
           onClick={() => setOpen(!open)}
           className="md:hidden flex flex-col gap-[5px] p-1"
           aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
         >
           <span
             className="block w-5 h-px transition-all duration-200 origin-center"
-            style={{ background: open ? '#10233F' : fg, transform: open ? 'translateY(6px) rotate(45deg)' : 'none' }}
+            style={{ background: open ? '#F6F3EE' : fg, transform: open ? 'translateY(6px) rotate(45deg)' : 'none' }}
           />
           <span
             className="block w-5 h-px transition-all duration-200"
-            style={{ background: open ? '#10233F' : fg, opacity: open ? 0 : 1 }}
+            style={{ background: open ? '#F6F3EE' : fg, opacity: open ? 0 : 1 }}
           />
           <span
             className="block w-5 h-px transition-all duration-200 origin-center"
-            style={{ background: open ? '#10233F' : fg, transform: open ? 'translateY(-6px) rotate(-45deg)' : 'none' }}
+            style={{ background: open ? '#F6F3EE' : fg, transform: open ? 'translateY(-6px) rotate(-45deg)' : 'none' }}
           />
         </button>
       </div>
 
-      {/* Mobile menu */}
-      <div
-        className="md:hidden overflow-hidden"
-        style={{
-          maxHeight: open ? '480px' : '0',
-          opacity: open ? 1 : 0,
-          transition: 'max-height 0.38s cubic-bezier(0.16,1,0.3,1), opacity 0.22s ease',
-        }}
-      >
-        <div className="border-t border-border-light" style={{ background: '#F6F3EE' }}>
-          <nav className="px-6 pt-2 pb-6 flex flex-col">
-            {links.map(({ href, label }) => {
-              const active = pathname === href || (href !== '/' && pathname.startsWith(href))
-              return (
+      {/* Mobile menu: full-screen navy takeover, iris-reveals from the burger */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="md:hidden fixed inset-0 z-[60]"
+            style={{
+              background: '#10233F',
+              backgroundImage: 'radial-gradient(circle, rgba(193,97,61,0.4) 1.5px, transparent 1.5px)',
+              backgroundSize: '24px 24px',
+            }}
+            initial={{ clipPath: 'circle(0% at calc(100% - 40px) 40px)' }}
+            animate={{ clipPath: 'circle(150% at calc(100% - 40px) 40px)' }}
+            exit={{ clipPath: 'circle(0% at calc(100% - 40px) 40px)' }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="h-full flex flex-col justify-between px-6 pt-28 pb-10 overflow-y-auto">
+              <nav className="flex flex-col">
+                {links.map(({ href, label }, i) => {
+                  const active = pathname === href || (href !== '/' && pathname.startsWith(href))
+                  return (
+                    <motion.div
+                      key={href}
+                      initial={{ opacity: 0, y: 18 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 + i * 0.06, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      <Link
+                        href={href}
+                        onClick={() => setOpen(false)}
+                        className="flex items-baseline gap-4 py-4 border-b border-bone/10"
+                      >
+                        <span className="text-xs font-semibold tabular-nums" style={{ color: '#C1613D' }}>
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <span
+                          className="font-sans font-extrabold uppercase tracking-tight leading-none transition-colors"
+                          style={{ fontSize: 'clamp(2rem, 9vw, 2.75rem)', color: active ? '#C1613D' : '#F6F3EE' }}
+                        >
+                          {label}
+                        </span>
+                      </Link>
+                    </motion.div>
+                  )
+                })}
+              </nav>
+
+              <motion.div
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 + links.length * 0.06, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col gap-5"
+              >
+                <div className="flex flex-col gap-1">
+                  <a href="tel:+447446856927" className="text-sm font-semibold text-bone">
+                    +44 7446 856927
+                  </a>
+                  <p className="text-xs text-bone/50">Somerset-based, working UK-wide</p>
+                </div>
                 <Link
-                  key={href}
-                  href={href}
+                  href="/contact"
                   onClick={() => setOpen(false)}
-                  className={`flex items-center justify-between py-4 border-b border-border-light text-base font-medium transition-colors ${
-                    active ? 'text-ink' : 'text-secondary hover:text-ink'
-                  }`}
+                  className="inline-flex justify-center items-center gap-2 text-sm px-6 py-3.5 rounded-sm font-medium"
+                  style={{ background: '#F6F3EE', color: '#10233F' }}
                 >
-                  {label}
-                  {active && <span className="w-1.5 h-1.5 rounded-full shrink-0 bg-terracotta" />}
+                  Get in touch
+                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </Link>
-              )
-            })}
-
-            <div className="pt-4 flex flex-col gap-1">
-              <a href="tel:+447446856927" className="text-sm font-semibold text-ink">
-                +44 7446 856927
-              </a>
-              <p className="text-xs text-tertiary">Somerset-based, working UK-wide</p>
+              </motion.div>
             </div>
-
-            <Link
-              href="/contact"
-              onClick={() => setOpen(false)}
-              className="mt-5 inline-flex justify-center items-center gap-2 text-bone text-sm px-6 py-3.5 rounded-sm font-medium bg-ink"
-            >
-              Get in touch
-              <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
-          </nav>
-        </div>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }

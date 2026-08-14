@@ -55,7 +55,7 @@ export default function FeaturedProject({
 
         <ScrollReveal delay={80} className="mt-10 md:mt-12">
           <div
-            className="grid grid-cols-[42%_1fr] md:grid-cols-[1fr_140px] gap-4 md:gap-x-4 md:gap-y-8 [grid-template-areas:'main_main'_'mockup_info'] md:[grid-template-areas:'main_mockup'_'info_info']"
+            className="grid grid-cols-[42%_1fr] md:grid-cols-[1fr_140px] items-start gap-4 md:gap-x-4 md:gap-y-8 [grid-template-areas:'main_main'_'mockup_info'] md:[grid-template-areas:'main_mockup'_'info_info']"
           >
             <div className="[grid-area:main]">
               <ClientWork media={media} alt={`${client} interface`} caption={media.caption} aspect="2 / 1" />
@@ -71,7 +71,7 @@ export default function FeaturedProject({
                 />
               </div>
             )}
-            <div className="[grid-area:info] flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-8">
+            <div className="[grid-area:info] pl-4 border-l border-border-light md:pl-0 md:border-l-0 flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-8">
               <div className="flex flex-col gap-5 md:flex-row md:gap-10">
                 {results.map((r) => (
                   <div key={r.label}>
@@ -82,7 +82,7 @@ export default function FeaturedProject({
               </div>
               <Link
                 href={href}
-                className="inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-terracotta transition-colors"
+                className="inline-flex items-center gap-2 self-start text-xs font-semibold uppercase tracking-wide text-ink border border-border-light rounded-full px-4 py-2 md:self-auto md:border-0 md:rounded-none md:px-0 md:py-0 md:normal-case md:tracking-normal md:text-sm md:font-medium hover:text-terracotta hover:border-terracotta/40 transition-colors"
               >
                 View project
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
