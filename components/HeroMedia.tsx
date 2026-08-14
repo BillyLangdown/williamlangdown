@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 interface Props {
-  /** Future Artlist brand film goes here — swap in without touching Hero's layout. */
+  /** Future Artlist brand film goes here, swap in without touching Hero's layout. */
   videoSrc?: string
   imageSrc?: string
   imageAlt?: string
@@ -11,7 +11,7 @@ interface Props {
  * Temporary hero visual. No licensed abstract-architectural photography
  * exists in this repo yet, and the brief is explicit: don't reach for an
  * unlicensed stock photo. So the placeholder is a generated structural
- * graphic (line-work + light field) rather than a photograph — swap in
+ * graphic (line-work + light field) rather than a photograph, swap in
  * `imageSrc` or `videoSrc` later and this layout doesn't change.
  */
 export default function HeroMedia({ videoSrc, imageSrc, imageAlt = '' }: Props) {

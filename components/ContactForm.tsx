@@ -155,7 +155,7 @@ function Form({ defaultService }: { defaultService?: string }) {
         <span className="text-xs text-secondary shrink-0 ml-1 tabular-nums">{step} / 3</span>
       </div>
 
-      {/* Step 1: area selection — large typographic choices, not cards */}
+      {/* Step 1: area selection, large typographic choices, not cards */}
       {step === 1 && (
         <div>
           <p className="text-sm font-semibold text-ink mb-5">What&apos;s this mostly about?</p>

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 const facts = [
   'BA (Hons) Advertising & Branding',
   'Software development experience',
-  'Somerset, UK — working nationwide',
+  'Somerset, UK, working nationwide',
   'Independent practice',
 ]
 

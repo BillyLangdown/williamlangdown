@@ -34,7 +34,7 @@ export default function Footer() {
               +44 7446 856927
             </a>
             <p className="text-sm" style={{ color: 'rgba(246,243,238,0.55)' }}>
-              Somerset, UK — working nationwide
+              Somerset, UK, working nationwide
             </p>
           </div>
 
