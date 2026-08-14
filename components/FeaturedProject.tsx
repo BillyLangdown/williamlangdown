@@ -31,7 +31,13 @@ export default function FeaturedProject({
   return (
     <section data-nav-theme="light" className="relative overflow-hidden bg-bone">
       <SectionNav />
-      <BackgroundWord word="Work" color="#10233F" opacity={0.045} className="top-20 -left-1 md:top-24" />
+      <BackgroundWord
+        word="Work"
+        color="#10233F"
+        opacity={0.045}
+        vertical
+        className="top-16 right-0 md:top-16 md:right-auto md:left-0"
+      />
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-16 md:py-24">
         <ScrollReveal>
           <p className="text-sm font-semibold text-secondary mb-5">Selected work</p>
