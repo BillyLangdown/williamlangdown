@@ -54,10 +54,14 @@ export default function FeaturedProject({
         </ScrollReveal>
 
         <ScrollReveal delay={80} className="mt-10 md:mt-12">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_140px] gap-4 items-end">
-            <ClientWork media={media} alt={`${client} interface`} caption={media.caption} aspect="2 / 1" />
+          <div
+            className="grid grid-cols-[42%_1fr] md:grid-cols-[1fr_140px] gap-4 md:gap-x-4 md:gap-y-8 [grid-template-areas:'main_main'_'mockup_info'] md:[grid-template-areas:'main_mockup'_'info_info']"
+          >
+            <div className="[grid-area:main]">
+              <ClientWork media={media} alt={`${client} interface`} caption={media.caption} aspect="2 / 1" />
+            </div>
             {secondaryMedia && (
-              <div className="w-full max-w-[160px] mx-auto md:max-w-none md:mx-0">
+              <div className="[grid-area:mockup]">
                 <ClientWork
                   media={{ src: secondaryMedia.src }}
                   alt={`${client} mobile interface`}
@@ -67,27 +71,26 @@ export default function FeaturedProject({
                 />
               </div>
             )}
-          </div>
-        </ScrollReveal>
-
-        <ScrollReveal delay={140} className="mt-10 md:mt-12 flex flex-wrap items-end justify-between gap-8">
-          <div className="flex gap-10">
-            {results.map((r) => (
-              <div key={r.label}>
-                <p className="font-display text-3xl md:text-4xl text-ink">{r.value}</p>
-                <p className="text-xs text-tertiary mt-1">{r.label}</p>
+            <div className="[grid-area:info] flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-8">
+              <div className="flex flex-col gap-5 md:flex-row md:gap-10">
+                {results.map((r) => (
+                  <div key={r.label}>
+                    <p className="font-display text-2xl md:text-3xl lg:text-4xl text-ink">{r.value}</p>
+                    <p className="text-xs text-tertiary mt-1">{r.label}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+              <Link
+                href={href}
+                className="inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-terracotta transition-colors"
+              >
+                View project
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                  <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+            </div>
           </div>
-          <Link
-            href={href}
-            className="inline-flex items-center gap-2 text-sm font-medium text-ink hover:text-terracotta transition-colors"
-          >
-            View project
-            <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-              <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
         </ScrollReveal>
       </div>
     </section>
