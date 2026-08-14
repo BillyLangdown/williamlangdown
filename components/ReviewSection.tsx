@@ -7,7 +7,7 @@ const REVIEW_TEXT =
 
 export default function ReviewSection() {
   return (
-    <section data-nav-theme="light" className="py-20 md:py-28 px-6 bg-bone">
+    <section data-nav-theme="light" className="relative z-10 py-20 md:py-28 px-6 bg-bone">
       <div className="max-w-3xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

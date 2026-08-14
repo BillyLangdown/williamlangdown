@@ -7,7 +7,7 @@ import BackgroundWord from '@/components/BackgroundWord'
 
 export default function AboutSection() {
   return (
-    <section data-nav-theme="dark" className="relative overflow-hidden" style={{ background: '#10233F' }}>
+    <section data-nav-theme="dark" className="relative z-10 overflow-hidden" style={{ background: '#10233F' }}>
       <BackgroundWord word="About" color="#F6F3EE" opacity={0.045} parallax className="top-8 right-0 md:top-10" />
       <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.1fr]">
         <div className="relative w-full" style={{ aspectRatio: '4 / 5' }}>

@@ -6,7 +6,7 @@ import BackgroundWord from '@/components/BackgroundWord'
 
 export default function CTABanner() {
   return (
-    <section data-nav-theme="light" className="relative overflow-hidden py-20 md:py-28 px-6 bg-bone">
+    <section data-nav-theme="light" className="relative z-10 overflow-hidden py-20 md:py-28 px-6 bg-bone">
       <BackgroundWord word="Contact" color="#10233F" opacity={0.045} parallax className="bottom-4 -left-1 md:bottom-6" />
       <div className="relative z-10 max-w-6xl mx-auto">
         <motion.div

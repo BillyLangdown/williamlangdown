@@ -32,7 +32,7 @@ const items: Item[] = [
 
 export default function SecondaryWork() {
   return (
-    <section data-nav-theme="light" className="relative overflow-hidden bg-bone border-t border-border-light">
+    <section data-nav-theme="light" className="relative z-10 overflow-hidden bg-bone border-t border-border-light">
       <BackgroundWord word="More" color="#10233F" opacity={0.045} parallax className="top-10 -left-1 md:top-12" />
       <div className="relative z-10 max-w-5xl mx-auto px-6 py-16 md:py-20">
         <p className="text-sm font-semibold text-secondary mb-8">More work</p>
