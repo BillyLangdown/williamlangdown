@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import NavCTA from '@/components/NavCTA'
 
 const links = [
   { href: '/', label: 'Home' },
@@ -68,20 +69,17 @@ export default function Nav() {
         {/* Spacer, balances the CTA column so the nav below sits centred */}
         <div className="hidden md:block" aria-hidden />
 
-        {/* Desktop nav: centred, spread, same bold/indexed treatment as the mobile takeover */}
+        {/* Desktop nav: centred, spread */}
         <nav className="hidden md:flex items-center justify-self-center gap-11">
-          {links.map(({ href, label }, i) => {
+          {links.map(({ href, label }) => {
             const active = pathname === href || (href !== '/' && pathname.startsWith(href))
             return (
               <Link
                 key={href}
                 href={href}
-                className="inline-flex items-baseline gap-1.5 text-xs font-extrabold uppercase tracking-wide transition-colors"
+                className="text-xs font-extrabold uppercase tracking-wide transition-colors"
                 style={{ color: active ? '#C1613D' : fgDim }}
               >
-                <span className="text-[9px] font-semibold tabular-nums" style={{ color: '#C1613D' }}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
                 {label}
               </Link>
             )
@@ -90,13 +88,7 @@ export default function Nav() {
 
         {/* CTA */}
         <div className="hidden md:flex justify-self-end shrink-0">
-          <Link
-            href="/contact"
-            className="inline-block text-sm px-5 py-2.5 rounded-sm transition-colors"
-            style={overDark ? { background: '#F6F3EE', color: '#10233F' } : { background: '#10233F', color: '#F6F3EE' }}
-          >
-            Get in touch
-          </Link>
+          <NavCTA light={overDark} />
         </div>
 
         {/* Mobile burger / close */}
