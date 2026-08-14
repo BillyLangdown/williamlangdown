@@ -17,8 +17,8 @@ html {
 }
 
 body {
-  color: #0F172A;
-  background: #F8FAFC;
+  color: #10233F;
+  background: #F6F3EE;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -71,11 +71,5 @@ a {
 @keyframes nudge-right {
   0%, 100% { transform: translateX(0); }
   50%       { transform: translateX(5px); }
-}
-
-/* ── Homepage promo ticker: seamless infinite scroll ────────────────────── */
-@keyframes promo-ticker-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
 }
 
