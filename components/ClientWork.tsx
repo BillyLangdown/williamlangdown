@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 interface Media {
   video?: string
   src: string
@@ -65,12 +67,13 @@ export function ClientWork({
             playsInline
           />
         ) : (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={media.src}
             alt={alt}
-            className="absolute inset-0 w-full h-full object-cover"
+            fill
+            className="object-cover"
             style={{ objectPosition }}
+            sizes="(max-width: 640px) 90vw, 800px"
           />
         )}
       </div>

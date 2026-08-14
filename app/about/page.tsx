@@ -44,7 +44,7 @@ export default function AboutPage() {
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_auto] gap-10 md:gap-16 items-end">
             <ScrollReveal>
               <div className="relative w-full max-w-sm" style={{ aspectRatio: '4 / 5', border: '1px solid rgba(16,35,63,0.14)' }}>
-                <Image src="/images/portrait.png" alt="William Langdown" fill className="object-cover object-top" sizes="(max-width: 768px) 100vw, 400px" />
+                <Image src="/images/portrait.jpg" alt="William Langdown" fill className="object-cover object-top" sizes="(max-width: 768px) 100vw, 400px" />
               </div>
             </ScrollReveal>
             <ScrollReveal delay={80}>

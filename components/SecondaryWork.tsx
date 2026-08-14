@@ -17,7 +17,7 @@ const items: Item[] = [
     name: 'The Garden Tablecloth Co.',
     tag: 'Audit / Digital',
     note: 'Enquiries up 75%, bounce rate down 21%.',
-    media: { src: '/images/showcase-gtc-desktop.png', caption: 'gardentablecloth.co.uk' },
+    media: { src: '/images/showcase-gtc-desktop.jpg', caption: 'gardentablecloth.co.uk' },
     href: '/case-studies/the-garden-tablecloth-co',
   },
   {

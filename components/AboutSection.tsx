@@ -12,7 +12,7 @@ export default function AboutSection() {
       <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.1fr]">
         <div className="relative w-full" style={{ aspectRatio: '4 / 5' }}>
           <Image
-            src="/images/portrait.png"
+            src="/images/portrait.jpg"
             alt="William Langdown"
             fill
             className="object-cover object-top"

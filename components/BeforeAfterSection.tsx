@@ -81,8 +81,8 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
       href: '/case-studies/building-ventilation-services-ltd',
       slider: (
         <BeforeAfterSlider
-          beforeSrc="/images/bvs-service-before.png"
-          afterSrc="/images/bvs-service-after-2.png"
+          beforeSrc="/images/bvs-service-before.jpg"
+          afterSrc="/images/bvs-service-after-2.jpg"
           beforeAlt="BVS website before redesign"
           afterAlt="BVS website after redesign"
         />
