@@ -5,7 +5,10 @@ import HeroMedia from '@/components/HeroMedia'
 export default function Hero() {
   return (
     <section className="relative w-full overflow-hidden" style={{ height: '100svh' }}>
-      <HeroMedia />
+      <HeroMedia
+        imageSrc="/images/hero-brand-texture-navy-terracotta.jpg"
+        imageAlt="Navy and terracotta brand texture, William Langdown"
+      />
 
       {/* Scrim: just enough for text contrast, not a heavy overlay */}
       <div
