@@ -29,7 +29,7 @@ export default function FeaturedProject({
   href: string
 }) {
   return (
-    <section data-nav-theme="light" className="relative z-10 overflow-hidden bg-bone rounded-t-[28px] md:rounded-t-[40px]">
+    <section data-nav-theme="light" className="relative z-10 overflow-hidden bg-bone">
       <SectionNav />
       <BackgroundWord
         word="Work"
