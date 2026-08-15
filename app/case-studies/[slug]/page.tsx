@@ -9,6 +9,10 @@ import { PortableText } from '@portabletext/react'
 import type { PortableTextComponents } from '@portabletext/react'
 import type { Metadata } from 'next'
 
+// Old client sites that no longer represent the work well as a live
+// screenshot. Falls through to the branded name placeholder instead.
+const NO_SCREENSHOT_SLUGS = ['vin-sheild']
+
 const portableTextComponents: PortableTextComponents = {
   block: {
     h2: ({ children }) => (
@@ -181,8 +185,8 @@ export default async function CaseStudyPage({ params }: Props) {
           </div>
         </section>
 
-        {/* Cover image, or audit-only branded hero if no image */}
-        {study.coverImage ? (
+        {/* Cover image, or branded hero if no image (or the site no longer represents the work well) */}
+        {study.coverImage && !NO_SCREENSHOT_SLUGS.includes(slug) ? (
           <section className="px-6 mb-16">
             <div className="max-w-6xl mx-auto">
               <div className="relative aspect-[16/7] overflow-hidden rounded-sm">

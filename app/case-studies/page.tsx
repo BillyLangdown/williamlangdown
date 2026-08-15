@@ -33,6 +33,11 @@ const isAuditOnly = (study: CaseStudy) =>
   !!study.services?.length &&
   study.services.every((s) => s.toLowerCase().includes('audit'))
 
+// Old client sites that no longer represent the work well as a live
+// screenshot. Falls through to the branded name placeholder instead.
+const NO_SCREENSHOT_SLUGS = ['vin-sheild']
+const hideScreenshot = (study: CaseStudy) => NO_SCREENSHOT_SLUGS.includes(study.slug.current)
+
 function FeaturedCard({ study }: { study: CaseStudy }) {
   return (
     <ScrollReveal>
@@ -62,7 +67,7 @@ function FeaturedCard({ study }: { study: CaseStudy }) {
               </svg>
             </span>
           </div>
-          {study.coverImage && (
+          {study.coverImage && !hideScreenshot(study) ? (
             <div className="relative overflow-hidden" style={{ aspectRatio: '4 / 3', border: '1px solid rgba(16,35,63,0.14)' }}>
               <Image
                 src={urlFor(study.coverImage).width(900).height(675).url()}
@@ -72,6 +77,11 @@ function FeaturedCard({ study }: { study: CaseStudy }) {
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
+          ) : (
+            <div className="relative flex items-center justify-center overflow-hidden" style={{ aspectRatio: '4 / 3', background: '#10233F' }}>
+              <div className="absolute pointer-events-none" style={{ top: '-60px', right: '-40px', width: '260px', height: '260px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(193,97,61,0.45) 0%, transparent 68%)' }} />
+              <p className="relative z-10 font-display text-2xl md:text-3xl text-white text-center px-8">{study.client}</p>
+            </div>
           )}
         </div>
       </Link>
@@ -80,7 +90,7 @@ function FeaturedCard({ study }: { study: CaseStudy }) {
 }
 
 function CaseStudyCover({ study }: { study: CaseStudy }) {
-  if (study.coverImage && !isAuditOnly(study)) {
+  if (study.coverImage && !isAuditOnly(study) && !hideScreenshot(study)) {
     return (
       <div className="aspect-[16/9] relative overflow-hidden">
         <Image

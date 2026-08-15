@@ -22,7 +22,9 @@ const sections = [
   },
   {
     title: 'Investment',
-    body: 'Scoped project by project rather than off a fixed menu. Bespoke projects typically start from around £5,000, depending on scope.',
+    body: 'Scoped project by project rather than off a fixed menu. Bespoke projects typically start from around ',
+    highlight: '£5,000',
+    bodyEnd: ', depending on scope.',
   },
   {
     title: 'Timing',
@@ -61,7 +63,13 @@ export default function PricingPage() {
               <ScrollReveal key={s.title} delay={i * 60}>
                 <div className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-2 md:gap-10 py-8 border-t border-border-light items-start">
                   <h2 className="font-display text-2xl text-ink">{s.title}</h2>
-                  <p className="text-base text-secondary leading-relaxed max-w-lg">{s.body}</p>
+                  <p className="text-base text-secondary leading-relaxed max-w-lg">
+                    {s.body}
+                    {'highlight' in s && (
+                      <span className="font-display text-lg font-semibold text-ink">{s.highlight}</span>
+                    )}
+                    {'bodyEnd' in s && s.bodyEnd}
+                  </p>
                 </div>
               </ScrollReveal>
             ))}

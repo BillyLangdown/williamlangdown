@@ -21,7 +21,10 @@ export default function Capabilities({
       <div className="max-w-6xl mx-auto">
         {showIntro && (
           <ScrollReveal className="mb-12 md:mb-16">
-            <p className="text-sm font-semibold text-secondary">Capabilities</p>
+            <p className="text-sm font-semibold text-secondary mb-3">Capabilities</p>
+            <p className="font-display text-xl md:text-2xl text-ink max-w-xl leading-snug">
+              For businesses whose brand, digital presence or systems haven&apos;t kept up with what they&apos;ve actually become.
+            </p>
           </ScrollReveal>
         )}
 

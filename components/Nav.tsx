@@ -9,7 +9,7 @@ import NavCTA from '@/components/NavCTA'
 const links = [
   { href: '/', label: 'Home' },
   { href: '/case-studies', label: 'Work' },
-  { href: '/services', label: 'Capabilities' },
+  { href: '/services', label: 'What I do' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ]

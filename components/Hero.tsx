@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import HeroMedia from '@/components/HeroMedia'
 
 export default function Hero() {
@@ -33,12 +34,21 @@ export default function Hero() {
         </p>
       </div>
 
-      {/* Quiet scroll cue, not a CTA */}
-      <div className="absolute bottom-6 right-6 md:bottom-8 md:right-10 z-10 hidden sm:flex items-center gap-2 text-bone/50">
-        <span className="text-[10px] uppercase tracking-widest">Scroll</span>
-        <svg width="10" height="10" viewBox="0 0 14 14" fill="none" className="rotate-90">
-          <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+      {/* Quiet corner: a way to act for anyone already convinced, plus the scroll cue */}
+      <div className="absolute bottom-6 right-6 md:bottom-8 md:right-10 z-10 flex flex-col items-end gap-3">
+        <Link
+          href="/contact"
+          className="text-xs font-medium text-bone underline decoration-2 underline-offset-4 hover:text-terracotta transition-colors"
+          style={{ textDecorationColor: '#C1613D' }}
+        >
+          Get in touch
+        </Link>
+        <div className="hidden sm:flex items-center gap-2 text-bone/50">
+          <span className="text-[10px] uppercase tracking-widest">Scroll</span>
+          <svg width="10" height="10" viewBox="0 0 14 14" fill="none" className="rotate-90">
+            <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
       </div>
     </section>
   )

@@ -6,7 +6,8 @@ import BackgroundWord from '@/components/BackgroundWord'
 interface Item {
   name: string
   tag: string
-  note: string
+  note?: string
+  results?: { value: string; label: string }[]
   media: { src: string; caption: string }
   href: string
   external?: boolean
@@ -16,7 +17,10 @@ const items: Item[] = [
   {
     name: 'The Garden Tablecloth Co.',
     tag: 'Audit / Digital',
-    note: 'Enquiries up 75%, bounce rate down 21%.',
+    results: [
+      { value: '+75%', label: 'Enquiries' },
+      { value: '-21%', label: 'Bounce rate' },
+    ],
     media: { src: '/images/showcase-gtc-desktop.jpg', caption: 'gardentablecloth.co.uk' },
     href: '/case-studies/the-garden-tablecloth-co',
   },
@@ -43,7 +47,18 @@ export default function SecondaryWork() {
                 <ClientWork media={{ src: item.media.src }} alt={item.name} caption={item.media.caption} aspect="8 / 5" />
                 <p className="text-xs text-tertiary mt-4">{item.tag}</p>
                 <p className="text-base font-semibold text-ink mt-1 group-hover:text-terracotta transition-colors">{item.name}</p>
-                <p className="text-sm text-secondary mt-1">{item.note}</p>
+                {item.results ? (
+                  <div className="flex gap-6 mt-3">
+                    {item.results.map((r) => (
+                      <div key={r.label}>
+                        <p className="font-display text-xl md:text-2xl text-ink">{r.value}</p>
+                        <p className="text-xs text-tertiary mt-0.5">{r.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-secondary mt-1">{item.note}</p>
+                )}
               </>
             )
             return (

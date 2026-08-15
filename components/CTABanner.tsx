@@ -17,9 +17,16 @@ export default function CTABanner() {
           className="flex flex-col items-start md:flex-row md:items-end md:justify-between gap-8"
         >
           <div>
-            <h2 className="font-display text-4xl md:text-5xl text-ink leading-[1.05]">
+            <h2 className="font-display text-4xl md:text-5xl text-ink leading-[1.05] mb-3">
               Available for new projects.
             </h2>
+            <p className="text-sm text-secondary">
+              Not sure on budget yet?{' '}
+              <Link href="/pricing" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">
+                See how projects are priced
+              </Link>
+              .
+            </p>
           </div>
           <Link
             href="/contact"
