@@ -16,6 +16,14 @@ html {
   scroll-padding-top: 64px; /* fixed nav height */
 }
 
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.9s ease-out both;
+}
+
 body {
   color: #10233F;
   background: #F6F3EE;
