@@ -20,20 +20,17 @@ html {
   background: #F6F3EE;
 }
 
-/*
- * Keep snap behaviour on desktop only.
- * Mobile is now a normal-flow page.
- */
 @media (min-width: 768px) {
   html {
     scroll-snap-type: y proximity;
-    scroll-padding-top: 64px;
+    scroll-padding-top: 0;
   }
 }
 
 body {
   color: #10233F;
   background: #F6F3EE;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
