@@ -22,6 +22,8 @@ export default function Hero() {
   const [showFixedLayer, setShowFixedLayer] = useState(false)
 
   useEffect(() => {
+    let settleTimer: ReturnType<typeof setTimeout>
+
     const updateHeroState = () => {
       const hero = heroRef.current
       if (!hero) return
@@ -39,14 +41,42 @@ export default function Hero() {
       setShowFixedLayer(scrolledIntoHero >= introStart)
     }
 
+    const handleScroll = () => {
+      updateHeroState()
+
+      // If scrolling comes to rest partway through the heading exiting
+      // (neither fully shown nor fully cleared), finish the scroll the
+      // rest of the way to whichever side is closer, so it's never
+      // possible to overscroll straight past the intro and miss it.
+      // Only ever acts within this one dead zone - never touches scroll
+      // once past it, so it can't trap scrolling like a global CSS
+      // scroll-snap `mandatory` setting would.
+      clearTimeout(settleTimer)
+      settleTimer = setTimeout(() => {
+        const hero = heroRef.current
+        if (!hero) return
+
+        const rect = hero.getBoundingClientRect()
+        const scrolledIntoHero = -rect.top
+        const oneScreen = window.innerHeight
+
+        if (scrolledIntoHero > 0 && scrolledIntoHero < oneScreen) {
+          const heroTop = rect.top + window.scrollY
+          const target = scrolledIntoHero < oneScreen / 2 ? heroTop : heroTop + oneScreen
+          window.scrollTo({ top: target, behavior: 'smooth' })
+        }
+      }, 120)
+    }
+
     updateHeroState()
 
-    window.addEventListener('scroll', updateHeroState, { passive: true })
-    window.addEventListener('resize', updateHeroState)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleScroll)
 
     return () => {
-      window.removeEventListener('scroll', updateHeroState)
-      window.removeEventListener('resize', updateHeroState)
+      clearTimeout(settleTimer)
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleScroll)
     }
   }, [])
 
@@ -58,8 +88,9 @@ export default function Hero() {
        * 0–100svh:
        * Main William Langdown cover scrolls away (one screen).
        *
-       * 100–200svh:
-       * Fixed intro frame remains behind the page (one more screen).
+       * 100–250svh:
+       * Fixed intro frame remains behind the page (a screen and a half,
+       * extra buffer against overscrolling straight past it).
        *
        * After this hero finishes:
        * The following page section scrolls naturally over the fixed layer.
@@ -76,7 +107,7 @@ export default function Hero() {
         ref={heroRef}
         className="relative"
         style={{
-          height: '200svh',
+          height: '250svh',
           scrollSnapAlign: 'start',
           background: '#10233F',
         }}
