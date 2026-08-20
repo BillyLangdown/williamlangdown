@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
 import HeroMedia from '@/components/HeroMedia'
 import IntroStatement from '@/components/IntroStatement'
 
@@ -16,104 +17,280 @@ const HERO_NAV = [
   { href: '/contact', label: 'Contact' },
 ]
 
-// One image, pinned via `sticky` the whole way through, on every
-// screen size. The heading scrolls away over it (normal flow, negative
-// margin so it starts coincident with the image), then the intro line
-// - also just `sticky`, nothing fancier - takes its place and holds for
-// a screen before the next section naturally scrolls up and over both.
-// No JS, no `position: fixed`, no state toggling - the earlier version
-// added that specifically to keep the image frozen while being
-// covered, but it's what kept breaking on mobile. This version moves
-// image + intro together with the next section during that final
-// handoff instead of holding them frozen underneath it - a smaller
-// visual trade against something that actually works everywhere.
 export default function Hero() {
+  const heroRef = useRef<HTMLDivElement>(null)
+  const [showFixedLayer, setShowFixedLayer] = useState(false)
+
+  useEffect(() => {
+    let settleTimer: ReturnType<typeof setTimeout>
+
+    const updateHeroState = () => {
+      const hero = heroRef.current
+      if (!hero) return
+
+      const rect = hero.getBoundingClientRect()
+      const scrolledIntoHero = -rect.top
+
+      /*
+       * Bring the fixed intro in just before the first viewport has
+       * completely cleared. This prevents an empty-background state
+       * while still allowing the main heading to naturally scroll away.
+       */
+      const introStart = window.innerHeight * 0.88
+
+      setShowFixedLayer(scrolledIntoHero >= introStart)
+    }
+
+    const handleScroll = () => {
+      updateHeroState()
+
+      // If scrolling comes to rest partway through the heading exiting
+      // (neither fully shown nor fully cleared), finish the scroll the
+      // rest of the way to whichever side is closer, so it's never
+      // possible to overscroll straight past the intro and miss it.
+      // Only ever acts within this one dead zone - never touches scroll
+      // once past it, so it can't trap scrolling like a global CSS
+      // scroll-snap `mandatory` setting would.
+      clearTimeout(settleTimer)
+      settleTimer = setTimeout(() => {
+        const hero = heroRef.current
+        if (!hero) return
+
+        const rect = hero.getBoundingClientRect()
+        const scrolledIntoHero = -rect.top
+        const oneScreen = window.innerHeight
+
+        if (scrolledIntoHero > 0 && scrolledIntoHero < oneScreen) {
+          const heroTop = rect.top + window.scrollY
+          const target = scrolledIntoHero < oneScreen / 2 ? heroTop : heroTop + oneScreen
+          window.scrollTo({ top: target, behavior: 'smooth' })
+        }
+      }, 120)
+    }
+
+    updateHeroState()
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleScroll)
+
+    return () => {
+      clearTimeout(settleTimer)
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleScroll)
+    }
+  }, [])
+
   return (
-    <div
-      className="relative"
-      style={{
-        height: 'calc(200vh + 240px)',
-        backgroundImage: `url(${IMAGE_SRC})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
+    <>
+      {/*
+       * HERO SCROLL SPACE
+       *
+       * 0–100svh:
+       * Main William Langdown cover scrolls away (one screen).
+       *
+       * 100–250svh:
+       * Fixed intro frame remains behind the page (a screen and a half,
+       * extra buffer against overscrolling straight past it).
+       *
+       * After this hero finishes:
+       * The following page section scrolls naturally over the fixed layer.
+       *
+       * `svh` (not `dvh`) deliberately: `dvh` recalculates live as the
+       * mobile browser's toolbar shows/hides mid-scroll, which made the
+       * sticky/negative-margin math shift under your finger (the "very
+       * glitchy" report). `svh` stays fixed during a scroll gesture. The
+       * background here is navy to match the image, so if `svh` ever
+       * slightly under-reports the real viewport, any gap blends into
+       * the image instead of showing the page's cream background.
+       */}
       <div
-        data-nav-theme="dark"
-        className="sticky top-0 z-0 w-full overflow-hidden"
-        style={{ height: 'calc(100vh + 120px)' }}
+        ref={heroRef}
+        className="relative"
+        style={{
+          height: '250svh',
+          scrollSnapAlign: 'start',
+          background: '#10233F',
+        }}
       >
-        <div className="absolute inset-0">
-          <HeroMedia
-            imageSrc={IMAGE_SRC}
-            imageAlt="Navy and terracotta brand texture, William Langdown"
+        {/* Sticky background during the hero scroll space */}
+        <div
+          data-nav-theme="dark"
+          className="sticky top-0 z-0 w-full overflow-hidden"
+          style={{ height: '100svh' }}
+        >
+          <div className="absolute inset-0">
+            <HeroMedia
+              imageSrc={IMAGE_SRC}
+              imageAlt="Navy and terracotta brand texture, William Langdown"
+            />
+          </div>
+
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{ background: SCRIM }}
           />
         </div>
-        <div aria-hidden className="absolute inset-0" style={{ background: SCRIM }} />
-      </div>
-
-      <div
-        className="relative z-10"
-        style={{ height: 'calc(100vh + 120px)', marginTop: 'calc(-100vh - 120px)' }}
-      >
-        <nav
-          aria-label="Main navigation"
-          className="absolute right-10 top-9 z-20 hidden md:block lg:right-12 lg:top-10"
-        >
-          <ul className="m-0 flex list-none flex-col items-end gap-[13px] p-0">
-            {HERO_NAV.map((item) => (
-              <li key={item.label}>
-                <Link
-                  href={item.href}
-                  className="
-                    block
-                    text-right
-                    text-[13px]
-                    font-medium
-                    leading-none
-                    tracking-[-0.01em]
-                    text-bone
-                    transition-colors
-                    duration-200
-                    hover:text-terracotta
-                    lg:text-[14px]
-                  "
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
 
         {/*
-         * Fixed, plain bottom offset - no `lvh`/`svh`/`calc()` mixing
-         * newer viewport units. Those units may not be reliably
-         * supported on your browser, which is the likely reason the
-         * previous calc()-based fix didn't actually work. This is a
-         * flat, generous safety margin using nothing but a normal
-         * value, so there's no feature-support risk left to guess at.
+         * FIRST FRAME
+         *
+         * This sits over the sticky media but is itself normal hero
+         * content, so it naturally leaves the viewport as the page scrolls.
          */}
-        <div className="absolute inset-x-0 bottom-24 px-6 md:bottom-16 md:px-10">
-          <h1
-            className="font-sans font-extrabold uppercase leading-[0.92] tracking-tight text-bone"
-            style={{ fontSize: 'clamp(2.75rem, 12vw, 9.5rem)' }}
+        <div
+          className="relative z-10"
+          style={{
+            height: '100svh',
+            marginTop: '-100svh',
+          }}
+        >
+          {/* Desktop hero navigation */}
+          <nav
+            aria-label="Main navigation"
+            className="
+              absolute
+              right-10
+              top-9
+              z-20
+              hidden
+              md:block
+              lg:right-12
+              lg:top-10
+            "
           >
-            William
-            <br />
-            Langdown
-          </h1>
+            <ul className="m-0 flex list-none flex-col items-end gap-[13px] p-0">
+              {HERO_NAV.map((item) => (
+                <li key={item.label}>
+                  <Link
+                    href={item.href}
+                    className="
+                      block
+                      text-right
+                      text-[13px]
+                      font-medium
+                      leading-none
+                      tracking-[-0.01em]
+                      text-bone
+                      transition-colors
+                      duration-200
+                      hover:text-terracotta
+                      lg:text-[14px]
+                    "
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-          <p className="mt-5 text-sm font-medium tracking-wide text-bone/80 md:mt-7 md:text-base">
-            Brand <span className="text-terracotta">/</span> Digital{' '}
-            <span className="text-terracotta">/</span> Technology
-          </p>
+          {/* Main hero typography */}
+          <div className="relative flex h-full flex-col justify-end px-6 pb-14 md:px-10 md:pb-16">
+            <h1
+              className="
+                font-sans
+                font-extrabold
+                uppercase
+                leading-[0.92]
+                tracking-tight
+                text-bone
+              "
+              style={{
+                fontSize: 'clamp(2.75rem, 12vw, 9.5rem)',
+              }}
+            >
+              William
+              <br />
+              Langdown
+            </h1>
+
+            <p className="mt-5 text-sm font-medium tracking-wide text-bone/80 md:mt-7 md:text-base">
+              Brand <span className="text-terracotta">/</span> Digital{' '}
+              <span className="text-terracotta">/</span> Technology
+            </p>
+          </div>
+
+       
+          
+        </div>
+
+        {/*
+         * Explicit snap point for the intro state.
+         * The fixed intro is already visible by the time scrolling settles
+         * here, so there can be no blank hero frame.
+         */}
+        <div
+          aria-hidden
+          className="absolute left-0 h-px w-full"
+          style={{
+            top: '100svh',
+            scrollSnapAlign: 'start',
+          }}
+        />
+      </div>
+
+      {/*
+       * FIXED INTRO FRAME
+       *
+       * This is intentionally fixed rather than sticky.
+       *
+       * It stays completely stationary behind the page until the next
+       * normal-flow section physically scrolls over it.
+       */}
+      <div
+        data-nav-theme="dark"
+        aria-hidden={!showFixedLayer}
+        className={`
+          fixed
+          inset-0
+          z-0
+          flex
+          items-center
+          justify-center
+          overflow-hidden
+          transition-opacity
+          ${
+            showFixedLayer
+              ? 'pointer-events-auto opacity-100 duration-300'
+              : 'pointer-events-none opacity-0 duration-100'
+          }
+        `}
+      >
+        <div className="absolute inset-0">
+          <HeroMedia imageSrc={IMAGE_SRC} imageAlt="" />
+        </div>
+
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{ background: SCRIM }}
+        />
+
+        {/*
+         * Slow, subtle rise on entry.
+         * Fast disappearance when returning to the first frame,
+         * preventing lingering/ghosted intro copy.
+         */}
+        <div
+          className={`
+            absolute
+            inset-0
+            flex
+            items-center
+            justify-center
+            transition-[opacity,transform]
+            ease-out
+            ${
+              showFixedLayer
+                ? 'translate-y-0 opacity-100 duration-700'
+                : 'translate-y-4 opacity-0 duration-100'
+            }
+          `}
+        >
+          <IntroStatement />
         </div>
       </div>
-
-      <div className="sticky top-0 z-10 flex w-full items-center justify-center" style={{ height: 'calc(100vh + 120px)' }}>
-        <IntroStatement />
-      </div>
-    </div>
+    </>
   )
 }
