@@ -55,29 +55,34 @@ export default function Hero() {
       {/*
        * HERO SCROLL SPACE
        *
-       * 0–100svh:
+       * 0–100lvh:
        * Main William Langdown cover scrolls away (one screen).
        *
-       * 100–300svh:
+       * 100–300lvh:
        * Fixed intro frame remains behind the page (two screens' worth of
        * hold, more buffer against overscrolling straight past it).
        *
        * After this hero finishes:
        * The following page section scrolls naturally over the fixed layer.
        *
-       * `svh` (not `dvh`) deliberately: `dvh` recalculates live as the
-       * mobile browser's toolbar shows/hides mid-scroll, which made the
-       * sticky/negative-margin math shift under your finger (the "very
-       * glitchy" report). `svh` stays fixed during a scroll gesture. The
-       * background here is navy to match the image, so if `svh` ever
-       * slightly under-reports the real viewport, any gap blends into
-       * the image instead of showing the page's cream background.
+       * `lvh` (not `svh`, not `dvh`) deliberately. `dvh` recalculates
+       * live as the mobile browser's toolbar shows/hides mid-scroll,
+       * which made the sticky/negative-margin math shift under your
+       * finger (the "very glitchy" report). `svh` is the *smallest*
+       * possible viewport, so on a phone whose real screen is ever
+       * taller than that, a 100svh box comes up short and exposes the
+       * wrapper's own background underneath it (the white/blue box at
+       * the bottom of the hero). `lvh` is the *largest* possible
+       * viewport - like `svh` it's a fixed value (no live jank), but
+       * unlike `svh` it can never be shorter than the real screen, so
+       * there's structurally no gap left to expose. The background here
+       * is navy to match the image as an extra guard either way.
        */}
       <div
         ref={heroRef}
         className="relative"
         style={{
-          height: '300svh',
+          height: '300lvh',
           scrollSnapAlign: 'start',
           background: '#10233F',
         }}
@@ -86,7 +91,7 @@ export default function Hero() {
         <div
           data-nav-theme="dark"
           className="sticky top-0 z-0 w-full overflow-hidden"
-          style={{ height: '100svh' }}
+          style={{ height: '100lvh' }}
         >
           <div className="absolute inset-0">
             <HeroMedia
@@ -111,8 +116,8 @@ export default function Hero() {
         <div
           className="relative z-10"
           style={{
-            height: '100svh',
-            marginTop: '-100svh',
+            height: '100lvh',
+            marginTop: '-100lvh',
           }}
         >
           {/* Desktop hero navigation */}
@@ -194,7 +199,7 @@ export default function Hero() {
           aria-hidden
           className="absolute left-0 h-px w-full"
           style={{
-            top: '100svh',
+            top: '100lvh',
             scrollSnapAlign: 'start',
           }}
         />
