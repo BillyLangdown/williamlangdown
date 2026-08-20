@@ -6,37 +6,29 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Working Together | William Langdown',
-  description: 'How projects are scoped and priced. Bespoke, engagement-based work for established UK businesses, typically starting from around £5,000. Somerset-based, working nationwide.',
-  alternates: { canonical: 'https://williamlangdown.com/pricing' },
+  description:
+    'How brand, digital and technology projects are scoped, priced and started with William Langdown.',
+  alternates: {
+    canonical: 'https://williamlangdown.com/pricing',
+  },
   openGraph: {
     title: 'Working Together | William Langdown',
-    description: 'How projects are scoped and priced. Bespoke, engagement-based work for established UK businesses.',
+    description:
+      'Focused projects and broader engagements across brand, digital and technology.',
     url: 'https://williamlangdown.com/pricing',
   },
 }
 
-const sections = [
+const engagements = [
   {
-    title: 'Projects',
-    body: 'A focused piece of work (a website, a piece of software, a rebrand), or strategy, brand, digital and technology combined where the problem calls for it.',
+    title: 'Focused projects',
+    body:
+      'A clearly defined piece of work, such as a website, identity, digital experience or piece of software.',
   },
   {
-    title: 'Investment',
-    body: 'Scoped project by project rather than off a fixed menu. Bespoke projects typically start from around ',
-    highlight: '£5,000',
-    bodyEnd: ', depending on scope.',
-  },
-  {
-    title: 'Timing',
-    body: 'A first call is enough for a realistic range. A proposal follows once there\'s a clear picture of what the project involves, usually after a short discovery phase.',
-  },
-  {
-    title: 'Working relationship',
-    body: 'Direct, throughout. Strategic thinking and implementation stay connected from research to launch, and beyond it for clients who want that.',
-  },
-  {
-    title: 'Start',
-    body: 'A short call first, no obligation. Existing clients needing ongoing support or a smaller piece of work: get in touch and we\'ll work out what makes sense.',
+    title: 'Broader engagements',
+    body:
+      'Research and strategy carried through brand, digital and technology where several things need to change together.',
   },
 ]
 
@@ -44,41 +36,137 @@ export default function PricingPage() {
   return (
     <>
       <Nav />
-      <main className="bg-bone">
 
-        <section className="px-6 pt-32 pb-16 md:pt-40 md:pb-20">
-          <div className="max-w-3xl mx-auto">
+      <main className="overflow-hidden bg-bone">
+
+        {/* HERO */}
+        <section
+          data-nav-theme="light"
+          className="px-6 pb-20 pt-32 md:px-10 md:pb-24 md:pt-40 lg:px-12"
+        >
+          <div className="mx-auto max-w-5xl">
             <ScrollReveal>
-              <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-4">Working together</p>
-              <h1 className="font-display text-4xl md:text-5xl leading-[1.06] text-ink">
-                Scoped around the problem, not a price list.
+              <h1 className="max-w-[17ch] font-display text-4xl leading-[1.05] tracking-[-0.025em] text-ink md:text-5xl lg:text-6xl">
+                Projects shaped around what actually needs to change.
               </h1>
+
+              <div className="mt-8 flex flex-col gap-5 md:mt-10 md:flex-row md:items-end md:justify-between">
+                <p className="max-w-xl text-base leading-relaxed text-secondary">
+                  Focused projects or broader engagements across brand,
+                  digital and technology, scoped around the problem rather
+                  than a fixed package.
+                </p>
+
+                <p className="shrink-0 text-sm font-medium text-ink">
+                  Brand <span className="text-terracotta">/</span> Digital{' '}
+                  <span className="text-terracotta">/</span> Technology
+                </p>
+              </div>
             </ScrollReveal>
           </div>
         </section>
 
-        <section className="px-6 pb-24 md:pb-32">
-          <div className="max-w-3xl mx-auto flex flex-col">
-            {sections.map((s, i) => (
-              <ScrollReveal key={s.title} delay={i * 60}>
-                <div className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-2 md:gap-10 py-8 border-t border-border-light items-start">
-                  <h2 className="font-display text-2xl text-ink">{s.title}</h2>
-                  <p className="text-base text-secondary leading-relaxed max-w-lg">
-                    {s.body}
-                    {'highlight' in s && (
-                      <span className="font-display text-lg font-semibold text-ink">{s.highlight}</span>
-                    )}
-                    {'bodyEnd' in s && s.bodyEnd}
+        {/* ENGAGEMENT TYPES */}
+        <section
+          data-nav-theme="light"
+          className="px-6 pb-24 md:px-10 md:pb-28 lg:px-12"
+        >
+          <div className="mx-auto max-w-5xl border-t border-border-light">
+            {engagements.map((engagement, index) => (
+              <ScrollReveal key={engagement.title} delay={index * 50}>
+                <div className="grid grid-cols-1 gap-4 border-b border-border-light py-8 md:grid-cols-[220px_1fr] md:gap-16 md:py-10">
+                  <h2 className="font-display text-2xl leading-tight text-ink md:text-3xl">
+                    {engagement.title}
+                  </h2>
+
+                  <p className="max-w-lg text-base leading-relaxed text-secondary">
+                    {engagement.body}
                   </p>
                 </div>
               </ScrollReveal>
             ))}
-            <div className="border-t border-border-light" />
+
+            <ScrollReveal>
+              <p className="ml-auto mt-6 max-w-lg text-sm leading-relaxed text-secondary">
+                One discipline or several. The scope follows the problem
+                rather than forcing the work into a package.
+              </p>
+            </ScrollReveal>
           </div>
         </section>
 
-        <CTABanner />
+        {/* PRICING */}
+        <section
+          data-nav-theme="dark"
+          className="bg-[#10233F] px-6 py-20 md:px-10 md:py-24 lg:px-12"
+        >
+          <div className="mx-auto max-w-5xl">
+            <ScrollReveal>
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-[220px_1fr] md:gap-16">
+
+                <div className="hidden md:block" />
+
+                <div className="max-w-2xl">
+                  <p className="max-w-[20ch] font-display text-3xl leading-[1.05] tracking-[-0.02em] text-bone md:text-4xl">
+                    Focused projects are often around
+                  </p>
+
+                  <p className="mt-3 font-sans text-6xl font-extrabold leading-none tracking-[-0.055em] text-bone md:text-7xl">
+                    £2,000
+                  </p>
+
+                  <p className="mt-8 max-w-xl border-t border-bone/15 pt-6 text-sm leading-relaxed text-bone/60 md:text-base">
+                    Some come in below, others above. The final cost depends
+                    on scope, complexity and what the project actually needs.
+                  </p>
+
+                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-bone/60 md:text-base">
+                    Broader engagements are scoped individually, with the
+                    scope, timing and cost agreed before any work begins.
+                  </p>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* STARTING A PROJECT */}
+        <section
+          data-nav-theme="light"
+          className="px-6 py-24 md:px-10 md:py-28 lg:px-12"
+        >
+          <div className="mx-auto max-w-5xl">
+            <ScrollReveal>
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-[220px_1fr] md:gap-16">
+
+                <div className="hidden md:block" />
+
+                <div className="max-w-2xl">
+                  <h2 className="max-w-[16ch] font-display text-3xl leading-[1.05] tracking-[-0.025em] text-ink md:text-4xl">
+                    You don&apos;t need a finished brief.
+                  </h2>
+
+                  <p className="mt-6 max-w-xl text-base leading-relaxed text-secondary">
+                    A first conversation is enough to understand the business,
+                    what&apos;s changing and where the problem might actually
+                    sit.
+                  </p>
+
+                  <p className="mt-4 max-w-xl text-base leading-relaxed text-secondary">
+                    If there&apos;s a good fit, I&apos;ll recommend the scope,
+                    timing and cost before any work begins.
+                  </p>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        <div data-nav-theme="light">
+          <CTABanner />
+        </div>
       </main>
+
       <Footer />
     </>
   )
