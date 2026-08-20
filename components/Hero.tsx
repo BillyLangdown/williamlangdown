@@ -19,7 +19,6 @@ const HERO_NAV = [
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null)
-
   const [heroActive, setHeroActive] = useState(true)
   const [showIntro, setShowIntro] = useState(false)
 
@@ -34,27 +33,15 @@ export default function Hero() {
       const viewportHeight = window.innerHeight
       const isMobile = window.innerWidth < 768
 
-      /*
-       * The fixed visual stage should exist whenever some portion
-       * of the hero scroll space is still on screen.
-       *
-       * When the next section completely reaches the top, the hero
-       * switches off behind it.
-       */
       const active = rect.bottom > 0 && rect.top < viewportHeight
-
-      /*
-       * Distance travelled through the hero.
-       */
       const scrolledIntoHero = Math.max(0, -rect.top)
 
       /*
-       * Mobile changes phase a little earlier.
-       * This gives the intro time to settle before the next section
-       * begins sweeping upward.
+       * Mobile now gets almost a full viewport of scrolling
+       * before Frame 2 appears.
        */
       const introStart = isMobile
-        ? viewportHeight * 0.72
+        ? viewportHeight * 0.98
         : viewportHeight * 0.88
 
       setHeroActive(active)
@@ -88,46 +75,38 @@ export default function Hero() {
   return (
     <>
       {/*
-       * HERO SCROLL SPACE
+       * Mobile:
        *
-       * Nothing visual lives in here anymore.
-       * It simply controls how long the fixed hero stage remains.
+       * ~1 viewport = Frame 1
+       * ~1 viewport = Frame 2
+       * remainder = next section begins covering it
        *
-       * Mobile is intentionally shorter.
-       *
-       * The next normal-flow section begins immediately after this
-       * and, because it has a higher z-index, physically scrolls
-       * over the fixed hero.
+       * Desktop keeps the slower 300svh sequence.
        */}
       <div
         ref={heroRef}
         className="
           relative
-          h-[240svh]
+          h-[250svh]
+          bg-[#10233F]
           md:h-[300svh]
           md:[scroll-snap-align:start]
         "
         aria-hidden
       />
 
-      {/*
-       * SINGLE FIXED HERO STAGE
-       *
-       * Image never changes position.
-       * Only the content layer changes:
-       *
-       * Cover -> Intro
-       *
-       * The next page section then covers this whole stage.
-       */}
+      {/* Full-screen visual stage */}
       <div
         data-nav-theme="dark"
         aria-hidden={!heroActive}
         className={`
           fixed
-          inset-0
+          left-0
+          top-0
           z-0
+          w-full
           overflow-hidden
+          bg-[#10233F]
           transition-opacity
           duration-150
           ${
@@ -136,9 +115,13 @@ export default function Hero() {
               : 'pointer-events-none opacity-0'
           }
         `}
+        style={{
+          height: '100dvh',
+          minHeight: '100svh',
+        }}
       >
         {/* Background */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[#10233F]">
           <HeroMedia
             imageSrc={IMAGE_SRC}
             imageAlt={
@@ -155,12 +138,7 @@ export default function Hero() {
           style={{ background: SCRIM }}
         />
 
-        {/*
-         * COVER FRAME
-         *
-         * Slow/clean exit going down.
-         * Fast return when scrolling upward.
-         */}
+        {/* FRAME 1 */}
         <div
           className={`
             absolute
@@ -215,8 +193,19 @@ export default function Hero() {
             </ul>
           </nav>
 
-          {/* Name / positioning */}
-          <div className="relative flex h-full flex-col justify-end px-6 pb-14 md:px-10 md:pb-16">
+          <div
+            className="
+              relative
+              flex
+              h-full
+              flex-col
+              justify-end
+              px-6
+              pb-[calc(3.5rem+env(safe-area-inset-bottom))]
+              md:px-10
+              md:pb-16
+            "
+          >
             <h1
               className="
                 font-sans
@@ -242,13 +231,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/*
-         * INTRO FRAME
-         *
-         * Subtle rise/fade entering.
-         * Quick disappearance when scrolling upward so there is
-         * no lingering ghosted text.
-         */}
+        {/* FRAME 2 */}
         <div
           className={`
             absolute
