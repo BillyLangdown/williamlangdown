@@ -56,26 +56,36 @@ export default function Hero() {
        * HERO SCROLL SPACE
        *
        * 0–100svh:
-       * Main William Langdown cover scrolls away.
+       * Main William Langdown cover scrolls away (one screen).
        *
-       * 100–300svh:
-       * Fixed intro frame remains behind the page.
+       * 100–200svh:
+       * Fixed intro frame remains behind the page (one more screen).
        *
        * After this hero finishes:
        * The following page section scrolls naturally over the fixed layer.
+       *
+       * `svh` (not `dvh`) deliberately: `dvh` recalculates live as the
+       * mobile browser's toolbar shows/hides mid-scroll, which made the
+       * sticky/negative-margin math shift under your finger (the "very
+       * glitchy" report). `svh` stays fixed during a scroll gesture. The
+       * background here is navy to match the image, so if `svh` ever
+       * slightly under-reports the real viewport, any gap blends into
+       * the image instead of showing the page's cream background.
        */}
       <div
         ref={heroRef}
         className="relative"
         style={{
-          height: '300svh',
+          height: '200svh',
           scrollSnapAlign: 'start',
+          background: '#10233F',
         }}
       >
         {/* Sticky background during the hero scroll space */}
         <div
           data-nav-theme="dark"
-          className="sticky top-0 z-0 h-[100svh] w-full overflow-hidden"
+          className="sticky top-0 z-0 w-full overflow-hidden"
+          style={{ height: '100svh' }}
         >
           <div className="absolute inset-0">
             <HeroMedia
@@ -98,8 +108,9 @@ export default function Hero() {
          * content, so it naturally leaves the viewport as the page scrolls.
          */}
         <div
-          className="relative z-10 h-[100svh]"
+          className="relative z-10"
           style={{
+            height: '100svh',
             marginTop: '-100svh',
           }}
         >
