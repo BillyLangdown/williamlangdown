@@ -29,11 +29,11 @@ const HERO_NAV = [
 // visual trade against something that actually works everywhere.
 export default function Hero() {
   return (
-    <div className="relative" style={{ height: '200lvh', background: '#10233F' }}>
+    <div className="relative" style={{ height: 'calc(200vh + 240px)', background: '#10233F' }}>
       <div
         data-nav-theme="dark"
         className="sticky top-0 z-0 w-full overflow-hidden"
-        style={{ height: '100lvh' }}
+        style={{ height: 'calc(100vh + 120px)' }}
       >
         <div className="absolute inset-0">
           <HeroMedia
@@ -46,7 +46,7 @@ export default function Hero() {
 
       <div
         className="relative z-10"
-        style={{ height: '100lvh', marginTop: '-100lvh' }}
+        style={{ height: 'calc(100vh + 120px)', marginTop: 'calc(-100vh - 120px)' }}
       >
         <nav
           aria-label="Main navigation"
@@ -79,22 +79,14 @@ export default function Hero() {
         </nav>
 
         {/*
-         * Positioned by an explicit safe `bottom` offset instead of
-         * `h-full flex justify-end`. That would anchor the text to the
-         * bottom of this box's own 100lvh height - but lvh is the
-         * *largest* possible viewport, taller than the real screen when
-         * the browser's address/toolbar is expanded (which it is on
-         * first load). The text was landing behind that toolbar.
-         * `calc(100lvh - 100svh)` is exactly the gap between the two,
-         * so subtracting it lands the text at the guaranteed-safe
-         * (smallest-viewport) bottom edge instead. `max()` with a flat
-         * 4rem keeps desktop (where lvh and svh are the same) at its
-         * original spacing.
+         * Fixed, plain bottom offset - no `lvh`/`svh`/`calc()` mixing
+         * newer viewport units. Those units may not be reliably
+         * supported on your browser, which is the likely reason the
+         * previous calc()-based fix didn't actually work. This is a
+         * flat, generous safety margin using nothing but a normal
+         * value, so there's no feature-support risk left to guess at.
          */}
-        <div
-          className="absolute left-0 right-0 px-6 md:px-10"
-          style={{ bottom: 'max(4rem, calc(100lvh - 100svh + 1.5rem))' }}
-        >
+        <div className="absolute inset-x-0 bottom-24 px-6 md:bottom-16 md:px-10">
           <h1
             className="font-sans font-extrabold uppercase leading-[0.92] tracking-tight text-bone"
             style={{ fontSize: 'clamp(2.75rem, 12vw, 9.5rem)' }}
@@ -111,7 +103,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="sticky top-0 z-10 flex w-full items-center justify-center" style={{ height: '100lvh' }}>
+      <div className="sticky top-0 z-10 flex w-full items-center justify-center" style={{ height: 'calc(100vh + 120px)' }}>
         <IntroStatement />
       </div>
     </div>
