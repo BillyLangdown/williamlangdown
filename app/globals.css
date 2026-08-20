@@ -21,9 +21,8 @@ html {
 }
 
 /*
- * Keep scroll snapping off on mobile.
- * Mobile Safari + changing browser chrome + fixed hero layers can
- * otherwise settle in awkward intermediate states.
+ * Scroll snapping is useful for the slower desktop presentation,
+ * but mobile Safari behaves much more naturally without it.
  */
 @media (min-width: 768px) {
   html {
@@ -45,38 +44,7 @@ a {
   text-decoration: none;
 }
 
-/*
- * Full-bleed hero support on iOS Safari.
- *
- * The visual canvas can extend into the bottom safe area while
- * important content uses env(safe-area-inset-bottom) for spacing.
- */
-.hero-viewport {
-  height: 100lvh;
-  min-height: 100dvh;
-}
-
-.hero-media-overscan {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  /*
-   * Extend the artwork beyond Safari's layout viewport into the
-   * bottom safe-area region instead of ending above the toolbar.
-   */
-  bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
-}
-
-@supports not (height: 100lvh) {
-  .hero-viewport {
-    height: 100vh;
-    min-height: 100vh;
-  }
-}
-
-/* ── Mobile hero portrait: subtle zoom while waiting to be pushed ──────── */
+/* ── Mobile hero portrait ─────────────────────────────────────────────── */
 
 @keyframes portrait-breathe {
   from {
@@ -88,7 +56,7 @@ a {
   }
 }
 
-/* ── Mobile hero device mockups: gentle independent float ───────────────── */
+/* ── Mobile hero device mockups ─────────────────────────────────────── */
 
 @keyframes device-float-slow {
   0%,
@@ -127,7 +95,7 @@ a {
   }
 }
 
-/* ── View transitions ──────────────────────────────────────────────────── */
+/* ── View transitions ───────────────────────────────────────────────── */
 
 ::view-transition-old(root) {
   animation: 120ms ease both fade-out;

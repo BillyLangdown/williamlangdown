@@ -24,7 +24,9 @@ export const metadata: Metadata = {
   title: 'William Langdown | Brand, Digital & Technology Practice',
   description:
     'An independent practice combining brand strategy, digital design and software development for established UK businesses. Somerset-based, working nationwide.',
-  alternates: { canonical: 'https://williamlangdown.com' },
+  alternates: {
+    canonical: 'https://williamlangdown.com',
+  },
   icons: {
     icon: '/favicon.ico',
     apple: '/favicon.ico',
@@ -46,6 +48,12 @@ export const metadata: Metadata = {
   },
 }
 
+/*
+ * Allows the page itself to use the full iPhone viewport.
+ *
+ * Deliberately no themeColor here. We don't want to tell Safari
+ * to paint its browser chrome navy.
+ */
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
