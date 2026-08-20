@@ -48,12 +48,6 @@ export const metadata: Metadata = {
   },
 }
 
-/*
- * Allows the page itself to use the full iPhone viewport.
- *
- * Deliberately no themeColor here. We don't want to tell Safari
- * to paint its browser chrome navy.
- */
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,

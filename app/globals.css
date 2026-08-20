@@ -21,8 +21,8 @@ html {
 }
 
 /*
- * Scroll snapping is useful for the slower desktop presentation,
- * but mobile Safari behaves much more naturally without it.
+ * Keep snap behaviour on desktop only.
+ * Mobile is now a normal-flow page.
  */
 @media (min-width: 768px) {
   html {
@@ -34,7 +34,6 @@ html {
 body {
   color: #10233F;
   background: #F6F3EE;
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -56,7 +55,7 @@ a {
   }
 }
 
-/* ── Mobile hero device mockups ─────────────────────────────────────── */
+/* ── Mobile hero device mockups ──────────────────────────────────────── */
 
 @keyframes device-float-slow {
   0%,
@@ -95,7 +94,7 @@ a {
   }
 }
 
-/* ── View transitions ───────────────────────────────────────────────── */
+/* ── View transitions ────────────────────────────────────────────────── */
 
 ::view-transition-old(root) {
   animation: 120ms ease both fade-out;
