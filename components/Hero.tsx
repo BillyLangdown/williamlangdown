@@ -19,87 +19,163 @@ const HERO_NAV = [
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null)
-  const [showFixedLayer, setShowFixedLayer] = useState(false)
+
+  const [heroActive, setHeroActive] = useState(true)
+  const [showIntro, setShowIntro] = useState(false)
 
   useEffect(() => {
+    let frame: number | null = null
+
     const updateHeroState = () => {
       const hero = heroRef.current
       if (!hero) return
 
       const rect = hero.getBoundingClientRect()
-      const scrolledIntoHero = -rect.top
+      const viewportHeight = window.innerHeight
       const isMobile = window.innerWidth < 768
 
       /*
-       * Mobile switches into the intro slightly earlier and has less
-       * total scroll space. This avoids exposing an empty spacer while
-       * Safari changes viewport height / browser chrome on reverse scroll.
+       * The fixed visual stage should exist whenever some portion
+       * of the hero scroll space is still on screen.
+       *
+       * When the next section completely reaches the top, the hero
+       * switches off behind it.
+       */
+      const active = rect.bottom > 0 && rect.top < viewportHeight
+
+      /*
+       * Distance travelled through the hero.
+       */
+      const scrolledIntoHero = Math.max(0, -rect.top)
+
+      /*
+       * Mobile changes phase a little earlier.
+       * This gives the intro time to settle before the next section
+       * begins sweeping upward.
        */
       const introStart = isMobile
-        ? window.innerHeight * 0.72
-        : window.innerHeight * 0.88
+        ? viewportHeight * 0.72
+        : viewportHeight * 0.88
 
-      setShowFixedLayer(scrolledIntoHero >= introStart)
+      setHeroActive(active)
+      setShowIntro(active && scrolledIntoHero >= introStart)
+    }
+
+    const requestUpdate = () => {
+      if (frame !== null) return
+
+      frame = requestAnimationFrame(() => {
+        updateHeroState()
+        frame = null
+      })
     }
 
     updateHeroState()
 
-    window.addEventListener('scroll', updateHeroState, { passive: true })
-    window.addEventListener('resize', updateHeroState)
+    window.addEventListener('scroll', requestUpdate, { passive: true })
+    window.addEventListener('resize', requestUpdate)
 
     return () => {
-      window.removeEventListener('scroll', updateHeroState)
-      window.removeEventListener('resize', updateHeroState)
+      window.removeEventListener('scroll', requestUpdate)
+      window.removeEventListener('resize', requestUpdate)
+
+      if (frame !== null) {
+        cancelAnimationFrame(frame)
+      }
     }
   }, [])
 
   return (
     <>
       {/*
-       * MOBILE
-       * 200svh total:
-       * cover -> intro -> next section
+       * HERO SCROLL SPACE
        *
-       * DESKTOP
-       * 300svh total:
-       * preserves the slower cinematic sequence.
+       * Nothing visual lives in here anymore.
+       * It simply controls how long the fixed hero stage remains.
+       *
+       * Mobile is intentionally shorter.
+       *
+       * The next normal-flow section begins immediately after this
+       * and, because it has a higher z-index, physically scrolls
+       * over the fixed hero.
        */}
       <div
         ref={heroRef}
         className="
           relative
-          h-[200svh]
+          h-[240svh]
           md:h-[300svh]
           md:[scroll-snap-align:start]
         "
-      >
-        {/* Sticky background */}
-        <div
-          data-nav-theme="dark"
-          className="sticky top-0 z-0 h-[100svh] w-full overflow-hidden"
-        >
-          <div className="absolute inset-0">
-            <HeroMedia
-              imageSrc={IMAGE_SRC}
-              imageAlt="Navy and terracotta brand texture, William Langdown"
-            />
-          </div>
+        aria-hidden
+      />
 
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{ background: SCRIM }}
+      {/*
+       * SINGLE FIXED HERO STAGE
+       *
+       * Image never changes position.
+       * Only the content layer changes:
+       *
+       * Cover -> Intro
+       *
+       * The next page section then covers this whole stage.
+       */}
+      <div
+        data-nav-theme="dark"
+        aria-hidden={!heroActive}
+        className={`
+          fixed
+          inset-0
+          z-0
+          overflow-hidden
+          transition-opacity
+          duration-150
+          ${
+            heroActive
+              ? 'pointer-events-auto opacity-100'
+              : 'pointer-events-none opacity-0'
+          }
+        `}
+      >
+        {/* Background */}
+        <div className="absolute inset-0">
+          <HeroMedia
+            imageSrc={IMAGE_SRC}
+            imageAlt={
+              showIntro
+                ? ''
+                : 'Navy and terracotta brand texture, William Langdown'
+            }
           />
         </div>
 
-        {/* First hero frame */}
         <div
-          className="relative z-10 h-[100svh]"
-          style={{
-            marginTop: '-100svh',
-          }}
+          aria-hidden
+          className="absolute inset-0"
+          style={{ background: SCRIM }}
+        />
+
+        {/*
+         * COVER FRAME
+         *
+         * Slow/clean exit going down.
+         * Fast return when scrolling upward.
+         */}
+        <div
+          className={`
+            absolute
+            inset-0
+            z-10
+            transition-[opacity,transform]
+            ease-out
+            ${
+              showIntro
+                ? 'pointer-events-none -translate-y-3 opacity-0 duration-350'
+                : 'translate-y-0 opacity-100 duration-180'
+            }
+          `}
         >
-          {/* Desktop hero navigation */}
+          {/* Desktop navigation */}
           <nav
             aria-label="Main navigation"
             className="
@@ -139,7 +215,7 @@ export default function Hero() {
             </ul>
           </nav>
 
-          {/* Main hero typography */}
+          {/* Name / positioning */}
           <div className="relative flex h-full flex-col justify-end px-6 pb-14 md:px-10 md:pb-16">
             <h1
               className="
@@ -167,74 +243,26 @@ export default function Hero() {
         </div>
 
         {/*
-         * Desktop-only snap point.
-         * Avoid scroll snapping on mobile Safari.
+         * INTRO FRAME
+         *
+         * Subtle rise/fade entering.
+         * Quick disappearance when scrolling upward so there is
+         * no lingering ghosted text.
          */}
-        <div
-          aria-hidden
-          className="
-            absolute
-            left-0
-            hidden
-            h-px
-            w-full
-            md:block
-            md:[scroll-snap-align:start]
-          "
-          style={{
-            top: '100svh',
-          }}
-        />
-      </div>
-
-      {/*
-       * Fixed intro frame.
-       * The next normal-flow section should remain above this, e.g.
-       * relative z-10, so it scrolls over the intro.
-       */}
-      <div
-        data-nav-theme="dark"
-        aria-hidden={!showFixedLayer}
-        className={`
-          fixed
-          inset-0
-          z-0
-          flex
-          items-center
-          justify-center
-          overflow-hidden
-          transition-opacity
-          ${
-            showFixedLayer
-              ? 'pointer-events-auto opacity-100 duration-300'
-              : 'pointer-events-none opacity-0 duration-100'
-          }
-        `}
-      >
-        <div className="absolute inset-0">
-          <HeroMedia imageSrc={IMAGE_SRC} imageAlt="" />
-        </div>
-
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{ background: SCRIM }}
-        />
-
-        {/* Intro copy */}
         <div
           className={`
             absolute
             inset-0
+            z-10
             flex
             items-center
             justify-center
             transition-[opacity,transform]
             ease-out
             ${
-              showFixedLayer
-                ? 'translate-y-0 opacity-100 duration-700'
-                : 'translate-y-4 opacity-0 duration-100'
+              showIntro
+                ? 'translate-y-0 opacity-100 duration-650'
+                : 'pointer-events-none translate-y-4 opacity-0 duration-100'
             }
           `}
         >
