@@ -29,7 +29,15 @@ const HERO_NAV = [
 // visual trade against something that actually works everywhere.
 export default function Hero() {
   return (
-    <div className="relative" style={{ height: 'calc(200vh + 240px)', background: '#10233F' }}>
+    <div
+      className="relative"
+      style={{
+        height: 'calc(200vh + 240px)',
+        backgroundImage: `url(${IMAGE_SRC})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       <div
         data-nav-theme="dark"
         className="sticky top-0 z-0 w-full overflow-hidden"

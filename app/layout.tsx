@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from 'next'
+import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, Fraunces } from 'next/font/google'
 import Script from 'next/script'
 import GaPageTracker from '@/components/GaPageTracker'
@@ -22,15 +22,6 @@ const fraunces = Fraunces({
   axes: ['opsz', 'SOFT', 'WONK'],
   style: ['normal', 'italic'],
 })
-
-// Tells mobile Safari what color to render its own translucent
-// address/toolbar chrome as. Without this, Safari doesn't know what's
-// actually behind it and can render that area as a flat, opaque block
-// instead of blending with the page - matching the "can't see through
-// the bottom bar" report.
-export const viewport: Viewport = {
-  themeColor: '#10233F',
-}
 
 export const metadata: Metadata = {
   title: 'William Langdown | Brand, Digital & Technology Practice',
