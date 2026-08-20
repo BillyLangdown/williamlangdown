@@ -117,19 +117,22 @@ export default function HomePage() {
       <main>
         <Hero />
 
-        <FeaturedProject
-          name="BVS"
-          client="Building Ventilation Services"
-          tags={['Digital', 'Development', 'Technical SEO']}
-          context="An established ventilation contractor with a dated, slow WordPress site. Rebuilt as a fast headless site the team can manage themselves."
-          media={{ src: '/images/bvs-service-after.jpg', caption: 'bvs-ltd.co.uk' }}
-          secondaryMedia={{ src: '/images/showcase-bvs-mobile.jpg', caption: 'bvs-ltd.co.uk' }}
-          results={[
-            { value: '56 → 98', label: 'Mobile PageSpeed' },
-            { value: '69 → 100', label: 'Desktop PageSpeed' },
-          ]}
-          href="/case-studies/building-ventilation-services-ltd"
-        />
+    <FeaturedProject
+  name="BVS"
+  client="Building Ventilation Services"
+  tags={['Digital', 'Development', 'Technical SEO']}
+  context="An established ventilation contractor with a dated, slow WordPress site. Rebuilt as a fast headless site the team can manage themselves."
+  media={{
+    video: '/videos/bvs-desktop-showcase.mp4',
+    src: '/images/bvs-service-after.jpg',
+    caption: 'bvs-ltd.co.uk',
+  }}
+  results={[
+    { value: '56 → 98', label: 'Mobile PageSpeed' },
+    { value: '69 → 100', label: 'Desktop PageSpeed' },
+  ]}
+  href="/case-studies/building-ventilation-services-ltd"
+/>
 
         <Capabilities />
 
