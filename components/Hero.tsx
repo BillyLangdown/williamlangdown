@@ -22,101 +22,61 @@ export default function Hero() {
   const [showFixedLayer, setShowFixedLayer] = useState(false)
 
   useEffect(() => {
-    let settleTimer: ReturnType<typeof setTimeout>
-
     const updateHeroState = () => {
       const hero = heroRef.current
       if (!hero) return
 
       const rect = hero.getBoundingClientRect()
       const scrolledIntoHero = -rect.top
+      const isMobile = window.innerWidth < 768
 
       /*
-       * Bring the fixed intro in just before the first viewport has
-       * completely cleared. This prevents an empty-background state
-       * while still allowing the main heading to naturally scroll away.
+       * Mobile switches into the intro slightly earlier and has less
+       * total scroll space. This avoids exposing an empty spacer while
+       * Safari changes viewport height / browser chrome on reverse scroll.
        */
-      const introStart = window.innerHeight * 0.88
+      const introStart = isMobile
+        ? window.innerHeight * 0.72
+        : window.innerHeight * 0.88
 
       setShowFixedLayer(scrolledIntoHero >= introStart)
     }
 
-    const handleScroll = () => {
-      updateHeroState()
-
-      // If scrolling comes to rest partway through the heading exiting
-      // (neither fully shown nor fully cleared), finish the scroll the
-      // rest of the way to whichever side is closer, so it's never
-      // possible to overscroll straight past the intro and miss it.
-      // Only ever acts within this one dead zone - never touches scroll
-      // once past it, so it can't trap scrolling like a global CSS
-      // scroll-snap `mandatory` setting would.
-      clearTimeout(settleTimer)
-      settleTimer = setTimeout(() => {
-        const hero = heroRef.current
-        if (!hero) return
-
-        const rect = hero.getBoundingClientRect()
-        const scrolledIntoHero = -rect.top
-        const oneScreen = window.innerHeight
-
-        if (scrolledIntoHero > 0 && scrolledIntoHero < oneScreen) {
-          const heroTop = rect.top + window.scrollY
-          const target = scrolledIntoHero < oneScreen / 2 ? heroTop : heroTop + oneScreen
-          window.scrollTo({ top: target, behavior: 'smooth' })
-        }
-      }, 120)
-    }
-
     updateHeroState()
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', handleScroll)
+    window.addEventListener('scroll', updateHeroState, { passive: true })
+    window.addEventListener('resize', updateHeroState)
 
     return () => {
-      clearTimeout(settleTimer)
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
+      window.removeEventListener('scroll', updateHeroState)
+      window.removeEventListener('resize', updateHeroState)
     }
   }, [])
 
   return (
     <>
       {/*
-       * HERO SCROLL SPACE
+       * MOBILE
+       * 200svh total:
+       * cover -> intro -> next section
        *
-       * 0–100svh:
-       * Main William Langdown cover scrolls away (one screen).
-       *
-       * 100–250svh:
-       * Fixed intro frame remains behind the page (a screen and a half,
-       * extra buffer against overscrolling straight past it).
-       *
-       * After this hero finishes:
-       * The following page section scrolls naturally over the fixed layer.
-       *
-       * `svh` (not `dvh`) deliberately: `dvh` recalculates live as the
-       * mobile browser's toolbar shows/hides mid-scroll, which made the
-       * sticky/negative-margin math shift under your finger (the "very
-       * glitchy" report). `svh` stays fixed during a scroll gesture. The
-       * background here is navy to match the image, so if `svh` ever
-       * slightly under-reports the real viewport, any gap blends into
-       * the image instead of showing the page's cream background.
+       * DESKTOP
+       * 300svh total:
+       * preserves the slower cinematic sequence.
        */}
       <div
         ref={heroRef}
-        className="relative"
-        style={{
-          height: '250svh',
-          scrollSnapAlign: 'start',
-          background: '#10233F',
-        }}
+        className="
+          relative
+          h-[200svh]
+          md:h-[300svh]
+          md:[scroll-snap-align:start]
+        "
       >
-        {/* Sticky background during the hero scroll space */}
+        {/* Sticky background */}
         <div
           data-nav-theme="dark"
-          className="sticky top-0 z-0 w-full overflow-hidden"
-          style={{ height: '100svh' }}
+          className="sticky top-0 z-0 h-[100svh] w-full overflow-hidden"
         >
           <div className="absolute inset-0">
             <HeroMedia
@@ -132,16 +92,10 @@ export default function Hero() {
           />
         </div>
 
-        {/*
-         * FIRST FRAME
-         *
-         * This sits over the sticky media but is itself normal hero
-         * content, so it naturally leaves the viewport as the page scrolls.
-         */}
+        {/* First hero frame */}
         <div
-          className="relative z-10"
+          className="relative z-10 h-[100svh]"
           style={{
-            height: '100svh',
             marginTop: '-100svh',
           }}
         >
@@ -210,33 +164,33 @@ export default function Hero() {
               <span className="text-terracotta">/</span> Technology
             </p>
           </div>
-
-       
-          
         </div>
 
         {/*
-         * Explicit snap point for the intro state.
-         * The fixed intro is already visible by the time scrolling settles
-         * here, so there can be no blank hero frame.
+         * Desktop-only snap point.
+         * Avoid scroll snapping on mobile Safari.
          */}
         <div
           aria-hidden
-          className="absolute left-0 h-px w-full"
+          className="
+            absolute
+            left-0
+            hidden
+            h-px
+            w-full
+            md:block
+            md:[scroll-snap-align:start]
+          "
           style={{
             top: '100svh',
-            scrollSnapAlign: 'start',
           }}
         />
       </div>
 
       {/*
-       * FIXED INTRO FRAME
-       *
-       * This is intentionally fixed rather than sticky.
-       *
-       * It stays completely stationary behind the page until the next
-       * normal-flow section physically scrolls over it.
+       * Fixed intro frame.
+       * The next normal-flow section should remain above this, e.g.
+       * relative z-10, so it scrolls over the intro.
        */}
       <div
         data-nav-theme="dark"
@@ -267,11 +221,7 @@ export default function Hero() {
           style={{ background: SCRIM }}
         />
 
-        {/*
-         * Slow, subtle rise on entry.
-         * Fast disappearance when returning to the first frame,
-         * preventing lingering/ghosted intro copy.
-         */}
+        {/* Intro copy */}
         <div
           className={`
             absolute
