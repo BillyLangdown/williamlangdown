@@ -50,7 +50,6 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  themeColor: '#10233F',
 }
 
 export default function RootLayout({
@@ -82,7 +81,7 @@ export default function RootLayout({
       </head>
 
       <body
-        className="font-sans antialiased text-ink"
+        className="font-sans antialiased bg-surface text-ink"
         suppressHydrationWarning
       >
         <GaPageTracker />

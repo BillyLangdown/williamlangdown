@@ -1,7 +1,5 @@
 @tailwind base;
-
 @tailwind components;
-
 @tailwind utilities;
 
 *,
@@ -19,9 +17,14 @@ body {
 
 html {
   scroll-behavior: smooth;
-  background: #10233F;
+  background: #F6F3EE;
 }
 
+/*
+ * Keep scroll snapping off on mobile.
+ * Mobile Safari + changing browser chrome + fixed hero layers can
+ * otherwise settle in awkward intermediate states.
+ */
 @media (min-width: 768px) {
   html {
     scroll-snap-type: y proximity;
@@ -31,7 +34,7 @@ html {
 
 body {
   color: #10233F;
-  background: #10233F;
+  background: #F6F3EE;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -41,48 +44,126 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/*
+ * Full-bleed hero support on iOS Safari.
+ *
+ * The visual canvas can extend into the bottom safe area while
+ * important content uses env(safe-area-inset-bottom) for spacing.
+ */
+.hero-viewport {
+  height: 100lvh;
+  min-height: 100dvh;
+}
+
+.hero-media-overscan {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  /*
+   * Extend the artwork beyond Safari's layout viewport into the
+   * bottom safe-area region instead of ending above the toolbar.
+   */
+  bottom: calc(-1 * env(safe-area-inset-bottom, 0px));
+}
+
+@supports not (height: 100lvh) {
+  .hero-viewport {
+    height: 100vh;
+    min-height: 100vh;
+  }
+}
+
 /* ── Mobile hero portrait: subtle zoom while waiting to be pushed ──────── */
+
 @keyframes portrait-breathe {
-  from { transform: scale(1.06); }
-  to   { transform: scale(1); }
+  from {
+    transform: scale(1.06);
+  }
+
+  to {
+    transform: scale(1);
+  }
 }
 
 /* ── Mobile hero device mockups: gentle independent float ───────────────── */
+
 @keyframes device-float-slow {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-7px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
 }
+
 @keyframes device-float-fast {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-5px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
 }
-.animate-device-float-slow { animation: device-float-slow 5.5s ease-in-out infinite; }
-.animate-device-float-fast { animation: device-float-fast 4.2s ease-in-out infinite 0.35s; }
+
+.animate-device-float-slow {
+  animation: device-float-slow 5.5s ease-in-out infinite;
+}
+
+.animate-device-float-fast {
+  animation: device-float-fast 4.2s ease-in-out infinite 0.35s;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-device-float-slow, .animate-device-float-fast { animation: none; }
+  .animate-device-float-slow,
+  .animate-device-float-fast {
+    animation: none;
+  }
 }
 
 /* ── View transitions ──────────────────────────────────────────────────── */
+
 ::view-transition-old(root) {
   animation: 120ms ease both fade-out;
 }
+
 ::view-transition-new(root) {
   animation: 200ms ease both fade-in;
 }
 
 @keyframes fade-out {
-  from { opacity: 1; }
-  to   { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes nudge-right {
-  0%, 100% { transform: translateX(0); }
-  50%       { transform: translateX(5px); }
-}
+  0%,
+  100% {
+    transform: translateX(0);
+  }
 
+  50% {
+    transform: translateX(5px);
+  }
+}

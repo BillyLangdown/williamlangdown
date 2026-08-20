@@ -19,6 +19,7 @@ const HERO_NAV = [
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null)
+
   const [heroActive, setHeroActive] = useState(true)
   const [showIntro, setShowIntro] = useState(false)
 
@@ -33,19 +34,25 @@ export default function Hero() {
       const viewportHeight = window.innerHeight
       const isMobile = window.innerWidth < 768
 
-      const active = rect.bottom > 0 && rect.top < viewportHeight
+      const active =
+        rect.bottom > 0 &&
+        rect.top < viewportHeight
+
       const scrolledIntoHero = Math.max(0, -rect.top)
 
       /*
-       * Mobile now gets almost a full viewport of scrolling
-       * before Frame 2 appears.
+       * Mobile gets a real scroll phase before the intro appears.
+       * This avoids the "one swipe = instant frame 2" feeling.
        */
       const introStart = isMobile
         ? viewportHeight * 0.98
         : viewportHeight * 0.88
 
       setHeroActive(active)
-      setShowIntro(active && scrolledIntoHero >= introStart)
+      setShowIntro(
+        active &&
+          scrolledIntoHero >= introStart
+      )
     }
 
     const requestUpdate = () => {
@@ -59,7 +66,10 @@ export default function Hero() {
 
     updateHeroState()
 
-    window.addEventListener('scroll', requestUpdate, { passive: true })
+    window.addEventListener('scroll', requestUpdate, {
+      passive: true,
+    })
+
     window.addEventListener('resize', requestUpdate)
 
     return () => {
@@ -75,38 +85,38 @@ export default function Hero() {
   return (
     <>
       {/*
+       * Scroll space only.
+       *
        * Mobile:
+       * roughly one viewport for cover,
+       * then one for intro,
+       * then the next section starts covering.
        *
-       * ~1 viewport = Frame 1
-       * ~1 viewport = Frame 2
-       * remainder = next section begins covering it
-       *
-       * Desktop keeps the slower 300svh sequence.
+       * Desktop stays slower.
        */}
       <div
         ref={heroRef}
+        aria-hidden
         className="
           relative
           h-[250svh]
-          bg-[#10233F]
           md:h-[300svh]
           md:[scroll-snap-align:start]
         "
-        aria-hidden
       />
 
-      {/* Full-screen visual stage */}
+      {/* FIXED HERO STAGE */}
       <div
         data-nav-theme="dark"
         aria-hidden={!heroActive}
         className={`
+          hero-viewport
           fixed
           left-0
           top-0
           z-0
           w-full
           overflow-hidden
-          bg-[#10233F]
           transition-opacity
           duration-150
           ${
@@ -115,13 +125,9 @@ export default function Hero() {
               : 'pointer-events-none opacity-0'
           }
         `}
-        style={{
-          height: '100dvh',
-          minHeight: '100svh',
-        }}
       >
-        {/* Background */}
-        <div className="absolute inset-0 bg-[#10233F]">
+        {/* Artwork deliberately overscans into iOS safe area */}
+        <div className="hero-media-overscan">
           <HeroMedia
             imageSrc={IMAGE_SRC}
             imageAlt={
@@ -153,7 +159,7 @@ export default function Hero() {
             }
           `}
         >
-          {/* Desktop navigation */}
+          {/* Desktop hero navigation */}
           <nav
             aria-label="Main navigation"
             className="
@@ -193,6 +199,7 @@ export default function Hero() {
             </ul>
           </nav>
 
+          {/* Main hero typography */}
           <div
             className="
               relative
@@ -225,8 +232,11 @@ export default function Hero() {
             </h1>
 
             <p className="mt-5 text-sm font-medium tracking-wide text-bone/80 md:mt-7 md:text-base">
-              Brand <span className="text-terracotta">/</span> Digital{' '}
-              <span className="text-terracotta">/</span> Technology
+              Brand{' '}
+              <span className="text-terracotta">/</span>{' '}
+              Digital{' '}
+              <span className="text-terracotta">/</span>{' '}
+              Technology
             </p>
           </div>
         </div>
