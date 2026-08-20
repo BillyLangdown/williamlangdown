@@ -8,23 +8,23 @@ type Step = {
 const steps: Step[] = [
   {
     title: 'Understand',
-    description: 'The business, the market, the audience and the competitors. What the problem actually is, not just the symptom that prompted the call.',
+    description: 'Your business, audience, competition and what actually needs to change.',
   },
   {
     title: 'Define',
-    description: "Priorities and strategic direction. What needs to change first, and what doesn't need touching at all.",
+    description: 'Turn the research into a clear strategy and direction.',
   },
   {
     title: 'Create',
-    description: 'Identity, digital experience or system, developed around the direction agreed in the previous stage, not before it.',
+    description: 'Explore ideas and develop a creative direction with reason behind every decision.',
   },
   {
     title: 'Build',
-    description: 'Production implementation: designed, developed and tested properly, whether that\'s a brand system, a website or software.',
+    description: 'Bring the chosen direction to life, from design through to a finished product.',
   },
   {
     title: 'Evolve',
-    description: 'Measuring what changed, refining what didn\'t work as expected, and identifying what to tackle next.',
+    description: "Launch, learn and improve where there's more value to add.",
   },
 ]
 
