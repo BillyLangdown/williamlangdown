@@ -113,78 +113,82 @@ export default function Nav() {
         </button>
       </div>
 
-      {/* Mobile menu: full-screen navy takeover, iris-reveals from the burger */}
+      {/* Mobile menu: sliding drawer from the right */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            className="md:hidden fixed inset-0 z-[60]"
-            style={{
-              background: '#10233F',
-              backgroundImage: 'radial-gradient(circle, rgba(193,97,61,0.4) 1.5px, transparent 1.5px)',
-              backgroundSize: '24px 24px',
-            }}
-            initial={{ clipPath: 'circle(0% at calc(100% - 40px) 40px)' }}
-            animate={{ clipPath: 'circle(150% at calc(100% - 40px) 40px)' }}
-            exit={{ clipPath: 'circle(0% at calc(100% - 40px) 40px)' }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="h-full flex flex-col justify-between px-6 pt-28 pb-10 overflow-y-auto">
-              <nav className="flex flex-col">
-                {links.map(({ href, label }, i) => {
-                  const active = pathname === href || (href !== '/' && pathname.startsWith(href))
-                  return (
-                    <motion.div
-                      key={href}
-                      initial={{ opacity: 0, y: 18 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 + i * 0.06, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                      <Link
-                        href={href}
-                        onClick={() => setOpen(false)}
-                        className="flex items-baseline gap-4 py-4 border-b border-bone/10"
+          <>
+            <motion.div
+              className="md:hidden fixed inset-0 z-[55]"
+              style={{ background: 'rgba(10,24,48,0.5)' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setOpen(false)}
+            />
+            <motion.div
+              className="md:hidden fixed inset-y-0 right-0 z-[60] w-[85%] max-w-sm"
+              style={{ background: '#10233F' }}
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="h-full flex flex-col justify-between px-6 pt-28 pb-10 overflow-y-auto">
+                <nav className="flex flex-col">
+                  {links.map(({ href, label }, i) => {
+                    const active = pathname === href || (href !== '/' && pathname.startsWith(href))
+                    return (
+                      <motion.div
+                        key={href}
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.15 + i * 0.05, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                       >
-                        <span className="text-xs font-semibold tabular-nums" style={{ color: '#C1613D' }}>
-                          {String(i + 1).padStart(2, '0')}
-                        </span>
-                        <span
-                          className="font-sans font-extrabold uppercase tracking-tight leading-none transition-colors"
-                          style={{ fontSize: 'clamp(2rem, 9vw, 2.75rem)', color: active ? '#C1613D' : '#F6F3EE' }}
+                        <Link
+                          href={href}
+                          onClick={() => setOpen(false)}
+                          className="block py-4 border-b border-bone/10"
                         >
-                          {label}
-                        </span>
-                      </Link>
-                    </motion.div>
-                  )
-                })}
-              </nav>
+                          <span
+                            className="font-sans font-extrabold uppercase tracking-tight leading-none transition-colors"
+                            style={{ fontSize: 'clamp(1.75rem, 7vw, 2.25rem)', color: active ? '#C1613D' : '#F6F3EE' }}
+                          >
+                            {label}
+                          </span>
+                        </Link>
+                      </motion.div>
+                    )
+                  })}
+                </nav>
 
-              <motion.div
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + links.length * 0.06, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-col gap-5"
-              >
-                <div className="flex flex-col gap-1">
-                  <a href="tel:+447446856927" className="text-sm font-semibold text-bone">
-                    +44 7446 856927
-                  </a>
-                  <p className="text-xs text-bone/50">Somerset-based, working UK-wide</p>
-                </div>
-                <Link
-                  href="/contact"
-                  onClick={() => setOpen(false)}
-                  className="inline-flex justify-center items-center gap-2 text-sm px-6 py-3.5 rounded-sm font-medium"
-                  style={{ background: '#F6F3EE', color: '#10233F' }}
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15 + links.length * 0.05, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex flex-col gap-5"
                 >
-                  Get in touch
-                  <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
-              </motion.div>
-            </div>
-          </motion.div>
+                  <div className="flex flex-col gap-1">
+                    <a href="tel:+447446856927" className="text-sm font-semibold text-bone">
+                      +44 7446 856927
+                    </a>
+                    <p className="text-xs text-bone/50">Somerset-based, working UK-wide</p>
+                  </div>
+                  <Link
+                    href="/contact"
+                    onClick={() => setOpen(false)}
+                    className="inline-flex justify-center items-center gap-2 text-sm px-6 py-3.5 rounded-sm font-medium"
+                    style={{ background: '#F6F3EE', color: '#10233F' }}
+                  >
+                    Get in touch
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                      <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </Link>
+                </motion.div>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

@@ -191,14 +191,13 @@ function DesktopHero() {
               lg:top-10
             "
           >
-            <ul className="m-0 flex list-none flex-col items-end gap-[13px] p-0">
+            <ul className="m-0 flex list-none items-center gap-8 p-0 lg:gap-10">
               {HERO_NAV.map((item) => (
                 <li key={item.label}>
                   <Link
                     href={item.href}
                     className="
                       block
-                      text-right
                       text-[13px]
                       font-medium
                       leading-none
