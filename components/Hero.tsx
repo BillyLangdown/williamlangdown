@@ -202,7 +202,7 @@ function DesktopHero() {
                       font-medium
                       leading-none
                       tracking-[-0.01em]
-                      text-bone
+                      text-bone/80
                       transition-colors
                       duration-200
                       hover:text-terracotta
