@@ -27,6 +27,17 @@ html {
   }
 }
 
+/* Mobile gets its own snap-type so the intro-statement section
+   (the only mobile section with scroll-snap-align set) can snap into
+   place on swipe. Kept in its own max-width query rather than folded
+   into the block above so the existing desktop rule is untouched. */
+@media (max-width: 767.98px) {
+  html {
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 0;
+  }
+}
+
 body {
   color: #10233F;
   background: #F6F3EE;

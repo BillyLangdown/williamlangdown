@@ -22,10 +22,7 @@ export const metadata: Metadata = {
   },
 }
 
-// The strongest current commercial example. Swap this to the APE slug once
-// that project is ready, and it becomes 01 / Featured without touching
-// anything else on this page.
-const FEATURED_SLUG = 'building-ventilation-services-ltd'
+const FEATURED_SLUG = 'planning-enforcement-advisory'
 
 const isAuditOnly = (study: CaseStudy) =>
   !study.beforeImage &&

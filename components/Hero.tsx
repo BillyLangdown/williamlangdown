@@ -37,92 +37,107 @@ export default function Hero() {
 /* ================================================================
    MOBILE
 
-   Background stays locked.
-   Copy scrolls upward.
-   Bone FeaturedProject follows and visually covers the hero.
-   No intro frame on mobile.
+   Background stays locked while the name copy scrolls upward, same
+   as before. No sticky-pinned second frame though — mobile Safari's
+   dynamic toolbar makes `position: sticky` + `svh` stacking unreliable
+   over a second full-screen frame. Instead the intro statement is a
+   normal but full-screen (100svh) section directly beneath, on the
+   same bone field as the Selected Work section that follows it, quote
+   centred both axes so it's the only thing on screen for that swipe
+   before the page moves on. Snaps into place on mobile via the
+   max-width companion to the desktop snap query below.
    ================================================================ */
 
 function MobileHero() {
   return (
-    <section
-      data-nav-theme="dark"
-      className="
-        relative
-        h-[115svh]
-        w-full
-      "
-    >
-      {/* Locked visual */}
-      <div
+    <>
+      <section
+        data-nav-theme="dark"
         className="
-          sticky
-          top-0
-          h-[100svh]
+          relative
+          h-[115svh]
           w-full
-          overflow-hidden
-          bg-[#10233F]
         "
       >
-        <div className="absolute inset-0">
-          <HeroMedia
-            imageSrc={IMAGE_SRC}
-            imageAlt="Navy and terracotta brand texture, William Langdown"
+        {/* Locked visual */}
+        <div
+          className="
+            sticky
+            top-0
+            h-[100svh]
+            w-full
+            overflow-hidden
+            bg-[#10233F]
+          "
+        >
+          <div className="absolute inset-0">
+            <HeroMedia
+              imageSrc={IMAGE_SRC}
+              imageAlt="Navy and terracotta brand texture, William Langdown"
+            />
+          </div>
+
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{ background: SCRIM }}
           />
         </div>
 
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{ background: SCRIM }}
-        />
-      </div>
-
-      {/* Copy scrolls normally upward over the locked image */}
-      <div
-        className="
-          relative
-          z-10
-          -mt-[100svh]
-          h-[100svh]
-          w-full
-        "
-      >
+        {/* Copy scrolls normally upward over the locked image */}
         <div
           className="
-            flex
-            h-full
-            flex-col
-            justify-end
-            px-6
-            pb-[calc(1.75rem+env(safe-area-inset-bottom,0px))]
+            relative
+            z-10
+            -mt-[100svh]
+            h-[100svh]
+            w-full
           "
         >
-          <h1
+          <div
             className="
-              font-sans
-              font-extrabold
-              uppercase
-              leading-[0.9]
-              tracking-tight
-              text-bone
+              flex
+              h-full
+              flex-col
+              justify-end
+              px-6
+              pb-[calc(1.75rem+env(safe-area-inset-bottom,0px))]
             "
-            style={{
-              fontSize: 'clamp(3.4rem, 15vw, 5.25rem)',
-            }}
           >
-            William
-            <br />
-            Langdown
-          </h1>
+            <h1
+              className="
+                font-sans
+                font-extrabold
+                uppercase
+                leading-[0.9]
+                tracking-tight
+                text-bone
+              "
+              style={{
+                fontSize: 'clamp(3.4rem, 15vw, 5.25rem)',
+              }}
+            >
+              William
+              <br />
+              Langdown
+            </h1>
 
-          <p className="mt-5 text-[14px] font-medium tracking-wide text-bone/80">
-            Brand <span className="text-terracotta">/</span> Digital{' '}
-            <span className="text-terracotta">/</span> Technology
-          </p>
+            <p className="mt-5 text-[14px] font-medium tracking-wide text-bone/80">
+              Brand <span className="text-terracotta">/</span> Digital{' '}
+              <span className="text-terracotta">/</span> Technology
+            </p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section
+        data-nav-theme="light"
+        className="relative flex h-[100svh] w-full items-center justify-center bg-bone"
+        style={{ scrollSnapAlign: 'start' }}
+      >
+        <IntroStatement />
+      </section>
+    </>
   )
 }
 

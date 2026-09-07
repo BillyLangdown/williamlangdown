@@ -113,25 +113,36 @@ export default function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-    
+      <Nav />
       <main>
         <Hero />
 
     <FeaturedProject
-  name="BVS"
-  client="Building Ventilation Services"
-  tags={['Digital', 'Development', 'Technical SEO']}
-  context="An established ventilation contractor with a dated, slow WordPress site. Rebuilt as a fast headless site the team can manage themselves."
-  media={{
-    video: '/videos/bvs-desktop-showcase.mp4',
-    src: '/images/bvs-service-after.jpg',
-    caption: 'bvs-ltd.co.uk',
+  name="The Planning Enforcement Advisory"
+  client="Planning enforcement consultancy"
+  tags={['Strategy', 'Brand', 'UX/UI', 'Development']}
+  context="A new identity and mobile-first digital experience for a specialist planning enforcement consultancy, designed to make a complex process feel clear and approachable."
+  image={{
+    src: '/images/pea-her0-mockup-2.png',
+    alt: 'The Planning Enforcement Advisory homepage hero mockup',
+    width: 1024,
+    height: 1536,
   }}
-  results={[
-    { value: '56 → 98', label: 'Mobile PageSpeed' },
-    { value: '69 → 100', label: 'Desktop PageSpeed' },
-  ]}
-  href="/case-studies/building-ventilation-services-ltd"
+  detail={{
+    src: '/images/pea-what-is-pnc-mockup.png',
+    alt: 'The Planning Enforcement Advisory notice explainer: "What is a Planning Contravention Notice?"',
+    width: 1023,
+    height: 970,
+  }}
+  video={{
+    src: '/videos/pea-lockup.mp4',
+    poster: '/images/pea-logo-poster.jpg',
+    width: 2400,
+    height: 1500,
+    alt: 'The Planning Enforcement Advisory — animated identity mark',
+  }}
+  href="/case-studies/planning-enforcement-advisory"
+  ctaLabel="Read case study"
 />
 
         <Capabilities />

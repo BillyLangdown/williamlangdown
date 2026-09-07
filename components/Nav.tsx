@@ -63,8 +63,17 @@ export default function Nav() {
   const fg = overDark ? '#F6F3EE' : '#10233F'
   const fgDim = overDark ? 'rgba(246,243,238,0.7)' : '#8C887D'
 
+  // On desktop, every page except home gets a solid white bar, so its
+  // text stays fixed to the light-section colours regardless of what
+  // section is scrolled behind it. Home keeps the transparent, colour
+  // adapting bar (and is hidden on desktop entirely, see className below).
+  const desktopFgDim = isHome ? fgDim : '#8C887D'
+  const desktopOverDark = isHome ? overDark : false
+
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 ${isHome ? 'md:hidden' : ''}`}>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 ${isHome ? 'md:hidden' : 'md:bg-white md:border-b md:border-border-light'}`}
+    >
       <div className="relative z-[70] max-w-6xl mx-auto px-6 h-16 flex items-center justify-end md:grid md:grid-cols-[1fr_auto_1fr] md:items-center">
         {/* Spacer, balances the CTA column so the nav below sits centred */}
         <div className="hidden md:block" aria-hidden />
@@ -78,7 +87,7 @@ export default function Nav() {
                 key={href}
                 href={href}
                 className="text-xs font-extrabold uppercase tracking-wide transition-colors"
-                style={{ color: active ? '#C1613D' : fgDim }}
+                style={{ color: active ? '#C1613D' : desktopFgDim }}
               >
                 {label}
               </Link>
@@ -88,7 +97,7 @@ export default function Nav() {
 
         {/* CTA */}
         <div className="hidden md:flex justify-self-end shrink-0">
-          <NavCTA light={overDark} />
+          <NavCTA light={desktopOverDark} />
         </div>
 
         {/* Mobile burger / close */}

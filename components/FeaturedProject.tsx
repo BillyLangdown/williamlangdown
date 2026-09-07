@@ -1,12 +1,28 @@
 import Link from 'next/link'
-import { ClientWork } from '@/components/ClientWork'
+import Image from 'next/image'
 import ScrollReveal from '@/components/ScrollReveal'
 import SectionNav from '@/components/SectionNav'
 import BackgroundWord from '@/components/BackgroundWord'
+import PeaLogoVideo from '@/components/PeaLogoVideo'
 
 interface ResultStat {
   value: string
   label: string
+}
+
+interface CollectionImage {
+  src: string
+  alt: string
+  width: number
+  height: number
+}
+
+interface LogoVideo {
+  src: string
+  poster: string
+  width: number
+  height: number
+  alt: string
 }
 
 export default function FeaturedProject({
@@ -14,21 +30,23 @@ export default function FeaturedProject({
   client,
   tags,
   context,
-  media,
+  image,
+  detail,
+  video,
   results,
   href,
+  ctaLabel = 'View project',
 }: {
   name: string
   client: string
   tags: string[]
   context: string
-  media: {
-    video?: string
-    src: string
-    caption: string
-  }
-  results: ResultStat[]
+  image: CollectionImage
+  detail: CollectionImage
+  video: LogoVideo
+  results?: ResultStat[]
   href: string
+  ctaLabel?: string
 }) {
   return (
     <section
@@ -78,30 +96,65 @@ export default function FeaturedProject({
           </p>
         </ScrollReveal>
 
-        <ScrollReveal delay={80} className="mt-10 md:mt-12">
-          {/* Single desktop presentation */}
-          <div>
-            {/* Dark outer frame */}
-           
-              
-                <ClientWork
-                  media={media}
-                  alt={`${client} website`}
-                  caption=""
-                  aspect="16 / 9"
-                  objectPosition="top"
+        {/* ==================================================================
+            EDITORIAL SEQUENCE
+
+            Mobile stacks all three in one reading order: identity video,
+            then the detail crop, then the long product capture. From md
+            up the first two pair into a left column (small video sitting
+            above the detail shot) while the tall mobile capture stands
+            alone on the right — never an equal-card grid. Straight
+            edges, a single hairline border on the two static shots (just
+            enough separation from the cream page), no border on the
+            video — its own charcoal already reads apart from the page.
+           ================================================================== */}
+        <div className="mt-14 flex flex-col gap-16 md:mt-20 md:flex-row md:items-start md:gap-10 lg:gap-14">
+          <div className="flex flex-col gap-10 md:w-[44%] lg:w-[42%]">
+            <ScrollReveal delay={80}>
+              <PeaLogoVideo
+                src={video.src}
+                poster={video.poster}
+                width={video.width}
+                height={video.height}
+                alt={video.alt}
+              />
+            </ScrollReveal>
+
+            <ScrollReveal delay={140}>
+              <div style={{ border: '1px solid rgba(16,35,63,0.1)' }}>
+                <Image
+                  src={detail.src}
+                  alt={detail.alt}
+                  width={detail.width}
+                  height={detail.height}
+                  sizes="(max-width: 768px) 100vw, 40vw"
+                  className="h-auto w-full"
                 />
-            
-            
+              </div>
+            </ScrollReveal>
+          </div>
 
-            {media.caption && (
-              <p className="mt-3 text-xs text-tertiary">
-                {media.caption}
-              </p>
-            )}
+          <ScrollReveal delay={200} className="w-full md:w-[50%] lg:w-[52%]">
+            <div style={{ border: '1px solid rgba(16,35,63,0.1)' }}>
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="h-auto w-full"
+              />
+            </div>
+          </ScrollReveal>
+        </div>
 
-            {/* Project results */}
-            <div className="mt-8 flex flex-col gap-7 border-t border-border-light pt-7 md:flex-row md:items-end md:justify-between">
+        <ScrollReveal delay={240} className="mt-10 md:mt-12">
+          <div
+            className={`flex flex-col gap-7 border-t border-border-light pt-7 md:flex-row md:items-end ${
+              results && results.length > 0 ? 'md:justify-between' : 'md:justify-start'
+            }`}
+          >
+            {results && results.length > 0 && (
               <div className="flex gap-8 md:gap-12">
                 {results.map((result) => (
                   <div key={result.label}>
@@ -115,30 +168,30 @@ export default function FeaturedProject({
                   </div>
                 ))}
               </div>
+            )}
 
-              <Link
-                href={href}
-                className="inline-flex self-start items-center gap-2 text-sm font-medium text-ink underline decoration-2 underline-offset-4 transition-colors hover:text-terracotta md:self-auto"
-                style={{ textDecorationColor: '#C1613D' }}
+            <Link
+              href={href}
+              className="inline-flex self-start items-center gap-2 text-sm font-medium text-ink underline decoration-2 underline-offset-4 transition-colors hover:text-terracotta md:self-auto"
+              style={{ textDecorationColor: '#C1613D' }}
+            >
+              {ctaLabel}
+
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 14 14"
+                fill="none"
               >
-                View project
-
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                >
-                  <path
-                    d="M1 7h12M7 1l6 6-6 6"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
-            </div>
+                <path
+                  d="M1 7h12M7 1l6 6-6 6"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Link>
           </div>
         </ScrollReveal>
       </div>

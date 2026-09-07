@@ -8,7 +8,7 @@ interface Item {
   tag: string
   note?: string
   results?: { value: string; label: string }[]
-  media: { src: string; caption: string }
+  media: { src: string; video?: string; caption: string }
   href: string
   external?: boolean
 }
@@ -25,12 +25,18 @@ const items: Item[] = [
     href: '/case-studies/the-garden-tablecloth-co',
   },
   {
-    name: 'Axiom',
-    tag: 'Self-directed / Motion',
-    note: 'A concept exploring interface motion, not a client project.',
-    media: { src: '/images/showcase-axiom-desktop.jpg', caption: 'Concept' },
-    href: 'https://axiom-showcase.vercel.app',
-    external: true,
+    name: 'Building Ventilation Services',
+    tag: 'Audit / Design / Build',
+    results: [
+      { value: '98', label: 'Mobile PageSpeed' },
+      { value: '100', label: 'Desktop PageSpeed' },
+    ],
+    media: {
+      video: '/videos/bvs-desktop-showcase.mp4',
+      src: '/images/bvs-service-after.jpg',
+      caption: 'Case study',
+    },
+    href: '/case-studies/building-ventilation-services-ltd',
   },
 ]
 
@@ -44,7 +50,7 @@ export default function SecondaryWork() {
           {items.map((item) => {
             const inner = (
               <>
-                <ClientWork media={{ src: item.media.src }} alt={item.name} caption={item.media.caption} aspect="8 / 5" />
+                <ClientWork media={{ src: item.media.src, video: item.media.video }} alt={item.name} caption={item.media.caption} aspect="8 / 5" />
                 <p className="text-xs text-tertiary mt-4">{item.tag}</p>
                 <p className="text-base font-semibold text-ink mt-1 group-hover:text-terracotta transition-colors">{item.name}</p>
                 {item.results ? (

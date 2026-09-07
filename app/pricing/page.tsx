@@ -112,7 +112,7 @@ export default function PricingPage() {
                   </p>
 
                   <p className="mt-3 font-sans text-6xl font-extrabold leading-none tracking-[-0.055em] text-bone md:text-7xl">
-                    £2,000
+                    £2,500
                   </p>
 
                   <p className="mt-8 max-w-xl border-t border-bone/15 pt-6 text-sm leading-relaxed text-bone/60 md:text-base">
