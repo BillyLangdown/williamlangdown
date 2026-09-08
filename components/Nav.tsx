@@ -16,10 +16,16 @@ const links = [
 
 const HEADER_HEIGHT = 64
 
-export default function Nav() {
+export default function Nav({ isHome: isHomeProp }: { isHome?: boolean } = {}) {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
-  const isHome = pathname === '/'
+  // isHome is passed explicitly by the home page rather than derived purely
+  // from pathname here: on Vercel, ISR re-rendering this route on the server
+  // was intermittently resolving pathname to something other than '/',
+  // showing the desktop white nav bar on a hard refresh of home until a
+  // client-side navigation re-rendered it correctly. Passing it down removes
+  // that dependency for the one case that matters.
+  const isHome = isHomeProp ?? pathname === '/'
   // Bar is always transparent; only the text/icon colour adapts to
   // whatever section is currently sitting behind it.
   const [overDark, setOverDark] = useState(isHome)
