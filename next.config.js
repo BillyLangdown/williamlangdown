@@ -53,6 +53,26 @@ const nextConfig = {
         destination: '/pricing',
         permanent: true,
       },
+      {
+        // Growth Websites, Custom Software and Booking Systems & Automation
+        // retired as standalone product pages (2026-09): under the current
+        // positioning this work is just the Digital/Technology capability,
+        // scoped like any other project, not a separately branded product
+        // with its own pricing badge. See docs/brand-positioning.md.
+        source: '/services/growth-websites',
+        destination: '/services',
+        permanent: true,
+      },
+      {
+        source: '/services/custom-software',
+        destination: '/services',
+        permanent: true,
+      },
+      {
+        source: '/services/booking-systems-automation',
+        destination: '/services',
+        permanent: true,
+      },
     ]
   },
 }

@@ -12,12 +12,12 @@ import type { Metadata } from 'next'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Web Design Blog | William Langdown, Taunton & Somerset',
-  description: 'Web design, UX, and conversion advice from a web designer based in Taunton, Somerset, for small businesses across the South West.',
+  title: 'Insights | William Langdown',
+  description: 'Research and writing on brand, digital design and software, from an independent practice working with established UK businesses. Somerset-based, working nationwide.',
   alternates: { canonical: 'https://williamlangdown.com/blog' },
   openGraph: {
-    title: 'Web Design Blog | William Langdown, Taunton & Somerset',
-    description: 'Web design, UX, and conversion advice from a web designer based in Taunton, Somerset, for small businesses across the South West.',
+    title: 'Insights | William Langdown',
+    description: 'Research and writing on brand, digital design and software, from an independent practice working with established UK businesses.',
     url: 'https://williamlangdown.com/blog',
   },
 }

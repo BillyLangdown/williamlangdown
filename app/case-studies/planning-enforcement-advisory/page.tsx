@@ -14,7 +14,13 @@ export const metadata: Metadata = {
   title: 'The Planning Enforcement Advisory | William Langdown',
   description:
     'A new identity and mobile-first digital experience for a specialist planning enforcement consultancy: strategy, brand, UX/UI and development.',
-  robots: { index: false, follow: true },
+  alternates: { canonical: 'https://williamlangdown.com/case-studies/planning-enforcement-advisory' },
+  openGraph: {
+    title: 'The Planning Enforcement Advisory | William Langdown',
+    description:
+      'A new identity and mobile-first digital experience for a specialist planning enforcement consultancy: strategy, brand, UX/UI and development.',
+    url: 'https://williamlangdown.com/case-studies/planning-enforcement-advisory',
+  },
 }
 
 const LIVE_URL = 'https://pea-sooty.vercel.app/'
