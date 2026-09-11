@@ -105,48 +105,65 @@ export default function ProcessStrip() {
           })}
         </div>
 
-        {/* Desktop: full-bleed asymmetric editorial grid with rounded-corner hover reveal */}
-        <div
-          className="hidden gap-px bg-bone md:grid"
-          style={desktopGridStyle}
-        >
-          {steps.map((step) => (
-            <div
-              key={step.word}
-              style={{ gridArea: step.area }}
-              className={`
-                group relative flex flex-col justify-end
-                overflow-hidden rounded-none p-8 lg:p-10
-                transition-[border-radius] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
-                motion-reduce:transition-none
-                md:hover:rounded-[28px]
-                ${step.accent ? 'bg-terracotta' : 'bg-navy'}
-              `}
-            >
-              <div>
-                <h3
-                  className={`
-                    mb-3 font-heading font-medium leading-[0.94] tracking-[-0.04em]
-                    transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
-                    motion-reduce:transition-none md:group-hover:-translate-y-1
-                    ${step.area === 'understand' ? 'text-[3.4rem] lg:text-[4.4rem]' : 'text-[2.1rem] lg:text-[2.6rem]'}
-                    ${step.accent ? 'text-navy-deep' : 'text-bone'}
-                  `}
-                >
-                  {step.word}
-                </h3>
+        {/* Desktop: grid stays flush left; a side rail on the right carries
+            the oversized "Process" section label, rotated to run down the
+            margin, so the grid stops short of the right edge instead of
+            going fully full-bleed on both sides. */}
+        <div className="hidden md:flex md:items-stretch">
+          <div
+            className="grid flex-1 gap-px bg-bone"
+            style={desktopGridStyle}
+          >
+            {steps.map((step) => (
+              <div
+                key={step.word}
+                style={{ gridArea: step.area }}
+                className={`
+                  group relative flex flex-col justify-end
+                  overflow-hidden rounded-none p-8 lg:p-10
+                  transition-[border-radius] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+                  motion-reduce:transition-none
+                  md:hover:rounded-[28px]
+                  ${step.accent ? 'bg-terracotta' : 'bg-navy'}
+                `}
+              >
+                <div>
+                  <h3
+                    className={`
+                      mb-3 font-heading font-medium leading-[0.94] tracking-[-0.04em]
+                      transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+                      motion-reduce:transition-none md:group-hover:-translate-y-1
+                      ${step.area === 'understand' ? 'text-[3.4rem] lg:text-[4.4rem]' : 'text-[2.1rem] lg:text-[2.6rem]'}
+                      ${step.accent ? 'text-navy-deep' : 'text-bone'}
+                    `}
+                  >
+                    {step.word}
+                  </h3>
 
-                <p
-                  className={`
-                    max-w-[26ch] text-[13.5px] leading-[1.55]
-                    ${step.accent ? 'text-navy-deep/70' : 'text-bone/55'}
-                  `}
-                >
-                  {step.clause}
-                </p>
+                  <p
+                    className={`
+                      max-w-[26ch] text-[13.5px] leading-[1.55]
+                      ${step.accent ? 'text-navy-deep/70' : 'text-bone/55'}
+                    `}
+                  >
+                    {step.clause}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <div className="flex w-28 shrink-0 items-center justify-center border-l border-bone bg-[#10233F] lg:w-36 xl:w-44">
+            <span
+              className="
+                -rotate-90 whitespace-nowrap font-heading font-medium
+                tracking-[-0.03em] text-bone
+                text-6xl lg:text-7xl xl:text-8xl
+              "
+            >
+              Process
+            </span>
+          </div>
         </div>
 
       </ScrollReveal>
