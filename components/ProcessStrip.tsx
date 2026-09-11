@@ -1,6 +1,6 @@
 'use client'
 
-import type { CSSProperties } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import ScrollReveal from '@/components/ScrollReveal'
 
 const steps = [
@@ -54,6 +54,87 @@ const desktopGridStyle: CSSProperties = {
     '"build build build build build evolve evolve evolve evolve evolve evolve evolve"',
 }
 
+// Mobile: same grid logic translated to 2 columns instead of 12 — Understand
+// opens full-width, Define/Create pair up side by side, Build and Evolve
+// close full-width. Text wraps naturally at narrower widths rather than
+// needing a second breakpoint to collapse the 2-column row (verified no
+// horizontal overflow at 320px in testing).
+const mobileGridAreas =
+  '"understand understand" "define create" "build build" "evolve evolve"'
+
+// One shared heading size for all five mobile steps — sized to the
+// narrowest cell (Define/Create, side by side) so nothing looks dominant
+// or secondary; only the padding varies between the full-width and paired
+// cells.
+const mobileHeadingSize = 'text-[1.8rem]'
+
+const mobileCellStyle: Record<string, { pad: string }> = {
+  understand: { pad: 'px-6 py-8' },
+  define: { pad: 'px-5 py-6' },
+  create: { pad: 'px-5 py-6' },
+  build: { pad: 'px-6 py-6' },
+  evolve: { pad: 'px-6 py-6' },
+}
+
+// Scroll-triggered corner-radius reveal for mobile — the touch-device
+// counterpart to the desktop hover morph, since there's no hover to react
+// to. Each cell rounds itself once it's scrolled into view, staggered by
+// index so cells round one after another as the section scrolls past,
+// rather than all at once.
+function MobileCell({
+  index,
+  accent,
+  padding,
+  gridArea,
+  children,
+}: {
+  index: number
+  accent: boolean
+  padding: string
+  gridArea: string
+  children: React.ReactNode
+}) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [rounded, setRounded] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          timer = setTimeout(() => setRounded(true), index * 110)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.45 }
+    )
+    observer.observe(el)
+    return () => {
+      observer.disconnect()
+      if (timer) clearTimeout(timer)
+    }
+  }, [index])
+
+  return (
+    <div
+      ref={ref}
+      style={{ gridArea }}
+      className={`
+        flex flex-col justify-center overflow-hidden rounded-none
+        ${padding}
+        transition-[border-radius] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+        motion-reduce:transition-none
+        ${rounded ? 'rounded-[22px]' : ''}
+        ${accent ? 'bg-terracotta' : 'bg-navy'}
+      `}
+    >
+      {children}
+    </div>
+  )
+}
+
 // Purely decorative: no href/click-through, just the corner-radius hover
 // morph as an art moment. Rendered as divs, not links, so no pointer
 // cursor or focus affordance implies a destination that doesn't exist.
@@ -65,27 +146,31 @@ export default function ProcessStrip() {
     >
       <ScrollReveal>
 
-        {/* Mobile: full-bleed editorial vertical stack */}
-        <div className="flex flex-col md:hidden">
+        {/* Mobile: 2-column grid mirroring the desktop logic (Understand
+            full-width and dominant, Define/Create paired, Build/Evolve
+            close full-width) instead of five identical stacked rows. Same
+            bone-gap-line technique as desktop so borders read as one
+            connected grid, not separate cards. */}
+        <div
+          className="grid grid-cols-2 gap-px bg-bone md:hidden"
+          style={{ gridTemplateAreas: mobileGridAreas }}
+        >
           {steps.map((step, index) => {
-            const isFirst = index === 0
-            const isLast = index === steps.length - 1
+            const { pad } = mobileCellStyle[step.area]
+            const isPaired = step.area === 'define' || step.area === 'create'
 
             return (
-              <div
+              <MobileCell
                 key={step.word}
-                className={`
-                  flex flex-col justify-center px-6
-                  border-white/10
-                  ${!isLast ? 'border-b' : ''}
-                  ${isFirst ? 'py-9' : 'py-7'}
-                  ${step.accent ? 'bg-terracotta' : ''}
-                `}
+                index={index}
+                accent={step.accent}
+                padding={pad}
+                gridArea={step.area}
               >
                 <h3
                   className={`
-                    font-heading font-medium leading-[0.98] tracking-[-0.035em]
-                    ${isFirst ? 'text-[2.4rem]' : 'text-[1.9rem]'}
+                    font-heading font-medium leading-[0.98] tracking-[-0.03em]
+                    ${mobileHeadingSize}
                     ${step.accent ? 'text-navy-deep' : 'text-bone'}
                   `}
                 >
@@ -94,13 +179,14 @@ export default function ProcessStrip() {
 
                 <p
                   className={`
-                    mt-3 max-w-[28ch] text-[13px] leading-[1.55]
+                    mt-2.5 text-[12.5px] leading-[1.5]
+                    ${isPaired ? '' : 'max-w-[28ch]'}
                     ${step.accent ? 'text-navy-deep/70' : 'text-bone/55'}
                   `}
                 >
                   {step.clause}
                 </p>
-              </div>
+              </MobileCell>
             )
           })}
         </div>
