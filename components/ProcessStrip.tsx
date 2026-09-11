@@ -137,7 +137,7 @@ export default function ProcessStrip() {
 
           {/* Desktop: asymmetric editorial grid with square-to-circle hover morph */}
           <div
-            className="hidden gap-px bg-white/10 md:grid"
+            className="hidden gap-px bg-bone md:grid"
             style={desktopGridStyle}
           >
             {steps.map((step) => (
@@ -147,7 +147,11 @@ export default function ProcessStrip() {
                 style={{ gridArea: step.area }}
                 className={`
                   group relative isolate flex flex-col justify-between
-                  overflow-hidden p-8 outline-none [container-type:size] lg:p-10
+                  overflow-hidden rounded-none p-8 outline-none
+                  [container-type:size] lg:p-10
+                  transition-[border-radius] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+                  motion-reduce:transition-none
+                  md:hover:rounded-[28px] md:focus-visible:rounded-[28px]
                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-terracotta
                   ${step.accent ? 'bg-terracotta' : 'bg-navy'}
                 `}
@@ -161,7 +165,7 @@ export default function ProcessStrip() {
                   className={`
                     pointer-events-none absolute left-0 top-0 h-full w-full rounded-none
                     transition-[width,height,top,left,border-radius,transform,background-color]
-                    duration-[550ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+                    duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
                     motion-reduce:transition-none
                     ${step.accent ? 'bg-navy-deep/0' : 'bg-bone/0'}
                     md:group-hover:left-1/2 md:group-hover:top-1/2
@@ -186,7 +190,7 @@ export default function ProcessStrip() {
                     aria-hidden
                     className={`
                       font-heading text-xl leading-none opacity-0 transition-all
-                      duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
+                      duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
                       motion-reduce:transition-none
                       translate-x-1 md:group-hover:translate-x-0 md:group-hover:opacity-100
                       ${step.accent ? 'text-navy-deep' : 'text-bone'}
@@ -200,7 +204,7 @@ export default function ProcessStrip() {
                   <h3
                     className={`
                       mb-3 font-heading font-medium leading-[0.94] tracking-[-0.04em]
-                      transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
+                      transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
                       motion-reduce:transition-none md:group-hover:-translate-y-1
                       ${step.area === 'understand' ? 'text-[3.4rem] lg:text-[4.4rem]' : 'text-[2.1rem] lg:text-[2.6rem]'}
                       ${step.accent ? 'text-navy-deep' : 'text-bone'}
