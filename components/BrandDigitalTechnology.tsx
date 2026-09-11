@@ -1,37 +1,30 @@
 'use client'
 
 import Link from 'next/link'
-import type { CSSProperties } from 'react'
 import ScrollReveal from '@/components/ScrollReveal'
 
+// Desktop font sizes are calibrated per word, not shared, so BRAND (5
+// chars), DIGITAL (7) and TECHNOLOGY (10) fill their equal-width column to
+// roughly the same degree and read with the same visual weight — a single
+// shared size would either make Technology overflow/wrap or leave Brand and
+// Digital looking small and empty in their column.
 const disciplines = [
   {
     word: 'Brand',
     caption: 'Research / Positioning / Messaging / Identity / Creative direction',
+    size: 'clamp(2.25rem, 6vw, 5.25rem)',
   },
   {
     word: 'Digital',
     caption: 'UX / Web design / Digital experiences / Technical SEO / Analytics',
+    size: 'clamp(1.85rem, 5.25vw, 4.75rem)',
   },
   {
     word: 'Technology',
     caption: 'Development / Software / Integrations / Automation / Applied AI',
+    size: 'clamp(1.6rem, 3.6vw, 3.4rem)',
   },
 ] as const
-
-// Swiss/editorial grid: Brand (8/12, upper-left) and Digital (4/12,
-// upper-right) share row 1 and a vertical rule at their shared edge.
-// Technology spans the full width of row 2 — the larger lower territory.
-// The Explore link is anchored to row 3 sharing Digital's column span, so
-// the right-hand edge reads as one continuous line down through
-// Digital -> Explore, rather than floating independently under everything.
-const gridStyle: CSSProperties = {
-  gridTemplateColumns: 'repeat(12, minmax(0, 1fr))',
-  gridTemplateAreas:
-    '"brand brand brand brand brand brand brand brand digital digital digital digital" ' +
-    '"tech tech tech tech tech tech tech tech tech tech tech tech" ' +
-    '". . . . . . . . explore explore explore explore"',
-}
 
 export default function BrandDigitalTechnology() {
   return (
@@ -44,7 +37,10 @@ export default function BrandDigitalTechnology() {
           </p>
         </ScrollReveal>
 
-        {/* Mobile: clean vertical editorial sequence, not a shrunk desktop grid */}
+        {/* Mobile: clean vertical editorial sequence, all three at the same
+            size — full viewport width removes the fit problem that makes
+            desktop need per-word calibration, so equal size is already the
+            equal-weight choice here. */}
         <div className="flex flex-col md:hidden">
           {disciplines.map((d) => (
             <ScrollReveal key={d.word} threshold={0.2} className="border-t border-border-light py-7">
@@ -72,59 +68,39 @@ export default function BrandDigitalTechnology() {
           </ScrollReveal>
         </div>
 
-        {/* Desktop: disciplined CSS grid, three defined territories, shared edges */}
+        {/* Desktop: three equal territories, one row, three even columns.
+            No column is wider, taller or higher-priority than another —
+            equal hierarchy comes from the grid itself, not from size. */}
         <ScrollReveal threshold={0.15}>
-          <div className="hidden md:grid md:gap-x-10 lg:gap-x-14" style={gridStyle}>
-            <div style={{ gridArea: 'brand' }} className="pb-10">
-              <h3
-                className="mb-4 font-sans font-extrabold uppercase leading-[0.88] tracking-tight text-ink"
-                style={{ fontSize: 'clamp(3rem, 7vw, 6.5rem)' }}
+          <div className="hidden md:grid md:grid-cols-3 md:items-start md:gap-x-10 lg:gap-x-14">
+            {disciplines.map((d, i) => (
+              <div
+                key={d.word}
+                className={i > 0 ? 'border-l border-border-light pl-8 lg:pl-10' : ''}
               >
-                Brand
-              </h3>
-              <p className="max-w-[40ch] text-sm tracking-wide text-tertiary">
-                Research / Positioning / Messaging / Identity / Creative direction
-              </p>
-            </div>
+                <h3
+                  className="mb-4 font-sans font-extrabold uppercase leading-[0.88] tracking-tight text-ink"
+                  style={{ fontSize: d.size }}
+                >
+                  {d.word}
+                </h3>
+                <p className="max-w-[26ch] text-sm tracking-wide text-tertiary">{d.caption}</p>
+              </div>
+            ))}
+          </div>
 
-            <div style={{ gridArea: 'digital' }} className="border-l border-border-light pb-10 pl-6 lg:pl-8">
-              <h3
-                className="mb-4 font-sans font-extrabold uppercase leading-[0.88] tracking-tight text-ink"
-                style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
-              >
-                Digital
-              </h3>
-              <p className="max-w-[22ch] text-sm tracking-wide text-tertiary">
-                UX / Web design / Digital experiences / Technical SEO / Analytics
-              </p>
-            </div>
-
-            <div
-              style={{ gridArea: 'tech' }}
-              className="flex flex-col gap-4 border-t border-border-light pt-10 md:flex-row md:items-end md:justify-between md:gap-10"
+          {/* Closing rule + link: the exit from the whole three-part
+              composition, not attached to any one discipline. */}
+          <div className="mt-12 hidden border-t border-border-light pt-6 md:flex md:justify-end lg:mt-14">
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors hover:text-terracotta"
             >
-              <h3
-                className="font-sans font-extrabold uppercase leading-[0.88] tracking-tight text-ink"
-                style={{ fontSize: 'clamp(3rem, 7.5vw, 7rem)' }}
-              >
-                Technology
-              </h3>
-              <p className="max-w-[28ch] text-sm tracking-wide text-tertiary md:pb-3 md:text-right">
-                Development / Software / Integrations / Automation / Applied AI
-              </p>
-            </div>
-
-            <div style={{ gridArea: 'explore' }} className="flex items-end border-t border-border-light pt-6 lg:pl-8">
-              <Link
-                href="/services"
-                className="inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors hover:text-terracotta"
-              >
-                Explore what I do
-                <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
-                  <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Link>
-            </div>
+              Explore what I do
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
           </div>
         </ScrollReveal>
       </div>
