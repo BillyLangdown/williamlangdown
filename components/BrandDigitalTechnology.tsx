@@ -3,26 +3,33 @@
 import Link from 'next/link'
 import ScrollReveal from '@/components/ScrollReveal'
 
-// Desktop font sizes are calibrated per word, not shared, so BRAND (5
-// chars), DIGITAL (7) and TECHNOLOGY (10) fill their equal-width column to
-// roughly the same degree and read with the same visual weight — a single
-// shared size would either make Technology overflow/wrap or leave Brand and
-// Digital looking small and empty in their column.
+// Desktop columns are proportional to word length (Brand 5 chars : Digital
+// 7 : Technology 10), not literally equal-width — the brief explicitly
+// allows "asymmetry from grid spans" rather than arbitrary positioning.
+// Sizing the columns this way means all three words can share ONE font
+// size and still fill their column to the same degree: genuinely equal
+// point size and equal fill-ratio, rather than fighting a fixed equal
+// column with per-word font-size tricks (which either made Technology
+// overflow its column at real viewport widths, or made it look small to
+// stay safe — verified via scrollWidth vs clientWidth across 768–1920px).
+// minmax(0, Nfr) — not bare Nfr — so a track can shrink below its
+// content's natural (min-content) width instead of forcing the whole
+// grid wider than its container at narrow viewports.
+const columnRatios = 'minmax(0, 5fr) minmax(0, 7fr) minmax(0, 10fr)'
+const headingSize = 'clamp(1.9rem, 4.7vw, 3.6rem)'
+
 const disciplines = [
   {
     word: 'Brand',
     caption: 'Research / Positioning / Messaging / Identity / Creative direction',
-    size: 'clamp(2.25rem, 6vw, 5.25rem)',
   },
   {
     word: 'Digital',
     caption: 'UX / Web design / Digital experiences / Technical SEO / Analytics',
-    size: 'clamp(1.85rem, 5.25vw, 4.75rem)',
   },
   {
     word: 'Technology',
     caption: 'Development / Software / Integrations / Automation / Applied AI',
-    size: 'clamp(1.6rem, 3.6vw, 3.4rem)',
   },
 ] as const
 
@@ -68,11 +75,14 @@ export default function BrandDigitalTechnology() {
           </ScrollReveal>
         </div>
 
-        {/* Desktop: three equal territories, one row, three even columns.
-            No column is wider, taller or higher-priority than another —
-            equal hierarchy comes from the grid itself, not from size. */}
+        {/* Desktop: three territories in one row, sized to the word each
+            one holds. Same font size, same weight, same treatment for all
+            three — equal hierarchy comes from that, not from column width. */}
         <ScrollReveal threshold={0.15}>
-          <div className="hidden md:grid md:grid-cols-3 md:items-start md:gap-x-10 lg:gap-x-14">
+          <div
+            className="hidden md:grid md:items-start md:gap-x-10 lg:gap-x-14"
+            style={{ gridTemplateColumns: columnRatios }}
+          >
             {disciplines.map((d, i) => (
               <div
                 key={d.word}
@@ -80,7 +90,7 @@ export default function BrandDigitalTechnology() {
               >
                 <h3
                   className="mb-4 font-sans font-extrabold uppercase leading-[0.88] tracking-tight text-ink"
-                  style={{ fontSize: d.size }}
+                  style={{ fontSize: headingSize }}
                 >
                   {d.word}
                 </h3>
