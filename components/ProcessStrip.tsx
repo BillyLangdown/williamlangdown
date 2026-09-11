@@ -38,6 +38,15 @@ const steps = [
   },
 ] as const
 
+// Define and Create sit side by side at the exact same vertical position,
+// so a viewport-centre crossing can't tell which one is "more centred" —
+// they're geometrically identical on that axis. Rather than let one
+// arbitrarily win the race, index 1 (Define) always leads, then index 2
+// (Create) explicitly takes over after PAIR_HANDOFF_MS so each still gets
+// its own individual turn.
+const PAIRED_INDICES = [1, 2]
+const PAIR_HANDOFF_MS = 550
+
 // 12-column editorial grid: Understand takes the left seven columns across
 // two rows (the dominant cell), Define/Create stack in the remaining five
 // columns beside it, then Build/Evolve split the final row 5/7. Deliberately
@@ -76,57 +85,75 @@ const mobileCellStyle: Record<string, { pad: string }> = {
   evolve: { pad: 'px-6 py-6' },
 }
 
-// Scroll-triggered corner-radius reveal for mobile — the touch-device
-// counterpart to the desktop hover morph, since there's no hover to react
-// to. Each cell rounds itself once it's scrolled into view, staggered by
-// index so cells round one after another as the section scrolls past,
-// rather than all at once.
+// Scroll-driven "spotlight" for mobile — the touch-device counterpart to
+// the desktop hover morph, since there's no hover to react to. Exactly one
+// cell is rounded at a time: whichever one is currently crossing a thin
+// band at the vertical centre of the viewport. As you scroll, the next
+// cell entering that band becomes the rounded one and the previous cell
+// reverts to square in the same motion, rather than every cell rounding
+// independently and staying that way.
+function useSpotlightIndex(count: number) {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
+  const refs = useRef<(HTMLDivElement | null)[]>([])
+  const pairHandled = useRef(false)
+
+  useEffect(() => {
+    let pairTimer: ReturnType<typeof setTimeout> | undefined
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue
+          const index = refs.current.indexOf(entry.target as HTMLDivElement)
+          if (index === -1) continue
+
+          if (PAIRED_INDICES.includes(index)) {
+            if (pairHandled.current) continue
+            pairHandled.current = true
+            setActiveIndex(PAIRED_INDICES[0])
+            pairTimer = setTimeout(() => setActiveIndex(PAIRED_INDICES[1]), PAIR_HANDOFF_MS)
+          } else {
+            pairHandled.current = false
+            setActiveIndex(index)
+          }
+        }
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+    )
+    refs.current.slice(0, count).forEach((el) => el && observer.observe(el))
+    return () => {
+      observer.disconnect()
+      if (pairTimer) clearTimeout(pairTimer)
+    }
+  }, [count])
+
+  return { activeIndex, refs }
+}
+
 function MobileCell({
-  index,
+  setRef,
   accent,
   padding,
   gridArea,
+  rounded,
   children,
 }: {
-  index: number
+  setRef: (el: HTMLDivElement | null) => void
   accent: boolean
   padding: string
   gridArea: string
+  rounded: boolean
   children: React.ReactNode
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [rounded, setRounded] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    let timer: ReturnType<typeof setTimeout> | undefined
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          timer = setTimeout(() => setRounded(true), index * 110)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.45 }
-    )
-    observer.observe(el)
-    return () => {
-      observer.disconnect()
-      if (timer) clearTimeout(timer)
-    }
-  }, [index])
-
   return (
     <div
-      ref={ref}
+      ref={setRef}
       style={{ gridArea }}
       className={`
-        flex flex-col justify-center overflow-hidden rounded-none
+        flex flex-col justify-center overflow-hidden
         ${padding}
         transition-[border-radius] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
         motion-reduce:transition-none
-        ${rounded ? 'rounded-[22px]' : ''}
+        ${rounded ? 'rounded-[34px]' : 'rounded-none'}
         ${accent ? 'bg-terracotta' : 'bg-navy'}
       `}
     >
@@ -139,6 +166,8 @@ function MobileCell({
 // morph as an art moment. Rendered as divs, not links, so no pointer
 // cursor or focus affordance implies a destination that doesn't exist.
 export default function ProcessStrip() {
+  const { activeIndex, refs } = useSpotlightIndex(steps.length)
+
   return (
     <section
       data-nav-theme="dark"
@@ -162,10 +191,11 @@ export default function ProcessStrip() {
             return (
               <MobileCell
                 key={step.word}
-                index={index}
+                setRef={(el) => { refs.current[index] = el }}
                 accent={step.accent}
                 padding={pad}
                 gridArea={step.area}
+                rounded={index === activeIndex}
               >
                 <h3
                   className={`
@@ -205,7 +235,7 @@ export default function ProcessStrip() {
                 overflow-hidden rounded-none p-8 lg:p-10
                 transition-[border-radius] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
                 motion-reduce:transition-none
-                md:hover:rounded-[28px]
+                md:hover:rounded-[52px]
                 ${step.accent ? 'bg-terracotta' : 'bg-navy'}
               `}
             >
