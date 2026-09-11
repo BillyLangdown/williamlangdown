@@ -1,6 +1,7 @@
 'use client'
 
 import type { CSSProperties } from 'react'
+import BackgroundWord from '@/components/BackgroundWord'
 import ScrollReveal from '@/components/ScrollReveal'
 
 const steps = [
@@ -105,10 +106,11 @@ export default function ProcessStrip() {
           })}
         </div>
 
-        {/* Desktop: grid stays flush left; a side rail on the right carries
-            the oversized "Process" section label, rotated to run down the
-            margin, so the grid stops short of the right edge instead of
-            going fully full-bleed on both sides. */}
+        {/* Desktop: grid stays flush left; a cream rail on the right carries
+            a vertical "Process" BackgroundWord watermark, matching the same
+            component/opacity/weight used for "About", "Work", "Contact" and
+            "More" elsewhere on the homepage — so the grid stops short of the
+            right edge instead of going fully full-bleed on both sides. */}
         <div className="hidden md:flex md:items-stretch">
           <div
             className="grid flex-1 gap-px bg-bone"
@@ -153,16 +155,16 @@ export default function ProcessStrip() {
             ))}
           </div>
 
-          <div className="flex w-28 shrink-0 items-center justify-center bg-bone lg:w-36 xl:w-44">
-            <span
-              className="
-                -rotate-90 whitespace-nowrap font-heading font-medium uppercase
-                tracking-[-0.01em] text-navy/20
-                text-6xl lg:text-7xl xl:text-8xl
-              "
-            >
-              The Process
-            </span>
+          <div className="relative w-36 shrink-0 overflow-hidden bg-bone lg:w-44 xl:w-56">
+            <BackgroundWord
+              word="Process"
+              color="#10233F"
+              opacity={0.045}
+              vertical
+              parallax
+              fontSize="clamp(3rem, 5vw, 5.8rem)"
+              className="top-0 right-0"
+            />
           </div>
         </div>
 

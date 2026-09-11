@@ -9,6 +9,7 @@ export default function BackgroundWord({
   opacity = 0.05,
   vertical = false,
   parallax = false,
+  fontSize = 'clamp(4.5rem, 17vw, 14rem)',
   className = '',
 }: {
   word: string
@@ -22,6 +23,10 @@ export default function BackgroundWord({
    * viewport, tracked against the word's own bounding box rather than
    * needing a ref threaded down from the parent section. */
   parallax?: boolean
+  /** Override the default open-canvas clamp — needed when the word sits
+   * in a constrained footprint (e.g. a narrow vertical rail), where the
+   * default size would need far more room than is available. */
+  fontSize?: string
   className?: string
 }) {
   const ref = useRef<HTMLSpanElement>(null)
@@ -35,7 +40,7 @@ export default function BackgroundWord({
       aria-hidden
       style={{
         y,
-        fontSize: 'clamp(4.5rem, 17vw, 14rem)',
+        fontSize,
         color,
         opacity,
         letterSpacing: '-0.02em',
