@@ -1,7 +1,7 @@
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
 import FeaturedProject from '@/components/FeaturedProject'
-import Capabilities from '@/components/Capabilities'
+import BrandDigitalTechnology from '@/components/BrandDigitalTechnology'
 import ProcessStrip from '@/components/ProcessStrip'
 import SecondaryWork from '@/components/SecondaryWork'
 import ReviewSection from '@/components/ReviewSection'
@@ -145,7 +145,7 @@ export default function HomePage() {
   ctaLabel="Read case study"
 />
 
-        <Capabilities />
+        <BrandDigitalTechnology />
 
         <ProcessStrip />
 
