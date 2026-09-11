@@ -1,7 +1,6 @@
 'use client'
 
 import type { CSSProperties } from 'react'
-import BackgroundWord from '@/components/BackgroundWord'
 import ScrollReveal from '@/components/ScrollReveal'
 
 const steps = [
@@ -106,66 +105,48 @@ export default function ProcessStrip() {
           })}
         </div>
 
-        {/* Desktop: grid stays flush left; a cream rail on the right carries
-            a vertical "Process" BackgroundWord watermark, matching the same
-            component/opacity/weight used for "About", "Work", "Contact" and
-            "More" elsewhere on the homepage — so the grid stops short of the
-            right edge instead of going fully full-bleed on both sides. */}
-        <div className="hidden md:flex md:items-stretch">
-          <div
-            className="grid flex-1 gap-px bg-bone"
-            style={desktopGridStyle}
-          >
-            {steps.map((step) => (
-              <div
-                key={step.word}
-                style={{ gridArea: step.area }}
-                className={`
-                  group relative flex flex-col justify-end
-                  overflow-hidden rounded-none p-8 lg:p-10
-                  transition-[border-radius] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
-                  motion-reduce:transition-none
-                  md:hover:rounded-[28px]
-                  ${step.accent ? 'bg-terracotta' : 'bg-navy'}
-                `}
-              >
-                <div>
-                  <h3
-                    className={`
-                      mb-3 font-heading font-medium leading-[0.94] tracking-[-0.04em]
-                      transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
-                      motion-reduce:transition-none md:group-hover:-translate-y-1
-                      ${step.area === 'understand' ? 'text-[3.4rem] lg:text-[4.4rem]' : 'text-[2.1rem] lg:text-[2.6rem]'}
-                      ${step.accent ? 'text-navy-deep' : 'text-bone'}
-                    `}
-                  >
-                    {step.word}
-                  </h3>
+        {/* Desktop: full-bleed asymmetric editorial grid with rounded-corner hover reveal */}
+        <div
+          className="hidden gap-px bg-bone md:grid"
+          style={desktopGridStyle}
+        >
+          {steps.map((step) => (
+            <div
+              key={step.word}
+              style={{ gridArea: step.area }}
+              className={`
+                group relative flex flex-col justify-end
+                overflow-hidden rounded-none p-8 lg:p-10
+                transition-[border-radius] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+                motion-reduce:transition-none
+                md:hover:rounded-[28px]
+                ${step.accent ? 'bg-terracotta' : 'bg-navy'}
+              `}
+            >
+              <div>
+                <h3
+                  className={`
+                    mb-3 font-heading font-medium leading-[0.94] tracking-[-0.04em]
+                    transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+                    motion-reduce:transition-none md:group-hover:-translate-y-1
+                    ${step.area === 'understand' ? 'text-[3.4rem] lg:text-[4.4rem]' : 'text-[2.1rem] lg:text-[2.6rem]'}
+                    ${step.accent ? 'text-navy-deep' : 'text-bone'}
+                  `}
+                >
+                  {step.word}
+                </h3>
 
-                  <p
-                    className={`
-                      max-w-[26ch] text-[13.5px] leading-[1.55]
-                      ${step.accent ? 'text-navy-deep/70' : 'text-bone/55'}
-                    `}
-                  >
-                    {step.clause}
-                  </p>
-                </div>
+                <p
+                  className={`
+                    max-w-[26ch] text-[13.5px] leading-[1.55]
+                    ${step.accent ? 'text-navy-deep/70' : 'text-bone/55'}
+                  `}
+                >
+                  {step.clause}
+                </p>
               </div>
-            ))}
-          </div>
-
-          <div className="relative w-36 shrink-0 overflow-hidden bg-bone lg:w-44 xl:w-56">
-            <BackgroundWord
-              word="Process"
-              color="#10233F"
-              opacity={0.045}
-              vertical
-              parallax
-              fontSize="clamp(3rem, 5vw, 5.8rem)"
-              className="top-0 right-0"
-            />
-          </div>
+            </div>
+          ))}
         </div>
 
       </ScrollReveal>
