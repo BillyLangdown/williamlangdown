@@ -153,15 +153,15 @@ export default function ProcessStrip() {
             ))}
           </div>
 
-          <div className="flex w-28 shrink-0 items-center justify-center border-l border-bone bg-[#10233F] lg:w-36 xl:w-44">
+          <div className="flex w-28 shrink-0 items-center justify-center bg-bone lg:w-36 xl:w-44">
             <span
               className="
-                -rotate-90 whitespace-nowrap font-heading font-medium
-                tracking-[-0.03em] text-bone
+                -rotate-90 whitespace-nowrap font-heading font-medium uppercase
+                tracking-[-0.01em] text-navy/20
                 text-6xl lg:text-7xl xl:text-8xl
               "
             >
-              Process
+              The Process
             </span>
           </div>
         </div>
