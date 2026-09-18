@@ -14,6 +14,8 @@ interface Item {
   external?: boolean
   /** Media is already a framed device photo, so skip the synthetic browser chrome ClientWork adds. */
   deviceMockup?: boolean
+  /** Show the video on its own, no device frame and no synthetic browser chrome. */
+  rawVideo?: boolean
 }
 
 const items: Item[] = [
@@ -33,12 +35,12 @@ const items: Item[] = [
     tag: 'Self-initiated / Concept',
     note: 'Homepage redesign, unsolicited',
     media: {
-      src: '/images/bvs-redesign-mockup.jpg',
-      video: '/videos/bvs-redesign-mockup-video.mp4',
+      src: '/images/bvs-redesign-poster.jpg',
+      video: '/videos/bvs-redesign-showcase.mp4',
       caption: 'Redesign concept',
     },
     href: '/case-studies/building-ventilation-services-redesign',
-    deviceMockup: true,
+    rawVideo: true,
   },
   {
     name: 'Building Ventilation Services',
@@ -67,7 +69,20 @@ export default function SecondaryWork() {
           {items.map((item) => {
             const inner = (
               <>
-                {item.deviceMockup ? (
+                {item.rawVideo ? (
+                  <div className="overflow-hidden" style={{ border: '1px solid rgba(16,35,63,0.14)', borderRadius: '6px' }}>
+                    <video
+                      className="h-auto w-full"
+                      style={{ aspectRatio: '1920 / 1110' }}
+                      src={item.media.video}
+                      poster={item.media.src}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    />
+                  </div>
+                ) : item.deviceMockup ? (
                   <div className="overflow-hidden" style={{ border: '1px solid rgba(16,35,63,0.14)', borderRadius: '6px' }}>
                     <div className="relative overflow-hidden" style={{ aspectRatio: '3 / 2' }}>
                       {item.media.video ? (
