@@ -94,7 +94,7 @@ export default function ServicesPage() {
         >
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
-              <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">Capabilities</p>
+              <p className="text-sm font-semibold text-secondary mb-4">Capabilities</p>
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.06] text-ink mb-6">
                 Strategy, design and software, considered together.
               </h1>
@@ -106,7 +106,7 @@ export default function ServicesPage() {
           </div>
         </section>
 
-        <Capabilities showIntro={false} showMoreLink={false} />
+        <Capabilities />
 
         <SelectedWork />
 

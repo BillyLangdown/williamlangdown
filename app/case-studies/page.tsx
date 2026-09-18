@@ -39,7 +39,7 @@ function FeaturedCard({ study }: { study: CaseStudy }) {
   return (
     <ScrollReveal>
       <Link href={`/case-studies/${study.slug.current}`} className="group block">
-        <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-5">01 / Featured</p>
+        <p className="text-sm font-semibold text-secondary mb-5">Featured</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div>
             <p className="font-display text-4xl md:text-5xl text-ink leading-tight">{study.client}</p>
@@ -207,7 +207,7 @@ export default async function CaseStudiesPage() {
         <section className="px-6 pb-24">
           <div className="max-w-5xl mx-auto">
             {rest.length > 0 && (
-              <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-8">Other work</p>
+              <p className="text-sm font-semibold text-secondary mb-8">Other work</p>
             )}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {rest.length > 0 ? (
