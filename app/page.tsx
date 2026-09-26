@@ -6,6 +6,7 @@ import ProcessStrip from '@/components/ProcessStrip'
 import SecondaryWork from '@/components/SecondaryWork'
 import ReviewSection from '@/components/ReviewSection'
 import AboutSection from '@/components/AboutSection'
+import AuditPrompt from '@/components/AuditPrompt'
 import CTABanner from '@/components/CTABanner'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
@@ -153,6 +154,7 @@ export default function HomePage() {
 
         <ReviewSection />
         <AboutSection />
+        <AuditPrompt />
         <CTABanner />
       </main>
       <Footer />

@@ -16,6 +16,15 @@ Automation retired via 301 redirect to `/services`. Blog index metadata fixed. T
 smaller open items in §4a (one blog post) and a note on `/pricing` and `/about` not being
 in main nav.
 
+**Status (2026-09-26):** deliberate, considered exception to the 2026-09-10 baseline — see
+§3a. Website Audit is reintroduced as a named, fixed-scope entry service at
+`/website-audit`, promoted prominently on the homepage and in the footer (not hidden, not
+buried). This is not a rollback of the wider commodity-pages cleanup: Starter Websites,
+Website Support, Care Plans, Growth Websites, Custom Software and Booking Systems &
+Automation remain retired exactly as below. Website Audit is the single, specific
+exception, rebuilt against the current editorial design system rather than the old
+pill/card/FAQ format the original page used.
+
 ---
 
 ## 1. Who this is
@@ -73,8 +82,7 @@ engagements scoped individually).
 
 **Retired from this brand — do not resurrect as standalone offers:**
 - Starter Websites (£495 template sites) — redirects to `/pricing`
-- Website Audits (£145), Website Support (£60–90/hr), Care Plans (£19–149/month) — all
-  redirect to `/pricing`
+- Website Support (£60–90/hr), Care Plans (£19–149/month) — redirect to `/pricing`
 - **Growth Websites, Custom Software, Booking Systems & Automation** — per your last
   message, these are being retired as standalone product pages too. They were the
   package-priced (£1,500–£4,000 / from £3,000 / "priced individually") middle tier between
@@ -85,6 +93,33 @@ engagements scoped individually).
 If any of that £1,500–£4,000-style website work or software work continues in practice,
 it's now just a **Digital** or **Technology** engagement, scoped like everything else —
 not a differently-branded product line.
+
+### 3a. Exception: Website Audit (reintroduced 2026-09-26)
+
+Website Audit (£145) was retired on 2026-09-10 alongside the other commodity pages, then
+deliberately reintroduced on 2026-09-26 as a distinct case, not a reversal of the wider
+cleanup. The distinction:
+
+- **Website Audit is a fixed-scope entry service** for a business that already has a
+  website and wants an experienced outside opinion on it, specifically: an approximately
+  15-minute recorded walkthrough plus a short, prioritised written list of recommendations.
+  It has a genuine, bounded deliverable, unlike the old commodity pages (Starter Websites,
+  Website Support, Care Plans), which were open-ended or ongoing work sold at a low price.
+- **It can and should be promoted prominently** — on the homepage, in the footer, and as a
+  route people arriving from social content can find without searching. It may become one
+  of the main ways new clients first work with William. "Prominent" here means noticeable
+  through typography, scale and composition, not through pills, badges, cards, or a
+  pricing-page-style treatment.
+- **It is not a replacement for the wider positioning.** Brand, Digital and Technology
+  remain the practice's core capabilities and the deeper research-led engagement is still
+  the primary offer. Website Audit does not turn the practice into a menu of cheap
+  packaged services, and no other retired page (Starter Websites, Website Support, Care
+  Plans, Growth Websites, Custom Software, Booking Systems & Automation) is reinstated
+  alongside it.
+- The hierarchy is: **William Langdown** (the practice) → **Brand / Digital / Technology**
+  (the capabilities) → **larger research-led projects** (the deeper engagement) →
+  **Website Audit** (an accessible, fixed-scope way into working with him on an existing
+  website).
 
 ## 4. Evidence / proof — current state
 
@@ -132,17 +167,27 @@ not a real domain — plausibly noindexed while unfinished and never revisited).
   technical SEO, etc. each getting their own page) — these live as sections within the
   three capability pages, not as their own indexed pages.
 - No pricing badges/FAQ-page structure per offer (the retired service pages' format) — one
-  clear engagement model on `/pricing`, not five.
+  clear engagement model on `/pricing`. Website Audit (see §3a) is the one named exception,
+  and even there the price is stated plainly as text, not as a badge, and the page has no
+  FAQ section.
 
 ## 7. What this means for site structure
 
-Matches this baseline as of 2026-09-10:
-- Homepage, `/about`, `/pricing`, `/services` (Capabilities)
+Matches this baseline as of 2026-09-10, updated 2026-09-26:
+- Homepage, `/about`, `/pricing`, `/services` (Capabilities), `/website-audit` (added
+  2026-09-26, see §3a)
 - Case studies: BVS, Planning Enforcement Advisory (both now indexable), Garden Tablecloth
   (kept deliberately, framed as CRO proof not ICP proof)
 - `growth-websites`, `custom-software`, `booking-systems-automation` now 301 → `/services`,
   removed from sitemap.ts. Page files left in place (unreachable dead code — same pattern
   already used for the three earlier retired pages, see `docs/orla-migration-notes.md`).
+- `services/website-audits` (the old, unreachable page at the pre-2026-09-10 URL, 301'd to
+  `/pricing`) had its page file deleted on 2026-09-26 since it was genuinely dead code and
+  is fully superseded by the new `/website-audit`. The redirect itself is untouched, so old
+  links still resolve.
+- Main navigation deliberately left unchanged for now (Home / Work / What I do / About /
+  Contact) — Website Audit is promoted via the homepage and footer while its performance
+  as an entry service is assessed, not yet given a permanent primary-nav slot.
 - `/blog` index metadata fixed (was the single worst commodity-language offender on the
   site — "Web Design Blog... Taunton & Somerset... for small businesses").
 

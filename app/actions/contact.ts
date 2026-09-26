@@ -8,6 +8,7 @@ export interface ContactFormData {
   name: string
   email: string
   website: string
+  company?: string
   service: string
   message: string
   recaptchaToken: string
@@ -44,6 +45,7 @@ const serviceLabels: Record<string, string> = {
   strategy: 'Strategy & Brand',
   digital: 'Digital',
   technology: 'Technology',
+  'website-audit': 'Website audit',
   'not-sure': 'Not sure yet',
   // legacy values, kept so older bookmarked/cached links still label sensibly
   growth: 'Digital (legacy: Growth Websites)',
@@ -105,6 +107,11 @@ export async function submitContactForm(
                 <a href="mailto:${escapeHtml(data.email)}" style="color: #0a0a0a;">${escapeHtml(data.email)}</a>
               </td>
             </tr>
+            ${data.company ? `
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; color: #666; font-size: 13px;">Business name</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; font-size: 13px;">${escapeHtml(data.company)}</td>
+            </tr>` : ''}
             ${data.website ? `
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; color: #666; font-size: 13px;">Website</td>

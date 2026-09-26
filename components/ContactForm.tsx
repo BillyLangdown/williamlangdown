@@ -31,6 +31,12 @@ const areas = [
     placeholder: 'e.g. We need a proper rebrand, a new website, and better systems behind the scenes...',
   },
   {
+    value: 'website-audit',
+    label: 'Website audit',
+    included: 'Recorded walkthrough / Prioritised recommendations',
+    placeholder: 'e.g. I want an outside opinion before I spend money changing anything...',
+  },
+  {
     value: 'not-sure',
     label: 'Not sure yet',
     placeholder: 'e.g. Something isn\'t working, but I\'m not sure exactly what needs to change...',
@@ -59,9 +65,12 @@ function Form({ defaultService }: { defaultService?: string }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [company, setCompany] = useState('')
+  const [websiteUrl, setWebsiteUrl] = useState('')
+
+  const isAudit = selectedArea === 'website-audit'
 
   useEffect(() => {
-    if (defaultService && areas.some(s => s.value === defaultService)) {
+    if (defaultService && defaultService !== 'website-audit' && areas.some(s => s.value === defaultService)) {
       document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
   }, [defaultService])
@@ -81,7 +90,8 @@ function Form({ defaultService }: { defaultService?: string }) {
       const result = await submitContactForm({
         name,
         email,
-        website: company,
+        website: isAudit ? websiteUrl : company,
+        company: isAudit ? (company.trim() || undefined) : undefined,
         service: selectedArea,
         message: timing ? `${message}\n\nTiming: ${timingOptions.find(t => t.value === timing)?.label ?? timing}` : message,
         recaptchaToken: token,
@@ -99,7 +109,7 @@ function Form({ defaultService }: { defaultService?: string }) {
       setStatus('error')
       setErrorMessage('Something went wrong. Please try again.')
     }
-  }, [executeRecaptcha, name, email, company, selectedArea, message, timing])
+  }, [executeRecaptcha, name, email, company, websiteUrl, isAudit, selectedArea, message, timing])
 
   const selectedLabel = areas.find(s => s.value === selectedArea)?.label
 
@@ -127,6 +137,7 @@ function Form({ defaultService }: { defaultService?: string }) {
             setName('')
             setEmail('')
             setCompany('')
+            setWebsiteUrl('')
           }}
           className="text-sm text-secondary underline underline-offset-4 hover:text-ink transition-colors"
         >
@@ -197,8 +208,12 @@ function Form({ defaultService }: { defaultService?: string }) {
             </span>
           )}
           <div>
-            <p className="text-sm font-semibold text-ink mb-1">What are you trying to change, and what&apos;s in the way?</p>
-            <p className="text-xs text-secondary mb-3">A few lines is plenty. We&apos;ll go into detail on a call.</p>
+            <p className="text-sm font-semibold text-ink mb-1">
+              {isAudit ? 'Anything I should know about the business, or what’s concerning you?' : 'What are you trying to change, and what’s in the way?'}
+            </p>
+            <p className="text-xs text-secondary mb-3">
+              {isAudit ? 'A few lines is plenty. This just gives me useful context before I start.' : 'A few lines is plenty. We’ll go into detail on a call.'}
+            </p>
             <textarea
               value={message}
               onChange={e => setMessage(e.target.value)}
@@ -208,23 +223,25 @@ function Form({ defaultService }: { defaultService?: string }) {
               className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-terracotta transition-colors resize-none bg-white/80"
             />
           </div>
-          <div>
-            <p className="text-sm font-semibold text-ink mb-3">Timing</p>
-            <div className="flex flex-wrap gap-2">
-              {timingOptions.map(t => (
-                <button
-                  key={t.value}
-                  type="button"
-                  onClick={() => setTiming(timing === t.value ? '' : t.value)}
-                  className={`text-xs font-medium px-3 py-2 rounded-sm border transition-colors ${
-                    timing === t.value ? 'border-terracotta bg-terracotta/5 text-ink' : 'border-border-light text-secondary hover:border-terracotta/40'
-                  }`}
-                >
-                  {t.label}
-                </button>
-              ))}
+          {!isAudit && (
+            <div>
+              <p className="text-sm font-semibold text-ink mb-3">Timing</p>
+              <div className="flex flex-wrap gap-2">
+                {timingOptions.map(t => (
+                  <button
+                    key={t.value}
+                    type="button"
+                    onClick={() => setTiming(timing === t.value ? '' : t.value)}
+                    className={`text-xs font-medium px-3 py-2 rounded-sm border transition-colors ${
+                      timing === t.value ? 'border-terracotta bg-terracotta/5 text-ink' : 'border-border-light text-secondary hover:border-terracotta/40'
+                    }`}
+                  >
+                    {t.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
           <div className="flex gap-3">
             <button
               onClick={() => setStep(1)}
@@ -269,13 +286,32 @@ function Form({ defaultService }: { defaultService?: string }) {
                 placeholder="Your email *"
                 className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-terracotta transition-colors bg-white/80"
               />
-              <input
-                value={company}
-                onChange={e => setCompany(e.target.value)}
-                type="text"
-                placeholder="Business name or website (optional)"
-                className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-terracotta transition-colors bg-white/80"
-              />
+              {isAudit ? (
+                <>
+                  <input
+                    value={company}
+                    onChange={e => setCompany(e.target.value)}
+                    type="text"
+                    placeholder="Business name (optional)"
+                    className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-terracotta transition-colors bg-white/80"
+                  />
+                  <input
+                    value={websiteUrl}
+                    onChange={e => setWebsiteUrl(e.target.value)}
+                    type="text"
+                    placeholder="Website URL *"
+                    className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-terracotta transition-colors bg-white/80"
+                  />
+                </>
+              ) : (
+                <input
+                  value={company}
+                  onChange={e => setCompany(e.target.value)}
+                  type="text"
+                  placeholder="Business name or website (optional)"
+                  className="w-full border border-border-light rounded-sm px-4 py-3 text-sm text-ink placeholder:text-tertiary focus:outline-none focus:border-terracotta transition-colors bg-white/80"
+                />
+              )}
             </div>
           </div>
 
@@ -292,7 +328,7 @@ function Form({ defaultService }: { defaultService?: string }) {
             </button>
             <button
               onClick={handleSubmit}
-              disabled={status === 'submitting' || !name.trim() || !email.trim()}
+              disabled={status === 'submitting' || !name.trim() || !email.trim() || (isAudit && !websiteUrl.trim())}
               className="flex-1 text-white text-sm py-2.5 rounded-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 bg-navy"
             >
               {status === 'submitting' ? (

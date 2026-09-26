@@ -3,6 +3,7 @@ import Link from 'next/link'
 const exploreLinks = [
   { href: '/case-studies', label: 'Work' },
   { href: '/services', label: 'Capabilities' },
+  { href: '/website-audit', label: 'Website audit' },
   { href: '/about', label: 'About' },
   { href: '/pricing', label: 'Working Together' },
   { href: '/contact', label: 'Contact' },
