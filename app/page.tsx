@@ -3,7 +3,6 @@ import Hero from '@/components/Hero'
 import FeaturedProject from '@/components/FeaturedProject'
 import ServicesOverview from '@/components/ServicesOverview'
 import EntryServices from '@/components/EntryServices'
-import ProcessStrip from '@/components/ProcessStrip'
 import SecondaryWork from '@/components/SecondaryWork'
 import ReviewSection from '@/components/ReviewSection'
 import AboutSection from '@/components/AboutSection'
@@ -134,10 +133,6 @@ export default function HomePage() {
 
 <ServicesOverview />
 
-        <EntryServices />
-
-        <ProcessStrip />
-
         <FeaturedProject
   name="The Planning Enforcement Advisory"
   client="Planning enforcement consultancy"
@@ -160,7 +155,7 @@ export default function HomePage() {
     poster: '/images/pea-logo-poster.jpg',
     width: 2400,
     height: 1500,
-    alt: 'The Planning Enforcement Advisory — animated identity mark',
+    alt: 'The Planning Enforcement Advisory: animated identity mark',
   }}
   href="/case-studies/planning-enforcement-advisory"
   ctaLabel="Read case study"
@@ -169,8 +164,16 @@ export default function HomePage() {
         <SecondaryWork />
 
         <ReviewSection />
+
         <AboutSection />
-        <CTABanner />
+
+        <EntryServices />
+
+        <CTABanner
+          heading="Have a project in mind?"
+          description="Tell me what you're looking to build or improve, and I'll let you know whether I can help."
+          cta="Discuss a project"
+        />
       </main>
       <Footer />
     </>

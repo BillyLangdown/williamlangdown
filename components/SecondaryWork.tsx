@@ -20,8 +20,25 @@ interface Item {
 
 const items: Item[] = [
   {
+    name: 'Building Ventilation Services',
+    tag: 'Audit / Design / Build',
+    note: 'A new website for a ventilation contractor.',
+    results: [
+      { value: '98', label: 'Mobile PageSpeed' },
+      { value: '100', label: 'Desktop PageSpeed' },
+    ],
+    media: {
+      src: '/images/old-bvs-mockup.jpg',
+      video: '/videos/bvs-original-mockup-video.mp4',
+      caption: 'bvs-ltd.co.uk',
+    },
+    href: '/case-studies/building-ventilation-services-ltd',
+    deviceMockup: true,
+  },
+  {
     name: 'The Garden Tablecloth Co.',
     tag: 'Audit / Digital',
+    note: 'A new online store for a tablecloth maker, moving them from Etsy to their own site.',
     results: [
       { value: '+75%', label: 'Enquiries' },
       { value: '-21%', label: 'Bounce rate' },
@@ -41,21 +58,6 @@ const items: Item[] = [
     },
     href: '/case-studies/building-ventilation-services-redesign',
     rawVideo: true,
-  },
-  {
-    name: 'Building Ventilation Services',
-    tag: 'Audit / Design / Build',
-    results: [
-      { value: '98', label: 'Mobile PageSpeed' },
-      { value: '100', label: 'Desktop PageSpeed' },
-    ],
-    media: {
-      src: '/images/old-bvs-mockup.jpg',
-      video: '/videos/bvs-original-mockup-video.mp4',
-      caption: 'bvs-ltd.co.uk',
-    },
-    href: '/case-studies/building-ventilation-services-ltd',
-    deviceMockup: true,
   },
 ]
 
@@ -111,7 +113,8 @@ export default function SecondaryWork() {
                 )}
                 <p className="text-xs text-tertiary mt-4">{item.tag}</p>
                 <p className="text-base font-semibold text-ink mt-1 group-hover:text-terracotta transition-colors">{item.name}</p>
-                {item.results ? (
+                {item.note && <p className="text-sm text-secondary mt-1">{item.note}</p>}
+                {item.results && (
                   <div className="flex gap-6 mt-3">
                     {item.results.map((r) => (
                       <div key={r.label}>
@@ -120,8 +123,6 @@ export default function SecondaryWork() {
                       </div>
                     ))}
                   </div>
-                ) : (
-                  <p className="text-sm text-secondary mt-1">{item.note}</p>
                 )}
               </>
             )
