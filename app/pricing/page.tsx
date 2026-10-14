@@ -2,19 +2,20 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CTABanner from '@/components/CTABanner'
 import ScrollReveal from '@/components/ScrollReveal'
+import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Working Together | William Langdown',
   description:
-    'How brand, digital and technology projects are scoped, priced and started with William Langdown.',
+    'How technology, automation, web and digital projects are scoped, priced and started with William Langdown.',
   alternates: {
     canonical: 'https://williamlangdown.com/pricing',
   },
   openGraph: {
     title: 'Working Together | William Langdown',
     description:
-      'Focused projects and broader engagements across brand, digital and technology.',
+      'Focused projects and broader engagements across technology, automation, web and digital.',
     url: 'https://williamlangdown.com/pricing',
   },
 }
@@ -23,12 +24,12 @@ const engagements = [
   {
     title: 'Focused projects',
     body:
-      'A clearly defined piece of work, such as a website, identity, digital experience or piece of software.',
+      'A clearly defined piece of work, such as an integration, an automation, a piece of software, a website or an identity.',
   },
   {
     title: 'Broader engagements',
     body:
-      'Research and strategy carried through brand, digital and technology where several things need to change together.',
+      'Several pieces of work that need to fit together, such as an integration, a custom tool and a new website, scoped and delivered as one engagement.',
   },
 ]
 
@@ -52,14 +53,15 @@ export default function PricingPage() {
 
               <div className="mt-8 flex flex-col gap-5 md:mt-10 md:flex-row md:items-end md:justify-between">
                 <p className="max-w-xl text-base leading-relaxed text-secondary">
-                  Focused projects or broader engagements across brand,
-                  digital and technology, scoped around the problem rather
-                  than a fixed package.
+                  Focused projects or broader engagements, scoped around
+                  the problem rather than a fixed package. The two fixed-price
+                  reviews are a good place to begin.
                 </p>
 
                 <p className="shrink-0 text-sm font-medium text-ink">
-                  Brand <span className="text-terracotta">/</span> Digital{' '}
-                  <span className="text-terracotta">/</span> Technology
+                  <Link href="/business-automation-review" className="underline underline-offset-4 hover:text-terracotta transition-colors">Business Automation Review, £395</Link>
+                  <br />
+                  <Link href="/website-audit" className="underline underline-offset-4 hover:text-terracotta transition-colors">UX &amp; Conversion Audit, £149</Link>
                 </p>
               </div>
             </ScrollReveal>
@@ -121,6 +123,13 @@ export default function PricingPage() {
                   </p>
 
                   <p className="mt-4 max-w-xl text-sm leading-relaxed text-bone/60 md:text-base">
+                    Automation projects start from £1,500 for a properly scoped
+                    implementation. It is a starting point rather than a fixed
+                    package, and the final price depends on the workflows and
+                    systems involved.
+                  </p>
+
+                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-bone/60 md:text-base">
                     Broader engagements are scoped individually, with the
                     scope, timing and cost agreed before any work begins.
                   </p>
@@ -155,6 +164,12 @@ export default function PricingPage() {
                   <p className="mt-4 max-w-xl text-base leading-relaxed text-secondary">
                     If there&apos;s a good fit, I&apos;ll recommend the scope,
                     timing and cost before any work begins.
+                  </p>
+
+                  <p className="mt-4 max-w-xl text-base leading-relaxed text-secondary">
+                    If you commission a project within 60 days of a Business
+                    Automation Review, the £395 review fee is deducted from the
+                    agreed price.
                   </p>
                 </div>
               </div>

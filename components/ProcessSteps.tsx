@@ -8,19 +8,19 @@ type Step = {
 const steps: Step[] = [
   {
     title: 'Understand',
-    description: 'The business, its customers, competitors and the evidence behind them. What the actual problem is, not just the symptom that prompted the call.',
+    description: 'The business, how its work is done today and what is actually causing the problem, which is not always what prompted the call.',
   },
   {
     title: 'Define',
-    description: "Priorities and direction. What needs to change first, and what doesn't need touching at all.",
+    description: "Priorities and direction: what needs to change first, and what can be left as it is.",
   },
   {
     title: 'Create',
-    description: 'Identity, content and experience, built on the direction agreed above.',
+    description: 'The solution itself, whether that is an automation, a system, a website or an identity, based on the direction agreed.',
   },
   {
     title: 'Build',
-    description: 'Websites, systems and technology, implemented properly.',
+    description: 'Integrations, automation, software and websites, implemented carefully and checked in use.',
   },
 ]
 

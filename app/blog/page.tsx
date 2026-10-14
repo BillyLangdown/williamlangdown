@@ -13,11 +13,11 @@ export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'Insights | William Langdown',
-  description: 'Research and writing on brand, digital design and software, from an independent practice working with established UK businesses. Somerset-based, working nationwide.',
+  description: 'Research and writing on technology, automation, digital design and software, from an independent consultant working with UK businesses. Somerset-based, working nationwide.',
   alternates: { canonical: 'https://williamlangdown.com/blog' },
   openGraph: {
     title: 'Insights | William Langdown',
-    description: 'Research and writing on brand, digital design and software, from an independent practice working with established UK businesses.',
+    description: 'Research and writing on technology, automation, digital design and software, from an independent consultant working with UK businesses.',
     url: 'https://williamlangdown.com/blog',
   },
 }

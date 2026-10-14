@@ -6,50 +6,46 @@ import ScrollReveal from '@/components/ScrollReveal'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Website Audit | William Langdown',
+  title: 'UX & Conversion Audit | William Langdown',
   description:
-    'A personal review of an existing website, covering what is working, what is not, and what to prioritise first. A recorded walkthrough and a short written list of recommendations. £145.',
+    'A review of how clearly your website communicates, builds trust and helps visitors get in touch, with a recorded walkthrough and practical recommendations. £149.',
   alternates: { canonical: 'https://williamlangdown.com/website-audit' },
   openGraph: {
-    title: 'Website Audit | William Langdown',
+    title: 'UX & Conversion Audit | William Langdown',
     description:
-      'A personal review of an existing website, covering what is working, what is not, and what to prioritise first. A recorded walkthrough and a short written list of recommendations. £145.',
+      'A review of how clearly your website communicates, builds trust and helps visitors get in touch, with a recorded walkthrough and practical recommendations. £149.',
     url: 'https://williamlangdown.com/website-audit',
   },
 }
 
 const lookAt = [
   {
-    title: 'Clarity',
-    body: 'Can someone quickly understand what the business does, and why they should choose it?',
+    title: 'Usability and navigation',
+    body: 'Can people find what they need quickly, on a phone as well as on a desktop?',
   },
   {
-    title: 'Trust',
-    body: 'Does the website give someone enough reason to believe the business is credible?',
+    title: 'Clarity of messaging',
+    body: 'Is the language specific to your business, and does it explain what you do and why someone should choose you?',
   },
   {
-    title: 'Messaging',
-    body: 'Is the language specific to your business, or could it belong to almost anyone?',
+    title: 'Visual hierarchy',
+    body: 'Does each page guide attention to what matters, or leave people to work it out themselves?',
   },
   {
-    title: 'Customer journey',
-    body: 'Can someone find what they need and take the next step easily?',
+    title: 'Trust and credibility',
+    body: 'Does the website give a visitor enough reason to believe the business is established and reliable?',
   },
   {
-    title: 'Visual hierarchy and design',
-    body: 'Does the page guide attention to what matters, or leave people to work it out themselves?',
+    title: 'Calls to action',
+    body: 'Is it obvious what to do next, and is the next step in the right place?',
   },
   {
-    title: 'Mobile experience',
-    body: 'Does it hold up on the device most visitors will actually use?',
-  },
-  {
-    title: 'Technical, performance and SEO issues',
-    body: 'Are there obvious problems quietly costing you visitors or search visibility?',
+    title: 'Friction in the enquiry journey',
+    body: 'Where do people hesitate or give up between arriving on the site and getting in touch?',
   },
 ]
 
-export default function WebsiteAuditPage() {
+export default function UxConversionAuditPage() {
   return (
     <>
       <Nav />
@@ -61,12 +57,12 @@ export default function WebsiteAuditPage() {
             <ScrollReveal className="grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-10 md:gap-20">
               <div className="flex flex-col gap-10 md:h-full md:gap-0 md:justify-between">
                 <h1 className="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.03] text-ink">
-                  Website audit
+                  UX &amp; Conversion Audit
                 </h1>
 
                 <div>
                   <p className="text-lg md:text-xl text-ink">
-                    <span className="font-semibold">£145</span>{' '}
+                    <span className="font-semibold">£149</span>{' '}
                     <span className="text-terracotta">&middot;</span>{' '}
                     <span className="text-base md:text-lg text-secondary">Approx. 15 min</span>
                   </p>
@@ -78,8 +74,9 @@ export default function WebsiteAuditPage() {
 
               <div className="flex flex-col gap-8 md:h-full md:gap-0 md:justify-between max-w-xl">
                 <p className="font-display text-lg md:text-2xl leading-[1.4] text-ink">
-                  I&apos;ll review your website and tell you what I&apos;d change, what
-                  I&apos;d leave alone and what I think matters most.
+                  I&apos;ll review how well your website explains what you do, earns trust and
+                  helps visitors get in touch, and tell you what I&apos;d change, what I&apos;d
+                  leave alone and what I think matters most.
                 </p>
 
                 <div>
@@ -104,9 +101,9 @@ export default function WebsiteAuditPage() {
             <ScrollReveal>
               <h2 className="font-display text-2xl md:text-3xl text-ink mb-4">What I&apos;ll look at</h2>
               <p className="text-sm md:text-base text-secondary leading-relaxed max-w-xl mb-12">
-                A general review, not a narrow technical scan. In fifteen minutes the aim is to
-                identify what matters most for your business, not to work through every page
-                line by line.
+                A general review of the website as a visitor experiences it. In fifteen minutes the
+                aim is to identify what matters most for your business, rather than to work through
+                every page line by line.
               </p>
             </ScrollReveal>
 
@@ -125,7 +122,7 @@ export default function WebsiteAuditPage() {
                 <p className="text-base text-secondary leading-relaxed max-w-md">
                   A recorded walkthrough of your website, about fifteen minutes long, where I
                   explain what I found and why it matters. Alongside that, a short written list
-                  of what I think you should prioritise first.
+                  of practical recommendations, with what I think you should prioritise first.
                 </p>
               </ScrollReveal>
               <ScrollReveal delay={60}>

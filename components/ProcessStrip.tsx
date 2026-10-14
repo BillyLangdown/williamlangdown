@@ -6,31 +6,31 @@ import ScrollReveal from '@/components/ScrollReveal'
 const steps = [
   {
     word: 'Understand',
-    clause: 'Your business, customers and competition before deciding what needs to change.',
+    clause: 'The business, how its work is done today and what is actually causing the problem.',
   },
   {
     word: 'Define',
-    clause: 'Turn what we learn into a clear position and direction.',
+    clause: 'Turn what we learn into clear priorities and a direction.',
   },
   {
     word: 'Create',
-    clause: 'Explore ideas with a reason behind every decision.',
+    clause: 'Design the solution, whether that is an automation, a system, a website or an identity.',
   },
   {
     word: 'Build',
-    clause: 'Turn the chosen direction into something real and useful.',
+    clause: 'Put the agreed solution in place and check that it works for the people using it.',
   },
   {
     word: 'Evolve',
-    clause: 'Learn from what happens and improve what matters.',
+    clause: 'See how it performs in use and improve what matters.',
   },
 ] as const
 
 const philosophyNote = (
   <>
-    The work starts <span className="text-terracotta">before</span> the design
+    The work starts <span className="text-terracotta">before</span> any solution
     does: understanding comes first, and it decides what Define, Create,
-    Build and Evolve actually do.
+    Build and Evolve actually involve.
   </>
 )
 

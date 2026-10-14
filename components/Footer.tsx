@@ -2,8 +2,9 @@ import Link from 'next/link'
 
 const exploreLinks = [
   { href: '/case-studies', label: 'Work' },
-  { href: '/services', label: 'Capabilities' },
-  { href: '/website-audit', label: 'Website audit' },
+  { href: '/services', label: 'What I do' },
+  { href: '/business-automation-review', label: 'Business Automation Review' },
+  { href: '/website-audit', label: 'UX & Conversion Audit' },
   { href: '/about', label: 'About' },
   { href: '/pricing', label: 'Working Together' },
   { href: '/contact', label: 'Contact' },

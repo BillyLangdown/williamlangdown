@@ -34,18 +34,78 @@ export default function Hero() {
   )
 }
 
+function Highlighted() {
+  return (
+    <>
+      Practical technology and software solutions.
+    </>
+  )
+}
+
+/* Large desktop (1440px and above): static, bottom right, balancing the
+   name on the left. */
+function ValueStatement() {
+  return (
+    <p
+      className="
+        ml-auto
+        max-w-[14ch]
+        text-right
+        font-display
+        text-[clamp(1.75rem,3vw,3rem)]
+        leading-[1.1]
+        tracking-tight
+        text-white
+      "
+    >
+      <Highlighted />
+    </p>
+  )
+}
+
+/* Tablet and smaller desktop (below 1440px): sits in the same container as
+   the name, directly beneath it and left-aligned with it. */
+function StackedValueStatement() {
+  return (
+    <p
+      className="
+        mt-[clamp(0.75rem,2.5svh,1.5rem)]
+        max-w-[40ch]
+        text-left
+        font-display
+        text-[clamp(1.4rem,min(2.8vw,4svh),2.1rem)]
+        leading-[1.2]
+        tracking-tight
+        text-white
+        min-[1440px]:hidden
+      "
+    >
+      <Highlighted />
+    </p>
+  )
+}
+
+function MobileValueStatement() {
+  return (
+    <p
+      className="
+        mt-5
+        max-w-[18ch]
+        text-left
+        font-display
+        text-[clamp(1.9rem,8.5vw,2.6rem)]
+        leading-[1.1]
+        tracking-tight
+        text-white
+      "
+    >
+      <Highlighted />
+    </p>
+  )
+}
+
 /* ================================================================
    MOBILE
-
-   Background stays locked while the name copy scrolls upward, same
-   as before. No sticky-pinned second frame though — mobile Safari's
-   dynamic toolbar makes `position: sticky` + `svh` stacking unreliable
-   over a second full-screen frame. Instead the intro statement is a
-   normal but full-screen (100svh) section directly beneath, on the
-   same bone field as the Selected Work section that follows it, quote
-   centred both axes so it's the only thing on screen for that swipe
-   before the page moves on. Snaps into place on mobile via the
-   max-width companion to the desktop snap query below.
    ================================================================ */
 
 function MobileHero() {
@@ -84,7 +144,7 @@ function MobileHero() {
           />
         </div>
 
-        {/* Copy scrolls normally upward over the locked image */}
+        {/* Copy over locked image */}
         <div
           className="
             relative
@@ -122,17 +182,22 @@ function MobileHero() {
               Langdown
             </h1>
 
-            <p className="mt-5 text-[14px] font-medium tracking-wide text-bone/80">
-              Brand <span className="text-terracotta">/</span> Digital{' '}
-              <span className="text-terracotta">/</span> Technology
-            </p>
+            <MobileValueStatement />
           </div>
         </div>
       </section>
 
       <section
         data-nav-theme="light"
-        className="relative flex h-[100svh] w-full items-center justify-center bg-bone"
+        className="
+          relative
+          flex
+          h-[100svh]
+          w-full
+          items-center
+          justify-center
+          bg-bone
+        "
         style={{ scrollSnapAlign: 'start' }}
       >
         <IntroStatement />
@@ -143,10 +208,6 @@ function MobileHero() {
 
 /* ================================================================
    DESKTOP
-
-   Frame 1 + Frame 2 on same sticky image.
-   Frame 2 fades up in.
-   Bone FeaturedProject follows afterwards.
    ================================================================ */
 
 function DesktopHero() {
@@ -183,9 +244,8 @@ function DesktopHero() {
         />
       </div>
 
-      {/* Two real frames over same image */}
+      {/* Content over shared image */}
       <div className="relative z-10 -mt-[100svh]">
-
         {/* FRAME 1 */}
         <div
           className="
@@ -195,6 +255,7 @@ function DesktopHero() {
             [scroll-snap-align:start]
           "
         >
+          {/* Navigation */}
           <nav
             aria-label="Main navigation"
             className="
@@ -231,6 +292,22 @@ function DesktopHero() {
             </ul>
           </nav>
 
+          {/* Proposition */}
+          <div
+            className="
+              absolute
+              bottom-16
+              right-10
+              z-20
+              hidden
+              lg:right-12
+              min-[1440px]:block
+            "
+          >
+            <ValueStatement />
+          </div>
+
+          {/* Name */}
           <div
             className="
               flex
@@ -238,7 +315,8 @@ function DesktopHero() {
               flex-col
               justify-end
               px-10
-              pb-16
+              pb-[clamp(2rem,8svh,4rem)]
+              min-[1440px]:pb-16
             "
           >
             <h1
@@ -249,20 +327,16 @@ function DesktopHero() {
                 leading-[0.92]
                 tracking-tight
                 text-bone
+                text-[clamp(2.75rem,min(11vw,20svh),9.5rem)]
+                min-[1440px]:text-[clamp(2.75rem,12vw,9.5rem)]
               "
-              style={{
-                fontSize: 'clamp(2.75rem, 12vw, 9.5rem)',
-              }}
             >
               William
               <br />
               Langdown
             </h1>
 
-            <p className="mt-7 text-base font-medium tracking-wide text-bone/80">
-              Brand <span className="text-terracotta">/</span> Digital{' '}
-              <span className="text-terracotta">/</span> Technology
-            </p>
+            <StackedValueStatement />
           </div>
         </div>
 
