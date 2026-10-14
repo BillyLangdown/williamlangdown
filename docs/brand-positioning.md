@@ -25,6 +25,14 @@ Automation remain retired exactly as below. Website Audit is the single, specifi
 exception, rebuilt against the current editorial design system rather than the old
 pill/card/FAQ format the original page used.
 
+**Status (2026-10-14, revised):** positioning corrected. An earlier version of this change
+pushed the practice towards general business improvement consultancy, which is not what
+William offers. He is an independent technology, automation and digital consultant. Technology
+& Automation is the primary service and Web & Digital is second. There is no Business
+Improvement category and no size restriction (not "small and medium-sized businesses" and not
+"established UK businesses"). See §3b, which supersedes the Brand / Digital / Technology
+framing in §1 to §3 wherever they conflict.
+
 ---
 
 ## 1. Who this is
@@ -121,6 +129,47 @@ cleanup. The distinction:
   **Website Audit** (an accessible, fixed-scope way into working with him on an existing
   website).
 
+### 3b. Current positioning (2026-10-14), supersedes the three-capability model
+
+An independent technology, automation and digital consultant. Expertise: software
+development, automation, integrations, UX, websites and branding. Not a general business
+improvement, operational or management consultant. He can examine workflows to find
+opportunities for automation or better use of software, but does not offer broad operational
+consultancy.
+
+**Two service categories, always in this order:**
+1. **Technology & Automation** (primary): workflow automation, software integrations,
+   practical AI implementation, custom internal tools, software development, Business
+   Automation Reviews.
+2. **Web & Digital**: website design and development, UX design, conversion optimisation,
+   branding, digital experiences, UX & Conversion Audits.
+
+Software development is not a top-level category because it overlaps both. Internal
+software, integrations and business tools sit under Technology & Automation. Websites,
+customer-facing digital experiences, UX and branding sit under Web & Digital.
+
+**Two fixed-price entry services**, shown together on the homepage and the services page:
+- **Business Automation Review, £395**, at `/business-automation-review`. A focused review of
+  selected workflows (not an audit of the organisation), ending in a written report with
+  prioritised recommendations, indicative costs and benefits, and a follow-up conversation.
+  If an implementation project is commissioned with William within 60 days, the £395 is
+  deducted from the project price. No commitment to proceed.
+- **UX & Conversion Audit, £149**, at `/website-audit` (URL deliberately unchanged, so no
+  redirect). A recorded review of about 15 minutes plus practical recommendations. Formerly
+  "Website Audit". The contact form value is still `website-audit`.
+
+**Principle for all copy:** do not sell automation indiscriminately, and do not imply that
+every business needs AI or automation. Recommend what fits the problem.
+
+**Fixed copy:** the homepage hero statement ("Practical technology and software solutions.")
+and the homepage introduction paragraph were supplied word for word by William and must not
+be paraphrased.
+
+**Still true from earlier sections:** no separate pages per automation technology or use
+case, no invented testimonials, clients or results, no badge or card pricing treatment.
+Writing rules: British English, no em dashes, no agency-style punchy fragments, no corporate
+jargon.
+
 ## 4. Evidence / proof — current state
 
 Three case studies live in Sanity as of 2026-09-10 (published perspective — this is what's
@@ -174,8 +223,9 @@ not a real domain — plausibly noindexed while unfinished and never revisited).
 ## 7. What this means for site structure
 
 Matches this baseline as of 2026-09-10, updated 2026-09-26:
-- Homepage, `/about`, `/pricing`, `/services` (Capabilities), `/website-audit` (added
-  2026-09-26, see §3a)
+- Homepage, `/about`, `/pricing`, `/services` (now titled "What I do"),
+  `/website-audit` (UX & Conversion Audit, see §3a and §3b) and `/business-automation-review`
+  (added 2026-10-14, see §3b)
 - Case studies: BVS, Planning Enforcement Advisory (both now indexable), Garden Tablecloth
   (kept deliberately, framed as CRO proof not ICP proof)
 - `growth-websites`, `custom-software`, `booking-systems-automation` now 301 → `/services`,

@@ -13,7 +13,7 @@ export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'Work | William Langdown',
-  description: 'Selected work: real businesses, real problems, and what changed. Strategy, brand, digital and technology projects for established UK businesses.',
+  description: 'Selected work: real businesses, real problems, and what changed. Technology, automation, web and brand projects for UK businesses.',
   alternates: { canonical: 'https://williamlangdown.com/case-studies' },
   openGraph: {
     title: 'Work | William Langdown',

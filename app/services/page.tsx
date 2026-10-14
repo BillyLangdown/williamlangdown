@@ -4,6 +4,7 @@ import CTABanner from '@/components/CTABanner'
 import ScrollReveal from '@/components/ScrollReveal'
 import ProcessSteps from '@/components/ProcessSteps'
 import Capabilities from '@/components/Capabilities'
+import EntryServices from '@/components/EntryServices'
 import Link from 'next/link'
 import Image from 'next/image'
 import { getCaseStudies } from '@/lib/queries'
@@ -14,12 +15,12 @@ import type { Metadata } from 'next'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Capabilities | Brand, Digital & Technology | William Langdown',
-  description: 'Strategy & Brand, Digital and Technology, for established UK businesses whose identity or digital presence hasn’t kept pace with what they’ve become. Somerset-based, working nationwide.',
+  title: 'Services | Technology, Automation & Digital | William Langdown',
+  description: 'Technology and automation, plus websites, UX and branding, for UK businesses. Workflow automation, integrations, custom software and digital experiences. Somerset-based, working nationwide.',
   alternates: { canonical: 'https://williamlangdown.com/services' },
   openGraph: {
-    title: 'Capabilities | Brand, Digital & Technology | William Langdown',
-    description: 'Strategy & Brand, Digital and Technology capabilities for established UK businesses. Somerset-based, working nationwide.',
+    title: 'Services | Technology, Automation & Digital | William Langdown',
+    description: 'Technology and automation, plus websites, UX and branding, for UK businesses.',
     url: 'https://williamlangdown.com/services',
   },
 }
@@ -37,7 +38,7 @@ async function SelectedWork() {
     <section className="px-6 py-20 md:py-24 bg-white border-t border-border-light">
       <div className="max-w-6xl mx-auto">
         <ScrollReveal className="mb-12 max-w-xl">
-          <h2 className="font-display text-3xl md:text-4xl text-ink leading-[1.1]">Where this shows up in practice.</h2>
+          <h2 className="font-display text-3xl md:text-4xl text-ink leading-[1.1]">Selected work.</h2>
         </ScrollReveal>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {studies.map((study, i) => (
@@ -94,19 +95,22 @@ export default function ServicesPage() {
         >
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
-              <p className="text-sm font-semibold text-secondary mb-4">Capabilities</p>
+              <p className="text-sm font-semibold text-secondary mb-4">What I do</p>
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.06] text-ink mb-6">
-                Strategy, design and software, considered together.
+                Technology and automation, with websites and digital experiences alongside.
               </h1>
               <p className="text-base md:text-lg text-secondary leading-relaxed max-w-2xl">
-                Every project starts with the same question: what does this business actually need
-                to change? The answer determines which of these three areas gets involved, and how much.
+                Every piece of work starts with understanding the problem. The solution might be an
+                automation, a connection between systems you already use, a custom tool or a
+                website that explains the business more clearly, and I recommend whichever fits.
               </p>
             </ScrollReveal>
           </div>
         </section>
 
         <Capabilities />
+
+        <EntryServices />
 
         <SelectedWork />
 

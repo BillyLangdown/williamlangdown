@@ -7,38 +7,33 @@ import { gtagEvent } from '@/lib/gtag'
 
 const areas = [
   {
-    value: 'strategy',
-    label: 'Strategy & Brand',
-    included: 'Research / Positioning / Messaging / Identity / Creative direction',
-    placeholder: 'e.g. Our brand and messaging haven\'t kept up with what the business has become...',
-  },
-  {
-    value: 'digital',
-    label: 'Digital',
-    included: 'UX / Web design / Digital experiences / Technical SEO / Analytics',
-    placeholder: 'e.g. Our website doesn\'t reflect the quality of the work we actually do...',
-  },
-  {
     value: 'technology',
-    label: 'Technology',
-    included: 'Development / Software / Integrations / Automation / Applied AI',
+    label: 'Technology & Automation',
+    included: 'Automation / Integrations / Practical AI / Custom software',
     placeholder: 'e.g. We\'re running the business through spreadsheets and it needs something better...',
   },
   {
-    value: 'everything',
-    label: 'All of it',
-    included: 'Strategy & Brand / Digital / Technology',
-    placeholder: 'e.g. We need a proper rebrand, a new website, and better systems behind the scenes...',
+    value: 'digital',
+    label: 'Web & Digital',
+    included: 'Websites / UX / Conversion optimisation / Branding',
+    placeholder: 'e.g. Our website doesn\'t reflect the quality of the work we actually do...',
+  },
+  {
+    value: 'business-automation-review',
+    label: 'Business Automation Review',
+    included: '£395 / Focused review of selected workflows',
+    placeholder: 'e.g. My team spends a lot of time moving information between systems and I would like to know what could be automated...',
   },
   {
     value: 'website-audit',
-    label: 'Website audit',
-    included: 'Recorded walkthrough / Prioritised recommendations',
+    label: 'UX & Conversion Audit',
+    included: '£149 / Recorded review of your website',
     placeholder: 'e.g. I want an outside opinion before I spend money changing anything...',
   },
   {
     value: 'not-sure',
     label: 'Not sure yet',
+    included: 'Tell me what is going on and we can work out where to start',
     placeholder: 'e.g. Something isn\'t working, but I\'m not sure exactly what needs to change...',
   },
 ]

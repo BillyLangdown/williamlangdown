@@ -21,9 +21,9 @@ const fraunces = Fraunces({
 })
 
 export const metadata: Metadata = {
-  title: 'William Langdown | Brand, Digital & Technology Practice',
+  title: 'William Langdown | Technology, Automation & Digital Consultant',
   description:
-    'An independent practice combining brand strategy, digital design and software development for established UK businesses. Somerset-based, working nationwide.',
+    'Independent consultant in technology, automation and digital. Workflow automation, integrations, software development, websites, UX and branding for UK businesses.',
   alternates: {
     canonical: 'https://williamlangdown.com',
   },
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     apple: '/favicon.ico',
   },
   openGraph: {
-    title: 'William Langdown | Brand, Digital & Technology Practice',
+    title: 'William Langdown | Technology, Automation & Digital Consultant',
     description:
-      'An independent practice combining brand strategy, digital design and software development for established UK businesses. Somerset-based, working nationwide.',
+      'Independent consultant in technology, automation and digital. Workflow automation, integrations, software development, websites, UX and branding for UK businesses.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
@@ -42,9 +42,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'William Langdown | Brand, Digital & Technology Practice',
+    title: 'William Langdown | Technology, Automation & Digital Consultant',
     description:
-      'An independent practice combining brand strategy, digital design and software development for established UK businesses.',
+      'Independent consultant in technology, automation and digital, helping UK businesses make better use of technology.',
   },
 }
 

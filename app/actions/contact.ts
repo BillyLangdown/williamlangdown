@@ -42,10 +42,12 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
 }
 
 const serviceLabels: Record<string, string> = {
-  strategy: 'Strategy & Brand',
-  digital: 'Digital',
-  technology: 'Technology',
-  'website-audit': 'Website audit',
+  'business-automation-review': 'Business Automation Review',
+  strategy: 'Web & Digital (Branding)',
+  digital: 'Web & Digital',
+  technology: 'Technology & Automation',
+  everything: 'More than one of these',
+  'website-audit': 'UX & Conversion Audit',
   'not-sure': 'Not sure yet',
   // legacy values, kept so older bookmarked/cached links still label sensibly
   growth: 'Digital (legacy: Growth Websites)',

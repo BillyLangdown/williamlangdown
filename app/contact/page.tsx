@@ -6,11 +6,11 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Contact | William Langdown',
-  description: 'Get in touch about a brand, digital or technology project. Somerset-based, working with UK businesses nationwide.',
+  description: 'Get in touch about automation, software, a website or another digital project. Somerset-based, working with UK businesses nationwide.',
   alternates: { canonical: 'https://williamlangdown.com/contact' },
   openGraph: {
     title: 'Contact | William Langdown',
-    description: 'Get in touch about a brand, digital or technology project. Somerset-based, working with UK businesses nationwide.',
+    description: 'Get in touch about automation, software, a website or another digital project. Somerset-based, working with UK businesses nationwide.',
     url: 'https://williamlangdown.com/contact',
   },
 }
@@ -29,7 +29,7 @@ export default async function ContactPage({ searchParams }: Props) {
         <section className="px-6 pt-32 pb-24 md:pt-40 md:pb-32">
           <div className="max-w-3xl mx-auto">
             <h1 className="font-display text-4xl md:text-5xl leading-[1.06] text-ink mb-6">
-              Start a project.
+              Start a conversation.
             </h1>
 
             <p className="text-base text-secondary leading-relaxed max-w-xl mb-14">

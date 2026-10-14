@@ -1,12 +1,12 @@
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
 import FeaturedProject from '@/components/FeaturedProject'
-import BrandDigitalTechnology from '@/components/BrandDigitalTechnology'
+import ServicesOverview from '@/components/ServicesOverview'
+import EntryServices from '@/components/EntryServices'
 import ProcessStrip from '@/components/ProcessStrip'
 import SecondaryWork from '@/components/SecondaryWork'
 import ReviewSection from '@/components/ReviewSection'
 import AboutSection from '@/components/AboutSection'
-import AuditPrompt from '@/components/AuditPrompt'
 import CTABanner from '@/components/CTABanner'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
@@ -14,12 +14,12 @@ import type { Metadata } from 'next'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'William Langdown | Brand, Digital & Technology Practice',
-  description: 'An independent practice combining brand strategy, digital design and software development for established UK businesses. Somerset-based, working nationwide.',
+  title: 'William Langdown | Technology, Automation & Digital Consultant',
+  description: 'Independent consultant in technology, automation and digital. Workflow automation, integrations, software development, websites, UX and branding for UK businesses.',
   alternates: { canonical: 'https://williamlangdown.com' },
   openGraph: {
-    title: 'William Langdown | Brand, Digital & Technology Practice',
-    description: 'An independent practice combining brand strategy, digital design and software development for established UK businesses. Somerset-based, working nationwide.',
+    title: 'William Langdown | Technology, Automation & Digital Consultant',
+    description: 'Independent consultant in technology, automation and digital. Workflow automation, integrations, software development, websites, UX and branding for UK businesses.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'William Langdown | Brand, Digital & Technology Practice',
-    description: 'An independent practice combining brand strategy, digital design and software development for established UK businesses.',
+    title: 'William Langdown | Technology, Automation & Digital Consultant',
+    description: 'Independent consultant in technology, automation and digital, helping UK businesses make better use of technology.',
   },
 }
 
@@ -40,19 +40,19 @@ const jsonLd = {
       '@id': 'https://williamlangdown.com/#person',
       name: 'William Langdown',
       url: 'https://williamlangdown.com',
-      jobTitle: 'Founder, Brand, Digital & Technology Practice',
-      description: 'Independent practitioner combining a background in advertising and branding with professional software development, working across strategy, design and implementation for established UK businesses.',
+      jobTitle: 'Independent Technology, Automation & Digital Consultant',
+      description: 'Independent consultant combining professional software development with a background in advertising and branding, helping businesses make better use of technology.',
       email: 'hello@williamlangdown.com',
     },
     {
       '@type': 'ProfessionalService',
       '@id': 'https://williamlangdown.com/#service',
-      name: 'William Langdown - Brand, Digital & Technology Practice',
+      name: 'William Langdown - Technology, Automation & Digital Consultant',
       url: 'https://williamlangdown.com',
-      description: 'Brand strategy, digital design and software development for established UK businesses whose identity, digital presence or internal systems have not kept pace with the business itself. Somerset-based, working with clients across the UK, remotely.',
+      description: 'Workflow automation, software integrations, custom software, website development, UX and branding for UK businesses. Somerset-based, working with clients across the UK, remotely.',
       provider: { '@id': 'https://williamlangdown.com/#person' },
       areaServed: ['Taunton', 'Chard', 'Frome', 'Somerset', 'Bristol', 'Exeter', 'GB'],
-      knowsAbout: ['Brand Strategy', 'Positioning', 'Digital Design', 'Web Development', 'Software Development', 'Workflow Automation', 'Technical SEO'],
+      knowsAbout: ['Workflow Automation', 'Software Integration', 'Software Development', 'Applied AI', 'Web Development', 'UX', 'Conversion Optimisation', 'Branding', 'Technical SEO'],
       telephone: '+44 7446 856927',
       address: {
         '@type': 'PostalAddress',
@@ -78,30 +78,44 @@ const jsonLd = {
       // e.g. from Google Business Profile or Sanity.
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
-        name: 'Capabilities',
+        name: 'Services',
         itemListElement: [
           {
             '@type': 'Offer',
             itemOffered: {
               '@type': 'Service',
-              name: 'Strategy & Brand',
-              description: 'Research, positioning, messaging and identity for businesses whose brand has not kept pace with what they have become.',
+              name: 'Business Automation Review',
+              description: 'A focused review of selected workflows to find opportunities for automation, integrations and better use of existing software, with a written report of prioritised recommendations.',
+              url: 'https://williamlangdown.com/business-automation-review',
+            },
+            price: '395',
+            priceCurrency: 'GBP',
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'UX & Conversion Audit',
+              description: 'A recorded review of how well a website communicates, builds trust and helps visitors get in touch.',
+              url: 'https://williamlangdown.com/website-audit',
+            },
+            price: '149',
+            priceCurrency: 'GBP',
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: 'Technology & Automation',
+              description: 'Workflow automation, software integrations, practical AI implementation, custom internal tools and software development.',
             },
           },
           {
             '@type': 'Offer',
             itemOffered: {
               '@type': 'Service',
-              name: 'Digital',
-              description: 'Website design, development, UX, technical SEO and analytics built around the customer journey.',
-            },
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'Technology',
-              description: 'Bespoke software, internal tools, integrations and workflow automation built around how the business works.',
+              name: 'Web & Digital',
+              description: 'Website design and development, UX, conversion optimisation, branding and digital experiences.',
             },
           },
         ],
@@ -118,7 +132,13 @@ export default function HomePage() {
       <main>
         <Hero />
 
-    <FeaturedProject
+<ServicesOverview />
+
+        <EntryServices />
+
+        <ProcessStrip />
+
+        <FeaturedProject
   name="The Planning Enforcement Advisory"
   client="Planning enforcement consultancy"
   tags={['Strategy', 'Brand', 'UX/UI', 'Development']}
@@ -146,15 +166,10 @@ export default function HomePage() {
   ctaLabel="Read case study"
 />
 
-        <BrandDigitalTechnology />
-
-        <ProcessStrip />
-
         <SecondaryWork />
 
         <ReviewSection />
         <AboutSection />
-        <AuditPrompt />
         <CTABanner />
       </main>
       <Footer />
