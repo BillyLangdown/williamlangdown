@@ -26,14 +26,20 @@ export default function AboutSection() {
         <div className="flex items-center px-6 py-14 md:px-14 md:py-0">
           <ScrollReveal>
             <p className="text-sm font-semibold text-bone/70 mb-5">About</p>
-            <p className="font-display text-3xl md:text-4xl lg:text-[2.75rem] text-bone leading-[1.15] mb-6">
-              A degree in branding, and a career spent building software.
+            <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] text-bone leading-[1.15] mb-5">
+              You work directly with me.
+            </h2>
+            <p className="mb-6 max-w-md text-base leading-relaxed text-bone/75">
+              I&apos;m an independent technology and digital consultant. My background is in software
+              development, web development and design, including a degree in advertising and
+              branding. Every project is handled by me personally, from the first conversation to
+              the finished work.
             </p>
             <Link
               href="/about"
               className="inline-flex items-center gap-2 text-sm font-medium text-bone hover:text-terracotta transition-colors"
             >
-              More about the practice
+              More about me
               <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                 <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>

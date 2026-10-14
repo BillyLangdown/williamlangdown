@@ -33,7 +33,7 @@ export default async function ContactPage({ searchParams }: Props) {
             </h1>
 
             <p className="text-base text-secondary leading-relaxed max-w-xl mb-14">
-              Most projects start with a short call to talk through what&apos;s going on and see whether it&apos;s something I can help with, before anything gets written down formally.
+              Tell me about a specific project, a problem you have, an early idea or a question about whether something is possible. You do not need a detailed brief, and a few lines is enough for me to tell you whether I can help.
             </p>
 
             <div id="contact-form">

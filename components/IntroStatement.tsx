@@ -11,7 +11,7 @@ export default function IntroStatement() {
     <div className="relative z-10 max-w-[750px] mx-auto text-center px-6">
       <ScrollReveal>
         <p className="font-display text-base md:text-[1.45rem] lg:text-[1.75rem] text-ink md:text-bone leading-[1.55]">
-          I help businesses make better use of technology through automation, software development and digital design. I focus on understanding the problem before finding the right solution.
+          Whether you have a clear idea of what you need or just know something could be working better, I can help you figure out what&apos;s possible and put it into practice.
         </p>
       </ScrollReveal>
     </div>

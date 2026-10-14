@@ -4,7 +4,17 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import BackgroundWord from '@/components/BackgroundWord'
 
-export default function CTABanner() {
+interface Props {
+  heading?: string
+  description?: string
+  cta?: string
+}
+
+export default function CTABanner({
+  heading = 'Have a project in mind?',
+  description = 'Tell me what you\u2019re looking to build or improve, and I\u2019ll let you know whether I can help.',
+  cta = 'Discuss a project',
+}: Props = {}) {
   return (
     <section data-nav-theme="light" className="relative z-10 overflow-hidden py-20 md:py-28 px-6 bg-bone">
       <BackgroundWord word="Contact" color="#10233F" opacity={0.045} parallax className="bottom-4 -left-1 md:bottom-6" />
@@ -18,22 +28,26 @@ export default function CTABanner() {
         >
           <div>
             <h2 className="font-display text-4xl md:text-5xl text-ink leading-[1.05] mb-3">
-              Available for new projects.
+              {heading}
             </h2>
-            <p className="text-sm text-secondary">
-              Not sure on budget yet?{' '}
-              <Link href="/pricing" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">
-                See how projects are priced
-              </Link>
-              .
-            </p>
+            {description ? (
+              <p className="max-w-md text-base leading-relaxed text-secondary">{description}</p>
+            ) : (
+              <p className="text-sm text-secondary">
+                Not sure on budget yet?{' '}
+                <Link href="/pricing" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">
+                  See how projects are priced
+                </Link>
+                .
+              </p>
+            )}
           </div>
           <Link
             href="/contact"
             className="inline-flex items-center gap-2 text-sm px-7 py-3.5 rounded-sm font-medium shrink-0 transition-colors"
             style={{ background: '#10233F', color: '#F6F3EE' }}
           >
-            Start a conversation
+            {cta}
             <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
               <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

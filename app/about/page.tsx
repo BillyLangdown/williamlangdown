@@ -4,24 +4,28 @@ import CTABanner from '@/components/CTABanner'
 import ScrollReveal from '@/components/ScrollReveal'
 import BackgroundWord from '@/components/BackgroundWord'
 import Image from 'next/image'
+import Link from 'next/link'
 import type { Metadata } from 'next'
+
+const description =
+  'An independent technology and digital consultant with a background in software development, web development and design. Somerset-based, working with UK businesses nationwide.'
 
 export const metadata: Metadata = {
   title: 'About | William Langdown',
-  description: 'A degree in branding, and a career spent building software. Somerset-based, working with UK businesses nationwide.',
+  description,
   alternates: { canonical: 'https://williamlangdown.com/about' },
   openGraph: {
     title: 'About | William Langdown',
-    description: 'A degree in branding, and a career spent building software. Somerset-based, working with UK businesses nationwide.',
+    description,
     url: 'https://williamlangdown.com/about',
   },
 }
 
 const facts = [
   'BA (Hons) Advertising & Branding',
-  'Software development experience',
+  'Software and web development experience',
   'Somerset, UK, working nationwide',
-  'Independent practice',
+  'Independent consultant',
 ]
 
 export default function AboutPage() {
@@ -31,19 +35,18 @@ export default function AboutPage() {
       <main className="bg-bone">
 
         {/* HEADER */}
-        <section className="px-6 pt-32 pb-16 md:pt-40 md:pb-20">
+        <section className="px-6 pt-32 pb-14 md:pt-40 md:pb-16">
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
-              <p className="text-sm font-semibold text-secondary mb-6">About</p>
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.12] text-ink max-w-3xl">
-                A degree in branding, and a career spent building software.
+                I&apos;m William, an independent technology and digital consultant.
               </h1>
             </ScrollReveal>
           </div>
         </section>
 
         {/* PORTRAIT + FACTS */}
-        <section className="px-6 pb-24 md:pb-32">
+        <section className="px-6 pb-16 md:pb-24">
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-12 md:gap-16 items-end">
             <ScrollReveal>
               <div className="relative w-full" style={{ aspectRatio: '4 / 5' }}>
@@ -71,29 +74,53 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* STATEMENT */}
-        <section className="px-6 pb-24 md:pb-32">
+        {/* BACKGROUND */}
+        <section className="px-6 pb-16 md:pb-24">
           <div className="max-w-3xl mx-auto">
             <ScrollReveal>
-              <p className="font-display text-3xl md:text-5xl leading-[1.15] text-ink">
-                Most people specialise in one side of that or the other.
+              <p className="font-display text-2xl md:text-3xl leading-[1.3] text-ink">
+                I studied advertising and branding, then spent my career building software and
+                websites. That means I can design something and build it myself, with no hand-off
+                between a designer and a developer.
+              </p>
+              <p className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed text-secondary">
+                Today I work independently from Somerset with businesses across the UK. I help them
+                reduce manual work through automation and integrations, and I build websites and
+                digital experiences that are easier to use. Recent projects include a new identity
+                and website for{' '}
+                <Link
+                  href="/case-studies/planning-enforcement-advisory"
+                  className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors"
+                >
+                  The Planning Enforcement Advisory
+                </Link>{' '}
+                and a faster website for{' '}
+                <Link
+                  href="/case-studies/building-ventilation-services-ltd"
+                  className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors"
+                >
+                  Building Ventilation Services
+                </Link>
+                .
               </p>
             </ScrollReveal>
           </div>
         </section>
 
-        {/* NAVY CONTINUATION */}
+        {/* WORKING WITH ME */}
         <section data-nav-theme="dark" className="relative z-10 overflow-hidden" style={{ background: '#10233F' }}>
           <BackgroundWord word="About" color="#F6F3EE" opacity={0.045} parallax className="top-8 right-0 md:top-10" />
-          <div className="relative z-10 px-6 py-24 md:py-32">
+          <div className="relative z-10 px-6 py-16 md:py-24">
             <div className="max-w-2xl mx-auto">
               <ScrollReveal>
-                <p className="font-display text-2xl md:text-3xl leading-[1.3] text-bone">
-                  Working across both keeps strategy and implementation connected through a
-                  project, rather than handed off between people who never talk to each other.
-                </p>
-                <p className="mt-6 text-base md:text-lg text-bone/70 leading-relaxed">
-                  Collaborators come in where a project genuinely calls for it.
+                <h2 className="font-display text-3xl md:text-4xl leading-[1.15] text-bone">
+                  Working with me
+                </h2>
+                <p className="mt-6 text-base md:text-lg text-bone/75 leading-relaxed">
+                  You deal with me directly, from the first conversation to the finished project.
+                  We agree the scope, timing and cost before any work begins, and you can approach
+                  me with a rough idea or just a problem. Where a project needs another specialist,
+                  I will say so at the start.
                 </p>
               </ScrollReveal>
             </div>

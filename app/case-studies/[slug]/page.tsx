@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CTABanner from '@/components/CTABanner'
+import Link from 'next/link'
 import { getCaseStudy, getCaseStudies } from '@/lib/queries'
 import { urlFor } from '@/sanity/client'
 import { PortableText } from '@portabletext/react'
@@ -59,6 +60,19 @@ const portableTextComponents: PortableTextComponents = {
     bullet: ({ children }) => <li className="leading-relaxed">{children}</li>,
     number: ({ children }) => <li className="leading-relaxed">{children}</li>,
   },
+}
+
+// Figures already stated in each case study's text or published elsewhere on
+// the site. Add to this only with verified numbers.
+const KEY_RESULTS: Record<string, { value: string; label: string }[]> = {
+  'building-ventilation-services-ltd': [
+    { value: '56 to 98', label: 'Mobile PageSpeed' },
+    { value: '69 to 100', label: 'Desktop PageSpeed' },
+  ],
+  'the-garden-tablecloth-co': [
+    { value: '+75%', label: 'Enquiries' },
+    { value: '-21%', label: 'Bounce rate' },
+  ],
 }
 
 export const revalidate = 3600
@@ -285,6 +299,23 @@ export default async function CaseStudyPage({ params }: Props) {
           </section>
         )}
 
+        {/* Key results */}
+        {KEY_RESULTS[slug] && (
+          <section className="px-6 mb-16">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-sm font-semibold text-secondary mb-4">Results</h2>
+              <div className="flex flex-wrap gap-x-12 gap-y-6 border-t border-border-light pt-6">
+                {KEY_RESULTS[slug].map((r) => (
+                  <div key={r.label}>
+                    <p className="font-display text-3xl md:text-4xl text-ink">{r.value}</p>
+                    <p className="mt-1 text-xs text-tertiary">{r.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Body */}
         {study.body && study.body.length > 0 && (
           <section className="px-6 mb-24">
@@ -295,6 +326,20 @@ export default async function CaseStudyPage({ params }: Props) {
             </div>
           </section>
         )}
+
+        <section className="px-6 mb-20">
+          <div className="max-w-3xl mx-auto border-t border-border-light pt-6">
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors hover:text-terracotta"
+            >
+              See what else I do
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+          </div>
+        </section>
 
         <CTABanner />
       </main>
