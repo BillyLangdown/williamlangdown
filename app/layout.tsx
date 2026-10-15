@@ -20,10 +20,16 @@ const fraunces = Fraunces({
   style: ['normal', 'italic'],
 })
 
+// Preview and local builds must never be indexed (production is the only
+// deployment where VERCEL_ENV is "production"; unset means a local build).
+const isProduction = !process.env.VERCEL_ENV || process.env.VERCEL_ENV === 'production'
+
 export const metadata: Metadata = {
-  title: 'William Langdown | Technology, Automation & Digital Consultant',
+  metadataBase: new URL('https://williamlangdown.com'),
+  ...(isProduction ? {} : { robots: { index: false, follow: false } }),
+  title: 'Workflow Automation & Software Consultant | William Langdown',
   description:
-    'Independent consultant in technology, automation and digital. Workflow automation, integrations, software development, websites, UX and branding for UK businesses.',
+    'Independent consultant in Somerset working UK-wide. Workflow automation, software integrations, practical AI and custom software, plus websites and UX.',
   alternates: {
     canonical: 'https://williamlangdown.com',
   },
@@ -32,9 +38,9 @@ export const metadata: Metadata = {
     apple: '/favicon.ico',
   },
   openGraph: {
-    title: 'William Langdown | Technology, Automation & Digital Consultant',
+    title: 'Workflow Automation & Software Consultant | William Langdown',
     description:
-      'Independent consultant in technology, automation and digital. Workflow automation, integrations, software development, websites, UX and branding for UK businesses.',
+      'Independent consultant in Somerset working UK-wide. Workflow automation, software integrations, practical AI and custom software, plus websites and UX.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
@@ -42,9 +48,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'William Langdown | Technology, Automation & Digital Consultant',
+    title: 'Workflow Automation & Software Consultant | William Langdown',
     description:
-      'Independent consultant in technology, automation and digital, helping UK businesses make better use of technology.',
+      'Independent consultant in Somerset working UK-wide. Workflow automation, software integrations, practical AI and custom software, plus websites and UX.',
   },
 }
 
@@ -68,10 +74,12 @@ export default function RootLayout({
       <head>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-          strategy="afterInteractive"
+          // Loads once the page has finished loading, so Google's script does
+          // not compete with first paint. Events queue in dataLayer until then.
+          strategy="lazyOnload"
         />
 
-        <Script id="gtag-init" strategy="afterInteractive">
+        <Script id="gtag-init" strategy="beforeInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

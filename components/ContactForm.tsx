@@ -47,7 +47,17 @@ const timingOptions = [
 
 const DEFAULT_PLACEHOLDER = 'e.g. Tell me a bit about the business and what you\'re trying to change...'
 
-function Form({ defaultService }: { defaultService?: string }) {
+// Distinct reporting events per enquiry type. generate_lead stays the single
+// general lead event; these add a type-specific event alongside it, so mark
+// only one set as key events in GA4 to avoid double-counting. No form
+// contents are ever sent, only the enquiry type and the page it came from.
+function enquiryType(service: string) {
+  if (service === 'business-automation-review') return { type: 'business_automation_review', event: 'enquiry_automation_review' }
+  if (service === 'website-audit') return { type: 'ux_conversion_audit', event: 'enquiry_ux_audit' }
+  return { type: 'project', event: 'enquiry_project' }
+}
+
+function Form({ defaultService, topic }: { defaultService?: string; topic?: string }) {
   const { executeRecaptcha } = useGoogleReCaptcha()
   const [step, setStep] = useState(() =>
     defaultService && areas.some(s => s.value === defaultService) ? 2 : 1
@@ -88,13 +98,16 @@ function Form({ defaultService }: { defaultService?: string }) {
         website: isAudit ? websiteUrl : company,
         company: isAudit ? (company.trim() || undefined) : undefined,
         service: selectedArea,
+        topic,
         message: timing ? `${message}\n\nTiming: ${timingOptions.find(t => t.value === timing)?.label ?? timing}` : message,
         recaptchaToken: token,
       })
 
       if (result.success) {
         setStatus('success')
-        gtagEvent('generate_lead', { service: selectedArea || 'not_specified' })
+        const { type, event } = enquiryType(selectedArea)
+        gtagEvent('generate_lead', { service: selectedArea || 'not_specified', enquiry_type: type, ...(topic && { topic }) })
+        gtagEvent(event, { ...(topic && { topic }) })
         gtagEvent('conversion', { send_to: 'AW-11171125987/ImpVCJzmqdccEOO1584p' })
       } else {
         setStatus('error')
@@ -104,7 +117,7 @@ function Form({ defaultService }: { defaultService?: string }) {
       setStatus('error')
       setErrorMessage('Something went wrong. Please try again.')
     }
-  }, [executeRecaptcha, name, email, company, websiteUrl, isAudit, selectedArea, message, timing])
+  }, [executeRecaptcha, name, email, company, websiteUrl, isAudit, selectedArea, message, timing, topic])
 
   const selectedLabel = areas.find(s => s.value === selectedArea)?.label
 
@@ -353,11 +366,11 @@ function Form({ defaultService }: { defaultService?: string }) {
   )
 }
 
-export default function ContactForm({ defaultService }: { defaultService?: string }) {
+export default function ContactForm({ defaultService, topic }: { defaultService?: string; topic?: string }) {
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? ''
   return (
     <GoogleReCaptchaProvider reCaptchaKey={siteKey}>
-      <Form defaultService={defaultService} />
+      <Form defaultService={defaultService} topic={topic} />
     </GoogleReCaptchaProvider>
   )
 }

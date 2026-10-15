@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import LazyVideo from '@/components/LazyVideo'
 
 /**
  * Pure identity/craft moment: the finished PEA logo animation, edge to
@@ -24,7 +25,6 @@ export default function PeaLogoVideo({
   alt: string
 }) {
   const [reducedMotion, setReducedMotion] = useState(false)
-  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -33,19 +33,6 @@ export default function PeaLogoVideo({
     mq.addEventListener('change', handler)
     return () => mq.removeEventListener('change', handler)
   }, [])
-
-  // Belt-and-braces: the declarative `autoPlay` attribute can lose a race
-  // against React applying `muted`, so Chrome's autoplay policy blocks
-  // the very first play() attempt and never retries on its own. Setting
-  // `.muted` on the element directly and calling play() imperatively
-  // sidesteps that.
-  useEffect(() => {
-    const v = videoRef.current
-    if (!v || reducedMotion) return
-    v.muted = true
-    const p = v.play()
-    if (p !== undefined) p.catch(() => {})
-  }, [reducedMotion])
 
   return (
     <div
@@ -63,17 +50,11 @@ export default function PeaLogoVideo({
           sizes="(max-width: 768px) 100vw, 100vw"
         />
       ) : (
-        <video
-          ref={videoRef}
+        <LazyVideo
           src={src}
           poster={poster}
           width={width}
           height={height}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover"
         />

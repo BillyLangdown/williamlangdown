@@ -6,16 +6,16 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Working Together | William Langdown',
+  title: 'Pricing: Automation from £1,500 | William Langdown',
   description:
-    'How technology, automation, web and digital projects are scoped, priced and started with William Langdown.',
+    'How automation, software, web and digital projects are scoped and priced. Automation implementations typically start from £1,500; reviews from £149. Independent consultant in Somerset.',
   alternates: {
     canonical: 'https://williamlangdown.com/pricing',
   },
   openGraph: {
-    title: 'Working Together | William Langdown',
+    title: 'Pricing: Automation from £1,500 | William Langdown',
     description:
-      'Focused projects and broader engagements across technology, automation, web and digital.',
+      'How automation, software, web and digital projects are scoped and priced.',
     url: 'https://williamlangdown.com/pricing',
   },
 }
@@ -170,6 +170,16 @@ export default function PricingPage() {
                     If you commission a project within 60 days of a Business
                     Automation Review, the £395 review fee is deducted from the
                     agreed price.
+                  </p>
+
+                  <p className="mt-4 max-w-xl text-base leading-relaxed text-secondary">
+                    See what each project involves:{' '}
+                    <Link href="/services/workflow-automation" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">workflow automation</Link>,{' '}
+                    <Link href="/services/software-integrations" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">software integrations</Link>,{' '}
+                    <Link href="/services/ai-implementation" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">AI implementation</Link> and{' '}
+                    <Link href="/services/custom-software" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">custom software</Link>.
+                    For a closer look at automation costs, read{' '}
+                    <Link href="/blog/how-much-does-business-workflow-automation-cost-uk" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">the UK cost guide</Link>.
                   </p>
                 </div>
               </div>

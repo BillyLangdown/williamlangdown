@@ -6,15 +6,17 @@ import Link from 'next/link'
 import ProcessSteps from '@/components/ProcessSteps'
 import Capabilities from '@/components/Capabilities'
 import EntryServices from '@/components/EntryServices'
+import JsonLd from '@/components/JsonLd'
+import { graph, breadcrumbSchema } from '@/lib/schema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Services | Technology, Automation & Digital | William Langdown',
-  description: 'Technology and automation, plus websites, UX and branding, for UK businesses. Workflow automation, integrations, custom software and digital experiences. Somerset-based, working nationwide.',
+  title: 'Services: Automation, Integrations, AI & Software | William Langdown',
+  description: 'Workflow automation, software integrations, practical AI implementation and custom software, plus websites, UX and branding. Independent consultant based in Somerset, working across the UK.',
   alternates: { canonical: 'https://williamlangdown.com/services' },
   openGraph: {
-    title: 'Services | Technology, Automation & Digital | William Langdown',
-    description: 'Technology and automation, plus websites, UX and branding, for UK businesses.',
+    title: 'Services: Automation, Integrations, AI & Software | William Langdown',
+    description: 'Workflow automation, software integrations, practical AI implementation and custom software, plus websites, UX and branding.',
     url: 'https://williamlangdown.com/services',
   },
 }
@@ -22,26 +24,27 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={graph(breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Services', path: '/services' }]))} />
       <Nav />
       <main>
 
         {/* Header */}
         <section
-          className="px-6 pt-32 pb-14 md:pt-40 md:pb-16"
+          className="px-6 pt-28 pb-10 md:pt-32 md:pb-12"
           style={{
             backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
             backgroundSize: '22px 22px',
             backgroundColor: '#F6F3EE',
           }}
         >
-          <div className="max-w-4xl mx-auto">
-            <ScrollReveal>
+          <div className="max-w-6xl mx-auto">
+            <div>
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.06] text-ink mb-6">
                 Technology and automation, with websites and digital experiences alongside.
               </h1>
               <p className="text-base md:text-lg text-secondary leading-relaxed max-w-2xl">
-                I help businesses reduce manual work and build websites that are easier to use. You
-                can come with a specific project or with a problem you are not sure how to solve.
+                You can come with a specific project or with a problem you are not sure how to solve.
+                Technology and automation is the main focus, with web and digital work alongside.
               </p>
               <div className="mt-8">
                 <Link
@@ -54,14 +57,14 @@ export default function ServicesPage() {
                   </svg>
                 </Link>
               </div>
-            </ScrollReveal>
+            </div>
           </div>
         </section>
 
         <Capabilities />
 
         {/* Engagement / process */}
-        <section className="px-6 py-16 md:py-20 bg-subtle">
+        <section className="px-6 py-12 md:py-16 border-t border-border-light">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal className="mb-10 max-w-xl">
               <h2 className="font-display text-3xl md:text-4xl text-ink leading-[1.1]">How a project works.</h2>

@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import LazyVideo from '@/components/LazyVideo'
 import Link from 'next/link'
 import { ClientWork } from '@/components/ClientWork'
 import ScrollReveal from '@/components/ScrollReveal'
@@ -73,29 +74,21 @@ export default function SecondaryWork() {
               <>
                 {item.rawVideo ? (
                   <div className="overflow-hidden" style={{ border: '1px solid rgba(16,35,63,0.14)', borderRadius: '6px' }}>
-                    <video
+                    <LazyVideo
                       className="h-auto w-full"
                       style={{ aspectRatio: '1920 / 1110' }}
                       src={item.media.video}
                       poster={item.media.src}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
                     />
                   </div>
                 ) : item.deviceMockup ? (
                   <div className="overflow-hidden" style={{ border: '1px solid rgba(16,35,63,0.14)', borderRadius: '6px' }}>
                     <div className="relative overflow-hidden" style={{ aspectRatio: '3 / 2' }}>
                       {item.media.video ? (
-                        <video
+                        <LazyVideo
                           className="absolute inset-0 h-full w-full object-cover"
                           src={item.media.video}
                           poster={item.media.src}
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
                         />
                       ) : (
                         <Image

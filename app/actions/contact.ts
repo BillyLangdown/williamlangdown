@@ -10,6 +10,7 @@ export interface ContactFormData {
   website: string
   company?: string
   service: string
+  topic?: string
   message: string
   recaptchaToken: string
 }
@@ -39,6 +40,15 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
   console.log('[ContactAction] reCAPTCHA verify response:', data)
   // v3 returns a score 0.0–1.0; 0.5+ is a reasonable human threshold
   return data.success === true && data.score >= 0.5
+}
+
+const topicLabels: Record<string, string> = {
+  'workflow-automation': 'Workflow automation page',
+  'software-integrations': 'Software integrations page',
+  'ai-implementation': 'AI implementation page',
+  'custom-software': 'Custom software page',
+  'cost-guide': 'Guide: cost of workflow automation',
+  'spreadsheet-guide': 'Guide: replacing spreadsheets',
 }
 
 const serviceLabels: Record<string, string> = {
@@ -84,6 +94,7 @@ export async function submitContactForm(
   }
 
   const serviceLabel = serviceLabels[data.service] ?? data.service
+  const topicLabel = data.topic ? topicLabels[data.topic] : undefined
 
   // 3. Send email via Resend
   try {
@@ -125,6 +136,11 @@ export async function submitContactForm(
             <tr>
               <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; color: #666; font-size: 13px;">Interested in</td>
               <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; font-size: 13px;">${escapeHtml(serviceLabel)}</td>
+            </tr>` : ''}
+            ${topicLabel ? `
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; color: #666; font-size: 13px;">Came from</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; font-size: 13px;">${escapeHtml(topicLabel)}</td>
             </tr>` : ''}
           </table>
 

@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CTABanner from '@/components/CTABanner'
+import RelatedServices from '@/components/case-study/RelatedServices'
 import ScrollReveal from '@/components/ScrollReveal'
 import PeaLogoVideo from '@/components/PeaLogoVideo'
 import ProjectMeta from '@/components/case-study/ProjectMeta'
@@ -519,6 +520,8 @@ export default function BvsRedesignCaseStudy() {
         </section>
 
         <NextProject client="The Planning Enforcement Advisory" href="/case-studies/planning-enforcement-advisory" />
+
+        <RelatedServices links={[{ href: '/services#web-digital', label: 'web and digital services' }, { href: '/services/custom-software', label: 'custom software' }]} />
 
         <CTABanner />
       </main>

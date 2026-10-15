@@ -7,17 +7,20 @@ import Image from 'next/image'
 import { getBlogPosts } from '@/lib/queries'
 import { urlFor } from '@/sanity/client'
 import type { BlogPost } from '@/lib/types'
+import { guides } from '@/lib/guides'
+import JsonLd from '@/components/JsonLd'
+import { graph, breadcrumbSchema } from '@/lib/schema'
 import type { Metadata } from 'next'
 
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Insights | William Langdown',
-  description: 'Research and writing on technology, automation, digital design and software, from an independent consultant working with UK businesses. Somerset-based, working nationwide.',
+  title: 'Insights: Automation, Software and Digital | William Langdown',
+  description: 'Practical guides and writing on workflow automation, software integrations, custom software, AI and websites, from an independent consultant based in Somerset and working across the UK.',
   alternates: { canonical: 'https://williamlangdown.com/blog' },
   openGraph: {
-    title: 'Insights | William Langdown',
-    description: 'Research and writing on technology, automation, digital design and software, from an independent consultant working with UK businesses.',
+    title: 'Insights: Automation, Software and Digital | William Langdown',
+    description: 'Practical guides and writing on workflow automation, software integrations, custom software, AI and websites.',
     url: 'https://williamlangdown.com/blog',
   },
 }
@@ -125,8 +128,23 @@ export default async function BlogPage() {
     console.error('[BlogPage] Failed to fetch blog posts:', err)
   }
 
+  // Code-based guides and Sanity posts share one Insights index.
+  const guidePosts: BlogPost[] = guides.map((g) => ({
+    _id: `guide-${g.slug}`,
+    _type: 'blogPost',
+    title: g.title,
+    slug: { current: g.slug },
+    description: g.description,
+    tags: g.tags,
+    publishedAt: g.publishedAt,
+  }))
+  posts = [...guidePosts, ...posts.filter((p) => !guides.some((g) => g.slug === p.slug.current))].sort(
+    (a, b) => +new Date(b.publishedAt) - +new Date(a.publishedAt),
+  )
+
   return (
     <>
+      <JsonLd data={graph(breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Insights', path: '/blog' }]))} />
       <Nav />
       <main>
 
@@ -142,10 +160,10 @@ export default async function BlogPage() {
             <ScrollReveal>
               <div className="pl-4 border-l-4 border-accent">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-[1.06] tracking-tight text-ink">
-                  Thoughts &amp; writing
+                  Insights
                 </h1>
                 <p className="text-base text-secondary mt-3 max-w-xl leading-relaxed">
-                  Notes on web design, conversion, and building things that actually work.
+                  Practical guides on automation, integrations, software and websites for UK businesses.
                 </p>
               </div>
             </ScrollReveal>
