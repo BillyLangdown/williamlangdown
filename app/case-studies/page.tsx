@@ -192,6 +192,9 @@ export default async function CaseStudiesPage() {
               <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.06] text-ink">
                 Work
               </h1>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-secondary">
+                Selected projects, with what each involved and what changed.
+              </p>
             </ScrollReveal>
           </div>
         </section>

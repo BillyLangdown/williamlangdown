@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import ScrollReveal from '@/components/ScrollReveal'
-import SectionNav from '@/components/SectionNav'
 import BackgroundWord from '@/components/BackgroundWord'
 import PeaLogoVideo from '@/components/PeaLogoVideo'
 
@@ -54,8 +53,6 @@ export default function FeaturedProject({
       className="relative z-10 overflow-hidden bg-bone"
       style={{ scrollSnapAlign: 'start' }}
     >
-      <SectionNav />
-
       <div className="relative z-10 mx-auto max-w-5xl px-6 py-16 md:py-24">
         <BackgroundWord
           word="Work"
