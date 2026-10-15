@@ -13,12 +13,12 @@ import type { Metadata } from 'next'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'William Langdown | Technology, Automation & Digital Consultant',
-  description: 'Independent consultant in technology, automation and digital. Workflow automation, integrations, software development, websites, UX and branding for UK businesses.',
+  title: 'Workflow Automation & Software Consultant | William Langdown',
+  description: 'Independent consultant in Somerset working UK-wide. Workflow automation, software integrations, practical AI and custom software, plus websites and UX.',
   alternates: { canonical: 'https://williamlangdown.com' },
   openGraph: {
-    title: 'William Langdown | Technology, Automation & Digital Consultant',
-    description: 'Independent consultant in technology, automation and digital. Workflow automation, integrations, software development, websites, UX and branding for UK businesses.',
+    title: 'Workflow Automation & Software Consultant | William Langdown',
+    description: 'Independent consultant in Somerset working UK-wide. Workflow automation, software integrations, practical AI and custom software, plus websites and UX.',
     url: 'https://williamlangdown.com',
     siteName: 'William Langdown',
     locale: 'en_GB',
@@ -26,14 +26,27 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'William Langdown | Technology, Automation & Digital Consultant',
-    description: 'Independent consultant in technology, automation and digital, helping UK businesses make better use of technology.',
+    title: 'Workflow Automation & Software Consultant | William Langdown',
+    description: 'Independent consultant in Somerset working UK-wide. Workflow automation, software integrations, practical AI and custom software, plus websites and UX.',
   },
 }
+
+const svc = (name: string, description: string, path: string) => ({
+  '@type': 'Offer',
+  itemOffered: { '@type': 'Service', name, description, url: `https://williamlangdown.com${path}` },
+})
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://williamlangdown.com/#website',
+      url: 'https://williamlangdown.com',
+      name: 'William Langdown',
+      inLanguage: 'en-GB',
+      publisher: { '@id': 'https://williamlangdown.com/#person' },
+    },
     {
       '@type': 'Person',
       '@id': 'https://williamlangdown.com/#person',
@@ -42,81 +55,46 @@ const jsonLd = {
       jobTitle: 'Independent Technology, Automation & Digital Consultant',
       description: 'Independent consultant combining professional software development with a background in advertising and branding, helping businesses make better use of technology.',
       email: 'hello@williamlangdown.com',
+      knowsAbout: ['Workflow Automation', 'Software Integration', 'Software Development', 'Applied AI', 'Web Development', 'UX', 'Branding'],
     },
     {
       '@type': 'ProfessionalService',
       '@id': 'https://williamlangdown.com/#service',
-      name: 'William Langdown - Technology, Automation & Digital Consultant',
+      name: 'William Langdown',
       url: 'https://williamlangdown.com',
-      description: 'Workflow automation, software integrations, custom software, website development, UX and branding for UK businesses. Somerset-based, working with clients across the UK, remotely.',
-      provider: { '@id': 'https://williamlangdown.com/#person' },
-      areaServed: ['Taunton', 'Chard', 'Frome', 'Somerset', 'Bristol', 'Exeter', 'GB'],
-      knowsAbout: ['Workflow Automation', 'Software Integration', 'Software Development', 'Applied AI', 'Web Development', 'UX', 'Conversion Optimisation', 'Branding', 'Technical SEO'],
+      description: 'Workflow automation, software integrations, practical AI implementation, custom software, website development, UX and branding for UK businesses. Based in Somerset, working locally and remotely across the UK.',
+      founder: { '@id': 'https://williamlangdown.com/#person' },
       telephone: '+44 7446 856927',
+      email: 'hello@williamlangdown.com',
+      // Service-area business: locality only, no street address or
+      // coordinates, because no public premises are advertised.
       address: {
         '@type': 'PostalAddress',
         addressLocality: 'Taunton',
         addressRegion: 'Somerset',
         addressCountry: 'GB',
-        // postalCode intentionally omitted: not yet confirmed for public
-        // publication. Add once known.
       },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: 51.0158,
-        longitude: -3.1058,
-      },
+      areaServed: [
+        { '@type': 'AdministrativeArea', name: 'Somerset' },
+        { '@type': 'Country', name: 'United Kingdom' },
+      ],
+      knowsAbout: ['Workflow Automation', 'Software Integration', 'Software Development', 'Applied AI', 'Web Development', 'UX', 'Conversion Optimisation', 'Branding'],
       sameAs: [
         // TODO: add Google Business Profile URL once claimed/confirmed
         // TODO: add LinkedIn profile URL
       ],
-      // aggregateRating intentionally omitted: only one manually-verified
-      // review (BVS, 5.0) currently exists on-site, which isn't real
-      // aggregate data (ratingValue + reviewCount from an actual review
-      // source). Add this once genuine aggregate review data is wired up,
-      // e.g. from Google Business Profile or Sanity.
+      // aggregateRating intentionally omitted: no genuine aggregate review
+      // source is wired up (one on-site client review is not an aggregate).
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Services',
         itemListElement: [
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'Business Automation Review',
-              description: 'A focused review of selected workflows to find opportunities for automation, integrations and better use of existing software, with a written report of prioritised recommendations.',
-              url: 'https://williamlangdown.com/business-automation-review',
-            },
-            price: '395',
-            priceCurrency: 'GBP',
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'UX & Conversion Audit',
-              description: 'A recorded review of how well a website communicates, builds trust and helps visitors get in touch.',
-              url: 'https://williamlangdown.com/website-audit',
-            },
-            price: '149',
-            priceCurrency: 'GBP',
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'Technology & Automation',
-              description: 'Workflow automation, software integrations, practical AI implementation, custom internal tools and software development.',
-            },
-          },
-          {
-            '@type': 'Offer',
-            itemOffered: {
-              '@type': 'Service',
-              name: 'Web & Digital',
-              description: 'Website design and development, UX, conversion optimisation, branding and digital experiences.',
-            },
-          },
+          svc('Workflow automation', 'Automating repetitive business processes such as enquiry routing, follow-ups, onboarding, documents and reporting. Implementations typically start from £1,500.', '/services/workflow-automation'),
+          svc('Software integrations', 'Connecting existing business software so data is entered once and stays consistent.', '/services/software-integrations'),
+          svc('Practical AI implementation', 'AI for specific tasks such as document processing, triage and drafting, with human approval.', '/services/ai-implementation'),
+          svc('Custom software and internal tools', 'Dashboards, administrative systems and tools for work off-the-shelf software does not cover.', '/services/custom-software'),
+          svc('Business Automation Review', 'A focused review of selected workflows with a written report of prioritised recommendations. £395, credited against implementation commissioned within 60 days.', '/business-automation-review'),
+          svc('UX & Conversion Audit', 'A recorded review of how well a website communicates, builds trust and helps visitors get in touch. £149.', '/website-audit'),
         ],
       },
     },

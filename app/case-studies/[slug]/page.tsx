@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import CTABanner from '@/components/CTABanner'
+import RelatedServices from '@/components/case-study/RelatedServices'
 import Link from 'next/link'
 import { getCaseStudy, getCaseStudies } from '@/lib/queries'
 import { urlFor } from '@/sanity/client'
@@ -340,6 +341,8 @@ export default async function CaseStudyPage({ params }: Props) {
             </Link>
           </div>
         </section>
+
+        <RelatedServices links={[{ href: '/services/custom-software', label: 'custom software' }, { href: '/services#web-digital', label: 'web and digital services' }]} />
 
         <CTABanner />
       </main>

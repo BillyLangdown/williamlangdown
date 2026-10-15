@@ -8,14 +8,14 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 const description =
-  'An independent technology and digital consultant with a background in software development, web development and design. Somerset-based, working with UK businesses nationwide.'
+  'William Langdown is an independent technology and digital consultant based in Taunton, Somerset. Background in software development, web development and branding. Working with UK businesses locally and remotely.'
 
 export const metadata: Metadata = {
-  title: 'About | William Langdown',
+  title: 'About William Langdown, Independent Consultant in Somerset',
   description,
   alternates: { canonical: 'https://williamlangdown.com/about' },
   openGraph: {
-    title: 'About | William Langdown',
+    title: 'About William Langdown, Independent Consultant in Somerset',
     description,
     url: 'https://williamlangdown.com/about',
   },
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 const facts = [
   'BA (Hons) Advertising & Branding',
   'Software and web development experience',
-  'Somerset, UK, working nationwide',
+  'Based in Taunton, Somerset, working across the UK',
   'Independent consultant',
 ]
 
@@ -84,7 +84,8 @@ export default function AboutPage() {
                 between a designer and a developer.
               </p>
               <p className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed text-secondary">
-                Today I work independently from Somerset with businesses across the UK. I help them
+                Today I work independently from Taunton, Somerset, with local businesses and with
+                clients across the UK remotely. I help them
                 reduce manual work through automation and integrations, and I build websites and
                 digital experiences that are easier to use. Recent projects include a new identity
                 and website for{' '}

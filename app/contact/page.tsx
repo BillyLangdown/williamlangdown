@@ -6,7 +6,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Contact | William Langdown',
-  description: 'Get in touch about automation, software, a website or another digital project. Somerset-based, working with UK businesses nationwide.',
+  description: 'Contact William Langdown about workflow automation, software integrations, AI implementation, custom software or a website. Somerset-based, working with UK businesses.',
   alternates: { canonical: 'https://williamlangdown.com/contact' },
   openGraph: {
     title: 'Contact | William Langdown',
@@ -16,11 +16,11 @@ export const metadata: Metadata = {
 }
 
 interface Props {
-  searchParams: Promise<{ service?: string }>
+  searchParams: Promise<{ service?: string; topic?: string }>
 }
 
 export default async function ContactPage({ searchParams }: Props) {
-  const { service } = await searchParams
+  const { service, topic } = await searchParams
 
   return (
     <>
@@ -37,7 +37,7 @@ export default async function ContactPage({ searchParams }: Props) {
             </p>
 
             <div id="contact-form">
-              <ContactForm defaultService={service} />
+              <ContactForm defaultService={service} topic={topic} />
             </div>
 
             <div className="mt-14 pt-8 border-t border-border-light">

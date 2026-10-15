@@ -32,7 +32,7 @@ export default function AboutSection() {
             <p className="mb-6 max-w-md text-base leading-relaxed text-bone/75">
               I&apos;m an independent technology and digital consultant. My background is in software
               development, web development and design, including a degree in advertising and
-              branding. Every project is handled by me personally, from the first conversation to
+              branding. Based in Taunton, Somerset, I work with local businesses and remotely across the UK. Every project is handled by me personally, from the first conversation to
               the finished work.
             </p>
             <Link

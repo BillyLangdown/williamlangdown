@@ -2,11 +2,13 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ScrollReveal from '@/components/ScrollReveal'
+import JsonLd from '@/components/JsonLd'
+import { graph, breadcrumbSchema } from '@/lib/schema'
 import type { Metadata } from 'next'
 
-const title = 'Business Automation Review | William Langdown'
+const title = 'Business Automation Review & Workflow Audit | William Langdown'
 const description =
-  'A focused review of selected business workflows to find opportunities for automation, integrations and better use of existing software, ending in a written report with prioritised recommendations. £395.'
+  'A £395 business automation review: a focused workflow automation audit of the processes you choose, identifying automation opportunities and ending in a written report with prioritised recommendations.'
 
 export const metadata: Metadata = {
   title,
@@ -23,13 +25,12 @@ export const metadata: Metadata = {
 }
 
 const jsonLd = {
-  '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Business Automation Review',
   serviceType: 'Workflow and automation review',
   description,
   url: 'https://williamlangdown.com/business-automation-review',
-  provider: { '@id': 'https://williamlangdown.com/#person' },
+  provider: { '@type': 'Person', '@id': 'https://williamlangdown.com/#person', name: 'William Langdown', url: 'https://williamlangdown.com' },
   areaServed: 'GB',
   offers: {
     '@type': 'Offer',
@@ -68,7 +69,7 @@ const included = [
 export default function BusinessAutomationReviewPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={graph(jsonLd, breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Services', path: '/services' }, { name: 'Business Automation Review', path: '/business-automation-review' }]))} />
       <Nav />
       <main className="bg-bone">
 
@@ -95,8 +96,9 @@ export default function BusinessAutomationReviewPage() {
 
               <div className="flex flex-col gap-8 md:h-full md:gap-10 md:justify-between max-w-xl">
                 <p className="font-display text-lg md:text-2xl leading-[1.4] text-ink">
-                  A review of selected workflows to find where automation, integrations or better
-                  use of your existing software could remove manual work.
+                  A business automation review: a focused look at the workflows you choose, to
+                  find where automation, integrations or better use of your existing software could
+                  remove manual work.
                 </p>
 
                 <div>
@@ -123,8 +125,10 @@ export default function BusinessAutomationReviewPage() {
             </ScrollReveal>
             <ScrollReveal delay={60} className="max-w-xl">
               <p className="text-base text-secondary leading-relaxed">
-                Businesses that suspect some of their processes could be improved but are not sure
-                what is technically possible, or what would be worth the cost. Sometimes the answer
+                Organisations of any size that suspect some of their processes could be improved but
+                are not sure what is technically possible, or what would be worth the cost. It is a
+                workflow automation audit and assessment aimed at identifying automation
+                opportunities, not a general review of the business. Sometimes the answer
                 is an automation or an integration, sometimes it is better use of software you
                 already have, and sometimes it is that nothing needs to change. The report says
                 which, and why.
@@ -164,6 +168,29 @@ export default function BusinessAutomationReviewPage() {
           </div>
         </section>
 
+        {/* ILLUSTRATIVE REPORT OUTLINE */}
+        <section className="px-6 py-16 md:py-20">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-6 md:gap-20">
+            <ScrollReveal>
+              <h2 className="font-display text-2xl md:text-3xl text-ink">What you receive</h2>
+            </ScrollReveal>
+            <ScrollReveal delay={60} className="max-w-xl">
+              <p className="text-base text-secondary leading-relaxed">
+                A written report and a follow-up conversation. Below is an illustrative outline of how
+                a report is structured. It is not a sample from a real client.
+              </p>
+              <ol className="mt-5 list-decimal pl-5 space-y-2 text-base text-secondary leading-relaxed">
+                <li>The workflows reviewed and the scope agreed.</li>
+                <li>How each works today, including the manual steps and handovers.</li>
+                <li>Opportunities found, and those worth leaving alone.</li>
+                <li>Recommended approach for each, with the software involved.</li>
+                <li>Indicative implementation cost and potential benefit.</li>
+                <li>Priority order and suggested next steps.</li>
+              </ol>
+            </ScrollReveal>
+          </div>
+        </section>
+
         {/* PRICE, CREDIT, OPTIONAL */}
         <section className="px-6 py-16 md:py-20 bg-subtle">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-6 md:gap-20">
@@ -187,7 +214,19 @@ export default function BusinessAutomationReviewPage() {
                 <Link href="/contact" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">
                   discuss a project
                 </Link>{' '}
-                directly.
+                directly. See{' '}
+                <Link href="/services/workflow-automation" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">
+                  workflow automation
+                </Link>
+                ,{' '}
+                <Link href="/services/software-integrations" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">
+                  software integrations
+                </Link>{' '}
+                and{' '}
+                <Link href="/blog/how-much-does-business-workflow-automation-cost-uk" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">
+                  what automation typically costs
+                </Link>
+                .
               </p>
             </ScrollReveal>
           </div>

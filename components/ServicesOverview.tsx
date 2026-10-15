@@ -18,6 +18,12 @@ const services = [
       'I develop automations, connect existing systems and build software that helps businesses reduce manual work.',
     cta: 'Explore technology services',
     href: '/services#technology-automation',
+    links: [
+      { href: '/services/workflow-automation', label: 'Workflow automation' },
+      { href: '/services/software-integrations', label: 'Software integrations' },
+      { href: '/services/ai-implementation', label: 'AI implementation' },
+      { href: '/services/custom-software', label: 'Custom software' },
+    ],
   },
   {
     heading: (
@@ -31,6 +37,7 @@ const services = [
       'I design and develop websites and digital experiences that are easier to use, understand and navigate.',
     cta: 'Explore web & digital services',
     href: '/services#web-digital',
+    links: [] as { href: string; label: string }[],
   },
 ]
 
@@ -55,6 +62,17 @@ export default function ServicesOverview() {
                 {s.heading}
               </h2>
               <p className="mt-6 max-w-md font-display text-lg leading-snug text-ink md:text-xl">{s.description}</p>
+              {s.links.length > 0 && (
+                <ul className="mt-6 flex max-w-md flex-wrap gap-x-5 gap-y-2 text-sm text-secondary">
+                  {s.links.map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="underline underline-offset-4 transition-colors hover:text-terracotta">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
               <div className="mt-6">
                 <Link
                   href={s.href}

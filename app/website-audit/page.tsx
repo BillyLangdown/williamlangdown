@@ -2,6 +2,8 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import ScrollReveal from '@/components/ScrollReveal'
+import JsonLd from '@/components/JsonLd'
+import { graph, serviceSchema, breadcrumbSchema } from '@/lib/schema'
 import type { Metadata } from 'next'
 
 const description =
@@ -17,6 +19,23 @@ export const metadata: Metadata = {
     url: 'https://williamlangdown.com/website-audit',
   },
 }
+
+const jsonLd = graph(
+  {
+    ...serviceSchema({
+      name: 'UX & Conversion Audit',
+      serviceType: 'Website UX and conversion review',
+      description,
+      path: '/website-audit',
+    }),
+    offers: { '@type': 'Offer', price: '149', priceCurrency: 'GBP' },
+  },
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Services', path: '/services' },
+    { name: 'UX & Conversion Audit', path: '/website-audit' },
+  ]),
+)
 
 const lookAt = [
   {
@@ -48,6 +67,7 @@ const lookAt = [
 export default function UxConversionAuditPage() {
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Nav />
       <main className="bg-bone">
 

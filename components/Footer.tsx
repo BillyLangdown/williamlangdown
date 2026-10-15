@@ -3,6 +3,11 @@ import Link from 'next/link'
 const exploreLinks = [
   { href: '/case-studies', label: 'Work' },
   { href: '/services', label: 'What I do' },
+  { href: '/services/workflow-automation', label: 'Workflow automation' },
+  { href: '/services/software-integrations', label: 'Software integrations' },
+  { href: '/services/ai-implementation', label: 'AI implementation' },
+  { href: '/services/custom-software', label: 'Custom software' },
+  { href: '/blog', label: 'Insights' },
   { href: '/business-automation-review', label: 'Business Automation Review' },
   { href: '/website-audit', label: 'UX & Conversion Audit' },
   { href: '/about', label: 'About' },
@@ -40,7 +45,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <nav className="flex flex-col gap-3">
+          <nav aria-label="Footer" className="grid grid-cols-1 gap-x-12 gap-y-3 sm:grid-cols-2">
             {exploreLinks.map(({ href, label }) => (
               <Link
                 key={href}

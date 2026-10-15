@@ -8,12 +8,14 @@ interface Props {
   heading?: string
   description?: string
   cta?: string
+  href?: string
 }
 
 export default function CTABanner({
   heading = 'Have a project in mind?',
   description = 'Tell me what you\u2019re looking to build or improve, and I\u2019ll let you know whether I can help.',
   cta = 'Discuss a project',
+  href = '/contact',
 }: Props = {}) {
   return (
     <section data-nav-theme="light" className="relative z-10 overflow-hidden py-20 md:py-28 px-6 bg-bone">
@@ -43,7 +45,7 @@ export default function CTABanner({
             )}
           </div>
           <Link
-            href="/contact"
+            href={href}
             className="inline-flex items-center gap-2 text-sm px-7 py-3.5 rounded-sm font-medium shrink-0 transition-colors"
             style={{ background: '#10233F', color: '#F6F3EE' }}
           >

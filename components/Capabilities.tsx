@@ -2,75 +2,38 @@ import Link from 'next/link'
 import Image from 'next/image'
 import ScrollReveal from '@/components/ScrollReveal'
 
-const wordClass = 'font-sans font-extrabold uppercase leading-[0.92] tracking-tight text-ink'
+const wordClass = 'font-sans font-extrabold uppercase leading-[0.92] tracking-tight'
 const wordStyle = { fontSize: 'clamp(2.1rem, 5vw, 4rem)' }
 
-const technologySituations = [
+const technologyPages = [
   {
-    title: 'Repetitive administration',
-    body: 'Tasks that follow the same steps every time, such as preparing documents or sending routine emails.',
+    href: '/services/workflow-automation',
+    name: 'Workflow automation',
+    note: 'Enquiry handling, follow-ups, onboarding, documents and reporting.',
+    price: 'From £1,500',
   },
   {
-    title: 'Systems that do not talk to each other',
-    body: 'Software that needs the same information entered in more than one place.',
+    href: '/services/software-integrations',
+    name: 'Software integrations',
+    note: 'Connect the systems you already use so data is entered once.',
   },
   {
-    title: 'Manual enquiry handling',
-    body: 'Customer enquiries that are sorted, copied across and followed up by hand.',
+    href: '/services/ai-implementation',
+    name: 'AI implementation',
+    note: 'AI for specific tasks, with a person approving the result.',
   },
   {
-    title: 'Processes held in spreadsheets',
-    body: 'Internal work that depends on spreadsheets that are hard to share or keep accurate.',
-  },
-  {
-    title: 'Requirements existing software cannot meet',
-    body: 'A need that off-the-shelf tools do not cover, where a custom internal tool may be the answer.',
-  },
-  {
-    title: 'AI for a specific task',
-    body: 'Practical AI tools, introduced only where they genuinely help.',
+    href: '/services/custom-software',
+    name: 'Custom software',
+    note: 'Internal tools and dashboards where off-the-shelf software falls short.',
   },
 ]
 
-const webSituations = [
-  {
-    title: 'An outdated website',
-    body: 'A site that no longer reflects the business or the quality of its work.',
-  },
-  {
-    title: 'Poor navigation or usability',
-    body: 'Visitors who struggle to find services or information.',
-  },
-  {
-    title: 'Content that is hard to update',
-    body: 'A site that needs a developer for simple changes, or a platform your team finds awkward.',
-  },
-  {
-    title: 'A weak enquiry journey',
-    body: 'Visitors who read the site but do not get in touch.',
-  },
-  {
-    title: 'Slow performance',
-    body: 'Pages that load slowly, particularly on mobile.',
-  },
-  {
-    title: 'A new website or platform',
-    body: 'A new build, with branding where the identity needs to catch up.',
-  },
-]
-
-function Situations({ items }: { items: { title: string; body: string }[] }) {
-  return (
-    <ul className="border-t border-border-light">
-      {items.map((item) => (
-        <li key={item.title} className="grid grid-cols-1 gap-1 border-b border-border-light py-4 sm:grid-cols-[1fr_1.4fr] sm:gap-8">
-          <p className="text-sm font-semibold text-ink">{item.title}</p>
-          <p className="text-sm leading-relaxed text-secondary">{item.body}</p>
-        </li>
-      ))}
-    </ul>
-  )
-}
+const arrow = (
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" className="shrink-0">
+    <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
 
 function ProofLink({ children, href }: { children: React.ReactNode; href: string }) {
   return (
@@ -79,136 +42,110 @@ function ProofLink({ children, href }: { children: React.ReactNode; href: string
       className="inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors hover:text-terracotta"
     >
       {children}
-      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-        <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
+      {arrow}
     </Link>
   )
 }
 
 export default function Capabilities() {
   return (
-    <section id="capabilities" data-nav-theme="light" className="relative z-10 py-12 md:py-16 px-6 bg-bone">
-      <div className="max-w-6xl mx-auto">
+    <div id="capabilities">
+      {/* TECHNOLOGY & AUTOMATION: primary */}
+      <section data-nav-theme="dark" className="relative z-10 bg-navy px-6 py-14 md:py-20">
+        <div className="mx-auto max-w-6xl grid grid-cols-1 gap-10 md:grid-cols-[1fr_1.15fr] md:gap-16 lg:gap-24">
+          <ScrollReveal threshold={0.1}>
+            <h2 id="technology-automation" className={`${wordClass} scroll-mt-28 text-bone`} style={wordStyle}>
+              Technology
+              <br />
+              &amp; Automation
+            </h2>
+            <p className="mt-6 max-w-md font-display text-xl leading-[1.3] text-bone md:text-2xl">
+              For work that takes more manual effort than it should: enquiries handled by hand,
+              systems that need the same data twice, a spreadsheet that has outgrown its job.
+            </p>
+            <p className="mt-6 font-display text-2xl text-bone md:text-3xl">Automation from £1,500</p>
+            <p className="mt-2 max-w-sm text-sm leading-relaxed text-bone/65">
+              A starting point for a properly scoped project. The price is agreed before work begins.
+              Not sure where to start? The{' '}
+              <Link href="/business-automation-review" className="text-bone underline underline-offset-4 hover:text-terracotta transition-colors">
+                Business Automation Review
+              </Link>{' '}
+              is £395, credited against implementation within 60 days.
+            </p>
+          </ScrollReveal>
 
-        {/* TECHNOLOGY & AUTOMATION */}
-        <ScrollReveal threshold={0.1} className="border-t border-border-light py-12 md:py-16">
-          <h2 id="technology-automation" className={`${wordClass} scroll-mt-28`} style={wordStyle}>
-            Technology &amp; Automation
-          </h2>
-          <p className="mt-6 max-w-2xl font-display text-xl leading-[1.3] text-ink md:text-2xl">
-            Automations, integrations, AI tools and custom software, for work that currently takes
-            more manual effort than it should.
-          </p>
+          <ScrollReveal threshold={0.1} delay={80}>
+            <ul className="border-t border-bone/20">
+              {technologyPages.map((p) => (
+                <li key={p.href} className="border-b border-bone/20">
+                  <Link href={p.href} className="group flex items-start justify-between gap-6 py-5 md:py-6">
+                    <span>
+                      <span className="block font-display text-2xl leading-tight text-bone transition-colors group-hover:text-terracotta md:text-3xl">
+                        {p.name}
+                      </span>
+                      <span className="mt-1.5 block max-w-sm text-sm leading-relaxed text-bone/65">{p.note}</span>
+                    </span>
+                    <span className="mt-2 flex items-center gap-3 text-bone transition-colors group-hover:text-terracotta">
+                      {p.price && <span className="hidden text-xs text-bone/60 sm:inline">{p.price}</span>}
+                      {arrow}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </ScrollReveal>
+        </div>
+      </section>
 
-          <div className="mt-10 grid grid-cols-1 gap-12 md:grid-cols-[1.5fr_1fr] md:gap-16">
-            <div>
-              <h3 className="mb-4 text-sm font-semibold text-secondary">What I can help with</h3>
-              <Situations items={technologySituations} />
-              <p className="mt-5 max-w-xl text-sm leading-relaxed text-secondary">
-                Not every task is worth automating, and I will say so when it is not. Where
-                possible I work with the software you already use.
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-8">
-              <div>
-                <p className="font-display text-2xl leading-tight text-ink md:text-3xl">
-                  Automation projects from £1,500
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-secondary">
-                  This is an indicative starting price for a properly scoped project, not a fixed
-                  package. The final price depends on the complexity of the work and the systems
-                  involved, and you will know it before work begins.
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-secondary">
-                  You can commission this work directly. If you would rather start with a review,
-                  there is an option further down.
-                </p>
-              </div>
-
-              <div className="border-t border-border-light pt-6">
-                <p className="text-sm leading-relaxed text-secondary">
-                  My background is in software development. For Building Ventilation Services I
-                  built a fast React website on top of WordPress, so their team can manage case
-                  studies, services and product information themselves.
-                </p>
-                <div className="mt-4">
-                  <ProofLink href="/case-studies/building-ventilation-services-ltd">
-                    Building Ventilation Services
-                  </ProofLink>
-                </div>
-              </div>
-            </div>
-          </div>
-        </ScrollReveal>
-
-        {/* WEB & DIGITAL */}
-        <ScrollReveal threshold={0.1} className="border-t border-border-light py-12 md:py-16">
-          <h2 id="web-digital" className={`${wordClass} scroll-mt-28`} style={wordStyle}>
-            Web &amp; Digital
-          </h2>
-          <p className="mt-6 max-w-2xl font-display text-xl leading-[1.3] text-ink md:text-2xl">
-            Websites and digital experiences, designed and built by the same person.
-          </p>
-
-          <div className="mt-10 grid grid-cols-1 gap-12 md:grid-cols-[1.5fr_1fr] md:gap-16">
-            <div>
-              <h3 className="mb-4 text-sm font-semibold text-secondary">What I can help with</h3>
-              <Situations items={webSituations} />
-              <p className="mt-5 max-w-xl text-sm leading-relaxed text-secondary">
-                UX, conversion improvements and branding are part of the same work, and I handle both
-                design and development.
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-8">
-              <div>
-                <p className="font-display text-2xl leading-tight text-ink md:text-3xl">
-                  Projects often around £2,500
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-secondary">
-                  Some come in below and others above, depending on scope. The price is agreed
-                  before work begins.
-                </p>
-              </div>
-
-              <div className="border-t border-border-light pt-6">
-                <div style={{ border: '1px solid rgba(16,35,63,0.1)' }}>
-                  <Image
-                    src="/images/showcase-gtc-desktop.jpg"
-                    alt="The Garden Tablecloth Co. website"
-                    width={1280}
-                    height={800}
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="h-auto w-full"
-                  />
-                  <div className="flex items-end justify-between gap-4 px-4 py-4" style={{ borderTop: '1px solid rgba(16,35,63,0.1)' }}>
-                    <div className="flex gap-6">
-                      <div>
-                        <p className="font-display text-xl text-ink">+75%</p>
-                        <p className="mt-0.5 text-xs text-tertiary">Enquiries</p>
-                      </div>
-                      <div>
-                        <p className="font-display text-xl text-ink">-21%</p>
-                        <p className="mt-0.5 text-xs text-tertiary">Bounce rate</p>
-                      </div>
-                    </div>
+      {/* WEB & DIGITAL: secondary, led by real work */}
+      <section data-nav-theme="light" className="relative z-10 bg-bone px-6 py-14 md:py-20">
+        <div className="mx-auto max-w-6xl grid grid-cols-1 items-center gap-10 md:grid-cols-[1.1fr_1fr] md:gap-16">
+          <ScrollReveal threshold={0.1}>
+            <div className="relative border border-border-light">
+              <Image
+                src="/images/showcase-gtc-desktop.jpg"
+                alt="The Garden Tablecloth Co. website"
+                width={1280}
+                height={800}
+                sizes="(max-width: 768px) 100vw, 55vw"
+                className="h-auto w-full"
+              />
+              <span aria-hidden="true" className="absolute left-0 top-0 h-full w-[3px] bg-terracotta" />
+              <div className="flex items-end justify-between gap-4 border-t border-border-light bg-bone px-5 py-4">
+                <div className="flex gap-8">
+                  <div>
+                    <p className="font-display text-2xl text-ink">+75%</p>
+                    <p className="mt-0.5 text-xs text-tertiary">Enquiries</p>
+                  </div>
+                  <div>
+                    <p className="font-display text-2xl text-ink">-21%</p>
+                    <p className="mt-0.5 text-xs text-tertiary">Bounce rate</p>
                   </div>
                 </div>
-                <div className="mt-5 flex flex-col gap-3">
-                  <ProofLink href="/case-studies/the-garden-tablecloth-co">The Garden Tablecloth Co.</ProofLink>
-                  <ProofLink href="/case-studies/planning-enforcement-advisory">
-                    The Planning Enforcement Advisory
-                  </ProofLink>
-                </div>
+                <p className="text-xs text-tertiary">The Garden Tablecloth Co.</p>
               </div>
             </div>
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
 
-        <div className="border-t border-border-light" />
-      </div>
-    </section>
+          <ScrollReveal threshold={0.1} delay={80}>
+            <h2 id="web-digital" className={`${wordClass} scroll-mt-28 text-ink`} style={{ fontSize: 'clamp(1.9rem, 3.6vw, 3rem)' }}>
+              Web &amp; Digital
+            </h2>
+            <p className="mt-5 max-w-md font-display text-xl leading-[1.3] text-ink md:text-2xl">
+              Websites and digital experiences, designed and built by the same person, with UX,
+              conversion and branding as part of the work.
+            </p>
+            <p className="mt-5 text-sm leading-relaxed text-secondary">
+              Projects are often around £2,500, some below and some above, agreed before work begins.
+            </p>
+            <div className="mt-6 flex flex-col gap-3">
+              <ProofLink href="/case-studies/the-garden-tablecloth-co">The Garden Tablecloth Co.</ProofLink>
+              <ProofLink href="/case-studies/planning-enforcement-advisory">The Planning Enforcement Advisory</ProofLink>
+              <ProofLink href="/website-audit">UX &amp; Conversion Audit, £149</ProofLink>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+    </div>
   )
 }

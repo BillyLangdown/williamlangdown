@@ -6,6 +6,9 @@ import Footer from '@/components/Footer'
 import CTABanner from '@/components/CTABanner'
 import { getBlogPost, getBlogPosts } from '@/lib/queries'
 import { urlFor } from '@/sanity/client'
+import JsonLd from '@/components/JsonLd'
+import { ArticleAuthor } from '@/components/article/ArticleShell'
+import { articleSchema, breadcrumbSchema, graph } from '@/lib/schema'
 import { PortableText } from '@portabletext/react'
 import type { PortableTextComponents } from '@portabletext/react'
 import type { Metadata } from 'next'
@@ -86,6 +89,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://williamlangdown.com/blog/${slug}`,
       type: 'article',
       publishedTime: post.publishedAt,
+      authors: ['William Langdown'],
       ...(ogImage && { images: [{ url: ogImage, width: 1200, height: 630 }] }),
     },
     twitter: {
@@ -123,8 +127,26 @@ export default async function BlogPostPage({ params }: Props) {
     year: 'numeric',
   })
 
+  const path = `/blog/${slug}`
+
   return (
     <>
+      <JsonLd
+        data={graph(
+          articleSchema({
+            title: post.title,
+            description: post.description,
+            path,
+            publishedAt: post.publishedAt,
+            image: post.coverImage ? urlFor(post.coverImage).width(1200).height(630).url() : undefined,
+          }),
+          breadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Insights', path: '/blog' },
+            { name: post.title, path },
+          ]),
+        )}
+      />
       <Nav />
       <main className="pt-40 pb-24">
 
@@ -153,8 +175,10 @@ export default async function BlogPostPage({ params }: Props) {
               {post.description}
             </p>
             <div className="pt-6 border-t border-border-light">
-              <p className="text-xs text-tertiary uppercase tracking-widest mb-1">Published</p>
-              <p className="text-sm text-ink">{publishedDate}</p>
+              <p className="text-xs text-tertiary uppercase tracking-widest mb-1">Written by William Langdown</p>
+              <p className="text-sm text-ink">
+                <time dateTime={post.publishedAt}>{publishedDate}</time>
+              </p>
             </div>
           </div>
         </section>
@@ -185,6 +209,27 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           </section>
         )}
+
+        <section className="px-6 mb-24">
+          <div className="max-w-3xl mx-auto">
+            <ArticleAuthor />
+            <p className="mt-8 text-sm text-secondary leading-relaxed">
+              Related:{' '}
+              <Link href="/services/workflow-automation" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">
+                workflow automation
+              </Link>
+              ,{' '}
+              <Link href="/services/software-integrations" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">
+                software integrations
+              </Link>{' '}
+              and{' '}
+              <Link href="/services" className="text-ink underline underline-offset-4 hover:text-terracotta transition-colors">
+                all services
+              </Link>
+              .
+            </p>
+          </div>
+        </section>
 
         <CTABanner />
       </main>
