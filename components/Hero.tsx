@@ -174,7 +174,7 @@ function MobileHero() {
                 text-bone
               "
               style={{
-                fontSize: 'clamp(3.4rem, 15vw, 5.25rem)',
+                fontSize: 'min(13vw, 5.25rem)',
               }}
             >
               William
