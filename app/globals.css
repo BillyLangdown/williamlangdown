@@ -33,7 +33,9 @@ html {
    into the block above so the existing desktop rule is untouched. */
 @media (max-width: 767.98px) {
   html {
-    scroll-snap-type: y proximity;
+    /* Off while the line's scroll-up jump is investigated: on iPhone the
+       proximity snap competes with the scroll-driven line. */
+    scroll-snap-type: none;
     scroll-padding-top: 0;
   }
 }
