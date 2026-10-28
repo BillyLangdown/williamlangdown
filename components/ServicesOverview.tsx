@@ -61,7 +61,7 @@ export default function ServicesOverview() {
   // vh is the viewport height at the last width change. On iPhone the toolbar
   // resizes innerHeight as you scroll, which would otherwise shift the line's
   // scroll window and make it jump when scrolling back up.
-  const win = useRef({ from: 0, to: 1, f: 0.6, p0: 0, vh: 800 })
+  const win = useRef({ from: 0, to: 1, f: 0.6, p0: 0, vh: 800, mobile: false })
   // Cards pop only once the line has finished drawing: a short scroll
   // window that starts where the line's window ends.
   const popAt = (lag: number, span: number) => (y: number) => {
@@ -69,9 +69,15 @@ export default function ServicesOverview() {
     const vh = win.current.vh
     return clamp01((y - to - vh * lag) / (vh * span))
   }
+  // On mobile the line only ever draws forward: scrolling back up leaves it
+  // as drawn, so there is nothing to redraw (or glitch) on the way up.
+  const furthest = useRef(0)
   const raw = useTransform(scrollY, (y) => {
-    const { from, to, p0 } = win.current
-    return p0 + (1 - p0) * clamp01((y - from) / Math.max(1, to - from))
+    const { from, to, p0, mobile } = win.current
+    const n = p0 + (1 - p0) * clamp01((y - from) / Math.max(1, to - from))
+    if (!mobile) return n
+    furthest.current = Math.max(furthest.current, n)
+    return furthest.current
   })
   // Scroll events arrive in uneven bursts on iPhone, which showed as the
   // line stepping forward in small jumps. A stiff spring fills in the frames
@@ -159,11 +165,12 @@ export default function ServicesOverview() {
           // Already part-drawn when the intro is on screen.
           p0: f * 0.4,
           vh,
+          mobile: false,
         }
       } else {
-        win.current = { from: lineTop - vh * 0.95, to: base.top + base.height - vh * 0.7, f: 0.6, p0: 0, vh }
+        win.current = { from: lineTop - vh * 0.95, to: base.top + base.height - vh * 0.7, f: 0.6, p0: 0, vh, mobile: true }
       }
-      setGeom({
+      const next: Geom = {
         w: base.width,
         h: base.height,
         startY,
@@ -180,15 +187,22 @@ export default function ServicesOverview() {
           top: isDesktop ? rp2.top - base.top - 4 - gap : rp2.top - base.top + STUB_Y,
         },
         t1Bottom: rt.top - base.top + rt.height,
-      })
+      }
+      // Same geometry: keep the old object so nothing re-renders.
+      setGeom((prev) => (prev && JSON.stringify(prev) === JSON.stringify(next) ? prev : next))
     }
     measure()
     const ro = new ResizeObserver(measure)
     if (root.current) ro.observe(root.current)
-    window.addEventListener('resize', measure)
+    // iPhone fires resize repeatedly as the toolbar slides in and out while
+    // scrolling; only a width change can alter the layout, so ignore the rest.
+    const onResize = () => {
+      if (window.innerWidth !== lastW) measure()
+    }
+    window.addEventListener('resize', onResize)
     return () => {
       ro.disconnect()
-      window.removeEventListener('resize', measure)
+      window.removeEventListener('resize', onResize)
     }
   }, [])
 
