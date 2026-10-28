@@ -38,7 +38,7 @@ export default function AboutPage() {
         <section className="px-6 pt-32 pb-14 md:pt-40 md:pb-16">
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.12] text-ink max-w-3xl">
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.08] text-ink max-w-3xl">
                 I&apos;m William, an independent technology and digital consultant.
               </h1>
             </ScrollReveal>
@@ -114,7 +114,7 @@ export default function AboutPage() {
           <div className="relative z-10 px-6 py-16 md:py-24">
             <div className="max-w-2xl mx-auto">
               <ScrollReveal>
-                <h2 className="font-display text-3xl md:text-4xl leading-[1.15] text-bone">
+                <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.12] text-bone">
                   Working with me
                 </h2>
                 <p className="mt-6 text-base md:text-lg text-bone/75 leading-relaxed">

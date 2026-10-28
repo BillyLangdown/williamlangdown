@@ -13,8 +13,8 @@ export default function IntroStatement() {
         <h2 className="font-display text-[clamp(2rem,7.5vw,3.75rem)] md:text-[clamp(2.75rem,1.5rem+2.4vw,5.5rem)] text-ink md:text-bone leading-[1.1] tracking-tight text-balance lg:text-nowrap">
           How can I help your business?
         </h2>
-        <p className="mx-auto mt-6 max-w-[28rem] px-2 font-display text-[0.8rem] md:mt-7 md:max-w-[30em] md:px-0 md:text-[clamp(1.1rem,0.86rem+0.52vw,1.8rem)] text-ink md:text-bone leading-[1.65] md:leading-[1.55] text-pretty">
-          I help businesses save time, simplify processes and make better use of technology, from identifying opportunities to putting solutions into practice.
+        <p data-intro-end className="mx-auto mt-6 max-w-[28rem] px-2 text-[0.85rem] md:mt-7 md:max-w-[30em] md:px-0 md:text-[clamp(1rem,0.8rem+0.45vw,1.55rem)] text-ink md:text-bone leading-[1.65] md:leading-[1.6] text-pretty">
+          I help to improve how they work and how customers experience them online, through thoughtful design and practical technology.
         </p>
       </ScrollReveal>
     </div>

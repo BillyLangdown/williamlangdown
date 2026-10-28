@@ -29,7 +29,7 @@ export default function CTABanner({
           className="flex flex-col items-start md:flex-row md:items-end md:justify-between gap-8"
         >
           <div>
-            <h2 className="font-display text-4xl md:text-5xl text-ink leading-[1.05] mb-3">
+            <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.12] text-ink mb-3">
               {heading}
             </h2>
             {description ? (

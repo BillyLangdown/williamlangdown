@@ -165,7 +165,7 @@ export default function UxConversionAuditPage() {
         <section data-nav-theme="light" className="px-6 py-16 md:py-24 border-t border-border-light">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal className="flex flex-col items-start md:flex-row md:items-end md:justify-between gap-8">
-              <h2 className="font-display text-3xl md:text-4xl text-ink leading-[1.1] max-w-xl">
+              <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.12] text-ink max-w-xl">
                 Want an outside view of your website?
               </h2>
               <Link

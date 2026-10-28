@@ -23,7 +23,7 @@ export default function EntryServices() {
     <section data-nav-theme="light" className="relative z-10 bg-subtle px-6 py-14 md:py-20">
       <div className="mx-auto max-w-6xl">
         <ScrollReveal className="mb-8 md:mb-10">
-          <h2 className="font-display text-3xl leading-[1.1] text-ink md:text-4xl">Not sure where to start?</h2>
+          <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.12] text-ink">Not sure where to start?</h2>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-secondary">
             If you&rsquo;re unsure what needs improving, I offer two focused reviews to help identify
             opportunities and recommend practical next steps.

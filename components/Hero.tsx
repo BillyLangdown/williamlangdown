@@ -87,11 +87,20 @@ function HeroName({ vertical = false }: { vertical?: boolean }) {
   )
 }
 
-/* Desktop: static, bottom right, same three-line right-aligned
-   composition as mobile. */
+/* Desktop: bottom right, same three-line composition as mobile. Lifts
+   away and fades with the scroll, like the name, so both are gone before
+   the snap to the next section. */
 function ValueStatement() {
+  const reduceMotion = useReducedMotion()
+  const { scrollY } = useScroll()
+  const y = useTransform(scrollY, (v) => (reduceMotion ? 0 : -v * 0.5))
+  const opacity = useTransform(scrollY, (v) =>
+    Math.max(0, 1 - v / ((typeof window === 'undefined' ? 800 : window.innerHeight) * 0.6)),
+  )
+
   return (
-    <p
+    <motion.p
+      style={{ y, opacity, willChange: 'transform' }}
       className="
         ml-auto
         text-right
@@ -105,7 +114,7 @@ function ValueStatement() {
       <span className="block">Software,</span>
       <span className="block">AI automation</span>
       <span className="block">and digital solutions.</span>
-    </p>
+    </motion.p>
   )
 }
 

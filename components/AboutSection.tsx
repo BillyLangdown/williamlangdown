@@ -26,7 +26,7 @@ export default function AboutSection() {
         <div className="flex items-center px-6 py-14 md:px-14 md:py-0">
           <ScrollReveal>
             <p className="text-sm font-semibold text-bone/70 mb-5">About</p>
-            <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] text-bone leading-[1.15] mb-5">
+            <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.12] text-bone mb-5">
               You work directly with me.
             </h2>
             <p className="mb-6 max-w-md text-base leading-relaxed text-bone/75">

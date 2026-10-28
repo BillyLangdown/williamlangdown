@@ -68,7 +68,7 @@ export default function ArticleShell({
                   { name: 'Guide' },
                 ]}
               />
-              <h1 className="font-display text-4xl md:text-5xl leading-[1.08] text-ink">{guide.title}</h1>
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.08] text-ink">{guide.title}</h1>
               <p className="mt-6 text-lg text-secondary leading-relaxed">{guide.description}</p>
               <p className="mt-6 text-sm text-secondary">
                 By William Langdown

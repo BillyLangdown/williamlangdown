@@ -237,7 +237,7 @@ export default function BusinessAutomationReviewPage() {
           <div className="max-w-6xl mx-auto">
             <ScrollReveal className="flex flex-col items-start md:flex-row md:items-end md:justify-between gap-8">
               <div className="max-w-xl">
-                <h2 className="font-display text-3xl md:text-4xl text-ink leading-[1.1] mb-3">
+                <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.12] text-ink mb-3">
                   Interested in a review?
                 </h2>
                 <p className="text-base text-secondary leading-relaxed">

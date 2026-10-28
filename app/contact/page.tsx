@@ -28,7 +28,7 @@ export default async function ContactPage({ searchParams }: Props) {
       <main className="min-h-screen bg-bone">
         <section className="px-6 pt-32 pb-24 md:pt-40 md:pb-32">
           <div className="max-w-3xl mx-auto">
-            <h1 className="font-display text-4xl md:text-5xl leading-[1.06] text-ink mb-6">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.08] text-ink mb-6">
               Start a conversation.
             </h1>
 

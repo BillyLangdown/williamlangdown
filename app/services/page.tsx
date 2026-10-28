@@ -39,7 +39,7 @@ export default function ServicesPage() {
         >
           <div className="max-w-6xl mx-auto">
             <div>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.06] text-ink mb-6">
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.08] text-ink mb-6">
                 Technology and automation, with websites and digital experiences alongside.
               </h1>
               <p className="text-base md:text-lg text-secondary leading-relaxed max-w-2xl">
@@ -67,7 +67,7 @@ export default function ServicesPage() {
         <section className="px-6 py-12 md:py-16 border-t border-border-light">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal className="mb-10 max-w-xl">
-              <h2 className="font-display text-3xl md:text-4xl text-ink leading-[1.1]">How a project works.</h2>
+              <h2 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.12] text-ink">How a project works.</h2>
             </ScrollReveal>
             <ProcessSteps />
           </div>

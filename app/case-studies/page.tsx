@@ -189,7 +189,7 @@ export default async function CaseStudiesPage() {
         <section className="px-6 pt-32 pb-16 md:pt-36 md:pb-20">
           <div className="max-w-5xl mx-auto">
             <ScrollReveal>
-              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.06] text-ink">
+              <h1 className="font-display text-4xl md:text-5xl lg:text-6xl leading-[1.08] text-ink">
                 Work
               </h1>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-secondary">
