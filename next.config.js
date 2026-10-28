@@ -56,12 +56,11 @@ const nextConfig = {
       {
         // Growth Websites, Custom Software and Booking Systems & Automation
         // retired as standalone product pages (2026-09; Custom Software has
-        // since returned as /services/custom-software): under the current
-        // positioning this work is just the Digital/Technology capability,
-        // scoped like any other project, not a separately branded product
-        // with its own pricing badge. See docs/brand-positioning.md.
+        // since returned as /services/custom-software). Growth Websites now
+        // lives on /services/web-digital, the Web & Digital pathway page.
+        // See docs/brand-positioning.md.
         source: '/services/growth-websites',
-        destination: '/services',
+        destination: '/services/web-digital',
         permanent: true,
       },
       {

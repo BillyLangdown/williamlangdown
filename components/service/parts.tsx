@@ -66,49 +66,182 @@ export function ServiceHero({
   priceNote,
   cta,
   secondary,
+  image,
 }: {
   crumbs: { name: string; href?: string }[]
   name: string
-  outcome: string
+  outcome?: string
   intro: string
   price: string
   priceNote: string
   cta: { href: string; label: string }
   secondary?: React.ReactNode
+  image?: { src: string; alt?: string }
 }) {
+  const dark = Boolean(image)
   return (
     <section
-      className="px-6 pt-28 pb-12 md:pt-32 md:pb-14"
-      style={{
-        backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
-        backgroundSize: '22px 22px',
-        backgroundColor: '#F6F3EE',
-      }}
+      className={`relative overflow-hidden px-6 pt-28 pb-10 md:pt-32 md:pb-14 ${
+        dark ? 'flex min-h-[44svh] items-end bg-navy md:min-h-[54svh]' : ''
+      }`}
+      style={
+        dark
+          ? undefined
+          : {
+              backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
+              backgroundSize: '22px 22px',
+              backgroundColor: '#F6F3EE',
+            }
+      }
     >
-      <div className="max-w-6xl mx-auto">
-        <Breadcrumbs trail={crumbs} />
+      {image && (
+        <>
+          <Image src={image.src} alt={image.alt ?? ''} fill priority sizes="100vw" className="object-cover" />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(90deg, rgba(10,24,48,0.8) 0%, rgba(10,24,48,0.5) 55%, rgba(10,24,48,0.2) 100%), linear-gradient(180deg, rgba(10,24,48,0.35) 0%, rgba(10,24,48,0) 40%)',
+            }}
+          />
+        </>
+      )}
+      <div className="relative mx-auto w-full max-w-6xl">
+        <Breadcrumbs trail={crumbs} light={dark} />
         <div>
           <h1>
             <span
-              className="block font-sans font-extrabold uppercase leading-[0.95] tracking-tight text-ink"
-              style={{ fontSize: 'clamp(2.4rem, 6.4vw, 5rem)' }}
+              className={`block font-display leading-[1.04] tracking-tight ${dark ? 'text-bone' : 'text-ink'}`}
+              style={{ fontSize: 'clamp(2.6rem, 5.6vw, 4.75rem)' }}
             >
               {name}
-            </span>{' '}
-            <span className="mt-4 block max-w-4xl font-display text-2xl leading-[1.15] text-ink md:text-4xl">
-              {outcome}
             </span>
+            {outcome && (
+              <>
+                {' '}
+                <span
+                  className={`mt-3 block max-w-4xl font-display text-2xl leading-[1.15] md:text-4xl ${
+                    dark ? 'text-bone/85' : 'text-ink'
+                  }`}
+                >
+                  {outcome}
+                </span>
+              </>
+            )}
           </h1>
           <div className="mt-8 grid grid-cols-1 gap-8 md:mt-10 md:grid-cols-[1.3fr_1fr] md:gap-16">
-            <p className="max-w-xl text-base leading-relaxed text-secondary md:text-lg">{intro}</p>
+            <p className={`max-w-xl text-base leading-relaxed md:text-lg ${dark ? 'text-bone/80' : 'text-secondary'}`}>
+              {intro}
+            </p>
             <div className="flex flex-col items-start gap-5">
               <div>
-                <p className="font-display text-3xl leading-none text-ink">{price}</p>
-                <p className="mt-2 text-sm text-secondary">{priceNote}</p>
+                <p className={`font-display text-3xl leading-none ${dark ? 'text-bone' : 'text-ink'}`}>{price}</p>
+                <p className={`mt-2 text-sm ${dark ? 'text-bone/70' : 'text-secondary'}`}>{priceNote}</p>
               </div>
-              <PrimaryLink href={cta.href}>{cta.label}</PrimaryLink>
-              {secondary && <p className="text-sm leading-relaxed text-secondary">{secondary}</p>}
+              {dark ? (
+                <Link
+                  href={cta.href}
+                  className="inline-flex items-center gap-2 rounded-sm bg-bone px-7 py-3.5 text-sm font-medium text-ink transition-colors hover:bg-bone/90"
+                >
+                  {cta.label}
+                  {arrow}
+                </Link>
+              ) : (
+                <PrimaryLink href={cta.href}>{cta.label}</PrimaryLink>
+              )}
+              {secondary && (
+                <p
+                  className={`text-sm leading-relaxed ${
+                    dark ? 'text-bone/75 [&_a]:text-bone [&_a]:decoration-bone/40 [&_a:hover]:text-terracotta' : 'text-secondary'
+                  }`}
+                >
+                  {secondary}
+                </p>
+              )}
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/**
+ * Editorial service hero with the detail stripped back: breadcrumbs, a
+ * two-tier heading (name large, outcome smaller), one sentence and one
+ * action over a photograph. Price and secondary offers live in the sections
+ * below. The whole h1 still reads as a single sentence.
+ */
+export function SimpleServiceHero({
+  crumbs,
+  name,
+  outcome,
+  intro,
+  cta,
+  image,
+  subheadingOutsideH1 = false,
+}: {
+  crumbs: { name: string; href?: string }[]
+  name: string
+  outcome?: string
+  intro: string
+  cta: { href: string; label: string }
+  image: { src: string; alt?: string }
+  /** Keep the h1 to the name alone and set the outcome as a separate line. */
+  subheadingOutsideH1?: boolean
+}) {
+  return (
+    <section className="relative flex min-h-[44svh] items-end overflow-hidden bg-navy px-6 pt-28 pb-10 md:min-h-[54svh] md:pt-32 md:pb-14">
+      <Image src={image.src} alt={image.alt ?? ''} fill priority sizes="100vw" className="object-cover" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(90deg, rgba(10,24,48,0.8) 0%, rgba(10,24,48,0.5) 55%, rgba(10,24,48,0.2) 100%), linear-gradient(180deg, rgba(10,24,48,0.35) 0%, rgba(10,24,48,0) 40%)',
+        }}
+      />
+      <div className="relative mx-auto w-full max-w-6xl">
+        <Breadcrumbs trail={crumbs} light />
+        <h1>
+          <span
+            className="block font-display leading-[1.04] tracking-tight text-bone"
+            style={{ fontSize: 'clamp(2.3rem, 5.6vw, 4.75rem)' }}
+          >
+            {name}
+          </span>
+          {outcome && !subheadingOutsideH1 && (
+            <>
+              {' '}
+              <span className="mt-3 block max-w-4xl font-display text-xl leading-[1.15] text-bone/85 md:text-4xl">
+                {outcome}
+              </span>
+            </>
+          )}
+        </h1>
+        {outcome && subheadingOutsideH1 && (
+          <p className="mt-3 max-w-4xl font-display text-xl leading-[1.15] text-bone/85 md:text-4xl">{outcome}</p>
+        )}
+        <div className="mt-8 grid grid-cols-1 items-end gap-8 md:mt-10 md:grid-cols-[1.3fr_1fr] md:gap-16">
+          <p className="max-w-md text-base leading-relaxed text-bone/80 md:text-lg">{intro}</p>
+          <div>
+            <Link
+              href={cta.href}
+              className="group inline-flex items-center gap-2 rounded-sm bg-bone px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-bone/90"
+            >
+              {cta.label}
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                aria-hidden="true"
+                className="transition-transform duration-200 group-hover:-translate-y-[3px] group-hover:translate-x-[3px]"
+              >
+                <path d="M2 10 L10 2 M3.5 2 H10 V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
           </div>
         </div>
       </div>
@@ -119,7 +252,7 @@ export function ServiceHero({
 /** Short, recognisable problems set large on navy. */
 export function StatementBand({ items, note }: { items: string[]; note?: React.ReactNode }) {
   return (
-    <section data-nav-theme="dark" className="bg-navy px-6 py-14 md:py-20">
+    <section data-nav-theme="dark" className="bg-navy px-6 py-16 md:py-24">
       <div className="max-w-6xl mx-auto">
         <ul className="grid grid-cols-1 gap-x-16 gap-y-8 md:grid-cols-2 md:gap-y-10">
           {items.map((t, i) => (
@@ -153,7 +286,7 @@ export function SectionHead({
 }) {
   return (
     <ScrollReveal className="mb-8 max-w-2xl md:mb-10">
-      <h2 className={`font-display text-3xl leading-[1.1] md:text-4xl ${light ? 'text-bone' : 'text-ink'}`}>{title}</h2>
+      <h2 className={`font-display text-3xl leading-[1.12] md:text-4xl lg:text-[2.75rem] ${light ? 'text-bone' : 'text-ink'}`}>{title}</h2>
       {lead && (
         <p className={`mt-3 text-base leading-relaxed ${light ? 'text-bone/70' : 'text-secondary'}`}>{lead}</p>
       )}
@@ -180,7 +313,7 @@ export function Evidence({
   hrefLabel: string
 }) {
   return (
-    <section className="px-6 py-14 md:py-20">
+    <section className="px-6 py-16 md:py-24">
       <div
         className={`max-w-6xl mx-auto grid grid-cols-1 items-center gap-10 md:gap-16 ${
           imageSide === 'left' ? 'md:grid-cols-[1.15fr_1fr]' : 'md:grid-cols-[1fr_1.15fr]'
@@ -232,7 +365,7 @@ export function PriceProcess({
   steps: { title: string; body: string }[]
 }) {
   return (
-    <section data-nav-theme="dark" className="bg-navy px-6 py-14 md:py-20">
+    <section data-nav-theme="dark" className="bg-navy px-6 py-16 md:py-24">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-[1fr_1.1fr] md:gap-16">
           <ScrollReveal>
@@ -259,7 +392,7 @@ export function PriceProcess({
 /** The optional review, offered once, near the end. */
 export function ReviewOffer({ children }: { children?: React.ReactNode }) {
   return (
-    <section className="px-6 py-12 md:py-16">
+    <section className="px-6 py-14 md:py-20">
       <ScrollReveal className="max-w-6xl mx-auto flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-16">
         <p className="max-w-2xl font-display text-xl leading-[1.35] text-ink md:text-2xl">
           {children ?? (

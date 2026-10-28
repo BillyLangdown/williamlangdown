@@ -4,7 +4,7 @@ import CTABanner from '@/components/CTABanner'
 import JsonLd from '@/components/JsonLd'
 import ScrollReveal from '@/components/ScrollReveal'
 import { AiLanes, ExtractionPanel } from '@/components/service/visuals'
-import { ServiceHero, SectionHead, PriceProcess, ReviewOffer, AlsoLinks, TextLink } from '@/components/service/parts'
+import { SimpleServiceHero, SectionHead, PriceProcess, ReviewOffer, AlsoLinks, TextLink } from '@/components/service/parts'
 import { contactHref } from '@/lib/site'
 import { graph, serviceSchema, breadcrumbSchema } from '@/lib/schema'
 import type { Metadata } from 'next'
@@ -48,7 +48,8 @@ export default function AiImplementationPage() {
       <JsonLd data={jsonLd} />
       <Nav />
       <main className="bg-bone">
-        <ServiceHero
+        <SimpleServiceHero
+          image={{ src: '/images/hero-ai-implementation.jpg' }}
           crumbs={[
             { name: 'Home', href: '/' },
             { name: 'Services', href: '/services' },
@@ -56,42 +57,33 @@ export default function AiImplementationPage() {
           ]}
           name="AI implementation"
           outcome="for specific tasks, with a person in charge of the result."
-          intro="I add AI to workflows where it genuinely helps, such as reading documents, sorting messages and drafting replies. It sits inside a controlled process, and I will tell you when simpler automation is the more reliable choice."
-          price="From £1,500"
-          priceNote="Typical automation starting point. AI provider usage is paid directly by you."
+          intro="I add AI to workflows where it genuinely helps, such as reading documents, sorting messages and drafting replies."
           cta={{ href: contactHref('ai-implementation'), label: 'Discuss an AI project' }}
-          secondary={
-            <>
-              Unsure whether AI is relevant?{' '}
-              <TextLink href="/business-automation-review">Business Automation Review, £395</TextLink>
-            </>
-          }
         />
 
-        <section className="px-6 py-14 md:py-20">
+        <section className="px-6 py-16 md:py-24">
           <div className="max-w-6xl mx-auto">
             <SectionHead
               title="A typical use: a messy message becomes a tidy record"
-              lead="The AI reads and drafts. Rules check the result, and a person approves it before anything is sent or saved."
+              lead="The AI reads and drafts, rules check the result, and a person approves it before anything is sent or saved."
             />
             <ScrollReveal>
               <ExtractionPanel />
             </ScrollReveal>
             <ScrollReveal className="mt-8 max-w-2xl text-base leading-relaxed text-secondary">
-              The same approach covers document processing, classification and routing, enquiry
-              triage, and drafting replies from your own information. Connecting it to the systems
-              you already use is covered under{' '}
+              The same approach covers documents, enquiry triage and drafted replies. Connecting it
+              to your systems is covered under{' '}
               <TextLink href="/services/workflow-automation">workflow automation</TextLink> and{' '}
               <TextLink href="/services/software-integrations">software integrations</TextLink>.
             </ScrollReveal>
           </div>
         </section>
 
-        <section className="bg-subtle px-6 py-14 md:py-20">
+        <section className="bg-subtle px-6 py-16 md:py-24">
           <div className="max-w-6xl mx-auto">
             <SectionHead
               title="Choosing the right tool for each step"
-              lead="AI is one option among several, and often not the best one. Most good solutions mix all three."
+              lead="AI is one option among several, and often not the best. Most good solutions mix all three."
             />
             <ScrollReveal>
               <AiLanes />
@@ -99,7 +91,7 @@ export default function AiImplementationPage() {
           </div>
         </section>
 
-        <section data-nav-theme="dark" className="bg-navy px-6 py-14 md:py-20">
+        <section data-nav-theme="dark" className="bg-navy px-6 py-16 md:py-24">
           <div className="max-w-6xl mx-auto grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-20">
             <ScrollReveal>
               <h2 className="font-display text-2xl leading-[1.15] text-bone md:text-3xl">Accuracy</h2>
@@ -122,7 +114,7 @@ export default function AiImplementationPage() {
           </div>
         </section>
 
-        <section className="px-6 py-14 md:py-16">
+        <section className="px-6 py-14 md:py-20">
           <ScrollReveal className="max-w-6xl mx-auto">
             <p className="max-w-3xl font-display text-xl leading-[1.45] text-ink md:text-2xl">
               I have not published an AI case study yet. My work to date is in software and web
@@ -144,7 +136,7 @@ export default function AiImplementationPage() {
           <p>
             AI implementation is priced like other automation work, which typically starts from
             £1,500 for a properly scoped project. The final price depends on the task, the volume and
-            how much testing it needs.
+            how much testing it needs. AI provider usage is paid directly by you.
           </p>
         </PriceProcess>
 

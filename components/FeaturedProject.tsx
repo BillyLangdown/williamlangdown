@@ -50,7 +50,7 @@ export default function FeaturedProject({
   return (
     <section
       data-nav-theme="dark"
-      className="relative z-10 overflow-hidden bg-bone"
+      className="relative z-10 overflow-x-clip bg-bone md:scroll-mt-16"
       style={{ scrollSnapAlign: 'start' }}
     >
       <div className="relative z-10 mx-auto max-w-5xl px-6 py-16 md:py-24">

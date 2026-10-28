@@ -20,6 +20,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/services/workflow-automation`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE}/services/software-integrations`, lastModified: updated, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/services/ai-implementation`, lastModified: updated, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/services/technology-automation`, lastModified: updated, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE}/services/web-digital`, lastModified: updated, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/services/custom-software`, lastModified: updated, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/business-automation-review`, lastModified: updated, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/website-audit`, lastModified: updated, changeFrequency: 'monthly', priority: 0.7 },

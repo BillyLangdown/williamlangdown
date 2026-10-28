@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import HeroMedia from '@/components/HeroMedia'
@@ -22,6 +23,8 @@ const HERO_NAV = [
 export default function Hero() {
   return (
     <>
+      <h1 className="sr-only">William Langdown</h1>
+
       {/* MOBILE */}
       <div className="md:hidden">
         <MobileHero />
@@ -42,36 +45,43 @@ export default function Hero() {
 function HeroName({ vertical = false }: { vertical?: boolean }) {
   const reduceMotion = useReducedMotion()
   const { scrollY } = useScroll()
+  // Where the browser supports scroll-driven animations (iOS 26+, modern
+  // Chrome) the mobile drift runs on the compositor via CSS, which stays
+  // smooth on iPhone; elsewhere it falls back to the JS motion value.
+  const [native, setNative] = useState(false)
+  useEffect(() => {
+    setNative(typeof CSS !== 'undefined' && CSS.supports('animation-timeline: scroll()'))
+  }, [])
   const vh = () => (typeof window === 'undefined' ? 800 : window.innerHeight)
   // Vertical (mobile) drifts down slowly. Horizontal (desktop) lifts away
   // faster than the page and fades out, so it's gone before the snap to
   // the next section.
   const y = useTransform(scrollY, (v) =>
-    reduceMotion ? 0 : vertical ? Math.min(v, 1000) * 0.35 : -v * 0.5,
+    reduceMotion ? 0 : vertical ? Math.min(v, 1000) * 0.35 : -v * 0.8,
   )
   const opacity = useTransform(scrollY, (v) =>
-    vertical ? 1 : Math.max(0, 1 - v / (vh() * 0.6)),
+    vertical ? 1 : Math.max(0, 1 - v / (vh() * 0.4)),
   )
 
   return (
-    <motion.h1
+    <motion.div
+      aria-hidden="true"
       style={{
-        y,
-        opacity,
+        ...(vertical ? (native ? {} : { y, willChange: 'transform' }) : { y, opacity, willChange: 'transform' }),
         fontSize: vertical
           ? 'min(calc(100svh / 6.4), 44vw)'
           : 'calc((100vw - 2rem) / 6.4)',
-        willChange: 'transform',
         ...(vertical
           ? { writingMode: 'vertical-rl' as const, textOrientation: 'sideways' as const }
           : {}),
       }}
       className={`
+        ${vertical && native && !reduceMotion ? 'hero-name-drift' : ''}
         pointer-events-none
         absolute
         z-0
         select-none
-        ${vertical ? 'left-0 top-0 pl-[0.06em]' : 'inset-x-0 bottom-0 px-4 pb-[0.05em]'}
+        ${vertical ? 'left-0 top-0 pl-[0.06em]' : 'inset-x-0 bottom-0 px-4 pb-[0.27em]'}
         font-sans
         font-extrabold
         uppercase
@@ -83,7 +93,7 @@ function HeroName({ vertical = false }: { vertical?: boolean }) {
       William
       <br />
       Langdown
-    </motion.h1>
+    </motion.div>
   )
 }
 
@@ -93,9 +103,10 @@ function HeroName({ vertical = false }: { vertical?: boolean }) {
 function ValueStatement() {
   const reduceMotion = useReducedMotion()
   const { scrollY } = useScroll()
-  const y = useTransform(scrollY, (v) => (reduceMotion ? 0 : -v * 0.5))
+  const lag = () => (typeof window === 'undefined' ? 800 : window.innerHeight) * 0.15
+  const y = useTransform(scrollY, (v) => (reduceMotion ? 0 : -Math.max(0, v - lag()) * 0.5))
   const opacity = useTransform(scrollY, (v) =>
-    Math.max(0, 1 - v / ((typeof window === 'undefined' ? 800 : window.innerHeight) * 0.6)),
+    Math.max(0, 1 - Math.max(0, v - lag()) / ((typeof window === 'undefined' ? 800 : window.innerHeight) * 0.45)),
   )
 
   return (
@@ -105,7 +116,7 @@ function ValueStatement() {
         ml-auto
         text-right
         font-display
-        text-[clamp(1.75rem,2.6vw,3rem)]
+        text-[clamp(1.95rem,2.9vw,3.4rem)]
         leading-[1.1]
         tracking-tight
         text-white
@@ -125,7 +136,7 @@ function MobileValueStatement() {
         mt-5
         text-right
         font-display
-        text-[clamp(1.35rem,calc((100vw-3rem)/11.5),2.6rem)]
+        text-[clamp(1.5rem,calc((100vw-3rem)/10.5),2.9rem)]
         leading-[1.1]
         tracking-tight
         text-white
@@ -176,6 +187,7 @@ function MobileHero() {
             className="absolute inset-0"
             style={{ background: SCRIM }}
           />
+
         </div>
 
         {/* Copy over locked image */}

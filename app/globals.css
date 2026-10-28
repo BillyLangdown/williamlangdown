@@ -143,3 +143,20 @@ a {
     transform: translateX(5px);
   }
 }
+/* Mobile hero name: slow downward drift as the page scrolls, driven by the
+   scroll timeline so it runs off the main thread (smooth on iPhone). Mirrors
+   the JS fallback in Hero.tsx: 0.35px per scroll px, capped at 1000px. */
+@keyframes hero-name-drift {
+  to {
+    transform: translateY(350px);
+  }
+}
+@supports (animation-timeline: scroll()) {
+  @media (max-width: 767.98px) {
+    .hero-name-drift {
+      animation: hero-name-drift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 1000px;
+    }
+  }
+}

@@ -342,7 +342,7 @@ export default async function CaseStudyPage({ params }: Props) {
           </div>
         </section>
 
-        <RelatedServices links={[{ href: '/services/custom-software', label: 'custom software' }, { href: '/services#web-digital', label: 'web and digital services' }]} />
+        <RelatedServices links={[{ href: '/services/custom-software', label: 'custom software' }, { href: '/services/web-digital', label: 'web and digital services' }]} />
 
         <CTABanner />
       </main>

@@ -1,55 +1,19 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
 import { Layout, TreeStructure } from '@phosphor-icons/react'
 import { motion, useMotionValue, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import ScrollReveal from '@/components/ScrollReveal'
 import SectionNav from '@/components/SectionNav'
+import ArrowLink from '@/components/ArrowLink'
+import { pathways } from '@/lib/pathways'
 
 const wordClass = 'font-display leading-[1.12] tracking-tight text-ink'
 
-const pathways = [
-  {
-    heading: 'Improve how your business works.',
-    description:
-      'Save time, reduce repetitive work and make better use of your existing systems. I can help identify opportunities and put practical solutions in place.',
-    cta: 'Explore business technology',
-    href: '/services#technology-automation',
-    Mark: TreeStructure,
-    glyph: 'h-[72px] w-[72px]',
-  },
-  {
-    heading: 'Improve how your business looks online.',
-    description:
-      'Make your business easier to understand, trust and choose through better websites and digital experiences.',
-    cta: 'Explore digital experiences',
-    href: '/services#web-digital',
-    Mark: Layout,
-    glyph: 'h-[64px] w-[64px]',
-  },
-]
-
-function ArrowLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link
-      href={href}
-      className="group inline-flex items-center gap-1.5 text-sm font-medium text-ink transition-colors hover:text-terracotta md:text-base"
-    >
-      {children}
-      <svg
-        width="12"
-        height="12"
-        viewBox="0 0 12 12"
-        fill="none"
-        aria-hidden="true"
-        className="transition-transform duration-200 group-hover:-translate-y-[3px] group-hover:translate-x-[3px]"
-      >
-        <path d="M2 10 L10 2 M3.5 2 H10 V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </Link>
-  )
-}
+const marks = {
+  technology: { Mark: TreeStructure },
+  digital: { Mark: Layout },
+} as const
 
 type Geom = {
   w: number
@@ -65,15 +29,14 @@ type Geom = {
 
 const COPPER = '#C1613D'
 const STROKE = { stroke: COPPER, strokeWidth: 2.5, fill: 'none', strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
+// Mobile: how far below a card's top edge its arrow stub meets it.
+const STUB_Y = 36
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n))
 
 export default function ServicesOverview() {
   const reduce = useReducedMotion()
   const section = useRef<HTMLElement>(null)
   const root = useRef<HTMLDivElement>(null)
-  const dot1 = useRef<HTMLSpanElement>(null)
-  const dot2 = useRef<HTMLSpanElement>(null)
-  const glyph1 = useRef<HTMLDivElement>(null)
   const text1 = useRef<HTMLDivElement>(null)
   const panel2 = useRef<HTMLDivElement>(null)
   const [geom, setGeom] = useState<Geom | null>(null)
@@ -93,6 +56,13 @@ export default function ServicesOverview() {
   // spent on the desktop stem before it branches.
   const { scrollY } = useScroll()
   const win = useRef({ from: 0, to: 1, f: 0.6, p0: 0 })
+  // Cards pop only once the line has finished drawing: a short scroll
+  // window that starts where the line's window ends.
+  const popAt = (lag: number, span: number) => (y: number) => {
+    const { to } = win.current
+    const vh = typeof window === 'undefined' ? 800 : window.innerHeight
+    return clamp01((y - to - vh * lag) / (vh * span))
+  }
   const p = useTransform(scrollY, (y) => {
     const { from, to, p0 } = win.current
     return p0 + (1 - p0) * clamp01((y - from) / Math.max(1, to - from))
@@ -104,18 +74,14 @@ export default function ServicesOverview() {
   // Each card pops in as its branch arrives: rises, settles to full size
   // with the faintest overshoot, and fades up. Scroll-driven, so it
   // reverses cleanly.
-  const t1 = useTransform(p, (n) => clamp01((n - 0.84) / 0.12))
-  const t2 = useTransform(p, (n) => clamp01((n - 0.9) / 0.1))
+  const t1 = useTransform(scrollY, popAt(0, 0.14))
+  const t2 = useTransform(scrollY, popAt(0.06, 0.14))
   const ease = (t: number) => 1 - Math.pow(1 - t, 3)
   const y1 = useTransform(t1, (t) => (1 - ease(t)) * 36)
   const y2 = useTransform(t2, (t) => (1 - ease(t)) * 36)
   const sc1 = useTransform(t1, (t) => 0.94 + 0.06 * ease(t) + 0.012 * Math.sin(Math.PI * t))
   const sc2 = useTransform(t2, (t) => 0.94 + 0.06 * ease(t) + 0.012 * Math.sin(Math.PI * t))
 
-  const m1 = useTransform(p, [0, 0.45], [0, 1])
-  const m2 = useTransform(p, [0.5, 0.95], [0, 1])
-  const mi1 = useTransform(p, [0.34, 0.46], [0, 1])
-  const mi2 = useTransform(p, [0.88, 0.98], [0, 1])
 
   const v = (m: typeof one) => (reduce ? one : m)
 
@@ -124,8 +90,6 @@ export default function ServicesOverview() {
   const shown = (n: number): number => (n > 0.002 ? 1 : 0)
   const stemShow = useTransform(stem, shown)
   const branchShow = useTransform(branch, shown)
-  const m1Show = useTransform(m1, shown)
-  const m2Show = useTransform(m2, shown)
   const show = (m: typeof one) => (reduce ? one : m)
 
   // The line is routed from the real positions of the intro paragraph,
@@ -147,17 +111,11 @@ export default function ServicesOverview() {
     const measure = () => {
       const r = root.current
       const sec = section.current
-      const d1 = dot1.current
-      const d2 = dot2.current
-      const g1 = glyph1.current
       const t = text1.current
       const pn2 = panel2.current
-      if (!r || !sec || !d1 || !d2 || !g1 || !t || !pn2) return
+      if (!r || !sec || !t || !pn2) return
       const isDesktop = window.matchMedia('(min-width: 768px)').matches
       const base = box(r)
-      const rd1 = box(d1)
-      const rd2 = box(d2)
-      const rg = box(g1)
       const rt = box(t)
       const intro = Array.from(document.querySelectorAll<HTMLElement>('[data-intro-end]')).find(
         (el) => el.offsetParent !== null,
@@ -168,7 +126,9 @@ export default function ServicesOverview() {
       const rp2 = box(pn2)
       // Desktop lines land on the top edge of each panel (the icon sits
       // inside it); mobile lines land on the copper dot above the icon.
-      const dotY = isDesktop ? rt.top - base.top - 4 : rd1.top - base.top + 4
+      // On large screens the cards sit 28px lower so the arrow tips clear them.
+      const gap = isDesktop && window.innerWidth >= 1024 ? 28 : 0
+      const dotY = isDesktop ? rt.top - base.top - 4 - gap : rt.top - base.top + STUB_Y
       const lineTop = base.top + startY
       let junction = 0
       if (isDesktop) {
@@ -194,13 +154,13 @@ export default function ServicesOverview() {
         junction,
         desktop: isDesktop,
         i1: {
-          cx: (isDesktop ? rt.left + rt.width / 2 : rd1.left + rd1.width / 2) - base.left,
+          cx: (isDesktop ? rt.left + rt.width / 2 : rt.left) - base.left,
           top: dotY,
-          bottom: rg.top - base.top + rg.height,
+          bottom: 0,
         },
         i2: {
-          cx: (isDesktop ? rp2.left + rp2.width / 2 : rd2.left + rd2.width / 2) - base.left,
-          top: isDesktop ? rp2.top - base.top - 4 : rd2.top - base.top + 4,
+          cx: (isDesktop ? rp2.left + rp2.width / 2 : rp2.left) - base.left,
+          top: isDesktop ? rp2.top - base.top - 4 - gap : rp2.top - base.top + STUB_Y,
         },
         t1Bottom: rt.top - base.top + rt.height,
       })
@@ -215,26 +175,41 @@ export default function ServicesOverview() {
     }
   }, [])
 
-  let seg1 = ''
-  let seg2 = ''
+  // Mobile: one spine runs down the left gutter with an arrow branching
+  // off it into each card, so the two options read as two exits of one line.
+  let spine = ''
+  let stub1 = ''
+  let tip1 = ''
+  let tip2 = ''
+  let spineEnd = 0
   if (geom && !geom.desktop) {
-    const { w, i1, i2, t1Bottom, startY } = geom
-    const gx = w - 26
-    // Straight down through the rest of the intro, then ease towards icon 1.
-    const bend = Math.max(startY + 20, i1.top - 90)
-    const mid = bend + (i1.top - bend) * 0.55
-    seg1 = `M ${w / 2} ${startY} L ${w / 2} ${bend} C ${w / 2} ${mid}, ${i1.cx} ${mid}, ${i1.cx} ${i1.top}`
-    const y3 = t1Bottom + 8
-    seg2 =
-      `M ${i1.cx} ${i1.bottom} C ${i1.cx} ${i1.bottom + 40}, ${gx} ${i1.bottom + 20}, ${gx} ${i1.bottom + 64} ` +
-      `L ${gx} ${y3} C ${gx} ${y3 + 56}, ${i2.cx} ${y3 + 24}, ${i2.cx} ${i2.top}`
+    const { i1, i2, startY, w } = geom
+    const sx = 12
+    const r = 10
+    const x1 = i1.cx - 7
+    const x2 = i2.cx - 7
+    const bend = Math.max(startY + 20, i1.top - 120)
+    const mid = bend + (i1.top - 30 - bend) * 0.5
+    spine =
+      `M ${w / 2} ${startY} L ${w / 2} ${bend} C ${w / 2} ${mid}, ${sx} ${mid}, ${sx} ${i1.top - 30} ` +
+      `L ${sx} ${i2.top - r} Q ${sx} ${i2.top} ${sx + r} ${i2.top} L ${x2} ${i2.top}`
+    stub1 = `M ${sx} ${i1.top - r} Q ${sx} ${i1.top} ${sx + r} ${i1.top} L ${x1} ${i1.top}`
+    tip1 = `M ${x1 - 8} ${i1.top - 7} L ${x1 + 1} ${i1.top} L ${x1 - 8} ${i1.top + 7}`
+    tip2 = `M ${x2 - 8} ${i2.top - 7} L ${x2 + 1} ${i2.top} L ${x2 - 8} ${i2.top + 7}`
+    spineEnd = (i1.top - startY) / (i2.top - startY)
   }
+  const spineP = useTransform(p, [0, 0.95], [0, 1])
+  const spineShow = useTransform(spineP, shown)
+  const stubP = useTransform(spineP, (n) => clamp01((n - spineEnd) / 0.08))
+  const stubShow = useTransform(stubP, shown)
+  const spineTip = useTransform(spineP, (n) => clamp01((n - 0.97) / 0.03))
+  const stubTip = useTransform(stubP, (n) => clamp01((n - 0.9) / 0.1))
 
   return (
     <section ref={section} id="capabilities" data-nav-theme="light" className="relative z-10 bg-bone">
       <div ref={root} className="relative mx-auto max-w-6xl px-6 pb-16 pt-12 md:min-h-[100svh] md:pb-[14svh] md:pt-0">
-        {/* Desktop: one line that begins inside the intro (white on the
-            dark image), turns copper as it crosses into this section, then
+        {/* Desktop: one line that begins inside the intro (copper on the
+            dark image), stays copper as it crosses into this section, then
             branches onto the two icon nodes. Drawn in measured pixels. */}
         {geom && geom.desktop && (
           <svg
@@ -254,7 +229,7 @@ export default function ServicesOverview() {
                 y1={geom.boundary - 30}
                 y2={geom.boundary + 90}
               >
-                <stop offset="0" stopColor="#F6F3EE" />
+                <stop offset="0" stopColor={COPPER} />
                 <stop offset="1" stopColor={COPPER} />
               </linearGradient>
             </defs>
@@ -285,7 +260,7 @@ export default function ServicesOverview() {
           </svg>
         )}
 
-        {/* Mobile: a single line travelling through both pathways */}
+        {/* Mobile: a spine down the gutter with an arrow into each card */}
         {geom && !geom.desktop && (
           <svg
             viewBox={`0 ${geom.startY} ${geom.w} ${geom.h - geom.startY}`}
@@ -295,58 +270,49 @@ export default function ServicesOverview() {
             className="pointer-events-none absolute left-0 md:hidden"
             style={{ top: geom.startY }}
           >
-            <motion.path d={seg1} style={{ pathLength: v(m1), opacity: show(m1Show) }} {...STROKE} />
-            <motion.path d={seg2} style={{ pathLength: v(m2), opacity: show(m2Show) }} {...STROKE} />
+            <motion.path d={spine} style={{ pathLength: v(spineP), opacity: show(spineShow) }} {...STROKE} />
+            <motion.path d={stub1} style={{ pathLength: v(stubP), opacity: show(stubShow) }} {...STROKE} />
+            <motion.path d={tip1} style={{ opacity: v(stubTip) }} {...STROKE} />
+            <motion.path d={tip2} style={{ opacity: v(spineTip) }} {...STROKE} />
           </svg>
         )}
 
-        <div className="grid grid-cols-1 gap-y-2 md:grid-cols-2 md:gap-x-10 md:pt-[216px] lg:gap-x-16">
+        <div className="grid grid-cols-1 gap-y-6 md:grid-cols-2 md:gap-x-10 md:pt-[216px] lg:gap-x-16 lg:pt-[244px]">
           {pathways.map((pw, i) => {
             const primary = i === 0
-            const Mark = pw.Mark
+            const { Mark } = marks[pw.key]
             const pop = primary ? { opacity: t1, y: y1, scale: sc1 } : { opacity: t2, y: y2, scale: sc2 }
-            const mOpacity = primary ? mi1 : mi2
-            return (
+                        return (
               <article key={pw.href} className="flex flex-col">
-                {/* Icon node: a copper dot where the line lands, with the
-                    icon beneath it. Right on mobile for the first, left for
-                    the second; centred on its branch on desktop. */}
-                <div className={`pt-[72px] md:hidden ${primary ? 'self-end pr-6' : 'self-start pl-6'}`}>
-                  <div className="flex flex-col items-center">
-                    <span ref={primary ? dot1 : dot2} aria-hidden="true" className="block h-2 w-2 rounded-full bg-terracotta" />
-                    <motion.div
-                      ref={primary ? glyph1 : undefined}
-                      style={reduce ? undefined : { opacity: mOpacity }}
-                      className="mt-3 text-ink"
-                    >
-                      <Mark weight="light" aria-hidden="true" className={pw.glyph} />
-                    </motion.div>
-                  </div>
-                </div>
-
                 {(() => {
                   const card = (
                     <motion.div
                       ref={primary ? text1 : panel2}
                       style={desktop && !reduce ? { ...pop, transformOrigin: '50% 0%' } : undefined}
-                      className={`flex flex-1 flex-col rounded-[2px] bg-terracotta/[0.08] p-6 md:p-8 lg:p-10 ${primary ? 'mr-8 md:mr-0' : ''}`}
+                      className={`group relative mx-4 flex flex-1 flex-col rounded-[2px] p-6 md:mx-0 transition-colors duration-300 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-4 has-[:focus-visible]:outline-ink/50 md:p-8 lg:p-10 ${
+                        primary ? 'bg-terracotta/[0.2] hover:bg-terracotta/[0.27] lg:pb-12 lg:pt-12' : 'bg-stone/[0.22] hover:bg-stone/[0.3]'
+                      }`}
                     >
-                      <div className="mb-6 hidden text-ink md:block">
-                        <Mark weight="light" aria-hidden="true" className="h-24 w-24" />
-                      </div>
+                      <Mark
+                        weight="light"
+                        aria-hidden="true"
+                        className={`absolute right-5 top-5 text-ink md:right-8 md:top-8 lg:right-10 lg:top-10 ${
+                          primary ? 'h-[72px] w-[72px] md:h-28 md:w-28 lg:h-[8.5rem] lg:w-[8.5rem]' : 'h-16 w-16 md:h-24 md:w-24 lg:h-28 lg:w-28'
+                        }`}
+                      />
                       <h2
-                        className={wordClass}
+                        className={`${wordClass} max-w-[16ch] pr-16 md:pr-28 lg:pr-36`}
                         style={{
                           fontSize: 'clamp(1.75rem, 2.5vw, 2.6rem)',
                         }}
                       >
                         {pw.heading}
                       </h2>
-                      <p className="mt-5 max-w-md text-base leading-relaxed text-secondary md:mt-6 md:text-[1.05rem] lg:text-lg">
+                      <p className="mt-5 max-w-md text-base leading-relaxed text-ink/80 md:mt-8 md:text-[1.05rem] lg:text-lg">
                         {pw.description}
                       </p>
-                      <div className="mt-6 md:mt-auto md:pt-8">
-                        <ArrowLink href={pw.href}>{pw.cta}</ArrowLink>
+                      <div className="mt-6 border-t border-ink/15 pt-5 md:mt-auto md:pt-6">
+                        <ArrowLink href={pw.href} stretch>{pw.cta}</ArrowLink>
                       </div>
                     </motion.div>
                   )

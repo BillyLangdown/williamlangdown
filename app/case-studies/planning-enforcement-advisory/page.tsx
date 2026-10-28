@@ -1023,7 +1023,7 @@ export default function PlanningEnforcementAdvisoryCaseStudy() {
           href="/case-studies/building-ventilation-services-ltd"
         />
 
-        <RelatedServices links={[{ href: '/services#web-digital', label: 'web and digital services' }, { href: '/services', label: 'all services' }]} />
+        <RelatedServices links={[{ href: '/services/web-digital', label: 'web and digital services' }, { href: '/services', label: 'all services' }]} />
 
         <CTABanner />
       </main>

@@ -5,7 +5,7 @@ import CTABanner from '@/components/CTABanner'
 import JsonLd from '@/components/JsonLd'
 import ScrollReveal from '@/components/ScrollReveal'
 import { SpreadsheetToTool } from '@/components/service/visuals'
-import { ServiceHero, SectionHead, Evidence, ReviewOffer, AlsoLinks, TextLink } from '@/components/service/parts'
+import { SimpleServiceHero, SectionHead, Evidence, ReviewOffer, AlsoLinks, TextLink } from '@/components/service/parts'
 import { contactHref } from '@/lib/site'
 import { graph, serviceSchema, breadcrumbSchema } from '@/lib/schema'
 import type { Metadata } from 'next'
@@ -46,21 +46,21 @@ const jsonLd = graph(
 const options = [
   {
     word: 'Leave it',
-    body: 'One or two people maintain it, nothing depends on it and mistakes are cheap. A spreadsheet like that is fine.',
+    body: 'One or two people use it and mistakes are cheap. A spreadsheet like that is fine.',
   },
   {
     word: 'Connect it',
-    body: 'Each system does its job but they do not share data. An integration is usually cheaper than a rebuild.',
+    body: 'Each system works but they do not share data. Usually cheaper than a rebuild.',
     href: '/services/software-integrations',
     link: 'Software integrations',
   },
   {
     word: 'Extend it',
-    body: 'Your current software mostly fits and supports custom fields, reports or add-ons. Adjusting it is easier to support.',
+    body: 'Your software mostly fits and supports add-ons or custom fields. Easier to support.',
   },
   {
     word: 'Build it',
-    body: 'The process is specific to you, nothing off the shelf fits, and the work happens often enough to justify it.',
+    body: 'The process is specific to you, nothing off the shelf fits, and it happens often.',
   },
 ]
 
@@ -72,27 +72,38 @@ export default function CustomSoftwarePage() {
       <JsonLd data={jsonLd} />
       <Nav />
       <main className="bg-bone">
-        <ServiceHero
+        <SimpleServiceHero
+          image={{ src: '/images/hero-custom-software.jpg' }}
           crumbs={[
             { name: 'Home', href: '/' },
             { name: 'Services', href: '/services' },
             { name: 'Custom software' },
           ]}
           name="Custom software"
-          outcome="and internal tools for work that off-the-shelf software does not cover."
-          intro="I design and build focused software for the parts of a business that standard products handle badly: internal tools, admin systems and applications shaped around how you actually work. Building is not always the right answer, and I will say so."
-          price="Scoped individually"
-          priceNote="Focused projects are often around £2,500, some below and some above."
-          cta={{ href: contactHref('custom-software'), label: 'Discuss a custom software project' }}
-          secondary={
-            <>
-              Want an outside view first?{' '}
-              <TextLink href="/business-automation-review">Business Automation Review, £395</TextLink>
-            </>
-          }
+          outcome="built around your business."
+          intro="Internal tools and applications that simplify work when off-the-shelf software doesn't quite fit."
+          cta={{ href: contactHref('custom-software'), label: 'Discuss your project' }}
         />
 
-        <section className="px-6 py-14 md:py-20">
+        <section className="px-6 pt-16 md:pt-24">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-[1fr_1.4fr] md:gap-16 lg:gap-24">
+            <ScrollReveal>
+              <h2 className="font-display text-3xl leading-[1.12] text-ink md:text-4xl lg:text-[2.75rem]">What I build</h2>
+            </ScrollReveal>
+            <ScrollReveal delay={80} className="max-w-xl space-y-4 text-base leading-relaxed text-secondary md:text-lg">
+              <p>
+                I design and build focused custom software for the parts of a business that standard products
+                handle badly: internal tools, administrative systems and applications shaped around how you
+                actually work.
+              </p>
+              <p>
+                Building is not always the right answer. Where a simpler alternative fits, I will recommend it.
+              </p>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        <section className="px-6 py-16 md:py-24">
           <div className="max-w-6xl mx-auto">
             <SectionHead
               title="Leave it, connect it, extend it or build it"
@@ -127,13 +138,13 @@ export default function CustomSoftwarePage() {
           </div>
         </section>
 
-        <section className="bg-subtle px-6 py-14 md:py-20">
+        <section className="bg-subtle px-6 py-16 md:py-24">
           <div className="max-w-6xl mx-auto grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
             <ScrollReveal>
               <SpreadsheetToTool />
             </ScrollReveal>
             <ScrollReveal delay={80}>
-              <h2 className="font-display text-3xl leading-[1.1] text-ink md:text-4xl">What a focused tool looks like</h2>
+              <h2 className="font-display text-3xl leading-[1.12] text-ink md:text-4xl lg:text-[2.75rem]">What a focused tool looks like</h2>
               <ul className="mt-5 space-y-2 text-base leading-snug text-ink">
                 {examples.map((e) => (
                   <li key={e} className="flex gap-3">
@@ -175,16 +186,15 @@ export default function CustomSoftwarePage() {
           </p>
         </Evidence>
 
-        <section data-nav-theme="dark" className="bg-navy px-6 py-14 md:py-20">
+        <section data-nav-theme="dark" className="bg-navy px-6 py-16 md:py-24">
           <div className="max-w-6xl mx-auto grid grid-cols-1 gap-10 md:grid-cols-[1.3fr_1fr] md:gap-20">
             <ScrollReveal>
-              <h2 className="font-display text-3xl leading-[1.2] text-bone md:text-[2.4rem]">
-                I am one developer, so I build focused tools for a team, not platforms for hundreds of users.
+              <h2 className="font-display text-3xl leading-[1.12] text-bone md:text-4xl lg:text-[2.75rem]">
+                I am one developer, so I build focused tools for a team, not large platforms.
               </h2>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-bone/70">
-                We start with the smallest version that solves the real problem, put it to use, and
-                add to it once it has proved itself. You see working software early, and the cost and
-                risk stay down.
+                We start with the smallest version that solves the real problem and add to it once it
+                has proved itself.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={80} className="space-y-5 text-sm leading-relaxed text-bone/70 md:text-base">
@@ -199,8 +209,9 @@ export default function CustomSoftwarePage() {
                 before you commit.
               </p>
               <p>
-                <span className="font-semibold text-bone">Pricing.</span> Agreed in writing after we
-                settle what the first version does. See{' '}
+                <span className="font-semibold text-bone">Pricing.</span> Focused projects are often
+                around £2,500, some below and some above, agreed in writing after we settle what the
+                first version does. See{' '}
                 <Link href="/pricing" className="text-bone underline underline-offset-4 hover:text-terracotta transition-colors">
                   how projects are priced
                 </Link>
@@ -210,7 +221,10 @@ export default function CustomSoftwarePage() {
           </div>
         </section>
 
-        <ReviewOffer />
+        <ReviewOffer>
+          Want help identifying opportunities before committing to development? The Business Automation Review is
+          a £395 look at the work you choose, credited against implementation commissioned within 60 days.
+        </ReviewOffer>
 
         <AlsoLinks
           links={[

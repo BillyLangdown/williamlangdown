@@ -521,7 +521,7 @@ export default function BvsRedesignCaseStudy() {
 
         <NextProject client="The Planning Enforcement Advisory" href="/case-studies/planning-enforcement-advisory" />
 
-        <RelatedServices links={[{ href: '/services#web-digital', label: 'web and digital services' }, { href: '/services/custom-software', label: 'custom software' }]} />
+        <RelatedServices links={[{ href: '/services/web-digital', label: 'web and digital services' }, { href: '/services/custom-software', label: 'custom software' }]} />
 
         <CTABanner />
       </main>

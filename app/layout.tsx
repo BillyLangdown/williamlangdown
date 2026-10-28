@@ -68,6 +68,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      // The stylesheet sets scroll-behavior: smooth. Without this attribute
+      // Next also scrolls smoothly during route changes, so a new page
+      // appears to open partway down while it animates from the old offset.
+      data-scroll-behavior="smooth"
       className={`${jakarta.variable} ${fraunces.variable}`}
       suppressHydrationWarning
     >

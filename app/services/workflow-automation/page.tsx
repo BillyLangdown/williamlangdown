@@ -4,14 +4,11 @@ import Footer from '@/components/Footer'
 import CTABanner from '@/components/CTABanner'
 import JsonLd from '@/components/JsonLd'
 import ScrollReveal from '@/components/ScrollReveal'
-import WorkflowDiagram from '@/components/service/WorkflowDiagram'
 import {
-  ServiceHero,
+  SimpleServiceHero,
   StatementBand,
-  SectionHead,
   Evidence,
   PriceProcess,
-  ReviewOffer,
   AlsoLinks,
   TextLink,
 } from '@/components/service/parts'
@@ -60,22 +57,14 @@ const problems = [
   'Someone rebuilds the weekly report from scratch.',
 ]
 
-const steps = [
-  { label: 'Customer enquiry received', note: 'Form, email or shared inbox' },
-  { label: 'Details captured', note: 'Saved to your CRM or spreadsheet' },
-  { label: 'Enquiry categorised', note: 'By type, using rules you agree' },
-  { label: 'Relevant person notified', note: 'With a summary, ready to reply', human: true },
-  { label: 'Follow-up recorded', note: 'A reminder fires if nobody replies' },
-]
-
 const oversight = [
   {
     title: 'Approval where it matters',
-    body: 'Quotes, replies and anything with financial or legal weight wait for a person before they go out.',
+    body: 'Quotes, replies and anything with financial or legal weight wait for a person.',
   },
   {
     title: 'Failures are visible',
-    body: 'Incoming data is checked, temporary faults are retried, and a named person is alerted when something needs attention. Every run leaves a record.',
+    body: 'Data is checked, faults are retried, and a named person is alerted. Every run leaves a record.',
   },
   {
     title: 'A manual fallback',
@@ -83,7 +72,7 @@ const oversight = [
   },
   {
     title: 'You can run it without me',
-    body: 'Where possible it lives in accounts you control, with documentation. Any ongoing care is agreed before the project starts.',
+    body: 'It lives in accounts you control, with documentation. Ongoing care is agreed first.',
   },
 ]
 
@@ -93,84 +82,92 @@ export default function WorkflowAutomationPage() {
       <JsonLd data={jsonLd} />
       <Nav />
       <main className="bg-bone">
-        <ServiceHero
+        <SimpleServiceHero
+          image={{ src: '/images/hero-workflow-automation.jpg' }}
           crumbs={[
             { name: 'Home', href: '/' },
             { name: 'Services', href: '/services' },
             { name: 'Workflow automation' },
           ]}
           name="Workflow automation"
-          outcome="for the repetitive work that takes up your week."
-          intro="I build automations that sort enquiries, send follow-ups, create documents and move information between the systems you already use. You work with me directly, from the first conversation to handover."
-          price="From £1,500"
-          priceNote="Scoped and agreed before work begins."
+          outcome="Less repetitive work. More time for your business."
+          intro="I build automations that handle routine tasks, connect your existing systems and reduce manual admin."
           cta={{ href: contactHref('workflow-automation'), label: 'Discuss an automation project' }}
-          secondary={
-            <>
-              Not sure what to automate?{' '}
-              <TextLink href="/business-automation-review">Business Automation Review, £395</TextLink>
-            </>
-          }
+          subheadingOutsideH1
         />
+
+        {/* Pricing, kept visible but out of the hero */}
+        <section className="border-b border-border-light bg-subtle px-6 py-12 md:py-16">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 md:gap-16 lg:gap-24">
+            <ScrollReveal>
+              <h2 className="font-display text-2xl leading-[1.15] text-ink md:text-3xl">
+                Automation implementation from £1,500
+              </h2>
+              <p className="mt-3 max-w-md text-base leading-relaxed text-secondary">
+                Scope and price agreed before work begins.
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={80}>
+              <div className="flex items-baseline justify-between gap-6">
+                <h2 className="font-display text-2xl leading-[1.15] text-ink md:text-3xl">Business Automation Review</h2>
+                <p className="shrink-0 text-sm font-medium text-secondary md:text-base">£395</p>
+              </div>
+              <p className="mt-3 max-w-md text-base leading-relaxed text-secondary">
+                For businesses that want help identifying automation opportunities before committing to a project.
+              </p>
+              <p className="mt-4 text-sm">
+                <TextLink href="/business-automation-review">About the review</TextLink>
+              </p>
+            </ScrollReveal>
+          </div>
+        </section>
 
         <StatementBand
           items={problems}
           note="If one of these sounds familiar, the job is probably well defined. Plenty of tasks are not worth automating, and I will say so."
         />
 
-        <section className="px-6 py-14 md:py-20">
+        <section className="px-6 py-16 md:py-24">
           <div className="max-w-6xl mx-auto">
-            <SectionHead
-              title="What it looks like in practice"
-              lead="An illustrative example, not a completed client project."
-            />
-            <ScrollReveal>
-              <WorkflowDiagram
-                steps={steps}
-                failure="the enquiry is held, retried, and a named person is told, so nothing is lost silently."
-              />
-            </ScrollReveal>
-
-            <ScrollReveal className="mt-12 grid grid-cols-1 gap-8 md:mt-16 md:grid-cols-2 md:gap-16">
-              <div>
-                <h3 className="text-sm font-semibold text-tertiary">By hand</h3>
-                <p className="mt-3 font-display text-xl leading-[1.4] text-ink/75 md:text-2xl">
-                  Someone reads the message, copies the details into a spreadsheet, works out who
-                  should reply, emails them, and hopes it gets done.
-                </p>
-              </div>
-              <div className="border-l-[3px] border-terracotta pl-6">
-                <h3 className="text-sm font-semibold text-terracotta">Automated</h3>
-                <p className="mt-3 font-display text-xl leading-[1.4] text-ink md:text-2xl">
-                  The details are saved and sorted as the message arrives, the right person gets a
-                  summary, and a reminder fires if nobody has replied.
-                </p>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal className="mt-12 max-w-3xl md:mt-16">
-              <p className="font-display text-xl leading-[1.5] text-ink md:text-2xl">
-                Other workflows follow the same shape:{' '}
-                <span className="text-secondary">
-                  client onboarding, document generation, status updates, administrative handovers,
-                  data entry between systems and recurring reports.
-                </span>
+            <ScrollReveal className="max-w-2xl">
+              <h2 className="font-display text-3xl leading-[1.12] text-ink md:text-4xl lg:text-[2.75rem]">
+                What could automation look like?
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-secondary md:text-lg">
+                An example of handling customer enquiries.
               </p>
-              <p className="mt-4 text-sm text-secondary">
-                These are illustrative examples. Where systems need to share data,{' '}
-                <TextLink href="/services/software-integrations">software integrations</TextLink> covers it in more detail.
+            </ScrollReveal>
+
+            <div className="mt-10 grid grid-cols-1 gap-4 md:mt-14 md:grid-cols-2 md:gap-6">
+              <ScrollReveal className="rounded-[2px] bg-stone/[0.2] p-6 md:p-8 lg:p-10">
+                <h3 className="text-sm font-semibold text-tertiary">Without automation</h3>
+                <p className="mt-4 font-display text-xl leading-[1.4] text-ink/80 md:text-2xl">
+                  Someone reads the enquiry, copies the details, decides who should reply and follows up manually.
+                </p>
+              </ScrollReveal>
+              <ScrollReveal delay={80} className="rounded-[2px] bg-terracotta/[0.14] p-6 md:p-8 lg:p-10">
+                <h3 className="text-sm font-semibold text-terracotta">With automation</h3>
+                <p className="mt-4 font-display text-xl leading-[1.4] text-ink md:text-2xl">
+                  Details are captured, the right person is notified and follow-ups are tracked automatically.
+                </p>
+              </ScrollReveal>
+            </div>
+
+            <ScrollReveal className="mt-6 max-w-3xl md:mt-8">
+              <p className="text-xs text-tertiary md:text-sm">Illustrative example, not a completed client project.</p>
+              <p className="mt-6 font-display text-xl leading-[1.5] text-ink md:text-2xl">
+                The same approach can help with onboarding, documents, reporting and other repetitive tasks.
               </p>
             </ScrollReveal>
           </div>
         </section>
 
-        <section className="bg-subtle px-6 py-14 md:py-20">
+        <section className="bg-subtle px-6 py-16 md:py-24">
           <div className="max-w-6xl mx-auto grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.7fr] lg:gap-16">
             <ScrollReveal>
-              <h2 className="font-display text-3xl leading-[1.1] text-ink md:text-4xl">Where people stay in charge</h2>
+              <h2 className="font-display text-3xl leading-[1.12] text-ink md:text-4xl lg:text-[2.75rem]">Where people stay in charge</h2>
               <p className="mt-4 max-w-sm text-base leading-relaxed text-secondary">
-                No automation is immune to a service going down or a form sending odd data. It is
-                built so that you find out.
+                Any automation can hit a service outage or odd data. This one is built so you find out.
               </p>
             </ScrollReveal>
             <div className="grid grid-cols-1 gap-x-12 gap-y-8 sm:grid-cols-2">
@@ -232,8 +229,6 @@ export default function WorkflowAutomationPage() {
             .
           </p>
         </PriceProcess>
-
-        <ReviewOffer />
 
         <AlsoLinks
           links={[

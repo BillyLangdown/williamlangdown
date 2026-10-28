@@ -5,7 +5,7 @@ import JsonLd from '@/components/JsonLd'
 import ScrollReveal from '@/components/ScrollReveal'
 import { IntegrationMap, RecordTimeline } from '@/components/service/visuals'
 import {
-  ServiceHero,
+  SimpleServiceHero,
   SectionHead,
   Evidence,
   ReviewOffer,
@@ -61,15 +61,15 @@ const connections = [
 const methods = [
   {
     name: 'A built-in connector',
-    note: 'Many tools already link to each other. When one does the job, it is usually the cheapest and easiest to keep running, and I will say so.',
+    note: 'Many tools already link to each other. When one does the job, it is the cheapest to keep running.',
   },
   {
     name: 'An automation platform',
-    note: 'Hosted tools pass data between applications with little code. They suit simple flows, though cost and limits grow with volume.',
+    note: 'Hosted tools pass data between apps with little code. They suit simple flows, though cost grows with volume.',
   },
   {
     name: 'Custom code against an API',
-    note: 'When the rules are involved or reliability matters, a small purpose-written service controls how data is matched, checked and retried.',
+    note: 'When the rules are involved, a small purpose-written service controls how data is matched, checked and retried.',
   },
 ]
 
@@ -79,7 +79,8 @@ export default function SoftwareIntegrationsPage() {
       <JsonLd data={jsonLd} />
       <Nav />
       <main className="bg-bone">
-        <ServiceHero
+        <SimpleServiceHero
+          image={{ src: '/images/hero-software-integrations.jpg' }}
           crumbs={[
             { name: 'Home', href: '/' },
             { name: 'Services', href: '/services' },
@@ -87,22 +88,14 @@ export default function SoftwareIntegrationsPage() {
           ]}
           name="Software integrations"
           outcome="so the same information is never typed twice."
-          intro="I connect the software your business already uses, so a customer, order or invoice entered in one place appears correctly in the others. The aim is fewer manual copies and fewer mismatches."
-          price="Scoped individually"
-          priceNote="Priced with automation projects, which typically start from £1,500."
+          intro="I connect the software your business already uses, so a customer, order or invoice entered in one place appears correctly in the others."
           cta={{ href: contactHref('software-integrations'), label: 'Discuss an integration' }}
-          secondary={
-            <>
-              Automating a whole process?{' '}
-              <TextLink href="/services/workflow-automation">Workflow automation</TextLink>
-            </>
-          }
         />
 
-        <section className="px-6 py-14 md:py-20">
+        <section className="px-6 py-16 md:py-24">
           <div className="max-w-6xl mx-auto grid grid-cols-1 items-center gap-10 md:grid-cols-[1fr_1.2fr] md:gap-16">
             <ScrollReveal>
-              <h2 className="font-display text-3xl leading-[1.1] text-ink md:text-4xl">Where the copying happens</h2>
+              <h2 className="font-display text-3xl leading-[1.12] text-ink md:text-4xl lg:text-[2.75rem]">Where the copying happens</h2>
               <ul className="mt-6 space-y-4 text-base leading-relaxed text-secondary md:text-lg">
                 <li>A website enquiry that has to be re-entered into the CRM.</li>
                 <li>An approved quote that is retyped into the invoicing tool.</li>
@@ -118,7 +111,7 @@ export default function SoftwareIntegrationsPage() {
           </div>
         </section>
 
-        <section className="bg-subtle px-6 py-14 md:py-20">
+        <section className="bg-subtle px-6 py-16 md:py-24">
           <div className="max-w-6xl mx-auto">
             <SectionHead
               title="Typical connections"
@@ -139,7 +132,7 @@ export default function SoftwareIntegrationsPage() {
           </div>
         </section>
 
-        <section className="px-6 py-14 md:py-20">
+        <section className="px-6 py-16 md:py-24">
           <div className="max-w-6xl mx-auto">
             <SectionHead
               title="Three ways to connect two systems"
@@ -161,18 +154,14 @@ export default function SoftwareIntegrationsPage() {
           </div>
         </section>
 
-        <section data-nav-theme="dark" className="bg-navy px-6 py-14 md:py-20">
+        <section data-nav-theme="dark" className="bg-navy px-6 py-16 md:py-24">
           <div className="max-w-6xl mx-auto grid grid-cols-1 gap-10 md:grid-cols-[1fr_1fr] md:gap-20">
             <ScrollReveal>
-              <h2 className="font-display text-3xl leading-[1.1] text-bone md:text-4xl">What keeps an integration dependable</h2>
+              <h2 className="font-display text-3xl leading-[1.12] text-bone md:text-4xl lg:text-[2.75rem]">What keeps an integration dependable</h2>
               <p className="mt-4 max-w-md text-base leading-relaxed text-bone/70">
-                Moving data is the simple part. The effort goes into agreeing which system leads for
-                each piece of information, avoiding duplicates, and handling the awkward record.
-              </p>
-              <p className="mt-4 max-w-md text-base leading-relaxed text-bone/70">
-                Connected software changes over time, so who looks after the integration is agreed
-                before the project begins. It runs in accounts you control where possible, with
-                documentation.
+                Moving data is the simple part. The effort goes into agreeing which system leads,
+                avoiding duplicates and handling the awkward record. Who looks after the integration
+                is agreed before the project begins.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={80}>
@@ -213,6 +202,15 @@ export default function SoftwareIntegrationsPage() {
             not used a product before, I will say so and read its documentation before I quote.
           </p>
         </Evidence>
+
+        <section className="px-6 pt-14 md:pt-20">
+          <ScrollReveal className="mx-auto max-w-6xl">
+            <p className="max-w-2xl text-base leading-relaxed text-secondary md:text-lg">
+              Integrations are scoped individually and priced with automation projects, which typically start from
+              £1,500. The aim is fewer manual copies and fewer mismatches.
+            </p>
+          </ScrollReveal>
+        </section>
 
         <ReviewOffer>
           Unsure how many systems are really involved? The £395 Business Automation Review maps them

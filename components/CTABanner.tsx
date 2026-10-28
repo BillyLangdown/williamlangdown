@@ -9,6 +9,7 @@ interface Props {
   description?: string
   cta?: string
   href?: string
+  diagonal?: boolean
 }
 
 export default function CTABanner({
@@ -16,6 +17,7 @@ export default function CTABanner({
   description = 'Tell me what you\u2019re looking to build or improve, and I\u2019ll let you know whether I can help.',
   cta = 'Discuss a project',
   href = '/contact',
+  diagonal = false,
 }: Props = {}) {
   return (
     <section data-nav-theme="light" className="relative z-10 overflow-hidden py-20 md:py-28 px-6 bg-bone">
@@ -50,9 +52,15 @@ export default function CTABanner({
             style={{ background: '#10233F', color: '#F6F3EE' }}
           >
             {cta}
-            <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-              <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            {diagonal ? (
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M2 10 L10 2 M3.5 2 H10 V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            ) : (
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            )}
           </Link>
         </motion.div>
       </div>

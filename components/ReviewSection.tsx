@@ -16,7 +16,7 @@ export default function ReviewSection() {
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
           <span className="font-display italic text-5xl text-terracotta leading-none">&ldquo;</span>
-          <p className="font-display italic text-2xl md:text-3xl text-ink leading-[1.35] -mt-4">
+          <p className="text-xl md:text-2xl text-ink leading-[1.5] -mt-4">
             {REVIEW_TEXT}
           </p>
           <p className="mt-6 text-sm font-medium text-ink">Building Ventilation Services Ltd</p>

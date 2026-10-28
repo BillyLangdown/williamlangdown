@@ -92,7 +92,6 @@ export function AiLanes() {
         'Matching an invoice number to an order',
         'Calculating a quote from a price list',
         'Copying a form field into the CRM',
-        'Sending a reminder after an agreed delay',
       ],
     },
     {
@@ -101,7 +100,6 @@ export function AiLanes() {
       lead: 'Reading and writing, where a quick check is enough.',
       items: [
         'Summarising a long enquiry',
-        'Suggesting a category or urgency',
         'Drafting a reply from your own information',
         'Pulling fields out of a supplier PDF',
       ],
@@ -111,9 +109,8 @@ export function AiLanes() {
       tone: '#8C887D',
       lead: 'Judgement, or mistakes that are costly.',
       items: [
-        'Refunds, contract terms and pricing exceptions',
+        'Refunds, contracts and pricing exceptions',
         'Complaints and sensitive messages',
-        'Anything hard to check after the fact',
       ],
     },
   ]
