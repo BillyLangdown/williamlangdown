@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import HeroMedia from '@/components/HeroMedia'
 import IntroStatement from '@/components/IntroStatement'
 import ScrollReveal from '@/components/ScrollReveal'
@@ -34,53 +35,76 @@ export default function Hero() {
   )
 }
 
-function Highlighted() {
+/* Oversized horizontal name. Font size is derived from the viewport width
+   so the two lines span the screen at any size. It drifts down slower than
+   the page as the hero scrolls away; nothing clips it, the sticky image
+   behind keeps filling the frame. */
+function HeroName({ vertical = false }: { vertical?: boolean }) {
+  const reduceMotion = useReducedMotion()
+  const { scrollY } = useScroll()
+  const vh = () => (typeof window === 'undefined' ? 800 : window.innerHeight)
+  // Vertical (mobile) drifts down slowly. Horizontal (desktop) lifts away
+  // faster than the page and fades out, so it's gone before the snap to
+  // the next section.
+  const y = useTransform(scrollY, (v) =>
+    reduceMotion ? 0 : vertical ? Math.min(v, 1000) * 0.35 : -v * 0.5,
+  )
+  const opacity = useTransform(scrollY, (v) =>
+    vertical ? 1 : Math.max(0, 1 - v / (vh() * 0.6)),
+  )
+
   return (
-    <>
-      Practical technology and software solutions.
-    </>
+    <motion.h1
+      style={{
+        y,
+        opacity,
+        fontSize: vertical
+          ? 'min(calc(100svh / 6.4), 44vw)'
+          : 'calc((100vw - 2rem) / 6.4)',
+        willChange: 'transform',
+        ...(vertical
+          ? { writingMode: 'vertical-rl' as const, textOrientation: 'sideways' as const }
+          : {}),
+      }}
+      className={`
+        pointer-events-none
+        absolute
+        z-0
+        select-none
+        ${vertical ? 'left-0 top-0 pl-[0.06em]' : 'inset-x-0 bottom-0 px-4 pb-[0.05em]'}
+        font-sans
+        font-extrabold
+        uppercase
+        leading-[0.88]
+        tracking-tight
+        text-bone/[0.06]
+      `}
+    >
+      William
+      <br />
+      Langdown
+    </motion.h1>
   )
 }
 
-/* Large desktop (1440px and above): static, bottom right, balancing the
-   name on the left. */
+/* Desktop: static, bottom right, same three-line right-aligned
+   composition as mobile. */
 function ValueStatement() {
   return (
     <p
       className="
         ml-auto
-        max-w-[14ch]
         text-right
         font-display
-        text-[clamp(1.75rem,3vw,3rem)]
+        text-[clamp(1.75rem,2.6vw,3rem)]
         leading-[1.1]
         tracking-tight
         text-white
       "
     >
-      <Highlighted />
-    </p>
-  )
-}
-
-/* Tablet and smaller desktop (below 1440px): sits in the same container as
-   the name, directly beneath it and left-aligned with it. */
-function StackedValueStatement() {
-  return (
-    <p
-      className="
-        mt-[clamp(0.75rem,2.5svh,1.5rem)]
-        max-w-[40ch]
-        text-left
-        font-display
-        text-[clamp(1.4rem,min(2.8vw,4svh),2.1rem)]
-        leading-[1.2]
-        tracking-tight
-        text-white
-        min-[1440px]:hidden
-      "
-    >
-      <Highlighted />
+      <span className="block">Software,</span>
+      <span className="block">AI automation</span>
+      <span className="block">and digital solutions.</span>
     </p>
   )
 }
@@ -90,16 +114,17 @@ function MobileValueStatement() {
     <p
       className="
         mt-5
-        max-w-[18ch]
-        text-left
+        text-right
         font-display
-        text-[clamp(1.9rem,8.5vw,2.6rem)]
+        text-[clamp(1.35rem,calc((100vw-3rem)/11.5),2.6rem)]
         leading-[1.1]
         tracking-tight
         text-white
       "
     >
-      <Highlighted />
+      <span className="block">Software,</span>
+      <span className="block">AI automation</span>
+      <span className="block">and digital solutions.</span>
     </p>
   )
 }
@@ -154,6 +179,7 @@ function MobileHero() {
             w-full
           "
         >
+          <HeroName vertical />
           <div
             className="
               flex
@@ -164,24 +190,6 @@ function MobileHero() {
               pb-[calc(1.75rem+env(safe-area-inset-bottom,0px))]
             "
           >
-            <h1
-              className="
-                font-sans
-                font-extrabold
-                uppercase
-                leading-[0.9]
-                tracking-tight
-                text-bone
-              "
-              style={{
-                fontSize: 'min(13vw, 5.25rem)',
-              }}
-            >
-              William
-              <br />
-              Langdown
-            </h1>
-
             <MobileValueStatement />
           </div>
         </div>
@@ -296,48 +304,16 @@ function DesktopHero() {
           <div
             className="
               absolute
-              bottom-16
+              bottom-[clamp(2rem,6svh,4rem)]
               right-10
               z-20
-              hidden
               lg:right-12
-              min-[1440px]:block
             "
           >
             <ValueStatement />
           </div>
 
-          {/* Name */}
-          <div
-            className="
-              flex
-              h-full
-              flex-col
-              justify-end
-              px-10
-              pb-[clamp(2rem,8svh,4rem)]
-              min-[1440px]:pb-16
-            "
-          >
-            <h1
-              className="
-                font-sans
-                font-extrabold
-                uppercase
-                leading-[0.92]
-                tracking-tight
-                text-bone
-                text-[clamp(2.75rem,min(11vw,20svh),9.5rem)]
-                min-[1440px]:text-[clamp(2.75rem,12vw,9.5rem)]
-              "
-            >
-              William
-              <br />
-              Langdown
-            </h1>
-
-            <StackedValueStatement />
-          </div>
+          <HeroName />
         </div>
 
         {/* FRAME 2 */}
