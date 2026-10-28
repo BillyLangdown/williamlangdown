@@ -123,12 +123,11 @@ export default function BeforeAfterSection({ caseStudy }: Props) {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden py-20 md:py-24 px-6"
+      className="relative overflow-hidden py-20 md:py-24 px-6 md:[scroll-snap-align:start]"
       style={{
         backgroundImage: 'radial-gradient(circle, rgba(16,35,63,0.07) 1.5px, transparent 1.5px)',
         backgroundSize: '22px 22px',
         backgroundColor: '#F6F3EE',
-        scrollSnapAlign: 'start',
       }}
     >
 

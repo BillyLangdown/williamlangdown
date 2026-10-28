@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Layout, TreeStructure } from '@phosphor-icons/react'
-import { motion, useMotionValue, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion'
 import ScrollReveal from '@/components/ScrollReveal'
 import SectionNav from '@/components/SectionNav'
 import ArrowLink from '@/components/ArrowLink'
@@ -69,10 +69,14 @@ export default function ServicesOverview() {
     const vh = win.current.vh
     return clamp01((y - to - vh * lag) / (vh * span))
   }
-  const p = useTransform(scrollY, (y) => {
+  const raw = useTransform(scrollY, (y) => {
     const { from, to, p0 } = win.current
     return p0 + (1 - p0) * clamp01((y - from) / Math.max(1, to - from))
   })
+  // Scroll events arrive in uneven bursts on iPhone, which showed as the
+  // line stepping forward in small jumps. A stiff spring fills in the frames
+  // between events so the stroke glides to wherever the scroll has got to.
+  const p = useSpring(raw, { stiffness: 380, damping: 46, mass: 0.5, restDelta: 0.0005 })
 
   const stem = useTransform(p, (n) => soft(clamp01(n / win.current.f)))
   const branch = useTransform(p, (n) => soft(clamp01((n - win.current.f) / (1 - win.current.f))))
@@ -297,7 +301,7 @@ export default function ServicesOverview() {
             height={geom.h - geom.startY}
             aria-hidden="true"
             className="pointer-events-none absolute left-0 md:hidden"
-            style={{ top: geom.startY }}
+            style={{ top: geom.startY, transform: 'translateZ(0)' }}
           >
             <motion.path ref={spineEl} d={spine} style={{ pathLength: v(spineP), opacity: show(spineShow) }} {...STROKE} />
             <motion.path d={stub1} style={{ pathLength: v(stubP), opacity: show(stubShow) }} {...STROKE} />
