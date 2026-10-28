@@ -55,12 +55,15 @@ export default function ServicesOverview() {
   // finishes once the icons are on screen. `f` is the share of the draw
   // spent on the desktop stem before it branches.
   const { scrollY } = useScroll()
-  const win = useRef({ from: 0, to: 1, f: 0.6, p0: 0 })
+  // vh is the viewport height at the last width change. On iPhone the toolbar
+  // resizes innerHeight as you scroll, which would otherwise shift the line's
+  // scroll window and make it jump when scrolling back up.
+  const win = useRef({ from: 0, to: 1, f: 0.6, p0: 0, vh: 800 })
   // Cards pop only once the line has finished drawing: a short scroll
   // window that starts where the line's window ends.
   const popAt = (lag: number, span: number) => (y: number) => {
     const { to } = win.current
-    const vh = typeof window === 'undefined' ? 800 : window.innerHeight
+    const vh = win.current.vh
     return clamp01((y - to - vh * lag) / (vh * span))
   }
   const p = useTransform(scrollY, (y) => {
@@ -108,6 +111,8 @@ export default function ServicesOverview() {
       }
       return { top, left, width: el.offsetWidth, height: el.offsetHeight }
     }
+    let lastW = 0
+    let stableVh = 0
     const measure = () => {
       const r = root.current
       const sec = section.current
@@ -122,7 +127,11 @@ export default function ServicesOverview() {
       )
       const introBottom = intro ? box(intro).top + intro.offsetHeight : base.top
       const startY = Math.min(0, introBottom + (isDesktop ? 60 : 56) - base.top)
-      const vh = window.innerHeight
+      if (window.innerWidth !== lastW || !stableVh) {
+        lastW = window.innerWidth
+        stableVh = window.innerHeight
+      }
+      const vh = stableVh
       const rp2 = box(pn2)
       // Desktop lines land on the top edge of each panel (the icon sits
       // inside it); mobile lines land on the copper dot above the icon.
@@ -142,9 +151,10 @@ export default function ServicesOverview() {
           f,
           // Already part-drawn when the intro is on screen.
           p0: f * 0.4,
+          vh,
         }
       } else {
-        win.current = { from: lineTop - vh * 0.95, to: base.top + base.height - vh * 0.7, f: 0.6, p0: 0 }
+        win.current = { from: lineTop - vh * 0.95, to: base.top + base.height - vh * 0.7, f: 0.6, p0: 0, vh }
       }
       setGeom({
         w: base.width,
