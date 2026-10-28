@@ -14,7 +14,7 @@ export default function IntroStatement() {
           How can I help your business?
         </h2>
         <p data-intro-end className="mx-auto mt-6 max-w-[28rem] px-2 text-[0.85rem] md:mt-7 md:max-w-[30em] md:px-0 md:text-[clamp(1rem,0.8rem+0.45vw,1.55rem)] text-ink md:text-bone leading-[1.65] md:leading-[1.6] text-pretty">
-          I help to improve how they work and how customers experience them online, through thoughtful design and practical technology.
+          I help businesses improve how they work and how customers experience them online, through thoughtful design and practical technology.
         </p>
       </ScrollReveal>
     </div>
