@@ -32,6 +32,9 @@ const STROKE = { stroke: COPPER, strokeWidth: 2.5, fill: 'none', strokeLinecap: 
 // Mobile: how far below a card's top edge its arrow stub meets it.
 const STUB_Y = 36
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n))
+// Gentle ease in and out: half linear, half smoothstep, so each stroke starts
+// and settles softly without feeling like it lags the scroll.
+const soft = (t: number) => 0.5 * t + 0.5 * t * t * (3 - 2 * t)
 
 export default function ServicesOverview() {
   const reduce = useReducedMotion()
@@ -71,8 +74,8 @@ export default function ServicesOverview() {
     return p0 + (1 - p0) * clamp01((y - from) / Math.max(1, to - from))
   })
 
-  const stem = useTransform(p, (n) => clamp01(n / win.current.f))
-  const branch = useTransform(p, (n) => clamp01((n - win.current.f) / (1 - win.current.f)))
+  const stem = useTransform(p, (n) => soft(clamp01(n / win.current.f)))
+  const branch = useTransform(p, (n) => soft(clamp01((n - win.current.f) / (1 - win.current.f))))
   const tip = useTransform(branch, (n) => clamp01((n - 0.95) / 0.05))
   // Each card pops in as its branch arrives: rises, settles to full size
   // with the faintest overshoot, and fades up. Scroll-driven, so it
@@ -191,7 +194,6 @@ export default function ServicesOverview() {
   let stub1 = ''
   let tip1 = ''
   let tip2 = ''
-  let spineEnd = 0
   if (geom && !geom.desktop) {
     const { i1, i2, startY, w } = geom
     const sx = 12
@@ -206,11 +208,28 @@ export default function ServicesOverview() {
     stub1 = `M ${sx} ${i1.top - r} Q ${sx} ${i1.top} ${sx + r} ${i1.top} L ${x1} ${i1.top}`
     tip1 = `M ${x1 - 8} ${i1.top - 7} L ${x1 + 1} ${i1.top} L ${x1 - 8} ${i1.top + 7}`
     tip2 = `M ${x2 - 8} ${i2.top - 7} L ${x2 + 1} ${i2.top} L ${x2 - 8} ${i2.top + 7}`
-    spineEnd = (i1.top - startY) / (i2.top - startY)
   }
-  const spineP = useTransform(p, [0, 0.95], [0, 1])
+  // Where along the spine the first branch leaves it, as a share of the
+  // spine's real drawn length, so the arrow waits for the line to arrive.
+  const spineEl = useRef<SVGPathElement>(null)
+  const branchAt = useRef(0.5)
+  useEffect(() => {
+    const el = spineEl.current
+    if (!el || !geom || geom.desktop) return
+    const total = el.getTotalLength()
+    const targetY = geom.i1.top - 10
+    let lo = 0
+    let hi = total
+    for (let k = 0; k < 24; k++) {
+      const mid = (lo + hi) / 2
+      if (el.getPointAtLength(mid).y < targetY) lo = mid
+      else hi = mid
+    }
+    branchAt.current = lo / total
+  }, [geom])
+  const spineP = useTransform(p, (n) => soft(clamp01(n / 0.95)))
   const spineShow = useTransform(spineP, shown)
-  const stubP = useTransform(spineP, (n) => clamp01((n - spineEnd) / 0.08))
+  const stubP = useTransform(spineP, (n) => soft(clamp01((n - branchAt.current) / 0.08)))
   const stubShow = useTransform(stubP, shown)
   const spineTip = useTransform(spineP, (n) => clamp01((n - 0.97) / 0.03))
   const stubTip = useTransform(stubP, (n) => clamp01((n - 0.9) / 0.1))
@@ -280,7 +299,7 @@ export default function ServicesOverview() {
             className="pointer-events-none absolute left-0 md:hidden"
             style={{ top: geom.startY }}
           >
-            <motion.path d={spine} style={{ pathLength: v(spineP), opacity: show(spineShow) }} {...STROKE} />
+            <motion.path ref={spineEl} d={spine} style={{ pathLength: v(spineP), opacity: show(spineShow) }} {...STROKE} />
             <motion.path d={stub1} style={{ pathLength: v(stubP), opacity: show(stubShow) }} {...STROKE} />
             <motion.path d={tip1} style={{ opacity: v(stubTip) }} {...STROKE} />
             <motion.path d={tip2} style={{ opacity: v(spineTip) }} {...STROKE} />
