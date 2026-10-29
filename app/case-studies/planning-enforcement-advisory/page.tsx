@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
 }
 
-const LIVE_URL = 'https://pea-sooty.vercel.app/'
+const LIVE_URL = 'https://enforcementadvisory.co.uk'
 
 const SOURCES = [
   {
@@ -986,9 +986,7 @@ export default function PlanningEnforcementAdvisoryCaseStudy() {
         >
           <div className="mx-auto max-w-4xl">
             <ScrollReveal>
-              <p className="mb-4 text-sm text-secondary">
-                Launching September 2026
-              </p>
+              <p className="mb-4 text-sm text-secondary">Live now</p>
 
               <a
                 href={LIVE_URL}
@@ -997,7 +995,7 @@ export default function PlanningEnforcementAdvisoryCaseStudy() {
                 className="inline-flex items-center gap-2 text-lg font-medium text-ink underline decoration-2 underline-offset-4 transition-colors hover:text-terracotta md:text-xl"
                 style={{ textDecorationColor: '#C1613D' }}
               >
-                Preview The Planning Enforcement Advisory
+                Visit enforcementadvisory.co.uk
 
                 <svg
                   width="16"
