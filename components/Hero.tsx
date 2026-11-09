@@ -97,6 +97,55 @@ function HeroName({ vertical = false }: { vertical?: boolean }) {
   )
 }
 
+/* Quiet text link under the headline: sans label, fine underline that draws
+   in on hover, and a small arrow that nudges up and right. */
+function HeroCTA({ className = '' }: { className?: string }) {
+  return (
+    <Link
+      href="/contact"
+      className={`
+        group
+        relative
+        inline-flex
+        min-h-11
+        items-center
+        gap-2
+        font-sans
+        text-[15px]
+        font-medium
+        tracking-[-0.01em]
+        text-bone
+        outline-none
+        focus-visible:outline
+        focus-visible:outline-2
+        focus-visible:outline-offset-4
+        focus-visible:outline-bone/70
+        lg:text-base
+        ${className}
+      `}
+    >
+      <span className="relative py-1">
+        Discuss a project
+        <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px bg-terracotta/60" />
+        <span
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-terracotta transition-transform duration-300 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100 motion-reduce:transition-none"
+        />
+      </span>
+      <svg
+        width="11"
+        height="11"
+        viewBox="0 0 12 12"
+        fill="none"
+        aria-hidden="true"
+        className="text-terracotta transition-transform duration-200 group-hover:-translate-y-[3px] group-hover:translate-x-[3px] motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0"
+      >
+        <path d="M2 10 L10 2 M3.5 2 H10 V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </Link>
+  )
+}
+
 /* Desktop: bottom right, same three-line composition as mobile. Lifts
    away and fades with the scroll, like the name, so both are gone before
    the snap to the next section. */
@@ -110,22 +159,23 @@ function ValueStatement() {
   )
 
   return (
-    <motion.p
-      style={{ y, opacity, willChange: 'transform' }}
-      className="
-        ml-auto
-        text-right
-        font-display
-        text-[clamp(1.95rem,2.9vw,3.4rem)]
-        leading-[1.1]
-        tracking-tight
-        text-white
-      "
-    >
-      <span className="block">Software,</span>
-      <span className="block">AI automation</span>
-      <span className="block">and digital solutions.</span>
-    </motion.p>
+    <motion.div style={{ y, opacity, willChange: 'transform' }} className="ml-auto flex flex-col items-end">
+      <p
+        className="
+          text-right
+          font-display
+          text-[clamp(1.95rem,2.9vw,3.4rem)]
+          leading-[1.1]
+          tracking-tight
+          text-white
+        "
+      >
+        <span className="block">Software,</span>
+        <span className="block">AI automation</span>
+        <span className="block">and digital solutions.</span>
+      </p>
+      <HeroCTA className="mt-4 lg:mt-5" />
+    </motion.div>
   )
 }
 
@@ -212,6 +262,7 @@ function MobileHero() {
             "
           >
             <MobileValueStatement />
+            <HeroCTA className="mt-2 self-end" />
           </div>
         </div>
       </section>

@@ -3,7 +3,7 @@
 export const pathways = [
   {
     key: 'technology',
-    heading: 'Improve how your business works.',
+    heading: 'Do less admin.',
     description:
       'Save time, reduce repetitive work and make better use of your existing systems. I can help identify opportunities and put practical solutions in place.',
     cta: 'Explore business technology',
@@ -11,7 +11,7 @@ export const pathways = [
   },
   {
     key: 'digital',
-    heading: 'Improve how your business looks online.',
+    heading: 'Look better online.',
     description:
       'Make your business easier to understand, trust and choose through better websites and digital experiences.',
     cta: 'Explore digital experiences',

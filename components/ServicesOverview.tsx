@@ -25,16 +25,73 @@ type Geom = {
   i1: { cx: number; top: number; bottom: number }
   i2: { cx: number; top: number }
   t1Bottom: number
+  // Mobile card boxes, relative to the section root.
+  c1: { x: number; y: number; w: number; h: number }
+  c2: { x: number; y: number; w: number; h: number }
 }
 
 const COPPER = '#C1613D'
 const STROKE = { stroke: COPPER, strokeWidth: 2.5, fill: 'none', strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
-// Mobile: how far below a card's top edge its arrow stub meets it.
+// Mobile: the outline sits this far outside each card, with small rounded corners.
+const OFF = 5
+const CR = 4
+const LINE_W = 2
+// Mobile: arrowhead size, and the small gap between an arrow tip and the outline it points at.
+const ARROW = 7
+const TIP_GAP = 6
+// Mobile: how far below a card's top edge the desktop-style dot sits (unused on mobile).
 const STUB_Y = 36
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n))
 // Gentle ease in and out: half linear, half smoothstep, so each stroke starts
 // and settles softly without feeling like it lags the scroll.
 const soft = (t: number) => 0.5 * t + 0.5 * t * t * (3 - 2 * t)
+
+// A card's outline: two halves from the top centre that wrap the card in step
+// and meet underneath. Section-root pixels.
+function outline(c: Geom['c1']) {
+  const cx = c.x + c.w / 2
+  const L = c.x - OFF
+  const R = c.x + c.w + OFF
+  const T = c.y - OFF
+  const B = c.y + c.h + OFF
+  const right = `M ${cx} ${T} H ${R - CR} Q ${R} ${T} ${R} ${T + CR} V ${B - CR} Q ${R} ${B} ${R - CR} ${B} H ${cx}`
+  const left = `M ${cx} ${T} H ${L + CR} Q ${L} ${T} ${L} ${T + CR} V ${B - CR} Q ${L} ${B} ${L + CR} ${B} H ${cx}`
+  const len = 2 * (R - cx - CR) + (B - T - 2 * CR) + 3 * CR
+  return { cx, T, B, right, left, len }
+}
+
+// Mobile routing: all in section-root pixels, from the measured card boxes.
+// A straight line drops down the card centres and ends in a small arrow just
+// above each card. From the top centre of the outline, two halves wrap the
+// card in step and meet underneath, where the connector to the next card starts.
+function mobilePlan(g: Geom) {
+  const ring = outline
+  const r1 = ring(g.c1)
+  const r2 = ring(g.c2)
+  const tip = (r: { cx: number; T: number }) => r.T - TIP_GAP
+  const arrow = (r: { cx: number; T: number }) =>
+    `M ${r.cx - ARROW} ${tip(r) - ARROW} L ${r.cx} ${tip(r)} L ${r.cx + ARROW} ${tip(r) - ARROW}`
+  return {
+    vert: `M ${r1.cx} ${g.startY} V ${tip(r1)}`,
+    arrow1: arrow(r1),
+    right1: r1.right,
+    left1: r1.left,
+    link: `M ${r1.cx} ${r1.B} V ${tip(r2)}`,
+    arrow2: arrow(r2),
+    right2: r2.right,
+    left2: r2.left,
+    // Each stage's time covers the gap too, so the border starts the moment
+    // the pen would have crossed it.
+    len: {
+      aLine: Math.max(1, tip(r1) - g.startY),
+      a: Math.max(1, r1.T - g.startY),
+      h1: r1.len,
+      cLine: Math.max(1, tip(r2) - r1.B),
+      c: Math.max(1, r2.T - r1.B),
+      h2: r2.len,
+    },
+  }
+}
 
 export default function ServicesOverview() {
   const reduce = useReducedMotion()
@@ -148,19 +205,19 @@ export default function ServicesOverview() {
       const rp2 = box(pn2)
       // Desktop lines land on the top edge of each panel (the icon sits
       // inside it); mobile lines land on the copper dot above the icon.
-      // On large screens the cards sit 28px lower so the arrow tips clear them.
-      const gap = isDesktop && window.innerWidth >= 1024 ? 28 : 0
-      const dotY = isDesktop ? rt.top - base.top - 4 - gap : rt.top - base.top + STUB_Y
+      // Desktop arrows stop a small gap above each card's outline.
+      const dotY = isDesktop ? rt.top - base.top - OFF - TIP_GAP : rt.top - base.top + STUB_Y
       const lineTop = base.top + startY
       let junction = 0
       if (isDesktop) {
-        // The split happens early, a third of the way down, still inside the intro.
-        junction = startY + (dotY - startY) * 0.35
+        // The line runs on into the white section before it splits.
+        const boundary = box(sec).top - base.top
+        junction = boundary + Math.max(40, (dotY - boundary) * 0.3)
         const stemLen = junction - startY
         const f = stemLen / (stemLen + (dotY - junction) * 1.25)
         win.current = {
-          from: lineTop - vh * 0.6,
-          to: base.top + dotY - vh * 0.45,
+          from: lineTop - vh * 0.85,
+          to: base.top + dotY - vh * 0.75,
           f,
           // Already part-drawn when the intro is on screen.
           p0: f * 0.4,
@@ -168,7 +225,10 @@ export default function ServicesOverview() {
           mobile: false,
         }
       } else {
-        win.current = { from: lineTop - vh * 0.95, to: base.top + base.height - vh * 0.7, f: 0.6, p0: 0, vh, mobile: true }
+        // The line runs down the card centres, wraps each card in turn and is
+        // done once the second card's outline closes, while that card is still
+        // in the upper-middle of the screen.
+        win.current = { from: lineTop - vh * 0.95, to: base.top + (rp2.top - base.top) + rp2.height - vh * 0.55, f: 0.6, p0: 0, vh, mobile: true }
       }
       const next: Geom = {
         w: base.width,
@@ -184,9 +244,11 @@ export default function ServicesOverview() {
         },
         i2: {
           cx: (isDesktop ? rp2.left + rp2.width / 2 : rp2.left) - base.left,
-          top: isDesktop ? rp2.top - base.top - 4 - gap : rp2.top - base.top + STUB_Y,
+          top: isDesktop ? rp2.top - base.top - OFF - TIP_GAP : rp2.top - base.top + STUB_Y,
         },
         t1Bottom: rt.top - base.top + rt.height,
+        c1: { x: rt.left - base.left, y: rt.top - base.top, w: rt.width, h: rt.height },
+        c2: { x: rp2.left - base.left, y: rp2.top - base.top, w: rp2.width, h: rp2.height },
       }
       // Same geometry: keep the old object so nothing re-renders.
       setGeom((prev) => (prev && JSON.stringify(prev) === JSON.stringify(next) ? prev : next))
@@ -206,51 +268,36 @@ export default function ServicesOverview() {
     }
   }, [])
 
-  // Mobile: one spine runs down the left gutter with an arrow branching
-  // off it into each card, so the two options read as two exits of one line.
-  let spine = ''
-  let stub1 = ''
-  let tip1 = ''
-  let tip2 = ''
-  if (geom && !geom.desktop) {
-    const { i1, i2, startY, w } = geom
-    const sx = 12
-    const r = 10
-    const x1 = i1.cx - 7
-    const x2 = i2.cx - 7
-    const bend = Math.max(startY + 20, i1.top - 120)
-    const mid = bend + (i1.top - 30 - bend) * 0.5
-    spine =
-      `M ${w / 2} ${startY} L ${w / 2} ${bend} C ${w / 2} ${mid}, ${sx} ${mid}, ${sx} ${i1.top - 30} ` +
-      `L ${sx} ${i2.top - r} Q ${sx} ${i2.top} ${sx + r} ${i2.top} L ${x2} ${i2.top}`
-    stub1 = `M ${sx} ${i1.top - r} Q ${sx} ${i1.top} ${sx + r} ${i1.top} L ${x1} ${i1.top}`
-    tip1 = `M ${x1 - 8} ${i1.top - 7} L ${x1 + 1} ${i1.top} L ${x1 - 8} ${i1.top + 7}`
-    tip2 = `M ${x2 - 8} ${i2.top - 7} L ${x2 + 1} ${i2.top} L ${x2 - 8} ${i2.top + 7}`
+  // Mobile: one line drops down the centre of the cards, runs straight into
+  // the first card, where it splits into two halves that wrap the card in step
+  // and meet underneath. A connector carries on to the second card and repeats.
+  // Time along the line is shared out by real path length, so the scroll
+  // feels like one continuous pen stroke.
+  const plan = geom && !geom.desktop ? mobilePlan(geom) : null
+  const segs = useRef({ aLine: 1, a: 1, h1: 1, cLine: 1, c: 1, h2: 1 })
+  if (plan) segs.current = plan.len
+  const along = (n: number) => {
+    const { a, h1, c, h2 } = segs.current
+    return n * (a + h1 + c + h2)
   }
-  // Where along the spine the first branch leaves it, as a share of the
-  // spine's real drawn length, so the arrow waits for the line to arrive.
-  const spineEl = useRef<SVGPathElement>(null)
-  const branchAt = useRef(0.5)
-  useEffect(() => {
-    const el = spineEl.current
-    if (!el || !geom || geom.desktop) return
-    const total = el.getTotalLength()
-    const targetY = geom.i1.top - 10
-    let lo = 0
-    let hi = total
-    for (let k = 0; k < 24; k++) {
-      const mid = (lo + hi) / 2
-      if (el.getPointAtLength(mid).y < targetY) lo = mid
-      else hi = mid
-    }
-    branchAt.current = lo / total
-  }, [geom])
-  const spineP = useTransform(p, (n) => soft(clamp01(n / 0.95)))
-  const spineShow = useTransform(spineP, shown)
-  const stubP = useTransform(spineP, (n) => soft(clamp01((n - branchAt.current) / 0.08)))
-  const stubShow = useTransform(stubP, shown)
-  const spineTip = useTransform(spineP, (n) => clamp01((n - 0.97) / 0.03))
-  const stubTip = useTransform(stubP, (n) => clamp01((n - 0.9) / 0.1))
+  const vert = useTransform(p, (n) => clamp01(along(n) / segs.current.aLine))
+  const wrap1 = useTransform(p, (n) => clamp01((along(n) - segs.current.a) / segs.current.h1))
+  const link = useTransform(p, (n) => clamp01((along(n) - segs.current.a - segs.current.h1) / segs.current.cLine))
+  const wrap2 = useTransform(p, (n) => clamp01((along(n) - segs.current.a - segs.current.h1 - segs.current.c) / segs.current.h2))
+  const arrow1 = useTransform(vert, (n) => clamp01((n - 0.88) / 0.12))
+  const arrow2 = useTransform(link, (n) => clamp01((n - 0.88) / 0.12))
+  const vertShow = useTransform(vert, shown)
+  const linkShow = useTransform(link, shown)
+  // Finished outlines settle back a little so they do not overwhelm the card.
+  const settle = (n: number) => (n > 0.002 ? 1 - 0.2 * clamp01((n - 0.96) / 0.04) : 0)
+  const ring1 = useTransform(wrap1, settle)
+  const ring2 = useTransform(wrap2, settle)
+  const settled = useMotionValue(0.8)
+  // Desktop: each card's outline wraps once its card has settled.
+  const dring1 = useTransform(scrollY, popAt(0.12, 0.2))
+  const dring2 = useTransform(scrollY, popAt(0.17, 0.2))
+  const dop1 = useTransform(dring1, settle)
+  const dop2 = useTransform(dring2, settle)
 
   return (
     <section ref={section} id="capabilities" data-nav-theme="light" className="relative z-10 bg-bone">
@@ -260,9 +307,9 @@ export default function ServicesOverview() {
             branches onto the two icon nodes. Drawn in measured pixels. */}
         {geom && geom.desktop && (
           <svg
-            viewBox={`0 ${geom.startY} ${geom.w} ${geom.i2.top - geom.startY + 12}`}
+            viewBox={`0 ${geom.startY} ${geom.w} ${Math.max(geom.c1.y + geom.c1.h, geom.c2.y + geom.c2.h) + OFF + 4 - geom.startY}`}
             width={geom.w}
-            height={geom.i2.top - geom.startY + 12}
+            height={Math.max(geom.c1.y + geom.c1.h, geom.c2.y + geom.c2.h) + OFF + 4 - geom.startY}
             aria-hidden="true"
             className="pointer-events-none absolute left-0 z-30 hidden md:block"
             style={{ top: geom.startY }}
@@ -304,11 +351,21 @@ export default function ServicesOverview() {
                 </g>
               )
             })}
+            {[
+              { o: outline(geom.c1), pl: dring1, op: dop1 },
+              { o: outline(geom.c2), pl: dring2, op: dop2 },
+            ].map(({ o, pl, op }, k) => (
+              <motion.g key={k} style={{ opacity: reduce ? settled : op }}>
+                <motion.path d={o.right} style={{ pathLength: v(pl) }} {...STROKE} strokeWidth={LINE_W} />
+                <motion.path d={o.left} style={{ pathLength: v(pl) }} {...STROKE} strokeWidth={LINE_W} />
+              </motion.g>
+            ))}
           </svg>
         )}
 
-        {/* Mobile: a spine down the gutter with an arrow into each card */}
-        {geom && !geom.desktop && (
+        {/* Mobile: one line down the card centres. It ends in an arrow just above each
+            card, then two halves wrap the card in step and the line carries on. */}
+        {plan && geom && (
           <svg
             viewBox={`0 ${geom.startY} ${geom.w} ${geom.h - geom.startY}`}
             width={geom.w}
@@ -317,10 +374,18 @@ export default function ServicesOverview() {
             className="pointer-events-none absolute left-0 md:hidden"
             style={{ top: geom.startY, transform: 'translateZ(0)' }}
           >
-            <motion.path ref={spineEl} d={spine} style={{ pathLength: v(spineP), opacity: show(spineShow) }} {...STROKE} />
-            <motion.path d={stub1} style={{ pathLength: v(stubP), opacity: show(stubShow) }} {...STROKE} />
-            <motion.path d={tip1} style={{ opacity: v(stubTip) }} {...STROKE} />
-            <motion.path d={tip2} style={{ opacity: v(spineTip) }} {...STROKE} />
+            <motion.path d={plan.vert} style={{ pathLength: v(vert), opacity: show(vertShow) }} {...STROKE} strokeWidth={LINE_W} />
+            <motion.path d={plan.arrow1} style={{ opacity: v(arrow1) }} {...STROKE} strokeWidth={LINE_W} />
+            <motion.g style={{ opacity: reduce ? settled : ring1 }}>
+              <motion.path d={plan.right1} style={{ pathLength: v(wrap1) }} {...STROKE} strokeWidth={LINE_W} />
+              <motion.path d={plan.left1} style={{ pathLength: v(wrap1) }} {...STROKE} strokeWidth={LINE_W} />
+            </motion.g>
+            <motion.path d={plan.link} style={{ pathLength: v(link), opacity: show(linkShow) }} {...STROKE} strokeWidth={LINE_W} />
+            <motion.path d={plan.arrow2} style={{ opacity: v(arrow2) }} {...STROKE} strokeWidth={LINE_W} />
+            <motion.g style={{ opacity: reduce ? settled : ring2 }}>
+              <motion.path d={plan.right2} style={{ pathLength: v(wrap2) }} {...STROKE} strokeWidth={LINE_W} />
+              <motion.path d={plan.left2} style={{ pathLength: v(wrap2) }} {...STROKE} strokeWidth={LINE_W} />
+            </motion.g>
           </svg>
         )}
 
@@ -344,11 +409,11 @@ export default function ServicesOverview() {
                         weight="light"
                         aria-hidden="true"
                         className={`absolute right-5 top-5 text-ink md:right-8 md:top-8 lg:right-10 lg:top-10 ${
-                          primary ? 'h-[72px] w-[72px] md:h-28 md:w-28 lg:h-[8.5rem] lg:w-[8.5rem]' : 'h-16 w-16 md:h-24 md:w-24 lg:h-28 lg:w-28'
+                          primary ? 'h-14 w-14 md:h-20 md:w-20 lg:h-24 lg:w-24' : 'h-14 w-14 md:h-20 md:w-20 lg:h-24 lg:w-24'
                         }`}
                       />
                       <h2
-                        className={`${wordClass} max-w-[16ch] pr-16 md:pr-28 lg:pr-36`}
+                        className={`${wordClass} max-w-[16ch] pr-[4.75rem] md:pr-28 lg:pr-36`}
                         style={{
                           fontSize: 'clamp(1.75rem, 2.5vw, 2.6rem)',
                         }}
