@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import HeroMedia from '@/components/HeroMedia'
 import IntroStatement from '@/components/IntroStatement'
@@ -146,6 +147,21 @@ function HeroCTA({ className = '' }: { className?: string }) {
   )
 }
 
+/* Rectangular portrait, shown as shot (original black and white, no tint). */
+function HeroPortrait({ className = '' }: { className?: string }) {
+  return (
+    <div className={`relative aspect-[5/6] overflow-hidden rounded-t-full rounded-b-md bg-bone ${className}`}>
+      <Image
+        src="/images/portrait.jpg"
+        alt="William Langdown"
+        fill
+        sizes="(min-width: 1024px) 14vw, 120px"
+        className="object-cover object-[50%_20%]"
+      />
+    </div>
+  )
+}
+
 /* Desktop: bottom right, same three-line composition as mobile. Lifts
    away and fades with the scroll, like the name, so both are gone before
    the snap to the next section. */
@@ -160,6 +176,7 @@ function ValueStatement() {
 
   return (
     <motion.div style={{ y, opacity, willChange: 'transform' }} className="ml-auto flex flex-col items-end">
+      <HeroPortrait className="mb-3 w-[clamp(5.5rem,6.8vw,8.1rem)] lg:mb-4" />
       <p
         className="
           text-right
@@ -183,7 +200,7 @@ function MobileValueStatement() {
   return (
     <p
       className="
-        mt-5
+        mt-0
         text-right
         font-display
         text-[clamp(1.5rem,calc((100vw-3rem)/10.5),2.9rem)]
@@ -261,6 +278,7 @@ function MobileHero() {
               pb-[calc(1.75rem+env(safe-area-inset-bottom,0px))]
             "
           >
+            <HeroPortrait className="mb-3 w-[clamp(3.8rem,17vw,5.5rem)] self-end opacity-80" />
             <MobileValueStatement />
             <HeroCTA className="mt-2 self-end" />
           </div>

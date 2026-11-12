@@ -36,11 +36,14 @@ const STROKE = { stroke: COPPER, strokeWidth: 2.5, fill: 'none', strokeLinecap: 
 const OFF = 5
 const CR = 4
 const LINE_W = 2
+const MOBILE_LINE_W = 3
 // Mobile: arrowhead size, and the small gap between an arrow tip and the outline it points at.
 const ARROW = 7
 const TIP_GAP = 6
 // Mobile: how far below a card's top edge the desktop-style dot sits (unused on mobile).
 const STUB_Y = 36
+// Mobile: numbered node sitting on each card's top-left corner, breaking the outline.
+const NODE_R = 11
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n))
 // Gentle ease in and out: half linear, half smoothstep, so each stroke starts
 // and settles softly without feeling like it lags the scroll.
@@ -72,6 +75,8 @@ function mobilePlan(g: Geom) {
   const arrow = (r: { cx: number; T: number }) =>
     `M ${r.cx - ARROW} ${tip(r) - ARROW} L ${r.cx} ${tip(r)} L ${r.cx + ARROW} ${tip(r) - ARROW}`
   return {
+    node1: { x: g.c1.x - OFF, y: g.c1.y - OFF },
+    node2: { x: g.c2.x - OFF, y: g.c2.y - OFF },
     vert: `M ${r1.cx} ${g.startY} V ${tip(r1)}`,
     arrow1: arrow(r1),
     right1: r1.right,
@@ -226,9 +231,9 @@ export default function ServicesOverview() {
         }
       } else {
         // The line runs down the card centres, wraps each card in turn and is
-        // done once the second card's outline closes, while that card is still
-        // in the upper-middle of the screen.
-        win.current = { from: lineTop - vh * 0.95, to: base.top + (rp2.top - base.top) + rp2.height - vh * 0.55, f: 0.6, p0: 0, vh, mobile: true }
+        // done once the second card's outline closes, which happens as that
+        // card's centre reaches the middle of the screen.
+        win.current = { from: lineTop - vh * 0.95, to: base.top + (rp2.top - base.top) + rp2.height * 0.5 - vh * 0.55, f: 0.6, p0: 0, vh, mobile: true }
       }
       const next: Geom = {
         w: base.width,
@@ -290,6 +295,8 @@ export default function ServicesOverview() {
   const linkShow = useTransform(link, shown)
   // Finished outlines settle back a little so they do not overwhelm the card.
   const settle = (n: number) => (n > 0.002 ? 1 - 0.2 * clamp01((n - 0.96) / 0.04) : 0)
+  const node1Show = useTransform(wrap1, (n) => clamp01((n - 0.1) / 0.1))
+  const node2Show = useTransform(wrap2, (n) => clamp01((n - 0.1) / 0.1))
   const ring1 = useTransform(wrap1, settle)
   const ring2 = useTransform(wrap2, settle)
   const settled = useMotionValue(0.8)
@@ -371,21 +378,52 @@ export default function ServicesOverview() {
             width={geom.w}
             height={geom.h - geom.startY}
             aria-hidden="true"
-            className="pointer-events-none absolute left-0 md:hidden"
+            className="pointer-events-none absolute left-0 overflow-visible md:hidden"
             style={{ top: geom.startY, transform: 'translateZ(0)' }}
           >
-            <motion.path d={plan.vert} style={{ pathLength: v(vert), opacity: show(vertShow) }} {...STROKE} strokeWidth={LINE_W} />
-            <motion.path d={plan.arrow1} style={{ opacity: v(arrow1) }} {...STROKE} strokeWidth={LINE_W} />
-            <motion.g style={{ opacity: reduce ? settled : ring1 }}>
-              <motion.path d={plan.right1} style={{ pathLength: v(wrap1) }} {...STROKE} strokeWidth={LINE_W} />
-              <motion.path d={plan.left1} style={{ pathLength: v(wrap1) }} {...STROKE} strokeWidth={LINE_W} />
+            <defs>
+              {[
+                { id: 'node-gap-1', n: plan.node1 },
+                { id: 'node-gap-2', n: plan.node2 },
+              ].map(({ id, n }) => (
+                <mask key={id} id={id} maskUnits="userSpaceOnUse" x={-20} y={geom.startY} width={geom.w + 40} height={geom.h - geom.startY}>
+                  <rect x={-20} y={geom.startY} width={geom.w + 40} height={geom.h - geom.startY} fill="white" />
+                  <circle cx={n.x} cy={n.y} r={NODE_R} fill="black" />
+                </mask>
+              ))}
+            </defs>
+            <motion.path d={plan.vert} style={{ pathLength: v(vert), opacity: show(vertShow) }} {...STROKE} strokeWidth={MOBILE_LINE_W} />
+            <motion.path d={plan.arrow1} style={{ opacity: v(arrow1) }} {...STROKE} strokeWidth={MOBILE_LINE_W} />
+            <motion.g mask="url(#node-gap-1)" style={{ opacity: reduce ? settled : ring1 }}>
+              <motion.path d={plan.right1} style={{ pathLength: v(wrap1) }} {...STROKE} strokeWidth={MOBILE_LINE_W} />
+              <motion.path d={plan.left1} style={{ pathLength: v(wrap1) }} {...STROKE} strokeWidth={MOBILE_LINE_W} />
             </motion.g>
-            <motion.path d={plan.link} style={{ pathLength: v(link), opacity: show(linkShow) }} {...STROKE} strokeWidth={LINE_W} />
-            <motion.path d={plan.arrow2} style={{ opacity: v(arrow2) }} {...STROKE} strokeWidth={LINE_W} />
-            <motion.g style={{ opacity: reduce ? settled : ring2 }}>
-              <motion.path d={plan.right2} style={{ pathLength: v(wrap2) }} {...STROKE} strokeWidth={LINE_W} />
-              <motion.path d={plan.left2} style={{ pathLength: v(wrap2) }} {...STROKE} strokeWidth={LINE_W} />
+            <motion.path d={plan.link} style={{ pathLength: v(link), opacity: show(linkShow) }} {...STROKE} strokeWidth={MOBILE_LINE_W} />
+            <motion.path d={plan.arrow2} style={{ opacity: v(arrow2) }} {...STROKE} strokeWidth={MOBILE_LINE_W} />
+            <motion.g mask="url(#node-gap-2)" style={{ opacity: reduce ? settled : ring2 }}>
+              <motion.path d={plan.right2} style={{ pathLength: v(wrap2) }} {...STROKE} strokeWidth={MOBILE_LINE_W} />
+              <motion.path d={plan.left2} style={{ pathLength: v(wrap2) }} {...STROKE} strokeWidth={MOBILE_LINE_W} />
             </motion.g>
+            {[
+              { n: plan.node1, label: '1', o: node1Show },
+              { n: plan.node2, label: '2', o: node2Show },
+            ].map(({ n, label, o }) => (
+              <motion.g key={label} style={{ opacity: reduce ? one : o }}>
+                <circle cx={n.x} cy={n.y} r={NODE_R} fill="none" stroke={COPPER} strokeWidth={2.5} />
+                <text
+                  x={n.x}
+                  y={n.y}
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  fill={COPPER}
+                  fontSize="12"
+                  fontWeight="600"
+                  style={{ fontFamily: 'inherit' }}
+                >
+                  {label}
+                </text>
+              </motion.g>
+            ))}
           </svg>
         )}
 
