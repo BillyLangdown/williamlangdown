@@ -22,7 +22,10 @@ const fraunces = Fraunces({
 
 // Preview and local builds must never be indexed (production is the only
 // deployment where VERCEL_ENV is "production"; unset means a local build).
-const isProduction = !process.env.VERCEL_ENV || process.env.VERCEL_ENV === 'production'
+// SITE_ENV does the same job off Vercel: set it to anything but "production"
+// when building a staging deployment.
+const deployEnv = process.env.SITE_ENV || process.env.VERCEL_ENV
+const isProduction = !deployEnv || deployEnv === 'production'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://williamlangdown.com'),

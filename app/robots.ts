@@ -2,7 +2,10 @@ import { MetadataRoute } from 'next'
 
 // Only the production deployment is crawlable. Preview and local builds
 // disallow everything so staging URLs never get indexed.
-const isProduction = !process.env.VERCEL_ENV || process.env.VERCEL_ENV === 'production'
+// SITE_ENV does the same job off Vercel: set it to anything but "production"
+// when building a staging deployment.
+const deployEnv = process.env.SITE_ENV || process.env.VERCEL_ENV
+const isProduction = !deployEnv || deployEnv === 'production'
 
 export default function robots(): MetadataRoute.Robots {
   if (!isProduction) {

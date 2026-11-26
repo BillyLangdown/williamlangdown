@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "williamlangdown",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  "kv_namespaces": [
+    { "binding": "NEXT_INC_CACHE_KV", "id": "b1940562ccf3405e84045dfad5f4c635" }
+  ],
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "williamlangdown" }],
+  "images": { "binding": "IMAGES" },
+  "observability": { "enabled": true }
+}
